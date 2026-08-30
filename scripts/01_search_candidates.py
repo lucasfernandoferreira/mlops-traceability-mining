@@ -155,6 +155,7 @@ def main() -> int:
     context = start_run(project_root=root, stage="phase1_search_candidates")
 
     manifest_path: Path | None = None
+    artifacts: list[ManifestArtifact] = []
 
     try:
         if config.reproducibility.require_clean_worktree and context.dirty_worktree:
@@ -187,12 +188,6 @@ def main() -> int:
             rate_limit_reserve=config.github.rate_limit.code_search_reserve,
             reset_buffer_seconds=config.github.rate_limit.reset_buffer_seconds,
         )
-
-        if len(collection.candidates) < config.selection.min_candidates:
-            raise RuntimeError(
-                f"A coleta produziu apenas {len(collection.candidates)} candidatos "
-                f"e o mínimo exigido é {config.selection.min_candidates}."
-            )
 
         interim_dir = root / config.paths.interim
         candidates_path = interim_dir / "candidatos_brutos.csv"
@@ -273,6 +268,12 @@ def main() -> int:
             ]
         )
 
+        if len(collection.candidates) < config.selection.min_candidates:
+            raise RuntimeError(
+                f"A coleta produziu apenas {len(collection.candidates)} candidatos "
+                f"e o mínimo exigido é {config.selection.min_candidates}."
+            )
+
         manifest_path = write_manifest(
             context=context,
             manifest_directory=root / config.paths.manifests,
@@ -294,6 +295,7 @@ def main() -> int:
             protocol_id=config.protocol.id,
             protocol_version=config.protocol.version,
             status="FAILED",
+            artifacts=artifacts,
             error=str(error),
         )
         print(str(error), file=sys.stderr)

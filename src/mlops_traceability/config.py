@@ -30,6 +30,7 @@ class SearchQueryConfig(StrictModel):
 
 class GitHubRateLimitConfig(StrictModel):
     code_search_reserve: int = Field(ge=0)
+    core_reserve: int = Field(ge=0)
     reset_buffer_seconds: int = Field(ge=0)
 
 
@@ -66,8 +67,11 @@ class SelectionConfig(StrictModel):
     min_stars: int = Field(ge=0)
     active_after: datetime
     min_shortlist: int = Field(gt=0)
+    max_shortlist: int = Field(gt=0)
     final_sample_min: int = Field(gt=0)
     final_sample_max: int = Field(gt=0)
+    exclude_forks: bool
+    exclude_archived: bool
     forbidden_terms: list[str]
 
     @model_validator(mode="after")
@@ -77,6 +81,12 @@ class SelectionConfig(StrictModel):
 
         if self.min_shortlist < self.final_sample_max:
             raise ValueError("min_shortlist deve ser maior ou igual a final_sample_max")
+
+        if self.min_shortlist > self.max_shortlist:
+            raise ValueError("min_shortlist não pode ser maior que max_shortlist")
+
+        if self.final_sample_max > self.max_shortlist:
+            raise ValueError("final_sample_max não pode ser maior que max_shortlist")
 
         return self
 

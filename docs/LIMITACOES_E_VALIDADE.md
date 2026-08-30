@@ -2,11 +2,12 @@
 
 ## Estado atual
 
-O repositório contém a fundação da Fase 0. Ainda não existem descoberta automatizada,
-coleta de repositórios reais, mineração histórica, validação manual da taxonomia nem
-cálculo das métricas GQM. A amostra final está explicitamente `pending`. Assim, os
-testes atuais demonstram coerência do instrumento técnico, não validam resultados
-empíricos nem sustentam conclusões sobre práticas de MLOps.
+O repositório contém a fundação técnica, a descoberta automatizada da Fase 1 e o
+esqueleto inicial da triagem da Fase 2. Ainda não existem coleta histórica completa,
+validação manual da taxonomia, cálculo das métricas GQM nem seleção final da amostra.
+A amostra final está explicitamente `pending`. Assim, os testes atuais demonstram
+coerência do instrumento técnico, não validam resultados empíricos nem sustentam
+conclusões sobre práticas de MLOps.
 
 ## Validade de construto
 

@@ -6,19 +6,22 @@ de máquina.
 
 ## Estado do projeto
 
-O repositório está na Fase 0: fundação técnica e contrato metodológico. Já estão
-disponíveis:
+O repositório está na transição entre a Fase 1 e o início da Fase 2: a fundação
+técnica e o contrato metodológico estão consolidados, a descoberta paginada de
+candidatos está implementada e a triagem automática começou a ser estruturada. Já
+estão disponíveis:
 
 - configuração do protocolo validada por Pydantic;
 - taxonomia ordenada e mutuamente exclusiva para caminhos versionados;
 - manifesto de execução com hashes dos principais insumos;
 - repositório Git sintético e smoke test da fundação;
+- coleta paginada da Fase 1 com persistência dos candidatos, evidências e resumo;
+- esqueleto testável da triagem automática da Fase 2;
 - gates locais de lint, formatação, tipagem e testes.
 
-A descoberta de candidatos, a coleta do histórico, o cálculo das métricas GQM e a
-seleção da amostra final ainda não foram implementados. O arquivo
-`config/amostra_final.yaml` registra esse estado como `pending` e não representa uma
-amostra real.
+A coleta detalhada do histórico, o cálculo das métricas GQM e a seleção final da
+amostra ainda não foram implementados. O arquivo `config/amostra_final.yaml` registra
+esse estado como `pending` e não representa uma amostra real.
 
 ## Requisitos
 
@@ -113,6 +116,29 @@ cp .env.example .env
 
 O projeto ainda não carrega `.env` automaticamente; exporte `GITHUB_TOKEN` no ambiente
 do processo quando a etapa de coleta for implementada.
+
+## Triagem da amostra
+
+A Fase 2 faz a triagem automática dos candidatos da Fase 1. Ela exige que os CSVs da
+coleta já existam em `data/interim/` e que o token do GitHub esteja disponível na
+variável definida em `config/config.yaml`:
+
+```bash
+export GITHUB_TOKEN="..."
+make screen
+```
+
+A execução lê `candidatos_brutos.csv` e `evidencias_busca.csv`, valida o `run_id`
+de origem, aplica os filtros baratos e caros e grava os artefatos abaixo:
+
+- `data/interim/funil_amostral.csv`
+- `data/interim/shortlist.csv`
+- `data/interim/resumo_execucao_fase2.json`
+- `data/processed/manifests/<run_id>.json`
+
+Se os gates finais falharem, os arquivos continuam gravados e o comando termina com
+código diferente de zero. A shortlist ainda não preenche `config/amostra_final.yaml`;
+essa etapa permanece manual.
 
 ## Estrutura principal
 

@@ -13,14 +13,17 @@ def test_load_valid_config() -> None:
     config = load_config(CONFIG_PATH)
 
     assert config.protocol.id == "TCC-MLOPS-TRACE-2026"
-    assert config.protocol.version == "1.2.0"
+    assert config.protocol.version == "1.3.0"
     assert config.github.per_page == 100
     assert config.github.max_results_per_query == 1000
     assert config.github.request_timeout_seconds == 30
     assert config.github.rate_limit.code_search_reserve == 1
+    assert config.github.rate_limit.core_reserve == 50
     assert config.github.queries[0].id == "dvc_pipeline"
     assert config.github.queries[0].expression == "filename:dvc.yaml"
     assert config.selection.min_shortlist == 10
+    assert config.selection.max_shortlist == 200
+    assert config.selection.exclude_forks is True
     assert config.taxonomy_validation.minimum_agreement == 0.95
 
 
