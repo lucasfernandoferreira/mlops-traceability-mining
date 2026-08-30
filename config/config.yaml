@@ -1,0 +1,61 @@
+protocol:
+  id: "TCC-MLOPS-TRACE-2026"
+  version: "1.0.0"
+
+paths:
+  raw_repositories: "data/raw/repos"
+  interim: "data/interim"
+  processed: "data/processed"
+  manifests: "data/processed/manifests"
+  reports: "reports"
+
+github:
+  token_environment_variable: "GITHUB_TOKEN"
+  minimum_remaining_requests: 10
+  queries:
+    - "filename:dvc.yaml"
+    - "extension:dvc"
+    - "mlflow language:Python"
+
+selection:
+  min_candidates: 300
+  min_commits: 300
+  min_contributors: 5
+  min_stars: 100
+  active_after: "2025-09-01T00:00:00Z"
+  min_shortlist: 10
+  final_sample_min: 3
+  final_sample_max: 5
+  forbidden_terms:
+    - tutorial
+    - course
+    - classroom
+    - homework
+    - awesome-list
+    - toy-project
+
+strata:
+  required:
+    - apenas_dvc
+    - apenas_mlflow
+    - dvc_e_mlflow
+
+commit_filter:
+  exclude_merges: true
+  exclude_bots: true
+  large_commit_max_files: 1000
+  large_commit_action: "flag_and_skip"
+  bot_patterns:
+    - "[bot]"
+    - "dependabot"
+    - "renovate"
+    - "github-actions"
+
+taxonomy_validation:
+  samples_per_category: 20
+  minimum_agreement: 0.95
+
+reproducibility:
+  require_clean_worktree: true
+  save_manifests: true
+  hash_algorithm: "sha256"

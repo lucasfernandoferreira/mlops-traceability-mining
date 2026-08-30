@@ -1,0 +1,13 @@
+schema_version: "1.0.0"
+protocol_id: "TCC-MLOPS-TRACE-2026"
+protocol_version: "1.0.0"
+
+# A amostra só pode mudar para "final" depois da execução e documentação do funil.
+status: "pending"
+selected_at_utc: null
+selection_commit_sha: null
+selection_config_sha256: null
+repositories: []
+pending_reason: >-
+  Descoberta, aplicação dos critérios automáticos, inspeção manual e estratificação
+  ainda não foram executadas; nenhum repositório real foi selecionado.
