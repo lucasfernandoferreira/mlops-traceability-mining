@@ -7,7 +7,7 @@ PIP_COMPILE_FLAGS := --quiet --allow-unsafe --strip-extras --generate-hashes --n
 PROD_LOCK_COMMAND = $(PIP_COMPILE) $(PIP_COMPILE_FLAGS) pyproject.toml -o requirements.txt
 DEV_LOCK_COMMAND = $(PIP_COMPILE) $(PIP_COMPILE_FLAGS) --extra dev pyproject.toml -o requirements-dev.txt
 
-.PHONY: help bootstrap lock setup lint format-check typecheck test smoke smoke-dev check clean
+.PHONY: help bootstrap lock setup lint format-check typecheck test smoke smoke-dev search check clean
 
 help:
 	@echo "make bootstrap    Cria ou repara o ambiente Python 3.12"
@@ -19,6 +19,7 @@ help:
 	@echo "make test         Executa testes"
 	@echo "make smoke        Valida a fundação e exige worktree limpo"
 	@echo "make smoke-dev    Valida a fundação permitindo alterações locais"
+	@echo "make search       Executa a coleta paginada da Fase 1"
 	@echo "make check        Executa todos os gates da Fase 0"
 
 bootstrap:
@@ -63,6 +64,9 @@ smoke:
 
 smoke-dev:
 	$(PYTHON) scripts/00_smoke.py --allow-dirty
+
+search:
+	$(PYTHON) scripts/01_search_candidates.py
 
 check: lint format-check typecheck test smoke
 
