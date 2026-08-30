@@ -1,0 +1,69 @@
+version: "1.0.0"
+default_category: "OUTRO"
+
+rules:
+  - category: "TEST"
+    description: "Testes automatizados e fixtures."
+    patterns:
+      - '(^|/)tests?(/|$)'
+      - '(^|/)(test_[^/]+|[^/]+_test)\.py$'
+
+  - category: "CI"
+    description: "Pipelines de integração e entrega."
+    patterns:
+      - '^\.github/workflows/'
+      - '(^|/)\.gitlab-ci\.ya?ml$'
+      - '(^|/)Jenkinsfile$'
+      - '(^|/)azure-pipelines\.ya?ml$'
+
+  - category: "ENV"
+    description: "Ambiente, dependências e contêineres."
+    patterns:
+      - '(^|/)requirements[^/]*\.txt$'
+      - '(^|/)pyproject\.toml$'
+      - '(^|/)(poetry|uv)\.lock$'
+      - '(^|/)Pipfile(\.lock)?$'
+      - '(^|/)(environment|conda)\.ya?ml$'
+      - '(^|/)Dockerfile$'
+      - '(^|/)docker-compose\.ya?ml$'
+
+  - category: "DATA_META"
+    description: "Metadados de versionamento e pipeline DVC."
+    patterns:
+      - '\.dvc$'
+      - '(^|/)dvc\.ya?ml$'
+      - '(^|/)dvc\.lock$'
+
+  - category: "CONFIG"
+    description: "Parâmetros e configurações do pipeline."
+    patterns:
+      - '(^|/)params[^/]*\.ya?ml$'
+      - '(^|/)MLproject$'
+      - '(^|/)config[^/]*\.(ya?ml|json|toml)$'
+
+  - category: "NOTEBOOK"
+    description: "Notebooks versionados."
+    patterns:
+      - '\.ipynb$'
+
+  - category: "CODE"
+    description: "Código-fonte executável."
+    patterns:
+      - '\.(py|r|scala|java|kt|cpp|c|h)$'
+
+  - category: "DOC"
+    description: "Documentação textual."
+    patterns:
+      - '(^|/)README(\.[^/]+)?$'
+      - '(^|/)docs?/'
+      - '\.(md|rst|adoc)$'
+
+  - category: "DATA_RAW"
+    description: "Arquivos de dados potencialmente pesados."
+    patterns:
+      - '\.(csv|tsv|parquet|feather|avro)$'
+      - '\.(jpg|jpeg|png|wav|mp3|mp4)$'
+
+  - category: "OUTRO"
+    description: "Arquivos sem correspondência anterior."
+    patterns: []
