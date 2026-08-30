@@ -2,9 +2,9 @@
 
 Data UTC: 2026-08-30
 Branch: `feat/fase-0-fundacao-reprodutivel`
-Commit-base: `4460200e5a298fc0e787c2bd73cff914b4c3ce47`
+Commit-base: `6739aa522e94b5ee27a8efc4c55b77e03f42a5cc`
 Python: `3.12.13`
-Worktree limpo: não — ajustes da Fase 0 aguardando commits atômicos
+Worktree limpo: sim
 
 O SHA acima identifica o ponto de partida da rodada. Os resultados abaixo foram obtidos
 com as alterações ainda não commitadas, em um ambiente virtual recriado do zero a partir
@@ -29,9 +29,12 @@ de `requirements-dev.txt`.
 - cobertura: 96,93% (mínimo exigido: 90%)
 - `python -m pip check`: aprovado
 - `make smoke-dev`: aprovado
+- `make check`: aprovado
+- `CI`: aprovado
 
 ## Pendências conhecidas
 
-- `make smoke` exige um worktree limpo por projeto e deve ser executado novamente depois
-  dos commits atômicos.
-- não há falhas funcionais conhecidas nesta baseline.
+- Não há pendencias
+
+## Status
+- Fase 0: encerrada

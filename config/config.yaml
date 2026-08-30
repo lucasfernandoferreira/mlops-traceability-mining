@@ -1,6 +1,6 @@
 protocol:
   id: "TCC-MLOPS-TRACE-2026"
-  version: "1.0.0"
+  version: "1.2.0"
 
 paths:
   raw_repositories: "data/raw/repos"
@@ -11,11 +11,23 @@ paths:
 
 github:
   token_environment_variable: "GITHUB_TOKEN"
-  minimum_remaining_requests: 10
+  per_page: 100
+  max_results_per_query: 1000
+  request_timeout_seconds: 30
+
+  rate_limit:
+    code_search_reserve: 1
+    reset_buffer_seconds: 2
+
   queries:
-    - "filename:dvc.yaml"
-    - "extension:dvc"
-    - "mlflow language:Python"
+    - id: "dvc_pipeline"
+      expression: "filename:dvc.yaml"
+
+    - id: "dvc_files"
+      expression: "extension:dvc"
+
+    - id: "mlflow_python"
+      expression: "mlflow language:Python"
 
 selection:
   min_candidates: 300
@@ -47,9 +59,9 @@ commit_filter:
   large_commit_action: "flag_and_skip"
   bot_patterns:
     - "[bot]"
-    - "dependabot"
-    - "renovate"
-    - "github-actions"
+    - dependabot
+    - renovate
+    - github-actions
 
 taxonomy_validation:
   samples_per_category: 20

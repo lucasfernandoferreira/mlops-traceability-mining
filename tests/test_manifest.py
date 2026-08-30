@@ -6,7 +6,13 @@ from unittest.mock import patch
 import pytest
 
 from mlops_traceability.config import load_config
-from mlops_traceability.manifest import RunManifest, sha256_file, write_manifest
+from mlops_traceability.manifest import (
+    RunManifest,
+    build_artifact,
+    sha256_file,
+    start_run,
+    write_manifest,
+)
 
 
 def test_hash_is_deterministic(tmp_path: Path) -> None:
@@ -20,19 +26,22 @@ def test_write_manifest(tmp_path: Path) -> None:
     root = Path.cwd()
     config = load_config(root / "config/config.yaml")
     started_at_utc = datetime.now(UTC)
+    context = start_run(project_root=root, stage="phase0_test", started_at_utc=started_at_utc)
 
     output = write_manifest(
-        project_root=root,
+        context=context,
         manifest_directory=tmp_path,
         config_path=root / "config/config.yaml",
         taxonomy_path=root / "config/file_taxonomy.yaml",
         requirements_path=root / "requirements.txt",
         protocol_id=config.protocol.id,
         protocol_version=config.protocol.version,
-        stage="phase0_test",
         status="SUCCESS",
-        started_at_utc=started_at_utc,
-        require_clean_worktree=False,
+        artifacts=[
+            build_artifact(root / "config/config.yaml"),
+            build_artifact(root / "config/file_taxonomy.yaml"),
+            build_artifact(root / "requirements.txt"),
+        ],
     )
 
     assert output.is_file()
@@ -42,25 +51,29 @@ def test_write_manifest(tmp_path: Path) -> None:
     assert manifest.finished_at_utc >= manifest.started_at_utc
     assert manifest.run_id == output.stem
     assert manifest.status == "SUCCESS"
+    assert len(manifest.artifacts) == 3
 
 
 def test_write_manifest_never_overwrites_a_run(tmp_path: Path) -> None:
     root = Path.cwd()
     config = load_config(root / "config/config.yaml")
     instant = datetime(2026, 1, 2, 3, 4, 5, 678901, tzinfo=UTC)
+    context = start_run(project_root=root, stage="phase0_collision_test", started_at_utc=instant)
 
     arguments = {
-        "project_root": root,
+        "context": context,
         "manifest_directory": tmp_path,
         "config_path": root / "config/config.yaml",
         "taxonomy_path": root / "config/file_taxonomy.yaml",
         "requirements_path": root / "requirements.txt",
         "protocol_id": config.protocol.id,
         "protocol_version": config.protocol.version,
-        "stage": "phase0_collision_test",
         "status": "SUCCESS",
-        "started_at_utc": instant,
-        "require_clean_worktree": False,
+        "artifacts": [
+            build_artifact(root / "config/config.yaml"),
+            build_artifact(root / "config/file_taxonomy.yaml"),
+            build_artifact(root / "requirements.txt"),
+        ],
     }
 
     with patch("mlops_traceability.manifest.datetime") as mocked_datetime:

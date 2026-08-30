@@ -62,6 +62,10 @@ As consultas à API são mecanismos de descoberta, não evidência suficiente de
 ferramentas. A presença efetiva de DVC e/ou MLflow deve ser confirmada por artefatos
 versionados e registrada antes da estratificação.
 
+A busca inicial é intencionalmente amostral e preserva a evidência bruta. Consultas
+que ultrapassam o limite coletável da API são marcadas como truncadas, e buscas
+incompletas não devem ser reinterpretadas como cobertura total da população.
+
 ## DM-008 — Unidades de análise
 
 O repositório é a unidade de seleção e comparação entre casos. O commit elegível é a
@@ -89,3 +93,12 @@ taxonomia é considerada tecnicamente testada, mas não empiricamente validada.
 do funil. Ao ser finalizado, deve registrar repositórios, estratos, justificativas,
 data UTC, commit da seleção e hash da configuração usada. Nenhum repositório será
 incluído apenas para preencher os estratos sem satisfazer os critérios de elegibilidade.
+
+## DM-012 — Descoberta bruta por GitHub Search
+
+A Fase 1 usa consultas configuradas com paginação serial no GitHub Code Search para
+gerar `candidatos_brutos.csv`, `evidencias_busca.csv` e `resumo_busca.csv`. A
+deduplicação da saída bruta usa o ID numérico do repositório, e a ordenação final dos
+artefatos é determinística para facilitar auditoria. O viés de ordenação inerente à
+API, bem como truncamentos por limite coletável, devem permanecer explícitos na
+documentação e no manifesto.
