@@ -74,6 +74,10 @@ search:
 	$(PYTHON) scripts/01_search_candidates.py
 
 screen:
+	@set -a; \
+	if test -f .env; then . ./.env; fi; \
+	if test -f .env.local; then . ./.env.local; fi; \
+	set +a; \
 	$(PYTHON) scripts/02_screen_sample.py
 
 check: lint format-check typecheck test smoke
