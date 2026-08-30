@@ -67,6 +67,10 @@ smoke-dev:
 	$(PYTHON) scripts/00_smoke.py --allow-dirty
 
 search:
+	@set -a; \
+	if test -f .env; then . ./.env; fi; \
+	if test -f .env.local; then . ./.env.local; fi; \
+	set +a; \
 	$(PYTHON) scripts/01_search_candidates.py
 
 screen:
