@@ -23,6 +23,16 @@ class ProtocolConfig(StrictModel):
     version: str = Field(min_length=1)
 
 
+class SearchQueryConfig(StrictModel):
+    id: str = Field(min_length=1)
+    expression: str = Field(min_length=1)
+
+
+class GitHubRateLimitConfig(StrictModel):
+    code_search_reserve: int = Field(ge=0)
+    reset_buffer_seconds: int = Field(ge=0)
+
+
 class PathsConfig(StrictModel):
     raw_repositories: Path
     interim: Path
@@ -33,8 +43,20 @@ class PathsConfig(StrictModel):
 
 class GitHubConfig(StrictModel):
     token_environment_variable: str = Field(min_length=1)
-    minimum_remaining_requests: int = Field(ge=0)
-    queries: list[str] = Field(min_length=1)
+    per_page: int = Field(gt=0)
+    max_results_per_query: int = Field(gt=0)
+    request_timeout_seconds: int = Field(gt=0)
+    rate_limit: GitHubRateLimitConfig
+    queries: list[SearchQueryConfig] = Field(min_length=1)
+
+    @model_validator(mode="after")
+    def validate_queries(self) -> Self:
+        query_ids = [query.id for query in self.queries]
+
+        if len(set(query_ids)) != len(query_ids):
+            raise ValueError("github.queries precisa conter ids únicos")
+
+        return self
 
 
 class SelectionConfig(StrictModel):

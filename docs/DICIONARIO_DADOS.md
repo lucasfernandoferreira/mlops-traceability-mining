@@ -26,8 +26,13 @@ Fonte: `config/config.yaml`. O carregador rejeita campos desconhecidos ou ausent
 | `protocol.version` | string | Versão do contrato metodológico. |
 | `paths.*` | path | Diretórios de entrada, derivados, manifestos e relatórios. |
 | `github.token_environment_variable` | string | Nome da variável que contém o token; nunca o token. |
-| `github.minimum_remaining_requests` | inteiro >= 0 | Reserva mínima antes de pausar chamadas à API. |
-| `github.queries` | lista de strings | Consultas usadas apenas para descoberta de candidatos. |
+| `github.per_page` | inteiro > 0 | Tamanho da página usado na busca paginada. |
+| `github.max_results_per_query` | inteiro > 0 | Limite coletável por consulta antes de truncar. |
+| `github.request_timeout_seconds` | inteiro > 0 | Timeout de requisição do adaptador GitHub. |
+| `github.rate_limit.code_search_reserve` | inteiro >= 0 | Reserva mínima antes de pausar chamadas de Code Search. |
+| `github.rate_limit.reset_buffer_seconds` | inteiro >= 0 | Folga aplicada após o reset declarado pela API. |
+| `github.queries[].id` | string | Identificador estável de cada consulta. |
+| `github.queries[].expression` | string | Expressão Code Search executada. |
 | `selection.min_candidates` | inteiro > 0 | Quantidade mínima de candidatos brutos. |
 | `selection.min_commits` | inteiro > 0 | Mínimo de commits para elegibilidade. |
 | `selection.min_contributors` | inteiro > 0 | Mínimo de contribuidores para elegibilidade. |
@@ -94,7 +99,83 @@ Fonte: JSON produzido por `mlops_traceability.manifest.write_manifest`.
 | `requirements_sha256` | string | não | Hash SHA-256 das dependências travadas. |
 | `python_version` | string | não | Versão completa do interpretador. |
 | `operating_system` | string | não | Identificação da plataforma. |
+| `artifacts` | lista de objetos | não | Artefatos gerados com caminho, SHA-256 e contagem de linhas. |
 | `error` | string | sim | Diagnóstico quando a etapa falha. |
+
+## Busca da Fase 1 — implementada
+
+Fonte: `scripts/01_search_candidates.py` e `src/mlops_traceability/github_search.py`.
+
+### `resumo_execucao_fase1.json`
+
+Relatório pequeno de execução gerado ao final da Fase 1.
+
+| Campo | Tipo | Significado |
+|---|---|---|
+| `schema_version` | string | Versão do relatório de execução. |
+| `run_id` | string | Execução que produziu o relatório. |
+| `stage` | string | Etapa executada. |
+| `started_at_utc` | datetime UTC | Início da execução. |
+| `finished_at_utc` | datetime UTC | Fim da execução. |
+| `candidate_count` | inteiro >= 0 | Quantidade de candidatos únicos produzidos. |
+| `evidence_count` | inteiro >= 0 | Quantidade total de evidências coletadas. |
+| `query_count` | inteiro >= 0 | Quantidade de consultas executadas. |
+| `truncated_query_count` | inteiro >= 0 | Número de consultas truncadas. |
+| `incomplete_query_count` | inteiro >= 0 | Número de consultas marcadas como incompletas. |
+| `queries[]` | lista de objetos | Resumo por consulta, com totais e flags. |
+| `artifacts[]` | lista de objetos | Saídas geradas pela Fase 1, com caminho, SHA-256 e linhas. |
+| `status` | string | Estado final do relatório de execução. |
+
+### `candidatos_brutos.csv`
+
+Uma linha por repositório único descoberto na Fase 1.
+
+| Campo | Tipo | Significado |
+|---|---|---|
+| `repository_numeric_id` | inteiro | ID numérico estável retornado pelo GitHub. |
+| `repository_id` | string | Identificador público `owner/name`. |
+| `repository_url` | string | URL canônica do repositório. |
+| `owner_login` | string | Login do proprietário observado. |
+| `is_fork` | booleano | Estado de fork observado, sem filtragem. |
+| `description` | string | Descrição pública do repositório, quando disponível. |
+| `discovery_query_count` | inteiro >= 0 | Quantidade de consultas distintas que localizaram o repositório. |
+| `discovery_hit_count` | inteiro >= 0 | Quantidade total de evidências encontradas para o repositório. |
+| `observed_at_utc` | datetime UTC | Instante da coleta. |
+| `run_id` | string | Execução que produziu a linha. |
+
+### `evidencias_busca.csv`
+
+Uma linha por resultado retornado pela API.
+
+| Campo | Tipo | Significado |
+|---|---|---|
+| `query_id` | string | Consulta responsável pela evidência. |
+| `query_expression` | string | Expressão executada. |
+| `page_number` | inteiro >= 1 | Página da API usada na coleta. |
+| `result_rank` | inteiro >= 1 | Posição da evidência dentro da página. |
+| `repository_numeric_id` | inteiro | ID numérico do repositório vinculado. |
+| `repository_id` | string | Identificador `owner/name` observado. |
+| `file_path` | string | Caminho do arquivo encontrado. |
+| `file_sha` | string | SHA do arquivo retornado pela API. |
+| `file_url` | string | URL navegável da evidência. |
+| `run_id` | string | Execução que produziu a linha. |
+
+### `resumo_busca.csv`
+
+Uma linha por consulta executada.
+
+| Campo | Tipo | Significado |
+|---|---|---|
+| `query_id` | string | Identificador da consulta. |
+| `query_expression` | string | Expressão executada. |
+| `reported_total_count` | inteiro >= 0 | Total informado pela API. |
+| `retrieved_hit_count` | inteiro >= 0 | Total efetivamente coletado. |
+| `unique_repository_count` | inteiro >= 0 | Repositórios distintos observados. |
+| `incomplete_results` | booleano | Sinal da própria API para busca incompleta. |
+| `truncated` | booleano | Marca quando o limite coletável foi atingido. |
+| `started_at_utc` | datetime UTC | Início da consulta. |
+| `finished_at_utc` | datetime UTC | Fim da consulta. |
+| `run_id` | string | Execução que produziu a linha. |
 
 ## Candidatos e funil — contrato planejado
 
