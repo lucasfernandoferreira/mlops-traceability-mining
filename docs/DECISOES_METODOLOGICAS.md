@@ -102,3 +102,12 @@ deduplicação da saída bruta usa o ID numérico do repositório, e a ordenaç�
 artefatos é determinística para facilitar auditoria. O viés de ordenação inerente à
 API, bem como truncamentos por limite coletável, devem permanecer explícitos na
 documentação e no manifesto.
+
+## DM-013 — Triagem automática da amostra
+
+A Fase 2 aplica primeiro filtros baratos e, em seguida, filtros caros para gerar o
+`funil_amostral.csv` e a `shortlist.csv`. Forks e repositórios arquivados são
+excluídos na triagem inicial, a shortlist deve respeitar os limites mínimos e
+máximos do protocolo e a amostra final continua dependente de inspeção humana
+posterior. A presença de `mlruns/` é registrada, mas não exclui automaticamente o
+repositório.

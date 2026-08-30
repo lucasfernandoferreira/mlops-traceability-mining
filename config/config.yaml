@@ -1,6 +1,6 @@
 protocol:
   id: "TCC-MLOPS-TRACE-2026"
-  version: "1.2.0"
+  version: "1.3.0"
 
 paths:
   raw_repositories: "data/raw/repos"
@@ -17,6 +17,7 @@ github:
 
   rate_limit:
     code_search_reserve: 1
+    core_reserve: 50
     reset_buffer_seconds: 2
 
   queries:
@@ -36,8 +37,11 @@ selection:
   min_stars: 100
   active_after: "2025-09-01T00:00:00Z"
   min_shortlist: 10
+  max_shortlist: 200
   final_sample_min: 3
   final_sample_max: 5
+  exclude_forks: true
+  exclude_archived: true
   forbidden_terms:
     - tutorial
     - course
