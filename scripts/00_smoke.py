@@ -3,11 +3,10 @@
 import argparse
 import tempfile
 from collections import Counter
-from datetime import UTC, datetime
 from pathlib import Path
 
 from mlops_traceability.config import load_config
-from mlops_traceability.manifest import write_manifest
+from mlops_traceability.manifest import build_artifact, start_run, write_manifest
 from mlops_traceability.taxonomy import Category, load_taxonomy
 from mlops_traceability.validation.synthetic_repo import (
     build_synthetic_repository,
@@ -30,7 +29,6 @@ def parse_args() -> argparse.Namespace:
 
 
 def main() -> int:
-    started_at_utc = datetime.now(UTC)
     args = parse_args()
     root = Path(__file__).resolve().parents[1]
 
@@ -40,6 +38,7 @@ def main() -> int:
 
     config = load_config(config_path)
     taxonomy = load_taxonomy(taxonomy_path)
+    context = start_run(project_root=root, stage="phase0_smoke")
 
     with tempfile.TemporaryDirectory(prefix="tcc-synthetic-") as directory:
         repository = build_synthetic_repository(Path(directory))
@@ -59,20 +58,30 @@ def main() -> int:
         if missing:
             raise RuntimeError(f"Fixture sintética não produziu as categorias: {sorted(missing)}")
 
+    if (
+        config.reproducibility.require_clean_worktree
+        and not args.allow_dirty
+        and context.dirty_worktree
+    ):
+        raise RuntimeError(
+            "A execução científica exige um worktree limpo. "
+            "Faça commit ou registre explicitamente a alteração antes de executar."
+        )
+
     manifest = write_manifest(
-        project_root=root,
+        context=context,
         manifest_directory=root / args.manifest_dir,
         config_path=config_path,
         taxonomy_path=taxonomy_path,
         requirements_path=requirements_path,
         protocol_id=config.protocol.id,
         protocol_version=config.protocol.version,
-        stage="phase0_smoke",
         status="SUCCESS",
-        started_at_utc=started_at_utc,
-        require_clean_worktree=(
-            config.reproducibility.require_clean_worktree and not args.allow_dirty
-        ),
+        artifacts=[
+            build_artifact(config_path),
+            build_artifact(taxonomy_path),
+            build_artifact(requirements_path),
+        ],
     )
 
     print("Fase 0 validada com sucesso.")
