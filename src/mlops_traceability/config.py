@@ -117,6 +117,11 @@ class ReproducibilityConfig(StrictModel):
     hash_algorithm: Literal["sha256"]
 
 
+class ExecutionConfig(StrictModel):
+    screening_workers: int = Field(ge=1, le=16)
+    progress_interval_seconds: int = Field(ge=1)
+
+
 class ResearchConfig(StrictModel):
     protocol: ProtocolConfig
     paths: PathsConfig
@@ -126,6 +131,7 @@ class ResearchConfig(StrictModel):
     commit_filter: CommitFilterConfig
     taxonomy_validation: TaxonomyValidationConfig
     reproducibility: ReproducibilityConfig
+    execution: ExecutionConfig
 
 
 def load_config(path: str | Path) -> ResearchConfig:

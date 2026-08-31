@@ -1,6 +1,10 @@
 protocol:
   id: "TCC-MLOPS-TRACE-2026"
-  version: "1.3.0"
+  version: "1.4.0"
+
+execution:
+  screening_workers: 4
+  progress_interval_seconds: 10
 
 paths:
   raw_repositories: "data/raw/repos"

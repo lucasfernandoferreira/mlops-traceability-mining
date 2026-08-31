@@ -32,6 +32,8 @@ htmlcov/
 data/raw/repos/*
 !data/raw/repos/.gitkeep
 data/interim/
+# Manifestos são evidência local de execução e só devem ser publicados por decisão explícita.
+data/processed/manifests/
 
 # Temporários
 tmp/

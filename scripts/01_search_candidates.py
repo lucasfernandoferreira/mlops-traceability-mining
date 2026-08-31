@@ -25,6 +25,7 @@ from mlops_traceability.manifest import (
     start_run,
     write_manifest,
 )
+from mlops_traceability.observability import ExecutionObserver
 
 
 def _format_datetime(value: datetime) -> str:
@@ -153,11 +154,22 @@ def main() -> int:
 
     config = load_config(config_path)
     context = start_run(project_root=root, stage="phase1_search_candidates")
+    observer = ExecutionObserver(
+        stage=context.stage,
+        run_id=context.run_id,
+        log_directory=root / "tmp/logs",
+    )
 
     manifest_path: Path | None = None
     artifacts: list[ManifestArtifact] = []
 
     try:
+        observer.event(
+            "run_started",
+            "Fase 1 iniciada",
+            queries=len(config.github.queries),
+            log_path=observer.log_path,
+        )
         if config.reproducibility.require_clean_worktree and context.dirty_worktree:
             raise RuntimeError(
                 "A execução científica exige um worktree limpo. "
@@ -178,16 +190,37 @@ def main() -> int:
             request_timeout_seconds=config.github.request_timeout_seconds,
         )
         observed_at_utc = datetime.now(UTC)
-        collection: SearchCollection = collect_candidates(
-            gateway,
-            config.github.queries,
-            per_page=config.github.per_page,
-            max_results_per_query=config.github.max_results_per_query,
-            observed_at_utc=observed_at_utc,
-            run_id=context.run_id,
-            rate_limit_reserve=config.github.rate_limit.code_search_reserve,
-            reset_buffer_seconds=config.github.rate_limit.reset_buffer_seconds,
-        )
+        with observer.progress(
+            name="queries",
+            total=len(config.github.queries),
+            interval_seconds=config.execution.progress_interval_seconds,
+        ) as progress:
+
+            def report_search_event(name: str, details: dict[str, Any]) -> None:
+                messages = {
+                    "query_started": "Consulta iniciada",
+                    "page_collected": "Página recebida da API",
+                    "rate_limit_wait": "Cota de busca reservada; aguardando renovação",
+                    "query_finished": "Consulta concluída",
+                }
+                observer.event(name, messages[name], **details)
+                if name == "query_finished":
+                    progress.update(
+                        int(details["query_index"]),
+                        current_item=str(details["query_id"]),
+                    )
+
+            collection: SearchCollection = collect_candidates(
+                gateway,
+                config.github.queries,
+                per_page=config.github.per_page,
+                max_results_per_query=config.github.max_results_per_query,
+                observed_at_utc=observed_at_utc,
+                run_id=context.run_id,
+                rate_limit_reserve=config.github.rate_limit.code_search_reserve,
+                reset_buffer_seconds=config.github.rate_limit.reset_buffer_seconds,
+                on_event=report_search_event,
+            )
 
         interim_dir = root / config.paths.interim
         candidates_path = interim_dir / "candidatos_brutos.csv"
@@ -285,6 +318,13 @@ def main() -> int:
             status="SUCCESS",
             artifacts=artifacts,
         )
+        observer.event(
+            "run_finished",
+            "Fase 1 finalizada",
+            status="SUCCESS",
+            candidates=len(collection.candidates),
+            evidences=len(collection.evidences),
+        )
     except Exception as error:
         manifest_path = write_manifest(
             context=context,
@@ -298,6 +338,7 @@ def main() -> int:
             artifacts=artifacts,
             error=str(error),
         )
+        observer.event("run_failed", "Fase 1 interrompida por erro", error=str(error))
         print(str(error), file=sys.stderr)
         print(f"Manifesto de falha: {manifest_path}", file=sys.stderr)
         return 1

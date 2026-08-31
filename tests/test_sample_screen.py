@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from collections.abc import Sequence
 from datetime import UTC, datetime, timedelta
 
 import pytest
@@ -60,7 +61,12 @@ class FakeGateway:
             raise value
         return value
 
-    def detect_tool_evidence(self, snapshot: RepositorySnapshot) -> tuple[bool, bool, bool]:
+    def detect_tool_evidence(
+        self,
+        snapshot: RepositorySnapshot,
+        mlflow_evidence_paths: Sequence[str],
+    ) -> tuple[bool, bool, bool]:
+        del mlflow_evidence_paths
         value = self.tool_evidence[snapshot.repository_numeric_id]
         if isinstance(value, Exception):
             raise value
@@ -349,6 +355,7 @@ def test_screen_candidates_is_deterministic_and_preserves_all_candidates() -> No
         },
     )
 
+    progress: list[tuple[int, int]] = []
     rows = screen_candidates(
         list(reversed(candidates)),
         [_evidence(candidate.repository_numeric_id) for candidate in candidates],
@@ -357,8 +364,43 @@ def test_screen_candidates_is_deterministic_and_preserves_all_candidates() -> No
         config.strata,
         config.commit_filter,
         run_id="screen-run",
+        max_workers=2,
+        on_result=lambda _row, completed, total: progress.append((completed, total)),
     )
 
     assert [row.repository_numeric_id for row in rows] == [5, 18, 30]
     assert all(isinstance(row, ScreeningRow) for row in rows)
     assert len(rows) == len(candidates)
+    assert progress == [(1, 3), (2, 3), (3, 3)]
+
+
+def test_screen_candidates_reuses_checkpointed_rows() -> None:
+    config = _config()
+    candidates = [_candidate(1), _candidate(2)]
+    first_gateway = _eligible_gateway(candidates[0])
+    existing = screen_candidates(
+        [candidates[0]],
+        [_evidence(1)],
+        first_gateway,
+        config.selection,
+        config.strata,
+        config.commit_filter,
+        run_id="first-run",
+    )
+    second_gateway = _eligible_gateway(candidates[1])
+    progress: list[tuple[int, int]] = []
+
+    rows = screen_candidates(
+        candidates,
+        [_evidence(1), _evidence(2)],
+        second_gateway,
+        config.selection,
+        config.strata,
+        config.commit_filter,
+        run_id="resumed-run",
+        existing_rows=existing,
+        on_result=lambda _row, completed, total: progress.append((completed, total)),
+    )
+
+    assert [row.repository_numeric_id for row in rows] == [1, 2]
+    assert progress == [(2, 2)]

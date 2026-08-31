@@ -2,8 +2,8 @@
 
 ## Estado atual
 
-O repositório contém a fundação técnica, a descoberta automatizada da Fase 1 e o
-esqueleto inicial da triagem da Fase 2. Ainda não existem coleta histórica completa,
+O repositório contém a fundação técnica, a descoberta automatizada da Fase 1 e a
+triagem automática e retomável da Fase 2. Ainda não existem coleta histórica completa,
 validação manual da taxonomia, cálculo das métricas GQM nem seleção final da amostra.
 A amostra final está explicitamente `pending`. Assim, os testes atuais demonstram
 coerência do instrumento técnico, não validam resultados empíricos nem sustentam
@@ -42,6 +42,9 @@ das regras em cada resultado e auditar manualmente casos limítrofes.
   estratégia usada pelo Git.
 - Consultas distintas podem encontrar o mesmo repositório e a API pode devolver estado
   parcialmente atualizado ou sofrer limites de requisição.
+- A confirmação de MLflow é dirigida pelos caminhos encontrados na Fase 1. Como o Code
+  Search pode truncar resultados, um uso real fora dessas evidências pode não ser
+  observado e classificar um caso no estrato incorreto.
 - Erros de fuso horário podem alterar a classificação na data de corte se timestamps não
   forem normalizados para UTC.
 
@@ -91,6 +94,8 @@ notebooks quando o volume permitir.
   permitido de respostas da API e SHAs de origem.
 - O smoke test usa um histórico sintético pequeno e não cobre escala, redes instáveis,
   formatos malformados ou todas as variantes de histórico Git.
+- Paralelismo reduz o tempo de parede, mas não remove as cotas do GitHub; throughput e
+  ETA podem variar quando a execução aguarda renovação de rate limit.
 
 Mitigações: executar com worktree limpo, usar Python 3.12 e locks versionados, registrar
 SHA integral das origens, hashes e horários UTC, e nunca sobrescrever resultados de runs

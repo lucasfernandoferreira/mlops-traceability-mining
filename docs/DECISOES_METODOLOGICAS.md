@@ -111,3 +111,17 @@ excluídos na triagem inicial, a shortlist deve respeitar os limites mínimos e
 máximos do protocolo e a amostra final continua dependente de inspeção humana
 posterior. A presença de `mlruns/` é registrada, mas não exclui automaticamente o
 repositório.
+
+## DM-014 — Paralelismo, retomada e confirmação dirigida
+
+A triagem executa chamadas de rede com paralelismo limitado e configurado, preservando
+a ordenação determinística dos artefatos. Os filtros caros são interrompidos assim que
+um critério eliminatório é confirmado. A evidência de MLflow é validada no commit
+observado usando os caminhos retornados pela consulta da Fase 1; a ausência desses
+caminhos não equivale a uma busca exaustiva em todo o repositório e permanece uma
+limitação do mecanismo de descoberta.
+
+Resultados concluídos são registrados em checkpoint local identificado pelos hashes
+das entradas, versão do protocolo e SHA do código. Uma retomada só reutiliza o
+checkpoint quando essa identidade coincide. O checkpoint é removido depois que todos
+os candidatos são consolidados, inclusive quando os gates amostrais falham.

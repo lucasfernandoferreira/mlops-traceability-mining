@@ -7,18 +7,28 @@ import json
 import os
 import tempfile
 from collections import Counter
+from dataclasses import asdict
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
 from mlops_traceability.config import ResearchConfig, load_config
 from mlops_traceability.github_search import SearchCandidateRow, SearchEvidenceRow
-from mlops_traceability.manifest import build_artifact, start_run, write_manifest
+from mlops_traceability.manifest import (
+    build_artifact,
+    sha256_file,
+    start_run,
+    write_manifest,
+)
+from mlops_traceability.observability import ExecutionObserver
 from mlops_traceability.sample_screen import (
     GitHubScreeningGateway,
     ScreeningGateway,
+    ScreeningRow,
     screen_candidates,
 )
+
+CHECKPOINT_SCHEMA_VERSION = "1.0.0"
 
 
 def _project_root() -> Path:
@@ -141,13 +151,23 @@ def _load_search_evidences(path: Path) -> list[SearchEvidenceRow]:
     return rows
 
 
-def _build_gateway(config: ResearchConfig) -> ScreeningGateway:
+def _build_observed_gateway(
+    config: ResearchConfig,
+    observer: ExecutionObserver,
+) -> ScreeningGateway:
     token_name = config.github.token_environment_variable
     token = os.getenv(token_name)
     if not token:
         raise RuntimeError(
-            f"Variável {token_name} não definida. "
-            "Exporte um token de leitura para executar a Fase 2."
+            f"Variável {token_name} não definida. Configure o token local para executar a Fase 2."
+        )
+
+    def report_rate_limit_wait(wait_seconds: float, reset_at_utc: datetime) -> None:
+        observer.event(
+            "rate_limit_wait",
+            "Cota core reservada; aguardando renovação",
+            wait_seconds=round(wait_seconds, 1),
+            reset_at_utc=_format_datetime(reset_at_utc),
         )
 
     return GitHubScreeningGateway(
@@ -156,7 +176,140 @@ def _build_gateway(config: ResearchConfig) -> ScreeningGateway:
         request_timeout_seconds=config.github.request_timeout_seconds,
         core_reserve=config.github.rate_limit.core_reserve,
         reset_buffer_seconds=config.github.rate_limit.reset_buffer_seconds,
+        on_rate_limit_wait=report_rate_limit_wait,
     )
+
+
+def _checkpoint_identity(
+    *,
+    source_run_id: str,
+    context: Any,
+    config: ResearchConfig,
+    config_path: Path,
+    candidates_path: Path,
+    evidences_path: Path,
+) -> dict[str, Any]:
+    return {
+        "record_type": "metadata",
+        "schema_version": CHECKPOINT_SCHEMA_VERSION,
+        "source_run_id": source_run_id,
+        "code_commit_sha": context.code_commit_sha,
+        "protocol_version": config.protocol.version,
+        "config_sha256": sha256_file(config_path),
+        "candidates_sha256": sha256_file(candidates_path),
+        "evidences_sha256": sha256_file(evidences_path),
+    }
+
+
+def _checkpoint_row_payload(row: ScreeningRow) -> dict[str, Any]:
+    payload = asdict(row)
+    payload["observed_at_utc"] = _format_datetime(row.observed_at_utc)
+    payload["last_human_commit_at_utc"] = (
+        None
+        if row.last_human_commit_at_utc is None
+        else _format_datetime(row.last_human_commit_at_utc)
+    )
+    payload["decision_reasons"] = list(row.decision_reasons)
+    return {"record_type": "row", "row": payload}
+
+
+def _checkpoint_payload_to_row(payload: dict[str, Any], run_id: str) -> ScreeningRow:
+    row = payload["row"]
+    return ScreeningRow(
+        repository_numeric_id=int(row["repository_numeric_id"]),
+        repository_id=str(row["repository_id"]),
+        repository_url=str(row["repository_url"]),
+        observed_at_utc=_parse_datetime(str(row["observed_at_utc"])),
+        head_commit_sha=str(row["head_commit_sha"]),
+        stars_count=None if row["stars_count"] is None else int(row["stars_count"]),
+        commit_count=None if row["commit_count"] is None else int(row["commit_count"]),
+        contributor_count=(
+            None if row["contributor_count"] is None else int(row["contributor_count"])
+        ),
+        last_human_commit_at_utc=(
+            None
+            if row["last_human_commit_at_utc"] is None
+            else _parse_datetime(str(row["last_human_commit_at_utc"]))
+        ),
+        dvc_detected=row["dvc_detected"],
+        mlflow_detected=row["mlflow_detected"],
+        mlruns_detected=row["mlruns_detected"],
+        stratum=row["stratum"],
+        decision=str(row["decision"]),
+        primary_reason=row["primary_reason"],
+        decision_reasons=tuple(row["decision_reasons"]),
+        error_detail=row["error_detail"],
+        cheap_gate_status=str(row["cheap_gate_status"]),
+        expensive_gate_status=str(row["expensive_gate_status"]),
+        exclusion_stage=row["exclusion_stage"],
+        run_id=run_id,
+    )
+
+
+def _prepare_checkpoint(
+    path: Path,
+    identity: dict[str, Any],
+    *,
+    run_id: str,
+) -> list[ScreeningRow]:
+    rows: list[ScreeningRow] = []
+    checkpoint_matches = False
+    if path.is_file():
+        try:
+            records: list[dict[str, Any]] = []
+            with path.open("r", encoding="utf-8") as handle:
+                for line in handle:
+                    if not line.strip():
+                        continue
+                    try:
+                        record = json.loads(line)
+                    except json.JSONDecodeError:
+                        break
+                    if not isinstance(record, dict):
+                        break
+                    records.append(record)
+            checkpoint_matches = bool(records) and records[0] == identity
+            if checkpoint_matches:
+                rows = [
+                    _checkpoint_payload_to_row(record, run_id)
+                    for record in records[1:]
+                    if record.get("record_type") == "row"
+                ]
+        except (KeyError, TypeError, ValueError):
+            checkpoint_matches = False
+            rows = []
+
+    if not checkpoint_matches:
+        _write_json_lines_atomic(path, [identity])
+
+    deduplicated = {row.repository_numeric_id: row for row in rows}
+    return list(deduplicated.values())
+
+
+def _write_json_lines_atomic(path: Path, records: list[dict[str, Any]]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with tempfile.NamedTemporaryFile(
+        mode="w",
+        encoding="utf-8",
+        newline="\n",
+        prefix=f".{path.name}.",
+        suffix=".tmp",
+        dir=path.parent,
+        delete=False,
+    ) as handle:
+        temp_path = Path(handle.name)
+        for record in records:
+            json.dump(record, handle, ensure_ascii=False)
+            handle.write("\n")
+    os.replace(temp_path, path)
+
+
+def _append_checkpoint(path: Path, row: ScreeningRow) -> None:
+    with path.open("a", encoding="utf-8") as handle:
+        json.dump(_checkpoint_row_payload(row), handle, ensure_ascii=False)
+        handle.write("\n")
+        handle.flush()
+        os.fsync(handle.fileno())
 
 
 def _validate_single_run_id(rows: list[Any], *, label: str) -> str:
@@ -271,9 +424,20 @@ def main() -> int:
 
     config: ResearchConfig = load_config(config_path)
     context = start_run(project_root=root, stage="phase2_screen_sample")
+    observer = ExecutionObserver(
+        stage=context.stage,
+        run_id=context.run_id,
+        log_directory=root / "tmp/logs",
+    )
     manifest_path: Path | None = None
 
     try:
+        observer.event(
+            "run_started",
+            "Fase 2 iniciada",
+            workers=config.execution.screening_workers,
+            log_path=observer.log_path,
+        )
         if config.reproducibility.require_clean_worktree and context.dirty_worktree:
             raise RuntimeError(
                 "A execução científica exige um worktree limpo. "
@@ -286,6 +450,12 @@ def main() -> int:
 
         candidates = _load_search_candidates(candidates_path)
         evidences = _load_search_evidences(evidences_path)
+        observer.event(
+            "inputs_loaded",
+            "Entradas da Fase 1 carregadas",
+            candidates=len(candidates),
+            evidences=len(evidences),
+        )
 
         if len({row.repository_numeric_id for row in candidates}) != len(candidates):
             raise RuntimeError(
@@ -300,16 +470,69 @@ def main() -> int:
                 "candidatos e evidências precisam compartilhar o mesmo run_id de origem"
             )
 
-        gateway = _build_gateway(config)
-        screened_rows = screen_candidates(
-            candidates,
-            evidences,
-            gateway,
-            config.selection,
-            config.strata,
-            config.commit_filter,
+        checkpoint_path = interim_dir / ".phase2_screen_checkpoint.jsonl"
+        identity = _checkpoint_identity(
+            source_run_id=source_run_id,
+            context=context,
+            config=config,
+            config_path=config_path,
+            candidates_path=candidates_path,
+            evidences_path=evidences_path,
+        )
+        existing_rows = _prepare_checkpoint(
+            checkpoint_path,
+            identity,
             run_id=context.run_id,
         )
+        if existing_rows:
+            observer.event(
+                "checkpoint_resumed",
+                "Checkpoint compatível encontrado; retomando a triagem",
+                recovered_candidates=len(existing_rows),
+                pending_candidates=len(candidates) - len(existing_rows),
+            )
+        else:
+            observer.event(
+                "checkpoint_created",
+                "Checkpoint incremental criado",
+                checkpoint_path=checkpoint_path,
+            )
+
+        gateway = _build_observed_gateway(config, observer)
+        decision_counts = Counter(row.decision for row in existing_rows)
+        with observer.progress(
+            name="screening",
+            total=len(candidates),
+            initial_completed=len(existing_rows),
+            interval_seconds=config.execution.progress_interval_seconds,
+        ) as progress:
+
+            def persist_result(row: ScreeningRow, completed: int, total: int) -> None:
+                del total
+                _append_checkpoint(checkpoint_path, row)
+                decision_counts[row.decision] += 1
+                progress.update(
+                    completed,
+                    current_item=row.repository_id,
+                    counts={
+                        "eligible": decision_counts["eligible"],
+                        "rejected": decision_counts["rejected"],
+                        "errors": decision_counts["error"],
+                    },
+                )
+
+            screened_rows = screen_candidates(
+                candidates,
+                evidences,
+                gateway,
+                config.selection,
+                config.strata,
+                config.commit_filter,
+                run_id=context.run_id,
+                max_workers=config.execution.screening_workers,
+                existing_rows=existing_rows,
+                on_result=persist_result,
+            )
 
         funnel_path = interim_dir / "funil_amostral.csv"
         shortlist_path = interim_dir / "shortlist.csv"
@@ -416,6 +639,15 @@ def main() -> int:
             if summary_payload["status"] == "SUCCESS"
             else "Gates da Fase 2 não satisfeitos",
         )
+        checkpoint_path.unlink(missing_ok=True)
+        observer.event(
+            "run_finished",
+            "Fase 2 finalizada",
+            status=summary_payload["status"],
+            eligible=summary_payload["eligible"],
+            rejected=summary_payload["rejected"],
+            errors=summary_payload["errors"],
+        )
 
         if summary_payload["status"] != "SUCCESS":
             print("Fase 2 concluída com gates violados.")
@@ -447,6 +679,7 @@ def main() -> int:
             )
         except Exception:  # noqa: BLE001
             pass
+        observer.event("run_failed", "Fase 2 interrompida por erro", error=str(exc))
         print(str(exc))
         if manifest_path is not None:
             print(f"Manifesto de falha: {manifest_path}")

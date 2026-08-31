@@ -179,7 +179,7 @@ def test_gateway_reads_repository_metadata_and_evidence() -> None:
         config.selection,
         config.commit_filter,
     ) == datetime(2026, 1, 4, tzinfo=UTC)
-    assert gateway.detect_tool_evidence(snapshot) == (True, True, True)
+    assert gateway.detect_tool_evidence(snapshot, ["src/train.py"]) == (True, True, True)
 
 
 def test_gateway_skips_merges_and_bots_when_finding_recent_activity() -> None:

@@ -7,6 +7,7 @@ from pathlib import Path
 
 from mlops_traceability.config import load_config
 from mlops_traceability.manifest import build_artifact, start_run, write_manifest
+from mlops_traceability.observability import ExecutionObserver
 from mlops_traceability.taxonomy import Category, load_taxonomy
 from mlops_traceability.validation.synthetic_repo import (
     build_synthetic_repository,
@@ -36,9 +37,18 @@ def main() -> int:
     taxonomy_path = root / "config/file_taxonomy.yaml"
     requirements_path = root / "requirements.txt"
 
-    config = load_config(config_path)
-    taxonomy = load_taxonomy(taxonomy_path)
     context = start_run(project_root=root, stage="phase0_smoke")
+    observer = ExecutionObserver(
+        stage=context.stage,
+        run_id=context.run_id,
+        log_directory=root / "tmp/logs",
+    )
+    observer.event("run_started", "Fase 0 iniciada", log_path=observer.log_path)
+
+    config = load_config(config_path)
+    observer.event("config_validated", "Configuração validada")
+    taxonomy = load_taxonomy(taxonomy_path)
+    observer.event("taxonomy_validated", "Taxonomia validada")
 
     with tempfile.TemporaryDirectory(prefix="tcc-synthetic-") as directory:
         repository = build_synthetic_repository(Path(directory))
@@ -57,6 +67,11 @@ def main() -> int:
 
         if missing:
             raise RuntimeError(f"Fixture sintética não produziu as categorias: {sorted(missing)}")
+    observer.event(
+        "synthetic_repository_validated",
+        "Repositório sintético validado",
+        tracked_files=sum(classifications.values()),
+    )
 
     if (
         config.reproducibility.require_clean_worktree
@@ -83,6 +98,7 @@ def main() -> int:
             build_artifact(requirements_path),
         ],
     )
+    observer.event("run_finished", "Fase 0 finalizada", status="SUCCESS")
 
     print("Fase 0 validada com sucesso.")
     print(f"Manifesto: {manifest}")
