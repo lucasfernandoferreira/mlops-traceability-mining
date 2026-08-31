@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import ast
+import re
 import threading
 import time
 from collections.abc import Callable, Sequence
@@ -12,6 +13,7 @@ from datetime import UTC, datetime, timedelta
 from typing import Any, Protocol
 
 from github import Auth, Github
+from github.GithubException import GithubException
 
 from mlops_traceability.config import CommitFilterConfig, SelectionConfig, StrataConfig
 from mlops_traceability.github_search import SearchCandidateRow, SearchEvidenceRow
@@ -30,6 +32,12 @@ class RepositorySnapshot:
     is_disabled: bool
     observed_at_utc: datetime
     repository_handle: Any = field(default=None, repr=False, compare=False)
+
+
+@dataclass(frozen=True)
+class ToolEvidencePaths:
+    dvc_paths: tuple[str, ...] = ()
+    mlflow_paths: tuple[str, ...] = ()
 
 
 @dataclass(frozen=True)
@@ -78,7 +86,7 @@ class ScreeningGateway(Protocol):
     def detect_tool_evidence(
         self,
         snapshot: RepositorySnapshot,
-        mlflow_evidence_paths: Sequence[str],
+        evidence_paths: ToolEvidencePaths,
     ) -> tuple[bool, bool, bool]:
         """Detecta DVC, MLflow e mlruns, nesta ordem."""
 
@@ -176,6 +184,31 @@ def _python_imports_mlflow(source: str) -> bool:
     return False
 
 
+_MLFLOW_DEPENDENCY_PATTERN = re.compile(
+    r"(?<![\w.-])mlflow(?:-skinny)?(?:\[[^\]\n]+\])?(?=\s*(?:[<>=~!;,\]\"']|$))",
+    flags=re.IGNORECASE | re.MULTILINE,
+)
+
+
+def _path_declares_mlflow(path: str, source: str) -> bool:
+    if path.casefold().endswith(".py"):
+        return _python_imports_mlflow(source)
+    if _is_mlflow_manifest(path):
+        return _MLFLOW_DEPENDENCY_PATTERN.search(source) is not None
+    return False
+
+
+def _is_mlflow_manifest(path: str) -> bool:
+    name = path.rsplit("/", maxsplit=1)[-1].casefold()
+    return (
+        name == "pyproject.toml"
+        or name == "setup.py"
+        or name == "setup.cfg"
+        or name.startswith("requirements")
+        and name.endswith(".txt")
+    )
+
+
 def _content_text(content: Any) -> str:
     decoded = getattr(content, "decoded_content", b"")
     if isinstance(decoded, bytes):
@@ -198,6 +231,8 @@ class GitHubScreeningGateway:
         now_func: Any = lambda: datetime.now(UTC),
         github_client: Github | None = None,
         on_rate_limit_wait: Callable[[float, datetime], None] | None = None,
+        on_tree_fallback: Callable[[str], None] | None = None,
+        mlflow_manifest_scan_limit: int = 50,
     ) -> None:
         self._token = token
         self._per_page = per_page
@@ -209,6 +244,8 @@ class GitHubScreeningGateway:
         self._sleep_func = sleep_func
         self._now_func = now_func
         self._on_rate_limit_wait = on_rate_limit_wait
+        self._on_tree_fallback = on_tree_fallback
+        self._mlflow_manifest_scan_limit = mlflow_manifest_scan_limit
         self._rate_limit_lock = threading.Lock()
         self._estimated_remaining: int | None = None
         self._next_rate_refresh = 0.0
@@ -272,6 +309,22 @@ class GitHubScreeningGateway:
             return snapshot.repository_handle
         return self._repo(snapshot.repository_numeric_id)
 
+    def _get_content_if_available(
+        self,
+        repo: Any,
+        path: str,
+        *,
+        ref: str,
+    ) -> Any | None:
+        self._wait_for_core_budget()
+        try:
+            content = repo.get_contents(path, ref=ref)
+        except GithubException as exc:
+            if exc.status == 404:
+                return None
+            raise
+        return content
+
     def get_repository_snapshot(self, candidate: SearchCandidateRow) -> RepositorySnapshot:
         repo = self._repo(candidate.repository_numeric_id)
         self._wait_for_core_budget()
@@ -333,14 +386,15 @@ class GitHubScreeningGateway:
     def detect_tool_evidence(
         self,
         snapshot: RepositorySnapshot,
-        mlflow_evidence_paths: Sequence[str],
+        evidence_paths: ToolEvidencePaths,
     ) -> tuple[bool, bool, bool]:
         repo = self._snapshot_repo(snapshot)
         self._wait_for_core_budget()
         tree = repo.get_git_tree(snapshot.head_commit_sha, recursive=True)
         tree_raw = getattr(tree, "raw_data", {})
-        if isinstance(tree_raw, dict) and tree_raw.get("truncated"):
-            raise RuntimeError("Git tree truncado; não é possível confirmar evidências.")
+        tree_truncated = bool(isinstance(tree_raw, dict) and tree_raw.get("truncated"))
+        if tree_truncated and self._on_tree_fallback is not None:
+            self._on_tree_fallback(snapshot.repository_id)
 
         tree_items = list(getattr(tree, "tree", []))
         paths = [str(getattr(item, "path", "")) for item in tree_items]
@@ -349,23 +403,50 @@ class GitHubScreeningGateway:
         mlflow_detected = False
 
         available_paths = set(paths)
-        paths_to_confirm = sorted(
-            {
-                path
-                for path in mlflow_evidence_paths
-                if path.endswith(".py") and path in available_paths
-            }
-        )
+        if tree_truncated and not dvc_detected:
+            dvc_targets = {"dvc.yaml", *evidence_paths.dvc_paths}
+            dvc_detected = any(
+                self._get_content_if_available(
+                    repo,
+                    path,
+                    ref=snapshot.head_commit_sha,
+                )
+                is not None
+                for path in sorted(dvc_targets)
+                if path == "dvc.yaml" or path.endswith(".dvc")
+            )
+
+        manifest_paths = sorted(path for path in paths if _is_mlflow_manifest(path))[
+            : self._mlflow_manifest_scan_limit
+        ]
+        evidence_targets = list(dict.fromkeys(sorted(evidence_paths.mlflow_paths)))
+        paths_to_confirm = evidence_targets + [
+            path for path in manifest_paths if path not in evidence_targets
+        ]
+        if not tree_truncated:
+            paths_to_confirm = [path for path in paths_to_confirm if path in available_paths]
+
         for path in paths_to_confirm:
-            if not path.endswith(".py"):
+            content = self._get_content_if_available(
+                repo,
+                path,
+                ref=snapshot.head_commit_sha,
+            )
+            if content is None or isinstance(content, list):
                 continue
-            self._wait_for_core_budget()
-            content = repo.get_contents(path, ref=snapshot.head_commit_sha)
-            if isinstance(content, list):
-                continue
-            if _python_imports_mlflow(_content_text(content)):
+            if _path_declares_mlflow(path, _content_text(content)):
                 mlflow_detected = True
                 break
+
+        if tree_truncated and not mlruns_detected:
+            mlruns_detected = (
+                self._get_content_if_available(
+                    repo,
+                    "mlruns",
+                    ref=snapshot.head_commit_sha,
+                )
+                is not None
+            )
 
         return dvc_detected, mlflow_detected, mlruns_detected
 
@@ -442,7 +523,7 @@ def _screen_candidate(
     commit_filter_config: CommitFilterConfig,
     *,
     run_id: str,
-    mlflow_evidence_paths: Sequence[str],
+    evidence_paths: ToolEvidencePaths,
 ) -> ScreeningRow:
     try:
         snapshot = gateway.get_repository_snapshot(candidate)
@@ -563,7 +644,7 @@ def _screen_candidate(
 
         dvc_detected, mlflow_detected, mlruns_detected = gateway.detect_tool_evidence(
             snapshot,
-            mlflow_evidence_paths,
+            evidence_paths,
         )
     except Exception as exc:  # noqa: BLE001
         return _row(
@@ -635,10 +716,15 @@ def screen_candidates(
         for row in existing_rows
         if row.repository_numeric_id in candidate_ids
     }
-    evidence_paths: dict[int, list[str]] = {}
+    dvc_paths: dict[int, set[str]] = {}
+    mlflow_paths: dict[int, set[str]] = {}
     for evidence in evidences:
         if "mlflow" in evidence.query_expression.casefold():
-            evidence_paths.setdefault(evidence.repository_numeric_id, []).append(evidence.file_path)
+            mlflow_paths.setdefault(evidence.repository_numeric_id, set()).add(evidence.file_path)
+        if "dvc" in evidence.query_expression.casefold() and (
+            evidence.file_path == "dvc.yaml" or evidence.file_path.endswith(".dvc")
+        ):
+            dvc_paths.setdefault(evidence.repository_numeric_id, set()).add(evidence.file_path)
 
     pending = [
         candidate
@@ -655,7 +741,10 @@ def screen_candidates(
             strata_config,
             commit_filter_config,
             run_id=run_id,
-            mlflow_evidence_paths=evidence_paths.get(candidate.repository_numeric_id, ()),
+            evidence_paths=ToolEvidencePaths(
+                dvc_paths=tuple(sorted(dvc_paths.get(candidate.repository_numeric_id, ()))),
+                mlflow_paths=tuple(sorted(mlflow_paths.get(candidate.repository_numeric_id, ()))),
+            ),
         )
 
     if max_workers == 1:

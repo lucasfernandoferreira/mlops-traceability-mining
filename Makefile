@@ -7,7 +7,7 @@ PIP_COMPILE_FLAGS := --quiet --allow-unsafe --strip-extras --generate-hashes --n
 PROD_LOCK_COMMAND = $(PIP_COMPILE) $(PIP_COMPILE_FLAGS) pyproject.toml -o requirements.txt
 DEV_LOCK_COMMAND = $(PIP_COMPILE) $(PIP_COMPILE_FLAGS) --extra dev pyproject.toml -o requirements-dev.txt
 
-.PHONY: help bootstrap lock setup lint format-check typecheck test smoke smoke-dev search screen pipeline check clean
+.PHONY: help bootstrap lock setup lint format-check typecheck test smoke smoke-dev search screen screen-retry-errors preserve-runs pipeline check clean
 
 help:
 	@echo "make bootstrap    Cria ou repara o ambiente Python 3.12"
@@ -21,6 +21,8 @@ help:
 	@echo "make smoke-dev    Valida a fundação permitindo alterações locais"
 	@echo "make search       Executa a coleta paginada da Fase 1"
 	@echo "make screen       Executa a triagem automática da Fase 2"
+	@echo "make screen-retry-errors Reutiliza a última Fase 2 e processa apenas erros"
+	@echo "make preserve-runs Preserva artefatos legados em diretórios por run_id"
 	@echo "make pipeline     Executa check, search e screen nesta ordem"
 	@echo "make check        Executa todos os gates da Fase 0"
 
@@ -80,6 +82,16 @@ screen:
 	if test -f .env.local; then . ./.env.local; fi; \
 	set +a; \
 	$(PYTHON) scripts/02_screen_sample.py
+
+screen-retry-errors:
+	@set -a; \
+	if test -f .env; then . ./.env; fi; \
+	if test -f .env.local; then . ./.env.local; fi; \
+	set +a; \
+	SCREEN_RETRY_ERRORS_ONLY=1 $(PYTHON) scripts/02_screen_sample.py
+
+preserve-runs:
+	$(PYTHON) scripts/preserve_current_run.py
 
 pipeline:
 	@$(MAKE) --no-print-directory check

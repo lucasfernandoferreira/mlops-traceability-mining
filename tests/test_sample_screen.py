@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-from collections.abc import Sequence
 from datetime import UTC, datetime, timedelta
 
 import pytest
@@ -10,6 +9,7 @@ from mlops_traceability.github_search import SearchCandidateRow, SearchEvidenceR
 from mlops_traceability.sample_screen import (
     RepositorySnapshot,
     ScreeningRow,
+    ToolEvidencePaths,
     screen_candidates,
 )
 
@@ -64,9 +64,9 @@ class FakeGateway:
     def detect_tool_evidence(
         self,
         snapshot: RepositorySnapshot,
-        mlflow_evidence_paths: Sequence[str],
+        evidence_paths: ToolEvidencePaths,
     ) -> tuple[bool, bool, bool]:
-        del mlflow_evidence_paths
+        del evidence_paths
         value = self.tool_evidence[snapshot.repository_numeric_id]
         if isinstance(value, Exception):
             raise value
@@ -374,7 +374,7 @@ def test_screen_candidates_is_deterministic_and_preserves_all_candidates() -> No
     assert progress == [(1, 3), (2, 3), (3, 3)]
 
 
-def test_screen_candidates_reuses_checkpointed_rows() -> None:
+def test_screen_candidates_reuses_cached_rows() -> None:
     config = _config()
     candidates = [_candidate(1), _candidate(2)]
     first_gateway = _eligible_gateway(candidates[0])

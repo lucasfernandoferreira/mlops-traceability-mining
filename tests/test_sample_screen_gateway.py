@@ -5,9 +5,19 @@ from types import SimpleNamespace
 
 from mlops_traceability.config import load_config
 from mlops_traceability.github_search import SearchCandidateRow
-from mlops_traceability.sample_screen import GitHubScreeningGateway
+from mlops_traceability.sample_screen import (
+    GitHubScreeningGateway,
+    ToolEvidencePaths,
+    _path_declares_mlflow,
+)
 
 CONFIG_PATH = "config/config.yaml"
+
+
+def test_mlflow_confirmation_rejects_documentation_mentions() -> None:
+    assert _path_declares_mlflow("README.md", "Use DVC with MLflow") is False
+    assert _path_declares_mlflow("requirements.txt", "mlflow>=2.0") is True
+    assert _path_declares_mlflow("train.py", "import mlflow") is True
 
 
 class _PaginatedList(list[object]):
@@ -102,7 +112,7 @@ class _FakeRepo:
             ],
             raw_data={"truncated": False},
         )
-        self._contents = {
+        self._contents: dict[str, object] = {
             "src/train.py": _FakeContent("import mlflow\n\nprint('train')\n"),
             "src/utils.py": _FakeContent("def helper():\n    return 1\n"),
         }
@@ -123,7 +133,7 @@ class _FakeRepo:
         assert recursive is True
         return self._tree
 
-    def get_contents(self, path: str, ref: str | None = None) -> _FakeContent:
+    def get_contents(self, path: str, ref: str | None = None) -> object:
         assert ref == "head"
         return self._contents[path]
 
@@ -179,7 +189,44 @@ def test_gateway_reads_repository_metadata_and_evidence() -> None:
         config.selection,
         config.commit_filter,
     ) == datetime(2026, 1, 4, tzinfo=UTC)
-    assert gateway.detect_tool_evidence(snapshot, ["src/train.py"]) == (True, True, True)
+    assert gateway.detect_tool_evidence(
+        snapshot,
+        ToolEvidencePaths(mlflow_paths=("src/train.py",)),
+    ) == (True, True, True)
+
+
+def test_gateway_falls_back_to_known_paths_when_tree_is_truncated() -> None:
+    fake_client = _FakeGithubClient()
+    fake_client.repo._tree = SimpleNamespace(tree=[], raw_data={"truncated": True})
+    fake_client.repo._contents = {
+        "dvc.yaml": None,
+        "pipeline/model.dvc": _FakeContent("outs:\n  - model.pkl\n"),
+        "requirements.txt": _FakeContent("mlflow>=2.0\n"),
+        "mlruns": [_FakeContent("experiment")],
+    }
+    fallback_repositories: list[str] = []
+    gateway = GitHubScreeningGateway(
+        token="unused",
+        per_page=100,
+        request_timeout_seconds=30,
+        core_reserve=50,
+        reset_buffer_seconds=2,
+        github_client=fake_client,  # type: ignore[arg-type]
+        sleep_func=lambda _seconds: None,
+        now_func=lambda: datetime(2026, 1, 5, tzinfo=UTC),
+        on_tree_fallback=fallback_repositories.append,
+    )
+
+    snapshot = gateway.get_repository_snapshot(_candidate())
+
+    assert gateway.detect_tool_evidence(
+        snapshot,
+        ToolEvidencePaths(
+            dvc_paths=("pipeline/model.dvc",),
+            mlflow_paths=("requirements.txt",),
+        ),
+    ) == (True, True, True)
+    assert fallback_repositories == ["owner/repo"]
 
 
 def test_gateway_skips_merges_and_bots_when_finding_recent_activity() -> None:

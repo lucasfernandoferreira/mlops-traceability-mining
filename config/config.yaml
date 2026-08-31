@@ -1,10 +1,11 @@
 protocol:
   id: "TCC-MLOPS-TRACE-2026"
-  version: "1.4.0"
+  version: "1.5.0"
 
 execution:
   screening_workers: 4
   progress_interval_seconds: 10
+  mlflow_manifest_scan_limit: 50
 
 paths:
   raw_repositories: "data/raw/repos"
@@ -33,6 +34,30 @@ github:
 
     - id: "mlflow_python"
       expression: "mlflow language:Python"
+
+    - id: "mlflow_import"
+      expression: '"import mlflow" language:Python'
+
+    - id: "mlflow_from_import"
+      expression: '"from mlflow" language:Python'
+
+    - id: "mlflow_pyproject"
+      expression: "mlflow filename:pyproject.toml"
+
+    - id: "mlflow_requirements"
+      expression: "mlflow filename:requirements.txt"
+
+    - id: "dvc_mlflow_pyproject"
+      expression: "dvc mlflow filename:pyproject.toml"
+
+    - id: "dvc_mlflow_requirements"
+      expression: "dvc mlflow filename:requirements.txt"
+
+    - id: "dvc_mlflow_python"
+      expression: "dvc mlflow language:Python"
+
+    - id: "dvc_mlflow_readme"
+      expression: "dvc mlflow filename:README.md"
 
 selection:
   min_candidates: 300
