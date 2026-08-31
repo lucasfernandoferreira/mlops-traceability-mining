@@ -177,7 +177,7 @@ def _sleep_until_reset(
     reset_buffer_seconds: int,
     sleep_func: Callable[[float], None],
     now_func: Callable[[], datetime],
-) -> None:
+) -> float:
     current_time = now_func()
     if current_time.tzinfo is None or current_time.utcoffset() is None:
         raise ValueError("now_func precisa retornar datetimes com fuso horário.")
@@ -186,6 +186,8 @@ def _sleep_until_reset(
     remaining_seconds = (target_time - current_time).total_seconds()
     if remaining_seconds > 0:
         sleep_func(remaining_seconds)
+        return remaining_seconds
+    return 0.0
 
 
 def collect_candidates(
@@ -200,6 +202,7 @@ def collect_candidates(
     reset_buffer_seconds: int = 2,
     sleep_func: Callable[[float], None] = time.sleep,
     now_func: Callable[[], datetime] = lambda: datetime.now(UTC),
+    on_event: Callable[[str, dict[str, Any]], None] | None = None,
 ) -> SearchCollection:
     if observed_at_utc.tzinfo is None or observed_at_utc.utcoffset() is None:
         raise ValueError("observed_at_utc precisa conter fuso horário.")
@@ -209,16 +212,36 @@ def collect_candidates(
     evidence_rows: list[SearchEvidenceRow] = []
     summary_rows: list[SearchSummaryRow] = []
 
-    for query in queries:
+    for query_index, query in enumerate(queries, start=1):
         started_at_utc = now_func().astimezone(UTC)
         page_number = 1
         retrieved_hit_count = 0
         reported_total_count = 0
         incomplete_results = False
+        if on_event is not None:
+            on_event(
+                "query_started",
+                {
+                    "query_id": query.id,
+                    "query_index": query_index,
+                    "query_total": len(queries),
+                },
+            )
 
         while retrieved_hit_count < max_results_per_query:
             snapshot = gateway.get_code_search_rate_limit()
             if snapshot.remaining <= rate_limit_reserve:
+                wait_target = snapshot.reset_at_utc + timedelta(seconds=reset_buffer_seconds)
+                wait_seconds = max(0.0, (wait_target - now_func()).total_seconds())
+                if on_event is not None:
+                    on_event(
+                        "rate_limit_wait",
+                        {
+                            "query_id": query.id,
+                            "wait_seconds": round(wait_seconds, 1),
+                            "reset_at_utc": snapshot.reset_at_utc,
+                        },
+                    )
                 _sleep_until_reset(
                     snapshot=snapshot,
                     reset_buffer_seconds=reset_buffer_seconds,
@@ -230,6 +253,17 @@ def collect_candidates(
             if page_number == 1 or page.total_count > reported_total_count:
                 reported_total_count = page.total_count
             incomplete_results = incomplete_results or page.incomplete_results
+            if on_event is not None:
+                on_event(
+                    "page_collected",
+                    {
+                        "query_id": query.id,
+                        "page": page_number,
+                        "page_results": len(page.results),
+                        "reported_total": reported_total_count,
+                        "retrieved_before_page": retrieved_hit_count,
+                    },
+                )
 
             if not page.results:
                 break
@@ -300,6 +334,18 @@ def collect_candidates(
                 run_id=run_id,
             )
         )
+        if on_event is not None:
+            on_event(
+                "query_finished",
+                {
+                    "query_id": query.id,
+                    "query_index": query_index,
+                    "query_total": len(queries),
+                    "retrieved_hits": retrieved_hit_count,
+                    "unique_repositories": unique_repository_count,
+                    "truncated": truncated,
+                },
+            )
 
     sorted_candidates = sorted(
         (accumulator.to_row() for accumulator in candidate_index.values()),

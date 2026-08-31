@@ -280,6 +280,7 @@ def test_collect_candidates_waits_for_rate_limit_reset() -> None:
         [RateLimitSnapshot(remaining=1, reset_at_utc=datetime(2026, 1, 1, 12, 0, 10, tzinfo=UTC))],
     )
     sleeps: list[float] = []
+    events: list[tuple[str, dict[str, object]]] = []
     current_time = datetime(2026, 1, 1, 12, 0, 0, tzinfo=UTC)
 
     def fake_now() -> datetime:
@@ -299,10 +300,18 @@ def test_collect_candidates_waits_for_rate_limit_reset() -> None:
         reset_buffer_seconds=2,
         sleep_func=fake_sleep,
         now_func=fake_now,
+        on_event=lambda name, details: events.append((name, details)),
     )
 
     assert len(sleeps) == 1
     assert sleeps[0] == pytest.approx(12.0)
+    assert [name for name, _details in events] == [
+        "query_started",
+        "rate_limit_wait",
+        "page_collected",
+        "query_finished",
+    ]
+    assert events[1][1]["wait_seconds"] == pytest.approx(12.0)
 
 
 def test_collect_candidates_sorts_output_deterministically() -> None:
