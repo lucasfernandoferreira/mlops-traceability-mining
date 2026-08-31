@@ -6,7 +6,7 @@
 |---|---|---|
 | `data/raw/repos/` | Clones integrais usados como fonte. | Não versionado; reconstruível. |
 | `data/interim/` | Respostas normalizadas, inventários e tabelas intermediárias. | Não versionado por padrão. |
-| `data/processed/` | Tabelas analíticas derivadas e manifestos de execução. | Somente artefatos pequenos, revisados e sem dados pessoais. |
+| `data/processed/` | Tabelas analíticas derivadas e manifestos de execução. | Tabelas pequenas exigem revisão; manifestos são ignorados e sua publicação é explícita. |
 | `reports/` | Figuras, tabelas e resultados destinados à dissertação. | Versionado quando for produto final revisado. |
 | `tmp/` | Saídas locais descartáveis, inclusive smoke tests. | Nunca versionado. |
 
@@ -27,6 +27,9 @@ Todo dado processado deve permitir identificar:
 
 Uma execução oficial deve ocorrer com worktree limpo. Dados derivados por uma execução
 falha devem permanecer separados e não podem ser promovidos a resultado final.
+Manifestos locais ficam ignorados pelo Git para que uma execução não altere o estado do
+worktree; quando forem parte de uma entrega científica, devem ser revisados e incluídos
+explicitamente.
 
 ## Minimização e privacidade
 
