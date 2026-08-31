@@ -121,7 +121,17 @@ observado usando os caminhos retornados pela consulta da Fase 1; a ausência des
 caminhos não equivale a uma busca exaustiva em todo o repositório e permanece uma
 limitação do mecanismo de descoberta.
 
-Resultados concluídos são registrados em checkpoint local identificado pelos hashes
-das entradas, versão do protocolo e SHA do código. Uma retomada só reutiliza o
-checkpoint quando essa identidade coincide. O checkpoint é removido depois que todos
-os candidatos são consolidados, inclusive quando os gates amostrais falham.
+Resultados concluídos são registrados em cache local identificado pelos hashes das
+entradas, versão do protocolo, configuração e SHA do código. Uma retomada só reutiliza
+o cache quando essa identidade coincide, e linhas com decisão `error` são sempre
+reprocessadas. Árvores recursivas truncadas usam confirmação direta dos caminhos
+descobertos; arquivos de dependência como `pyproject.toml` e `requirements.txt` também
+podem confirmar MLflow no commit observado.
+
+## DM-015 — Imutabilidade dos artefatos de execução
+
+Cada Fase grava seus artefatos em `data/interim/runs/<run_id>/` e nunca sobrescreve uma
+execução anterior. Arquivos JSON em `data/interim/latest/` apontam para o run mais
+recente de cada etapa. Uma Fase 2 com gates reprovados continua sendo uma execução
+válida e preservada com status `FAILED`; esse status não transforma seus resultados em
+amostra final.
