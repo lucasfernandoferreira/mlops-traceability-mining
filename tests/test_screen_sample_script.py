@@ -269,3 +269,47 @@ def test_screen_script_preserves_outputs_when_gate_fails(tmp_path: Path) -> None
     assert summary["status"] == "FAILED"
     assert summary["gates"]["shortlist_bounds"] is False
     assert summary["gates"]["required_strata_present"] is False
+
+
+def test_checkpoint_round_trip_and_rejects_incompatible_identity(tmp_path: Path) -> None:
+    screen_script = _load_screen_script()
+    checkpoint_path = tmp_path / "checkpoint.jsonl"
+    identity = {
+        "record_type": "metadata",
+        "schema_version": "1.0.0",
+        "source_run_id": "source-run",
+    }
+
+    assert (
+        screen_script._prepare_checkpoint(
+            checkpoint_path,
+            identity,
+            run_id="screen-run",
+        )
+        == []
+    )
+    screen_script._append_checkpoint(
+        checkpoint_path,
+        _eligible_row(1, "apenas_dvc"),
+    )
+    with checkpoint_path.open("a", encoding="utf-8") as handle:
+        handle.write("{linha-interrompida")
+
+    recovered = screen_script._prepare_checkpoint(
+        checkpoint_path,
+        identity,
+        run_id="resumed-run",
+    )
+    assert len(recovered) == 1
+    assert recovered[0].repository_numeric_id == 1
+    assert recovered[0].run_id == "resumed-run"
+
+    incompatible = {**identity, "source_run_id": "another-source-run"}
+    assert (
+        screen_script._prepare_checkpoint(
+            checkpoint_path,
+            incompatible,
+            run_id="fresh-run",
+        )
+        == []
+    )
