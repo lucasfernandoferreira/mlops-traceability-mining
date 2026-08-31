@@ -32,12 +32,19 @@ from mlops_traceability.run_storage import (
 )
 from mlops_traceability.sample_screen import (
     GitHubScreeningGateway,
-    ScreeningGateway,
     ScreeningRow,
     screen_candidates,
 )
 
-CACHE_SCHEMA_VERSION = "1.0.0"
+CACHE_SCHEMA_VERSION = "1.1.0"
+SCREENING_SEMANTICS_VERSION = "1.0.0"
+CACHE_COMPATIBILITY_FIELDS = (
+    "source_run_id",
+    "protocol_version",
+    "config_sha256",
+    "candidates_sha256",
+    "evidences_sha256",
+)
 SCREENING_FIELDS = [
     "repository_numeric_id",
     "repository_id",
@@ -255,7 +262,7 @@ def _resolve_phase1_inputs(
 def _build_observed_gateway(
     config: ResearchConfig,
     observer: ExecutionObserver,
-) -> ScreeningGateway:
+) -> GitHubScreeningGateway:
     token_name = config.github.token_environment_variable
     token = os.getenv(token_name)
     if not token:
@@ -265,11 +272,21 @@ def _build_observed_gateway(
 
     def report_rate_limit_wait(wait_seconds: float, reset_at_utc: datetime) -> None:
         observer.event(
-            "rate_limit_wait",
-            "Cota core reservada; aguardando renovação",
+            "github_core_rate_limit_wait",
+            "Cota core reservada; aguardando renovação coordenada",
             wait_seconds=round(wait_seconds, 1),
             reset_at_utc=_format_datetime(reset_at_utc),
         )
+
+    def report_rate_limit_event(name: str, details: dict[str, Any]) -> None:
+        messages = {
+            "github_rate_limit_wait": "Limite da API detectado; workers em cooldown coordenado",
+            "github_rate_limit_recovered": "Acesso à API restabelecido após cooldown",
+            "github_rate_limit_circuit_open": (
+                "Limite persistente; circuito aberto e pendências serão marcadas como erro"
+            ),
+        }
+        observer.event(name, messages[name], **details)
 
     def report_tree_fallback(repository_id: str) -> None:
         observer.event(
@@ -285,8 +302,13 @@ def _build_observed_gateway(
         core_reserve=config.github.rate_limit.core_reserve,
         reset_buffer_seconds=config.github.rate_limit.reset_buffer_seconds,
         on_rate_limit_wait=report_rate_limit_wait,
+        on_rate_limit_event=report_rate_limit_event,
         on_tree_fallback=report_tree_fallback,
         mlflow_manifest_scan_limit=config.execution.mlflow_manifest_scan_limit,
+        request_interval_seconds=config.github.rate_limit.request_interval_seconds,
+        secondary_cooldown_seconds=config.github.rate_limit.secondary_cooldown_seconds,
+        secondary_max_retries=config.github.rate_limit.secondary_max_retries,
+        max_rate_limit_wait_seconds=(config.github.rate_limit.max_rate_limit_wait_seconds),
     )
 
 
@@ -302,6 +324,7 @@ def _cache_identity(
     return {
         "record_type": "metadata",
         "schema_version": CACHE_SCHEMA_VERSION,
+        "screening_semantics_version": SCREENING_SEMANTICS_VERSION,
         "source_run_id": source_run_id,
         "code_commit_sha": context.code_commit_sha,
         "protocol_version": config.protocol.version,
@@ -312,9 +335,85 @@ def _cache_identity(
 
 
 def _cache_path(interim_dir: Path, identity: dict[str, Any]) -> Path:
-    serialized = json.dumps(identity, sort_keys=True, separators=(",", ":")).encode()
+    serialized = json.dumps(
+        _cache_compatibility_identity(identity),
+        sort_keys=True,
+        separators=(",", ":"),
+    ).encode()
     cache_key = hashlib.sha256(serialized).hexdigest()[:20]
     return interim_dir / "cache/phase2" / f"{cache_key}.jsonl"
+
+
+def _cache_compatibility_identity(identity: dict[str, Any]) -> dict[str, Any]:
+    compatible = {
+        field: identity[field] for field in CACHE_COMPATIBILITY_FIELDS if field in identity
+    }
+    if compatible:
+        compatible["screening_semantics_version"] = identity.get(
+            "screening_semantics_version",
+            SCREENING_SEMANTICS_VERSION,
+        )
+        return compatible
+    return {
+        key: value
+        for key, value in identity.items()
+        if key not in {"schema_version", "code_commit_sha"}
+    }
+
+
+def _cache_identities_compatible(
+    observed: dict[str, Any],
+    expected: dict[str, Any],
+) -> bool:
+    return _cache_compatibility_identity(observed) == _cache_compatibility_identity(expected)
+
+
+def _read_cache_records(path: Path) -> tuple[list[dict[str, Any]], bool]:
+    records: list[dict[str, Any]] = []
+    complete = True
+    with path.open("r", encoding="utf-8") as handle:
+        for line in handle:
+            if not line.strip():
+                continue
+            try:
+                record = json.loads(line)
+            except json.JSONDecodeError:
+                complete = False
+                break
+            if not isinstance(record, dict):
+                complete = False
+                break
+            records.append(record)
+    return records, complete
+
+
+def _find_compatible_cache(
+    cache_directory: Path,
+    identity: dict[str, Any],
+    *,
+    preferred_path: Path,
+) -> Path | None:
+    if preferred_path.is_file():
+        candidates = [preferred_path]
+    else:
+        candidates = []
+    candidates.extend(
+        path
+        for path in sorted(
+            cache_directory.glob("*.jsonl"),
+            key=lambda candidate: candidate.stat().st_mtime,
+            reverse=True,
+        )
+        if path != preferred_path
+    )
+    for candidate in candidates:
+        try:
+            records, _complete = _read_cache_records(candidate)
+            if records and _cache_identities_compatible(records[0], identity):
+                return candidate
+        except OSError:
+            continue
+    return None
 
 
 def _load_retry_rows(
@@ -388,24 +487,16 @@ def _prepare_cache(
     identity: dict[str, Any],
     *,
     run_id: str,
+    source_path: Path | None = None,
 ) -> list[ScreeningRow]:
     rows: list[ScreeningRow] = []
     cache_matches = False
-    if path.is_file():
+    complete = True
+    selected_path = source_path if source_path is not None else path
+    if selected_path.is_file():
         try:
-            records: list[dict[str, Any]] = []
-            with path.open("r", encoding="utf-8") as handle:
-                for line in handle:
-                    if not line.strip():
-                        continue
-                    try:
-                        record = json.loads(line)
-                    except json.JSONDecodeError:
-                        break
-                    if not isinstance(record, dict):
-                        break
-                    records.append(record)
-            cache_matches = bool(records) and records[0] == identity
+            records, complete = _read_cache_records(selected_path)
+            cache_matches = bool(records) and _cache_identities_compatible(records[0], identity)
             if cache_matches:
                 rows = [
                     _cache_payload_to_row(record, run_id)
@@ -416,10 +507,15 @@ def _prepare_cache(
             cache_matches = False
             rows = []
 
+    deduplicated = {row.repository_numeric_id: row for row in rows}
     if not cache_matches:
         _write_json_lines_atomic(path, [identity])
+    elif selected_path != path or records[0] != identity or not complete:
+        _write_json_lines_atomic(
+            path,
+            [identity, *(_cache_row_payload(row) for row in deduplicated.values())],
+        )
 
-    deduplicated = {row.repository_numeric_id: row for row in rows}
     return list(deduplicated.values())
 
 
@@ -627,11 +723,25 @@ def main() -> int:
             evidences_path=evidences_path,
         )
         cache_path = _cache_path(interim_dir, identity)
+        compatible_cache_path = _find_compatible_cache(
+            cache_path.parent,
+            identity,
+            preferred_path=cache_path,
+        )
         cached_rows = _prepare_cache(
             cache_path,
             identity,
             run_id=context.run_id,
+            source_path=compatible_cache_path,
         )
+        if compatible_cache_path is not None and compatible_cache_path != cache_path:
+            observer.event(
+                "cache_migrated",
+                "Cache compatível migrado para a identidade semântica estável",
+                source_cache_path=compatible_cache_path,
+                cache_path=cache_path,
+                recovered_candidates=len(cached_rows),
+            )
         reusable_by_id = {
             row.repository_numeric_id: row for row in cached_rows if row.decision != "error"
         }
@@ -669,6 +779,8 @@ def main() -> int:
             total=len(candidates),
             initial_completed=len(existing_rows),
             interval_seconds=config.execution.progress_interval_seconds,
+            stall_threshold_seconds=(config.execution.progress_stall_threshold_seconds),
+            details_provider=gateway.rate_limit_status,
         ) as progress:
 
             def persist_result(row: ScreeningRow, completed: int, total: int) -> None:

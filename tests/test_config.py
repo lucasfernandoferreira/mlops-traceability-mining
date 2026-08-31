@@ -22,6 +22,11 @@ def test_load_valid_config() -> None:
     assert config.github.request_timeout_seconds == 30
     assert config.github.rate_limit.code_search_reserve == 1
     assert config.github.rate_limit.core_reserve == 50
+    assert config.github.rate_limit.request_interval_seconds == 0.25
+    assert config.github.rate_limit.secondary_cooldown_seconds == 60
+    assert config.github.rate_limit.secondary_max_retries == 2
+    assert config.github.rate_limit.max_rate_limit_wait_seconds == 300
+    assert config.execution.progress_stall_threshold_seconds == 60
     assert config.github.queries[0].id == "dvc_pipeline"
     assert config.github.queries[0].expression == "filename:dvc.yaml"
     assert len(config.github.queries) == 11

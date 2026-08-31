@@ -333,6 +333,60 @@ def test_cache_round_trip_and_rejects_incompatible_identity(tmp_path: Path) -> N
     )
 
 
+def test_cache_migrates_legacy_commit_identity_without_losing_rows(tmp_path: Path) -> None:
+    screen_script = _load_screen_script()
+    cache_directory = tmp_path / "cache"
+    legacy_identity = {
+        "record_type": "metadata",
+        "schema_version": "1.0.0",
+        "source_run_id": "source-run",
+        "code_commit_sha": "old-commit",
+        "protocol_version": "1.5.0",
+        "config_sha256": "config-hash",
+        "candidates_sha256": "candidates-hash",
+        "evidences_sha256": "evidences-hash",
+    }
+    legacy_path = cache_directory / "legacy.jsonl"
+    screen_script._write_json_lines_atomic(legacy_path, [legacy_identity])
+    screen_script._append_cache(legacy_path, _eligible_row(1, "apenas_dvc"))
+    current_identity = {
+        **legacy_identity,
+        "schema_version": screen_script.CACHE_SCHEMA_VERSION,
+        "screening_semantics_version": screen_script.SCREENING_SEMANTICS_VERSION,
+        "code_commit_sha": "new-operational-commit",
+    }
+    current_path = screen_script._cache_path(tmp_path, current_identity)
+
+    source_path = screen_script._find_compatible_cache(
+        cache_directory,
+        current_identity,
+        preferred_path=current_path,
+    )
+    recovered = screen_script._prepare_cache(
+        current_path,
+        current_identity,
+        run_id="resumed-run",
+        source_path=source_path,
+    )
+
+    assert source_path == legacy_path
+    assert [row.repository_numeric_id for row in recovered] == [1]
+    migrated_records, complete = screen_script._read_cache_records(current_path)
+    assert complete is True
+    assert migrated_records[0] == current_identity
+    incompatible_semantics = {
+        **current_identity,
+        "screening_semantics_version": "2.0.0",
+    }
+    assert (
+        screen_script._cache_identities_compatible(
+            legacy_identity,
+            incompatible_semantics,
+        )
+        is False
+    )
+
+
 def test_retry_errors_reuses_only_non_error_rows(tmp_path: Path) -> None:
     screen_script = _load_screen_script()
     root = _prepare_project_root(tmp_path)

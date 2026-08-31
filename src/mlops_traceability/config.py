@@ -32,6 +32,10 @@ class GitHubRateLimitConfig(StrictModel):
     code_search_reserve: int = Field(ge=0)
     core_reserve: int = Field(ge=0)
     reset_buffer_seconds: int = Field(ge=0)
+    request_interval_seconds: float = Field(default=0.25, ge=0, le=10)
+    secondary_cooldown_seconds: int = Field(default=60, ge=1, le=3600)
+    secondary_max_retries: int = Field(default=2, ge=0, le=10)
+    max_rate_limit_wait_seconds: int = Field(default=300, ge=1, le=3600)
 
 
 class PathsConfig(StrictModel):
@@ -120,6 +124,7 @@ class ReproducibilityConfig(StrictModel):
 class ExecutionConfig(StrictModel):
     screening_workers: int = Field(ge=1, le=16)
     progress_interval_seconds: int = Field(ge=1)
+    progress_stall_threshold_seconds: int = Field(default=60, ge=1)
     mlflow_manifest_scan_limit: int = Field(ge=1, le=500)
 
 

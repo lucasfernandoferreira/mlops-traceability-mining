@@ -12,7 +12,8 @@ As Fases 0, 1 e 2 estão executáveis:
 - a Fase 1 pesquisa, pagina e deduplica candidatos encontrados no GitHub;
 - a Fase 2 confirma critérios de elegibilidade e produz o funil e a shortlist;
 - todas as fases emitem eventos no terminal e logs JSONL locais;
-- a Fase 2 usa paralelismo limitado, ETA, cache persistente e retomada após interrupções.
+- a Fase 2 usa paralelismo limitado, requisições coordenadas, circuit breaker, cache
+  persistente e retomada após interrupções.
 
 A coleta detalhada do histórico, o cálculo das métricas GQM e a seleção final da
 amostra ainda não foram implementados. `config/amostra_final.yaml` permanece com
@@ -86,14 +87,16 @@ Durante a execução, o terminal informa:
 - etapa, consulta, página ou último repositório concluído;
 - itens concluídos e percentual;
 - elegíveis, rejeitados e erros na triagem;
-- tempo decorrido, itens por minuto e ETA;
-- início e duração prevista de espera por rate limit;
+- tempo decorrido, itens por minuto, tempo desde o último avanço e ETA;
+- estado do rate limit, workers bloqueados e duração restante do cooldown;
+- abertura do circuito quando o GitHub continua bloqueando após os retries configurados;
 - caminho do log estruturado da execução.
 
 Os logs completos ficam em `tmp/logs/<run_id>.jsonl`, diretório ignorado pelo Git. O
 heartbeat padrão é emitido a cada 10 segundos, inclusive quando não há novo candidato
-concluído. No começo da execução o ETA aparece como `calculando` e pode oscilar até que
-haja uma amostra representativa de itens processados.
+concluído. Após 60 segundos sem avanço, o status muda para `waiting`, o campo `stalled`
+fica verdadeiro e a ETA passa a `indisponivel`, evitando previsões enganosas durante
+esperas externas.
 
 A Fase 2 usa quatro workers por padrão. Esse valor e o intervalo do heartbeat ficam em
 `config/config.yaml`:
@@ -102,26 +105,48 @@ A Fase 2 usa quatro workers por padrão. Esse valor e o intervalo do heartbeat f
 execution:
   screening_workers: 4
   progress_interval_seconds: 10
+  progress_stall_threshold_seconds: 60
 ```
 
-Mais workers não garantem menor duração porque a API do GitHub impõe cotas. Valores
-acima do padrão devem ser avaliados junto com os eventos de rate limit e a taxa de
-erros, sem alterar a configuração durante uma execução oficial.
+As requisições dos workers passam por um coordenador único. Por padrão, seus inícios são
+espaçados em 250 ms; um limite secundário pausa todos os workers por 60 segundos e
+permite no máximo dois retries. Se o bloqueio persistir, o circuito abre, os candidatos
+pendentes são registrados como `error` e a execução termina normalmente para permitir
+reprocessamento posterior, em vez de aguardar indefinidamente. Esses valores podem ser
+explicitados em `github.rate_limit` quando necessário:
+
+```yaml
+github:
+  rate_limit:
+    request_interval_seconds: 0.25
+    secondary_cooldown_seconds: 60
+    secondary_max_retries: 2
+    max_rate_limit_wait_seconds: 300
+```
+
+Mais workers não garantem menor duração porque a API do GitHub impõe cotas. O
+paralelismo continua útil para o processamento local, mas não cria rajadas simultâneas
+de chamadas HTTP.
 
 ## Cache, interrupção e retry
 
-A Fase 2 grava cada candidato concluído em um cache identificado pelo SHA do código,
-configuração e hashes das entradas em `data/interim/cache/phase2/`. Se o processo for
-interrompido, execute novamente:
+A Fase 2 grava cada candidato concluído em um cache identificado pela versão da
+semântica de triagem, configuração e hashes das entradas em
+`data/interim/cache/phase2/`. Se o processo for interrompido, execute novamente:
 
 ```bash
 make screen
 ```
 
 O cache só é reutilizado quando o `run_id` da Fase 1, os hashes das entradas, a versão
-do protocolo, a configuração e o SHA do código continuam compatíveis. Resultados com
-decisão `error` nunca são reutilizados; uma nova execução consulta apenas esses erros e
-itens ainda ausentes.
+do protocolo, a configuração e a versão da semântica científica continuam compatíveis.
+Mudanças operacionais de código não invalidam resultados concluídos; caches legados são
+migrados automaticamente. Alterações nos critérios de decisão exigem incrementar a
+versão semântica. Resultados com decisão `error` nunca são reutilizados; uma nova
+execução consulta apenas esses erros e itens ainda ausentes.
+
+`Ctrl+C` solicita cancelamento cooperativo, acorda workers em cooldown e cancela itens
+que ainda não começaram. Depois que o comando encerrar, `make screen` retoma o cache.
 
 Para importar os resultados válidos da última Fase 2 e reprocessar somente seus erros:
 
