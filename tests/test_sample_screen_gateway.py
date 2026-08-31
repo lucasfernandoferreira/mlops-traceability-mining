@@ -1,13 +1,22 @@
 from __future__ import annotations
 
+from collections.abc import Callable
 from datetime import UTC, datetime
 from types import SimpleNamespace
+from typing import Any
+
+import pytest
+from github.GithubException import GithubException
 
 from mlops_traceability.config import load_config
 from mlops_traceability.github_search import SearchCandidateRow
 from mlops_traceability.sample_screen import (
+    GitHubRateLimitCircuitOpen,
+    GitHubRequestCancelled,
     GitHubScreeningGateway,
     ToolEvidencePaths,
+    _GitHubRequestCoordinator,
+    _is_rate_limit_error,
     _path_declares_mlflow,
 )
 
@@ -24,6 +33,22 @@ class _PaginatedList(list[object]):
     def __init__(self, items: list[object], total_count: int | None = None) -> None:
         super().__init__(items)
         self.totalCount = len(items) if total_count is None else total_count
+
+    def get_page(self, page_number: int) -> list[object]:
+        return list(self) if page_number == 0 else []
+
+
+class _FakeClock:
+    def __init__(self) -> None:
+        self.value = 0.0
+        self.sleeps: list[float] = []
+
+    def monotonic(self) -> float:
+        return self.value
+
+    def sleep(self, seconds: float) -> None:
+        self.sleeps.append(seconds)
+        self.value += seconds
 
 
 class _FakeCommit:
@@ -274,3 +299,139 @@ def test_gateway_skips_merges_and_bots_when_finding_recent_activity() -> None:
         config.selection,
         config.commit_filter,
     ) == datetime(2026, 1, 3, tzinfo=UTC)
+
+
+def _coordinator(
+    clock: _FakeClock,
+    *,
+    max_retries: int = 2,
+    max_wait_seconds: float = 300,
+    on_event: Callable[[str, dict[str, Any]], None] | None = None,
+) -> _GitHubRequestCoordinator:
+    return _GitHubRequestCoordinator(
+        request_interval_seconds=0.25,
+        secondary_cooldown_seconds=60,
+        secondary_max_retries=max_retries,
+        max_rate_limit_wait_seconds=max_wait_seconds,
+        reset_buffer_seconds=2,
+        sleep_func=clock.sleep,
+        monotonic_func=clock.monotonic,
+        now_func=lambda: datetime(2026, 1, 1, tzinfo=UTC),
+        on_event=on_event,
+    )
+
+
+def _secondary_limit(*, retry_after: str | None = None) -> GithubException:
+    headers = {} if retry_after is None else {"Retry-After": retry_after}
+    return GithubException(
+        403,
+        {"message": "You have exceeded a secondary rate limit."},
+        headers,
+    )
+
+
+def test_request_coordinator_recovers_with_one_shared_cooldown() -> None:
+    clock = _FakeClock()
+    events: list[tuple[str, dict[str, object]]] = []
+    coordinator = _coordinator(
+        clock,
+        on_event=lambda name, details: events.append((name, details)),
+    )
+    calls = 0
+    status_during_wait: list[dict[str, object]] = []
+
+    def operation() -> str:
+        nonlocal calls
+        calls += 1
+        if calls == 1:
+            raise _secondary_limit(retry_after="3")
+        return "ok"
+
+    original_sleep = clock.sleep
+
+    def observed_sleep(seconds: float) -> None:
+        status_during_wait.append(coordinator.status())
+        original_sleep(seconds)
+
+    coordinator._sleep_func = observed_sleep
+
+    assert coordinator.run("repository", operation) == "ok"
+    assert calls == 2
+    assert clock.sleeps == [5.0]
+    assert status_during_wait[0]["github_rate_limit_state"] == "cooldown"
+    assert status_during_wait[0]["blocked_workers"] == 1
+    assert [name for name, _details in events] == [
+        "github_rate_limit_wait",
+        "github_rate_limit_recovered",
+    ]
+    assert coordinator.status()["github_rate_limit_state"] == "ready"
+
+
+def test_request_coordinator_opens_circuit_after_bounded_retries() -> None:
+    clock = _FakeClock()
+    events: list[str] = []
+    coordinator = _coordinator(
+        clock,
+        max_retries=1,
+        on_event=lambda name, _details: events.append(name),
+    )
+
+    with pytest.raises(GitHubRateLimitCircuitOpen):
+        coordinator.run("repository", lambda: (_ for _ in ()).throw(_secondary_limit()))
+
+    assert clock.sleeps == [60]
+    assert events == ["github_rate_limit_wait", "github_rate_limit_circuit_open"]
+    assert coordinator.status()["github_rate_limit_state"] == "circuit_open"
+    with pytest.raises(GitHubRateLimitCircuitOpen):
+        coordinator.run("repository", lambda: "never")
+
+
+def test_request_coordinator_caps_required_wait_and_supports_cancel() -> None:
+    clock = _FakeClock()
+    coordinator = _coordinator(clock, max_wait_seconds=30)
+
+    with pytest.raises(GitHubRateLimitCircuitOpen):
+        coordinator.run("repository", lambda: (_ for _ in ()).throw(_secondary_limit()))
+
+    cancelled = _coordinator(clock)
+    cancelled.cancel()
+    with pytest.raises(GitHubRequestCancelled):
+        cancelled.run("repository", lambda: "never")
+
+
+def test_secondary_limit_ignores_core_reset_when_core_quota_remains() -> None:
+    clock = _FakeClock()
+    coordinator = _coordinator(clock)
+    calls = 0
+
+    def operation() -> str:
+        nonlocal calls
+        calls += 1
+        if calls == 1:
+            raise GithubException(
+                403,
+                {"message": "You have exceeded a secondary rate limit."},
+                {
+                    "X-RateLimit-Remaining": "4999",
+                    "X-RateLimit-Reset": "1767229200",
+                },
+            )
+        return "ok"
+
+    assert coordinator.run("repository", operation) == "ok"
+    assert clock.sleeps == [60]
+
+
+def test_request_coordinator_paces_calls_and_does_not_retry_regular_403() -> None:
+    clock = _FakeClock()
+    coordinator = _coordinator(clock)
+
+    assert coordinator.run("one", lambda: 1) == 1
+    assert coordinator.run("two", lambda: 2) == 2
+    assert clock.sleeps == [0.25]
+
+    forbidden = GithubException(403, {"message": "Resource not accessible"}, {})
+    assert _is_rate_limit_error(forbidden) is False
+    assert _is_rate_limit_error(GithubException(429, {}, {})) is True
+    with pytest.raises(GithubException):
+        coordinator.run("forbidden", lambda: (_ for _ in ()).throw(forbidden))

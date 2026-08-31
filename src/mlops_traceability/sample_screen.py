@@ -6,10 +6,11 @@ import ast
 import re
 import threading
 import time
-from collections.abc import Callable, Sequence
+from collections.abc import Callable, Mapping, Sequence
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import dataclass, field
 from datetime import UTC, datetime, timedelta
+from functools import partial
 from typing import Any, Protocol
 
 from github import Auth, Github
@@ -97,27 +98,251 @@ class _CoreRateLimitSnapshot:
     reset_at_utc: datetime
 
 
+class GitHubRateLimitCircuitOpen(RuntimeError):
+    """Indica que a execução desistiu de esperar por novos retries da API."""
+
+
+class GitHubRequestCancelled(RuntimeError):
+    """Indica cancelamento cooperativo de workers durante uma interrupção."""
+
+
+def _github_error_message(exc: GithubException) -> str:
+    data = exc.data
+    if isinstance(data, Mapping):
+        return str(data.get("message", ""))
+    return str(data)
+
+
+def _github_error_header(exc: GithubException, name: str) -> str | None:
+    headers = exc.headers
+    if not isinstance(headers, Mapping):
+        return None
+    expected = name.casefold()
+    for key, value in headers.items():
+        if str(key).casefold() == expected:
+            return str(value)
+    return None
+
+
+def _is_rate_limit_error(exc: GithubException) -> bool:
+    if exc.status == 429:
+        return True
+    if exc.status != 403:
+        return False
+    if _github_error_header(exc, "Retry-After") is not None:
+        return True
+    message = _github_error_message(exc).casefold()
+    return any(
+        marker in message
+        for marker in (
+            "rate limit",
+            "abuse detection",
+            "please wait a few minutes",
+            "temporarily blocked",
+        )
+    )
+
+
+class _GitHubRequestCoordinator:
+    """Serializa o início das requisições e coordena cooldown entre workers."""
+
+    def __init__(
+        self,
+        *,
+        request_interval_seconds: float,
+        secondary_cooldown_seconds: float,
+        secondary_max_retries: int,
+        max_rate_limit_wait_seconds: float,
+        reset_buffer_seconds: int,
+        sleep_func: Callable[[float], None],
+        monotonic_func: Callable[[], float] = time.monotonic,
+        now_func: Callable[[], datetime] = lambda: datetime.now(UTC),
+        on_event: Callable[[str, dict[str, Any]], None] | None = None,
+    ) -> None:
+        self._request_interval_seconds = request_interval_seconds
+        self._secondary_cooldown_seconds = secondary_cooldown_seconds
+        self._secondary_max_retries = secondary_max_retries
+        self._max_rate_limit_wait_seconds = max_rate_limit_wait_seconds
+        self._reset_buffer_seconds = reset_buffer_seconds
+        self._sleep_func = sleep_func
+        self._monotonic_func = monotonic_func
+        self._now_func = now_func
+        self._on_event = on_event
+        self._request_lock = threading.Lock()
+        self._state_lock = threading.Lock()
+        self._cancelled = threading.Event()
+        self._cooldown_until = 0.0
+        self._next_request_at = 0.0
+        self._rate_limit_retries = 0
+        self._waiting_workers = 0
+        self._circuit_open = False
+
+    def run(self, operation: str, call: Callable[[], Any]) -> Any:
+        while True:
+            self._wait_for_availability()
+            with self._request_lock:
+                if not self._is_available():
+                    continue
+                self._pace_request()
+                try:
+                    result = call()
+                except GithubException as exc:
+                    if not _is_rate_limit_error(exc):
+                        raise
+                    self._record_rate_limit(operation, exc)
+                    continue
+                self._record_success(operation)
+                return result
+
+    def wait(self, seconds: float) -> None:
+        self._sleep_interruptibly(seconds)
+
+    def cancel(self) -> None:
+        self._cancelled.set()
+
+    def status(self) -> dict[str, Any]:
+        with self._state_lock:
+            remaining = max(0.0, self._cooldown_until - self._monotonic_func())
+            if self._circuit_open:
+                state = "circuit_open"
+            elif remaining > 0:
+                state = "cooldown"
+            else:
+                state = "ready"
+            return {
+                "github_rate_limit_state": state,
+                "blocked_workers": self._waiting_workers,
+                "rate_limit_wait_remaining_seconds": round(remaining, 1),
+                "rate_limit_retry": self._rate_limit_retries,
+                "rate_limit_max_retries": self._secondary_max_retries,
+            }
+
+    def _wait_for_availability(self) -> None:
+        while True:
+            with self._state_lock:
+                self._raise_if_unavailable()
+                remaining = self._cooldown_until - self._monotonic_func()
+                if remaining <= 0:
+                    return
+                self._waiting_workers += 1
+            try:
+                self._sleep_interruptibly(remaining)
+            finally:
+                with self._state_lock:
+                    self._waiting_workers -= 1
+
+    def _is_available(self) -> bool:
+        with self._state_lock:
+            self._raise_if_unavailable()
+            return self._monotonic_func() >= self._cooldown_until
+
+    def _pace_request(self) -> None:
+        now = self._monotonic_func()
+        wait_seconds = max(0.0, self._next_request_at - now)
+        self._sleep_interruptibly(wait_seconds)
+        self._next_request_at = self._monotonic_func() + self._request_interval_seconds
+
+    def _sleep_interruptibly(self, seconds: float) -> None:
+        if seconds <= 0:
+            self._raise_if_cancelled()
+            return
+        if self._sleep_func is time.sleep:
+            if self._cancelled.wait(seconds):
+                raise GitHubRequestCancelled("Triagem cancelada pelo operador.")
+        else:
+            self._sleep_func(seconds)
+            self._raise_if_cancelled()
+
+    def _record_rate_limit(self, operation: str, exc: GithubException) -> None:
+        wait_seconds = self._rate_limit_wait_seconds(exc)
+        event_name: str
+        details: dict[str, Any]
+        with self._state_lock:
+            self._rate_limit_retries += 1
+            retry = self._rate_limit_retries
+            if (
+                retry > self._secondary_max_retries
+                or wait_seconds > self._max_rate_limit_wait_seconds
+            ):
+                self._circuit_open = True
+                event_name = "github_rate_limit_circuit_open"
+                details = {
+                    "operation": operation,
+                    "retry": retry,
+                    "max_retries": self._secondary_max_retries,
+                    "required_wait_seconds": round(wait_seconds, 1),
+                }
+            else:
+                self._cooldown_until = max(
+                    self._cooldown_until,
+                    self._monotonic_func() + wait_seconds,
+                )
+                event_name = "github_rate_limit_wait"
+                details = {
+                    "operation": operation,
+                    "retry": retry,
+                    "max_retries": self._secondary_max_retries,
+                    "wait_seconds": round(wait_seconds, 1),
+                }
+        self._emit(event_name, details)
+        if event_name == "github_rate_limit_circuit_open":
+            raise GitHubRateLimitCircuitOpen(
+                "Limite da API do GitHub persistiu após os retries configurados; "
+                "as pendências foram registradas como erro para reprocessamento posterior."
+            ) from exc
+
+    def _record_success(self, operation: str) -> None:
+        with self._state_lock:
+            recovered_after = self._rate_limit_retries
+            if recovered_after == 0:
+                return
+            self._rate_limit_retries = 0
+            self._cooldown_until = 0.0
+        self._emit(
+            "github_rate_limit_recovered",
+            {"operation": operation, "recovered_after_retries": recovered_after},
+        )
+
+    def _rate_limit_wait_seconds(self, exc: GithubException) -> float:
+        retry_after = _github_error_header(exc, "Retry-After")
+        if retry_after is not None:
+            try:
+                return max(0.0, float(retry_after)) + self._reset_buffer_seconds
+            except ValueError:
+                pass
+
+        reset_epoch = _github_error_header(exc, "X-RateLimit-Reset")
+        rate_remaining = _github_error_header(exc, "X-RateLimit-Remaining")
+        if reset_epoch is not None and rate_remaining == "0":
+            try:
+                reset_at = datetime.fromtimestamp(float(reset_epoch), tz=UTC)
+                reset_wait = (reset_at - self._now_func()).total_seconds()
+                if reset_wait > 0:
+                    return reset_wait + self._reset_buffer_seconds
+            except (OverflowError, ValueError):
+                pass
+        return self._secondary_cooldown_seconds
+
+    def _raise_if_unavailable(self) -> None:
+        self._raise_if_cancelled()
+        if self._circuit_open:
+            raise GitHubRateLimitCircuitOpen(
+                "Circuito da API do GitHub aberto após esgotar os retries configurados."
+            )
+
+    def _raise_if_cancelled(self) -> None:
+        if self._cancelled.is_set():
+            raise GitHubRequestCancelled("Triagem cancelada pelo operador.")
+
+    def _emit(self, name: str, details: dict[str, Any]) -> None:
+        if self._on_event is not None:
+            self._on_event(name, details)
+
+
 def _format_datetime(value: datetime) -> datetime:
     if value.tzinfo is None or value.utcoffset() is None:
         raise ValueError("Datetime precisa conter fuso horário.")
     return value.astimezone(UTC)
-
-
-def _sleep_until_reset(
-    *,
-    snapshot: _CoreRateLimitSnapshot,
-    reset_buffer_seconds: int,
-    sleep_func: Any,
-    now_func: Any,
-) -> None:
-    current_time = now_func()
-    if current_time.tzinfo is None or current_time.utcoffset() is None:
-        raise ValueError("now_func precisa retornar datetimes com fuso horário.")
-
-    target_time = snapshot.reset_at_utc + timedelta(seconds=reset_buffer_seconds)
-    remaining_seconds = (target_time - current_time).total_seconds()
-    if remaining_seconds > 0:
-        sleep_func(remaining_seconds)
 
 
 def _contains_bot_marker(text: str, bot_patterns: Sequence[str]) -> bool:
@@ -231,8 +456,13 @@ class GitHubScreeningGateway:
         now_func: Any = lambda: datetime.now(UTC),
         github_client: Github | None = None,
         on_rate_limit_wait: Callable[[float, datetime], None] | None = None,
+        on_rate_limit_event: Callable[[str, dict[str, Any]], None] | None = None,
         on_tree_fallback: Callable[[str], None] | None = None,
         mlflow_manifest_scan_limit: int = 50,
+        request_interval_seconds: float = 0.25,
+        secondary_cooldown_seconds: int = 60,
+        secondary_max_retries: int = 2,
+        max_rate_limit_wait_seconds: int = 300,
     ) -> None:
         self._token = token
         self._per_page = per_page
@@ -241,7 +471,6 @@ class GitHubScreeningGateway:
         self._thread_local = threading.local()
         self._core_reserve = core_reserve
         self._reset_buffer_seconds = reset_buffer_seconds
-        self._sleep_func = sleep_func
         self._now_func = now_func
         self._on_rate_limit_wait = on_rate_limit_wait
         self._on_tree_fallback = on_tree_fallback
@@ -249,6 +478,16 @@ class GitHubScreeningGateway:
         self._rate_limit_lock = threading.Lock()
         self._estimated_remaining: int | None = None
         self._next_rate_refresh = 0.0
+        self._requests = _GitHubRequestCoordinator(
+            request_interval_seconds=request_interval_seconds,
+            secondary_cooldown_seconds=secondary_cooldown_seconds,
+            secondary_max_retries=secondary_max_retries,
+            max_rate_limit_wait_seconds=max_rate_limit_wait_seconds,
+            reset_buffer_seconds=reset_buffer_seconds,
+            sleep_func=sleep_func,
+            now_func=now_func,
+            on_event=on_rate_limit_event,
+        )
 
     def _client(self) -> Any:
         if self._github_override is not None:
@@ -259,6 +498,8 @@ class GitHubScreeningGateway:
                 auth=Auth.Token(self._token),
                 per_page=self._per_page,
                 timeout=self._request_timeout_seconds,
+                retry=None,
+                seconds_between_requests=0,
             )
             self._thread_local.github = client
         return client
@@ -279,7 +520,10 @@ class GitHubScreeningGateway:
                 or monotonic_now >= self._next_rate_refresh
                 or self._estimated_remaining <= self._core_reserve
             ):
-                snapshot = self._core_rate_limit_snapshot(self._client())
+                snapshot = self._requests.run(
+                    "core_rate_limit",
+                    lambda: self._core_rate_limit_snapshot(self._client()),
+                )
                 self._estimated_remaining = snapshot.remaining
                 self._next_rate_refresh = monotonic_now + 30
                 if snapshot.remaining <= self._core_reserve:
@@ -287,12 +531,7 @@ class GitHubScreeningGateway:
                     wait_seconds = max(0.0, (target - self._now_func()).total_seconds())
                     if self._on_rate_limit_wait is not None and wait_seconds > 0:
                         self._on_rate_limit_wait(wait_seconds, snapshot.reset_at_utc)
-                    _sleep_until_reset(
-                        snapshot=snapshot,
-                        reset_buffer_seconds=self._reset_buffer_seconds,
-                        sleep_func=self._sleep_func,
-                        now_func=self._now_func,
-                    )
+                    self._requests.wait(wait_seconds)
                     self._estimated_remaining = None
                     self._next_rate_refresh = 0.0
                     return
@@ -302,7 +541,20 @@ class GitHubScreeningGateway:
 
     def _repo(self, repository_numeric_id: int) -> Any:
         self._wait_for_core_budget()
-        return self._client().get_repo(repository_numeric_id)
+        return self._requests.run(
+            "repository",
+            lambda: self._client().get_repo(repository_numeric_id),
+        )
+
+    def _request(self, operation: str, call: Callable[[], Any]) -> Any:
+        self._wait_for_core_budget()
+        return self._requests.run(operation, call)
+
+    def cancel(self) -> None:
+        self._requests.cancel()
+
+    def rate_limit_status(self) -> dict[str, Any]:
+        return self._requests.status()
 
     def _snapshot_repo(self, snapshot: RepositorySnapshot) -> Any:
         if snapshot.repository_handle is not None:
@@ -316,9 +568,11 @@ class GitHubScreeningGateway:
         *,
         ref: str,
     ) -> Any | None:
-        self._wait_for_core_budget()
         try:
-            content = repo.get_contents(path, ref=ref)
+            content = self._request(
+                "repository_content",
+                lambda: repo.get_contents(path, ref=ref),
+            )
         except GithubException as exc:
             if exc.status == 404:
                 return None
@@ -327,8 +581,10 @@ class GitHubScreeningGateway:
 
     def get_repository_snapshot(self, candidate: SearchCandidateRow) -> RepositorySnapshot:
         repo = self._repo(candidate.repository_numeric_id)
-        self._wait_for_core_budget()
-        branch = repo.get_branch(repo.default_branch)
+        branch = self._request(
+            "default_branch",
+            lambda: repo.get_branch(repo.default_branch),
+        )
         head_commit_sha = str(branch.commit.sha)
         return RepositorySnapshot(
             repository_numeric_id=candidate.repository_numeric_id,
@@ -346,15 +602,21 @@ class GitHubScreeningGateway:
 
     def get_commit_count(self, snapshot: RepositorySnapshot) -> int:
         repo = self._snapshot_repo(snapshot)
-        self._wait_for_core_budget()
-        commits = repo.get_commits(sha=snapshot.default_branch)
-        return int(commits.totalCount)
+        return int(
+            self._request(
+                "commit_count",
+                lambda: repo.get_commits(sha=snapshot.default_branch).totalCount,
+            )
+        )
 
     def get_contributor_count(self, snapshot: RepositorySnapshot) -> int:
         repo = self._snapshot_repo(snapshot)
-        self._wait_for_core_budget()
-        contributors = repo.get_contributors()
-        return int(contributors.totalCount)
+        return int(
+            self._request(
+                "contributor_count",
+                lambda: repo.get_contributors().totalCount,
+            )
+        )
 
     def find_last_human_commit(
         self,
@@ -363,23 +625,31 @@ class GitHubScreeningGateway:
         commit_filter_config: CommitFilterConfig,
     ) -> datetime | None:
         repo = self._snapshot_repo(snapshot)
-        self._wait_for_core_budget()
         commits = repo.get_commits(sha=snapshot.default_branch)
         cutoff = selection_config.active_after.astimezone(UTC)
 
-        for commit in commits:
-            commit_date = _commit_datetime(commit)
-            if commit_date <= cutoff:
+        page_number = 0
+        while True:
+            page = self._request(
+                "commit_history_page",
+                partial(commits.get_page, page_number),
+            )
+            if not page:
                 break
-            commit_text = _commit_text(commit)
-            if commit_filter_config.exclude_merges and _commit_is_merge(commit):
-                continue
-            if commit_filter_config.exclude_bots and _contains_bot_marker(
-                commit_text,
-                commit_filter_config.bot_patterns,
-            ):
-                continue
-            return commit_date
+            for commit in page:
+                commit_date = _commit_datetime(commit)
+                if commit_date <= cutoff:
+                    return None
+                commit_text = _commit_text(commit)
+                if commit_filter_config.exclude_merges and _commit_is_merge(commit):
+                    continue
+                if commit_filter_config.exclude_bots and _contains_bot_marker(
+                    commit_text,
+                    commit_filter_config.bot_patterns,
+                ):
+                    continue
+                return commit_date
+            page_number += 1
 
         return None
 
@@ -389,8 +659,10 @@ class GitHubScreeningGateway:
         evidence_paths: ToolEvidencePaths,
     ) -> tuple[bool, bool, bool]:
         repo = self._snapshot_repo(snapshot)
-        self._wait_for_core_budget()
-        tree = repo.get_git_tree(snapshot.head_commit_sha, recursive=True)
+        tree = self._request(
+            "repository_tree",
+            lambda: repo.get_git_tree(snapshot.head_commit_sha, recursive=True),
+        )
         tree_raw = getattr(tree, "raw_data", {})
         tree_truncated = bool(isinstance(tree_raw, dict) and tree_raw.get("truncated"))
         if tree_truncated and self._on_tree_fallback is not None:
@@ -767,6 +1039,9 @@ def screen_candidates(
                 if on_result is not None:
                     on_result(row, completed, total)
         except BaseException:
+            cancel_gateway = getattr(gateway, "cancel", None)
+            if callable(cancel_gateway):
+                cancel_gateway()
             for future in futures:
                 future.cancel()
             executor.shutdown(wait=True, cancel_futures=True)

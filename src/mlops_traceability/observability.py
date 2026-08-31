@@ -6,7 +6,7 @@ import json
 import sys
 import threading
 import time
-from collections.abc import Mapping
+from collections.abc import Callable, Mapping
 from datetime import UTC, datetime
 from pathlib import Path
 from types import TracebackType
@@ -78,6 +78,8 @@ class ExecutionObserver:
         total: int,
         initial_completed: int = 0,
         interval_seconds: float = 10,
+        stall_threshold_seconds: float = 60,
+        details_provider: Callable[[], Mapping[str, Any]] | None = None,
     ) -> ProgressTask:
         return ProgressTask(
             observer=self,
@@ -85,6 +87,8 @@ class ExecutionObserver:
             total=total,
             initial_completed=initial_completed,
             interval_seconds=interval_seconds,
+            stall_threshold_seconds=stall_threshold_seconds,
+            details_provider=details_provider,
         )
 
 
@@ -99,6 +103,8 @@ class ProgressTask:
         total: int,
         initial_completed: int,
         interval_seconds: float,
+        stall_threshold_seconds: float,
+        details_provider: Callable[[], Mapping[str, Any]] | None,
     ) -> None:
         if total < 0:
             raise ValueError("total não pode ser negativo")
@@ -106,6 +112,8 @@ class ProgressTask:
             raise ValueError("initial_completed precisa estar entre zero e total")
         if interval_seconds <= 0:
             raise ValueError("interval_seconds precisa ser positivo")
+        if stall_threshold_seconds <= 0:
+            raise ValueError("stall_threshold_seconds precisa ser positivo")
 
         self._observer = observer
         self._name = name
@@ -115,7 +123,10 @@ class ProgressTask:
         self._current_item: str | None = None
         self._counts: dict[str, int] = {}
         self._interval_seconds = interval_seconds
+        self._stall_threshold_seconds = stall_threshold_seconds
+        self._details_provider = details_provider
         self._started_at = time.monotonic()
+        self._last_progress_at = self._started_at
         self._last_emitted_at = 0.0
         self._lock = threading.Lock()
         self._stop = threading.Event()
@@ -152,6 +163,8 @@ class ProgressTask:
         if not 0 <= completed <= self._total:
             raise ValueError("completed precisa estar entre zero e total")
         with self._lock:
+            if completed > self._completed:
+                self._last_progress_at = time.monotonic()
             self._completed = completed
             self._current_item = current_item
             if counts is not None:
@@ -171,19 +184,31 @@ class ProgressTask:
             completed = self._completed
             current_item = self._current_item
             counts = dict(self._counts)
+            last_progress_at = self._last_progress_at
 
         elapsed = max(0.0, now - self._started_at)
+        idle_seconds = max(0.0, now - last_progress_at)
         newly_completed = completed - self._initial_completed
         rate = newly_completed / elapsed if elapsed > 0 and newly_completed > 0 else 0.0
         eta_seconds = (self._total - completed) / rate if rate > 0 else None
         percentage = 100.0 if self._total == 0 else completed / self._total * 100
+        stalled = (
+            status == "running"
+            and completed < self._total
+            and idle_seconds >= self._stall_threshold_seconds
+        )
+        effective_status = "waiting" if stalled else status
+        details = dict(self._details_provider()) if self._details_provider is not None else {}
         self._observer.event(
             f"{self._name}_progress",
             f"{self._name}: {completed}/{self._total} ({percentage:.1f}%)",
-            status=status,
+            status=effective_status,
             elapsed=_format_duration(elapsed),
-            eta=_format_duration(eta_seconds),
+            eta="indisponivel" if stalled else _format_duration(eta_seconds),
             items_per_minute=round(rate * 60, 2),
             current_item=current_item,
+            last_progress_ago=_format_duration(idle_seconds),
+            stalled=stalled,
             **counts,
+            **details,
         )
