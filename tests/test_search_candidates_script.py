@@ -19,6 +19,7 @@ from mlops_traceability.github_search import (
     SearchSummaryRow,
 )
 from mlops_traceability.manifest import RunContext
+from mlops_traceability.run_storage import load_latest_pointer, resolve_artifact
 
 
 def _load_search_script() -> ModuleType:
@@ -187,10 +188,12 @@ def test_successful_run_writes_csvs_and_manifest(
     artifacts = cast(list[object], manifest_kwargs["artifacts"])
     assert len(artifacts) == 7
 
-    candidates_csv = root / "data/interim/candidatos_brutos.csv"
-    evidences_csv = root / "data/interim/evidencias_busca.csv"
-    summary_csv = root / "data/interim/resumo_busca.csv"
-    report_json = root / "data/interim/resumo_execucao_fase1.json"
+    interim = root / "data/interim"
+    output_dir = interim / "runs/run-1"
+    candidates_csv = output_dir / "candidatos_brutos.csv"
+    evidences_csv = output_dir / "evidencias_busca.csv"
+    summary_csv = output_dir / "resumo_busca.csv"
+    report_json = output_dir / "resumo_execucao_fase1.json"
 
     assert candidates_csv.is_file()
     assert evidences_csv.is_file()
@@ -206,6 +209,10 @@ def test_successful_run_writes_csvs_and_manifest(
     assert report["evidence_count"] == 1
     assert report["query_count"] == 3
     assert report["truncated_query_count"] == 1
+    pointer = load_latest_pointer(interim, "phase1_search_candidates")
+    assert pointer is not None
+    assert pointer.run_id == "run-1"
+    assert resolve_artifact(interim, pointer, "candidates") == candidates_csv.resolve()
 
 
 def test_insufficient_candidates_fails(tmp_path: Path) -> None:
