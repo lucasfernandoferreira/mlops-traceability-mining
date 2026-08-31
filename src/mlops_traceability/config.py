@@ -120,6 +120,7 @@ class ReproducibilityConfig(StrictModel):
 class ExecutionConfig(StrictModel):
     screening_workers: int = Field(ge=1, le=16)
     progress_interval_seconds: int = Field(ge=1)
+    mlflow_manifest_scan_limit: int = Field(ge=1, le=500)
 
 
 class ResearchConfig(StrictModel):

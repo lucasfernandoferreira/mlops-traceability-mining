@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import csv
+import hashlib
 import json
 import os
 import tempfile
@@ -21,6 +22,14 @@ from mlops_traceability.manifest import (
     write_manifest,
 )
 from mlops_traceability.observability import ExecutionObserver
+from mlops_traceability.run_storage import (
+    LatestRunPointer,
+    build_run_pointer,
+    load_latest_pointer,
+    resolve_artifact,
+    run_directory,
+    write_latest_pointer,
+)
 from mlops_traceability.sample_screen import (
     GitHubScreeningGateway,
     ScreeningGateway,
@@ -28,7 +37,31 @@ from mlops_traceability.sample_screen import (
     screen_candidates,
 )
 
-CHECKPOINT_SCHEMA_VERSION = "1.0.0"
+CACHE_SCHEMA_VERSION = "1.0.0"
+SCREENING_FIELDS = [
+    "repository_numeric_id",
+    "repository_id",
+    "repository_url",
+    "source_run_id",
+    "screening_run_id",
+    "observed_at_utc",
+    "head_commit_sha",
+    "stars_count",
+    "commit_count",
+    "contributor_count",
+    "last_human_commit_at_utc",
+    "dvc_detected",
+    "mlflow_detected",
+    "mlruns_detected",
+    "stratum",
+    "cheap_gate_status",
+    "expensive_gate_status",
+    "decision",
+    "exclusion_stage",
+    "primary_reason",
+    "decision_reasons",
+    "error_detail",
+]
 
 
 def _project_root() -> Path:
@@ -53,6 +86,14 @@ def _parse_bool(value: str) -> bool:
     if normalized == "false":
         return False
     raise ValueError(f"Valor booleano inválido: {value!r}")
+
+
+def _parse_optional_bool(value: str) -> bool | None:
+    return None if not value else _parse_bool(value)
+
+
+def _parse_optional_int(value: str) -> int | None:
+    return None if not value else int(value)
 
 
 def _serialize_value(value: Any) -> Any:
@@ -151,6 +192,66 @@ def _load_search_evidences(path: Path) -> list[SearchEvidenceRow]:
     return rows
 
 
+def _load_screening_rows(path: Path, *, run_id: str) -> list[ScreeningRow]:
+    with path.open("r", encoding="utf-8", newline="") as handle:
+        reader = csv.DictReader(handle)
+        rows: list[ScreeningRow] = []
+        for raw in reader:
+            rows.append(
+                ScreeningRow(
+                    repository_numeric_id=int(raw["repository_numeric_id"]),
+                    repository_id=raw["repository_id"],
+                    repository_url=raw["repository_url"],
+                    observed_at_utc=_parse_datetime(raw["observed_at_utc"]),
+                    head_commit_sha=raw["head_commit_sha"],
+                    stars_count=_parse_optional_int(raw["stars_count"]),
+                    commit_count=_parse_optional_int(raw["commit_count"]),
+                    contributor_count=_parse_optional_int(raw["contributor_count"]),
+                    last_human_commit_at_utc=(
+                        None
+                        if not raw["last_human_commit_at_utc"]
+                        else _parse_datetime(raw["last_human_commit_at_utc"])
+                    ),
+                    dvc_detected=_parse_optional_bool(raw["dvc_detected"]),
+                    mlflow_detected=_parse_optional_bool(raw["mlflow_detected"]),
+                    mlruns_detected=_parse_optional_bool(raw["mlruns_detected"]),
+                    stratum=raw["stratum"] or None,
+                    cheap_gate_status=raw["cheap_gate_status"],
+                    expensive_gate_status=raw["expensive_gate_status"],
+                    decision=raw["decision"],
+                    exclusion_stage=raw["exclusion_stage"] or None,
+                    primary_reason=raw["primary_reason"] or None,
+                    decision_reasons=tuple(
+                        reason.strip()
+                        for reason in raw["decision_reasons"].split("|")
+                        if reason.strip()
+                    ),
+                    error_detail=raw["error_detail"] or None,
+                    run_id=run_id,
+                )
+            )
+    return rows
+
+
+def _resolve_phase1_inputs(
+    interim_dir: Path,
+) -> tuple[Path, Path, LatestRunPointer | None]:
+    pointer = load_latest_pointer(interim_dir, "phase1_search_candidates")
+    if pointer is None:
+        return (
+            interim_dir / "candidatos_brutos.csv",
+            interim_dir / "evidencias_busca.csv",
+            None,
+        )
+    if pointer.status != "SUCCESS":
+        raise RuntimeError("A execução latest da Fase 1 não foi concluída com sucesso.")
+    return (
+        resolve_artifact(interim_dir, pointer, "candidates"),
+        resolve_artifact(interim_dir, pointer, "evidences"),
+        pointer,
+    )
+
+
 def _build_observed_gateway(
     config: ResearchConfig,
     observer: ExecutionObserver,
@@ -170,6 +271,13 @@ def _build_observed_gateway(
             reset_at_utc=_format_datetime(reset_at_utc),
         )
 
+    def report_tree_fallback(repository_id: str) -> None:
+        observer.event(
+            "tree_fallback",
+            "Árvore Git truncada; confirmando caminhos dirigidos",
+            repository=repository_id,
+        )
+
     return GitHubScreeningGateway(
         token=token,
         per_page=config.github.per_page,
@@ -177,10 +285,12 @@ def _build_observed_gateway(
         core_reserve=config.github.rate_limit.core_reserve,
         reset_buffer_seconds=config.github.rate_limit.reset_buffer_seconds,
         on_rate_limit_wait=report_rate_limit_wait,
+        on_tree_fallback=report_tree_fallback,
+        mlflow_manifest_scan_limit=config.execution.mlflow_manifest_scan_limit,
     )
 
 
-def _checkpoint_identity(
+def _cache_identity(
     *,
     source_run_id: str,
     context: Any,
@@ -191,7 +301,7 @@ def _checkpoint_identity(
 ) -> dict[str, Any]:
     return {
         "record_type": "metadata",
-        "schema_version": CHECKPOINT_SCHEMA_VERSION,
+        "schema_version": CACHE_SCHEMA_VERSION,
         "source_run_id": source_run_id,
         "code_commit_sha": context.code_commit_sha,
         "protocol_version": config.protocol.version,
@@ -201,7 +311,34 @@ def _checkpoint_identity(
     }
 
 
-def _checkpoint_row_payload(row: ScreeningRow) -> dict[str, Any]:
+def _cache_path(interim_dir: Path, identity: dict[str, Any]) -> Path:
+    serialized = json.dumps(identity, sort_keys=True, separators=(",", ":")).encode()
+    cache_key = hashlib.sha256(serialized).hexdigest()[:20]
+    return interim_dir / "cache/phase2" / f"{cache_key}.jsonl"
+
+
+def _load_retry_rows(
+    interim_dir: Path,
+    *,
+    source_run_id: str,
+    run_id: str,
+) -> list[ScreeningRow]:
+    pointer = load_latest_pointer(interim_dir, "phase2_screen_sample")
+    if pointer is None:
+        raise RuntimeError("Não existe execução latest da Fase 2 para reprocessar.")
+    if pointer.source_run_id != source_run_id:
+        raise RuntimeError(
+            "A execução latest da Fase 2 usa outra coleta da Fase 1; "
+            "não é seguro reutilizar seus resultados."
+        )
+    rows = _load_screening_rows(
+        resolve_artifact(interim_dir, pointer, "funnel"),
+        run_id=run_id,
+    )
+    return [row for row in rows if row.decision != "error"]
+
+
+def _cache_row_payload(row: ScreeningRow) -> dict[str, Any]:
     payload = asdict(row)
     payload["observed_at_utc"] = _format_datetime(row.observed_at_utc)
     payload["last_human_commit_at_utc"] = (
@@ -213,7 +350,7 @@ def _checkpoint_row_payload(row: ScreeningRow) -> dict[str, Any]:
     return {"record_type": "row", "row": payload}
 
 
-def _checkpoint_payload_to_row(payload: dict[str, Any], run_id: str) -> ScreeningRow:
+def _cache_payload_to_row(payload: dict[str, Any], run_id: str) -> ScreeningRow:
     row = payload["row"]
     return ScreeningRow(
         repository_numeric_id=int(row["repository_numeric_id"]),
@@ -246,14 +383,14 @@ def _checkpoint_payload_to_row(payload: dict[str, Any], run_id: str) -> Screenin
     )
 
 
-def _prepare_checkpoint(
+def _prepare_cache(
     path: Path,
     identity: dict[str, Any],
     *,
     run_id: str,
 ) -> list[ScreeningRow]:
     rows: list[ScreeningRow] = []
-    checkpoint_matches = False
+    cache_matches = False
     if path.is_file():
         try:
             records: list[dict[str, Any]] = []
@@ -268,18 +405,18 @@ def _prepare_checkpoint(
                     if not isinstance(record, dict):
                         break
                     records.append(record)
-            checkpoint_matches = bool(records) and records[0] == identity
-            if checkpoint_matches:
+            cache_matches = bool(records) and records[0] == identity
+            if cache_matches:
                 rows = [
-                    _checkpoint_payload_to_row(record, run_id)
+                    _cache_payload_to_row(record, run_id)
                     for record in records[1:]
                     if record.get("record_type") == "row"
                 ]
         except (KeyError, TypeError, ValueError):
-            checkpoint_matches = False
+            cache_matches = False
             rows = []
 
-    if not checkpoint_matches:
+    if not cache_matches:
         _write_json_lines_atomic(path, [identity])
 
     deduplicated = {row.repository_numeric_id: row for row in rows}
@@ -304,9 +441,9 @@ def _write_json_lines_atomic(path: Path, records: list[dict[str, Any]]) -> None:
     os.replace(temp_path, path)
 
 
-def _append_checkpoint(path: Path, row: ScreeningRow) -> None:
+def _append_cache(path: Path, row: ScreeningRow) -> None:
     with path.open("a", encoding="utf-8") as handle:
-        json.dump(_checkpoint_row_payload(row), handle, ensure_ascii=False)
+        json.dump(_cache_row_payload(row), handle, ensure_ascii=False)
         handle.write("\n")
         handle.flush()
         os.fsync(handle.fileno())
@@ -367,6 +504,7 @@ def _screening_summary(
     input_artifacts: list[dict[str, Any]],
     output_artifacts: list[dict[str, Any]],
     worktree_clean: bool,
+    reused_rows: int,
 ) -> dict[str, Any]:
     decisions = Counter(row.decision for row in screened_rows)
     discard_reasons = Counter(
@@ -374,6 +512,11 @@ def _screening_summary(
         for row in screened_rows
         if row.decision != "eligible"
         for reason in row.decision_reasons
+    )
+    primary_discard_reasons = Counter(
+        row.primary_reason
+        for row in screened_rows
+        if row.decision != "eligible" and row.primary_reason is not None
     )
     strata_distribution = Counter(
         row.stratum
@@ -397,7 +540,7 @@ def _screening_summary(
     }
     status = "SUCCESS" if all(gates.values()) else "FAILED"
     return {
-        "schema_version": "1.0.0",
+        "schema_version": "1.1.0",
         "stage": "phase2_screen_sample",
         "status": status,
         "screening_run_id": screening_run_id,
@@ -407,7 +550,10 @@ def _screening_summary(
         "eligible": decisions.get("eligible", 0),
         "rejected": decisions.get("rejected", 0),
         "errors": decisions.get("error", 0),
-        "discard_counts_by_primary_reason": dict(sorted(discard_reasons.items())),
+        "reused_rows": reused_rows,
+        "processed_rows": len(screened_rows) - reused_rows,
+        "discard_counts_by_primary_reason": dict(sorted(primary_discard_reasons.items())),
+        "discard_counts_by_reason": dict(sorted(discard_reasons.items())),
         "strata_distribution": dict(sorted(strata_distribution.items())),
         "mlruns_detected_count": sum(1 for row in eligible_rows if row.mlruns_detected is True),
         "gates": gates,
@@ -445,8 +591,7 @@ def main() -> int:
             )
 
         interim_dir = root / config.paths.interim
-        candidates_path = interim_dir / "candidatos_brutos.csv"
-        evidences_path = interim_dir / "evidencias_busca.csv"
+        candidates_path, evidences_path, phase1_pointer = _resolve_phase1_inputs(interim_dir)
 
         candidates = _load_search_candidates(candidates_path)
         evidences = _load_search_evidences(evidences_path)
@@ -455,6 +600,7 @@ def main() -> int:
             "Entradas da Fase 1 carregadas",
             candidates=len(candidates),
             evidences=len(evidences),
+            phase1_pointer=("legacy" if phase1_pointer is None else phase1_pointer.run_id),
         )
 
         if len({row.repository_numeric_id for row in candidates}) != len(candidates):
@@ -465,13 +611,14 @@ def main() -> int:
         source_run_id = _validate_single_run_id(candidates, label="candidatos_brutos.csv")
         evidences_run_id = _validate_single_run_id(evidences, label="evidencias_busca.csv")
         input_run_ids_match = source_run_id == evidences_run_id
+        if phase1_pointer is not None and phase1_pointer.run_id != source_run_id:
+            input_run_ids_match = False
         if not input_run_ids_match:
             raise RuntimeError(
                 "candidatos e evidências precisam compartilhar o mesmo run_id de origem"
             )
 
-        checkpoint_path = interim_dir / ".phase2_screen_checkpoint.jsonl"
-        identity = _checkpoint_identity(
+        identity = _cache_identity(
             source_run_id=source_run_id,
             context=context,
             config=config,
@@ -479,23 +626,40 @@ def main() -> int:
             candidates_path=candidates_path,
             evidences_path=evidences_path,
         )
-        existing_rows = _prepare_checkpoint(
-            checkpoint_path,
+        cache_path = _cache_path(interim_dir, identity)
+        cached_rows = _prepare_cache(
+            cache_path,
             identity,
             run_id=context.run_id,
         )
+        reusable_by_id = {
+            row.repository_numeric_id: row for row in cached_rows if row.decision != "error"
+        }
+        retry_errors_only = os.getenv("SCREEN_RETRY_ERRORS_ONLY") == "1"
+        if retry_errors_only:
+            retry_rows = _load_retry_rows(
+                interim_dir,
+                source_run_id=source_run_id,
+                run_id=context.run_id,
+            )
+            for row in retry_rows:
+                if row.repository_numeric_id not in reusable_by_id:
+                    reusable_by_id[row.repository_numeric_id] = row
+                    _append_cache(cache_path, row)
+        existing_rows = list(reusable_by_id.values())
         if existing_rows:
             observer.event(
-                "checkpoint_resumed",
-                "Checkpoint compatível encontrado; retomando a triagem",
+                "cache_reused",
+                "Resultados compatíveis reutilizados; processando pendências e erros",
                 recovered_candidates=len(existing_rows),
                 pending_candidates=len(candidates) - len(existing_rows),
+                retry_errors_only=retry_errors_only,
             )
         else:
             observer.event(
-                "checkpoint_created",
-                "Checkpoint incremental criado",
-                checkpoint_path=checkpoint_path,
+                "cache_created",
+                "Cache incremental criado",
+                cache_path=cache_path,
             )
 
         gateway = _build_observed_gateway(config, observer)
@@ -509,7 +673,7 @@ def main() -> int:
 
             def persist_result(row: ScreeningRow, completed: int, total: int) -> None:
                 del total
-                _append_checkpoint(checkpoint_path, row)
+                _append_cache(cache_path, row)
                 decision_counts[row.decision] += 1
                 progress.update(
                     completed,
@@ -534,67 +698,22 @@ def main() -> int:
                 on_result=persist_result,
             )
 
-        funnel_path = interim_dir / "funil_amostral.csv"
-        shortlist_path = interim_dir / "shortlist.csv"
-        summary_path = interim_dir / "resumo_execucao_fase2.json"
+        output_dir = run_directory(interim_dir, context.run_id)
+        funnel_path = output_dir / "funil_amostral.csv"
+        shortlist_path = output_dir / "shortlist.csv"
+        summary_path = output_dir / "resumo_execucao_fase2.json"
 
         funnel_rows = _funnel_rows(screened_rows, source_run_id=source_run_id)
         shortlist_rows = [row for row in funnel_rows if row["decision"] == "eligible"]
 
         _write_csv_atomic(
             funnel_path,
-            [
-                "repository_numeric_id",
-                "repository_id",
-                "repository_url",
-                "source_run_id",
-                "screening_run_id",
-                "observed_at_utc",
-                "head_commit_sha",
-                "stars_count",
-                "commit_count",
-                "contributor_count",
-                "last_human_commit_at_utc",
-                "dvc_detected",
-                "mlflow_detected",
-                "mlruns_detected",
-                "stratum",
-                "cheap_gate_status",
-                "expensive_gate_status",
-                "decision",
-                "exclusion_stage",
-                "primary_reason",
-                "decision_reasons",
-                "error_detail",
-            ],
+            SCREENING_FIELDS,
             funnel_rows,
         )
         _write_csv_atomic(
             shortlist_path,
-            [
-                "repository_numeric_id",
-                "repository_id",
-                "repository_url",
-                "source_run_id",
-                "screening_run_id",
-                "observed_at_utc",
-                "head_commit_sha",
-                "stars_count",
-                "commit_count",
-                "contributor_count",
-                "last_human_commit_at_utc",
-                "dvc_detected",
-                "mlflow_detected",
-                "mlruns_detected",
-                "stratum",
-                "cheap_gate_status",
-                "expensive_gate_status",
-                "decision",
-                "exclusion_stage",
-                "primary_reason",
-                "decision_reasons",
-                "error_detail",
-            ],
+            SCREENING_FIELDS,
             shortlist_rows,
         )
 
@@ -616,6 +735,7 @@ def main() -> int:
             input_artifacts=input_artifacts,
             output_artifacts=output_artifacts,
             worktree_clean=not context.dirty_worktree,
+            reused_rows=len(existing_rows),
         )
         _write_json_atomic(summary_path, summary_payload)
 
@@ -639,7 +759,22 @@ def main() -> int:
             if summary_payload["status"] == "SUCCESS"
             else "Gates da Fase 2 não satisfeitos",
         )
-        checkpoint_path.unlink(missing_ok=True)
+        latest_pointer = write_latest_pointer(
+            interim_dir,
+            build_run_pointer(
+                interim_directory=interim_dir,
+                stage="phase2_screen_sample",
+                status=summary_payload["status"],
+                run_id=context.run_id,
+                source_run_id=source_run_id,
+                artifacts={
+                    "funnel": funnel_path,
+                    "shortlist": shortlist_path,
+                    "execution_report": summary_path,
+                },
+                manifest_path=manifest_path,
+            ),
+        )
         observer.event(
             "run_finished",
             "Fase 2 finalizada",
@@ -647,11 +782,17 @@ def main() -> int:
             eligible=summary_payload["eligible"],
             rejected=summary_payload["rejected"],
             errors=summary_payload["errors"],
+            reused_rows=len(existing_rows),
+            latest_pointer=latest_pointer,
         )
 
         if summary_payload["status"] != "SUCCESS":
             print("Fase 2 concluída com gates violados.")
             print(f"Manifesto: {manifest_path}")
+            print(f"Funil: {funnel_path}")
+            print(f"Shortlist: {shortlist_path}")
+            print(f"Resumo: {summary_path}")
+            print(f"Ponteiro latest: {latest_pointer}")
             return 1
 
         print("Fase 2 concluída com sucesso.")
@@ -659,6 +800,7 @@ def main() -> int:
         print(f"Funil: {funnel_path}")
         print(f"Shortlist: {shortlist_path}")
         print(f"Resumo: {summary_path}")
+        print(f"Ponteiro latest: {latest_pointer}")
         print(f"Elegíveis: {summary_payload['eligible']}")
         print(f"Rejeitados: {summary_payload['rejected']}")
         print(f"Erros: {summary_payload['errors']}")

@@ -12,7 +12,7 @@ As Fases 0, 1 e 2 estão executáveis:
 - a Fase 1 pesquisa, pagina e deduplica candidatos encontrados no GitHub;
 - a Fase 2 confirma critérios de elegibilidade e produz o funil e a shortlist;
 - todas as fases emitem eventos no terminal e logs JSONL locais;
-- a Fase 2 usa paralelismo limitado, ETA e checkpoint para retomada após interrupções.
+- a Fase 2 usa paralelismo limitado, ETA, cache persistente e retomada após interrupções.
 
 A coleta detalhada do histórico, o cálculo das métricas GQM e a seleção final da
 amostra ainda não foram implementados. `config/amostra_final.yaml` permanece com
@@ -75,8 +75,9 @@ Fase 0 / check
                 -> funil_amostral.csv + shortlist.csv
 ```
 
-`make screen` não repete a busca. Ele exige os CSVs produzidos por um `make search`
-anterior e valida se ambos pertencem ao mesmo `run_id` de origem.
+`make screen` não repete a busca. Ele resolve os CSVs pelo ponteiro
+`data/interim/latest/phase1_search_candidates.json` e valida se ambos pertencem ao
+mesmo `run_id` de origem.
 
 ## Observabilidade
 
@@ -107,41 +108,44 @@ Mais workers não garantem menor duração porque a API do GitHub impõe cotas. 
 acima do padrão devem ser avaliados junto com os eventos de rate limit e a taxa de
 erros, sem alterar a configuração durante uma execução oficial.
 
-## Interrupção e retomada
+## Cache, interrupção e retry
 
-A Fase 2 grava cada candidato concluído em
-`data/interim/.phase2_screen_checkpoint.jsonl`. Se o processo for interrompido, execute
-novamente:
+A Fase 2 grava cada candidato concluído em um cache identificado pelo SHA do código,
+configuração e hashes das entradas em `data/interim/cache/phase2/`. Se o processo for
+interrompido, execute novamente:
 
 ```bash
 make screen
 ```
 
-O checkpoint só é reutilizado quando o `run_id` da Fase 1, os hashes das entradas, a
-versão do protocolo, a configuração e o SHA do código continuam compatíveis. O terminal
-informa quantos candidatos foram recuperados e quantos ainda faltam. Depois da
-consolidação completa, o checkpoint é removido automaticamente, mesmo que os gates da
-shortlist não sejam satisfeitos.
+O cache só é reutilizado quando o `run_id` da Fase 1, os hashes das entradas, a versão
+do protocolo, a configuração e o SHA do código continuam compatíveis. Resultados com
+decisão `error` nunca são reutilizados; uma nova execução consulta apenas esses erros e
+itens ainda ausentes.
 
-Para descartar deliberadamente uma execução parcial e reiniciar a triagem do zero:
+Para importar os resultados válidos da última Fase 2 e reprocessar somente seus erros:
 
 ```bash
-rm -f data/interim/.phase2_screen_checkpoint.jsonl
-make screen
+make screen-retry-errors
 ```
+
+Esse modo exige que a Fase 2 anterior e a entrada `latest` da Fase 1 compartilhem o
+mesmo `source_run_id`. Árvores Git truncadas usam fallback dirigido pelos caminhos de
+evidência encontrados na Fase 1.
 
 ## Artefatos
 
 | Fase | Artefato | Finalidade |
 |---|---|---|
 | 0 | `tmp/manifests/<run_id>.json` | Evidência local do smoke test. |
-| 1 | `data/interim/candidatos_brutos.csv` | Repositórios deduplicados por ID numérico. |
-| 1 | `data/interim/evidencias_busca.csv` | Evidências por consulta, página e arquivo. |
-| 1 | `data/interim/resumo_busca.csv` | Cobertura, truncamento e totais por consulta. |
-| 1 | `data/interim/resumo_execucao_fase1.json` | Resumo e hashes da coleta. |
-| 2 | `data/interim/funil_amostral.csv` | Decisão e motivo para cada candidato. |
-| 2 | `data/interim/shortlist.csv` | Repositórios elegíveis para inspeção manual. |
-| 2 | `data/interim/resumo_execucao_fase2.json` | Gates, descartes e distribuição por estrato. |
+| 1 | `data/interim/runs/<run_id>/candidatos_brutos.csv` | Repositórios deduplicados por ID numérico. |
+| 1 | `data/interim/runs/<run_id>/evidencias_busca.csv` | Evidências por consulta, página e arquivo. |
+| 1 | `data/interim/runs/<run_id>/resumo_busca.csv` | Cobertura, truncamento e totais por consulta. |
+| 1 | `data/interim/runs/<run_id>/resumo_execucao_fase1.json` | Resumo e hashes da coleta. |
+| 2 | `data/interim/runs/<run_id>/funil_amostral.csv` | Decisão e motivo para cada candidato. |
+| 2 | `data/interim/runs/<run_id>/shortlist.csv` | Repositórios elegíveis para inspeção manual. |
+| 2 | `data/interim/runs/<run_id>/resumo_execucao_fase2.json` | Gates, descartes e distribuição por estrato. |
+| 1 e 2 | `data/interim/latest/<stage>.json` | Ponteiro para a última execução da etapa. |
 | 1 e 2 | `data/processed/manifests/<run_id>.json` | Proveniência da execução e hashes dos artefatos. |
 
 `data/interim/`, `tmp/` e os manifestos locais são ignorados pelo Git. Assim, executar o
@@ -185,6 +189,8 @@ make setup
 | `make smoke-dev` | Executa o smoke permitindo alterações locais. |
 | `make search` | Executa a descoberta paginada da Fase 1. |
 | `make screen` | Executa ou retoma a triagem paralela da Fase 2. |
+| `make screen-retry-errors` | Reutiliza decisões válidas e reprocessa apenas erros. |
+| `make preserve-runs` | Migra artefatos legados para diretórios imutáveis por `run_id`. |
 | `make pipeline` | Executa `check`, `search` e `screen` em ordem. |
 | `make clean` | Remove caches, cobertura e arquivos temporários. |
 

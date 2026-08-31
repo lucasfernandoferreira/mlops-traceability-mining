@@ -4,6 +4,7 @@ import csv
 import importlib.util
 import json
 import shutil
+from dataclasses import replace
 from datetime import UTC, datetime
 from pathlib import Path
 from types import ModuleType
@@ -11,6 +12,12 @@ from unittest.mock import patch
 
 from mlops_traceability.config import load_config
 from mlops_traceability.manifest import RunContext
+from mlops_traceability.run_storage import (
+    build_run_pointer,
+    load_latest_pointer,
+    resolve_artifact,
+    write_latest_pointer,
+)
 from mlops_traceability.sample_screen import ScreeningRow
 
 
@@ -203,9 +210,11 @@ def test_screen_script_writes_outputs_and_succeeds(tmp_path: Path) -> None:
     assert exit_code == 0
     assert manifest_kwargs["status"] == "SUCCESS"
 
-    summary_path = root / "data/interim/resumo_execucao_fase2.json"
-    funnel_path = root / "data/interim/funil_amostral.csv"
-    shortlist_path = root / "data/interim/shortlist.csv"
+    interim = root / "data/interim"
+    output_dir = interim / "runs/screen-run"
+    summary_path = output_dir / "resumo_execucao_fase2.json"
+    funnel_path = output_dir / "funil_amostral.csv"
+    shortlist_path = output_dir / "shortlist.csv"
 
     assert summary_path.is_file()
     assert funnel_path.is_file()
@@ -217,6 +226,10 @@ def test_screen_script_writes_outputs_and_succeeds(tmp_path: Path) -> None:
     assert summary["eligible"] == 12
     assert summary["gates"]["shortlist_bounds"] is True
     assert summary["gates"]["required_strata_present"] is True
+    pointer = load_latest_pointer(interim, "phase2_screen_sample")
+    assert pointer is not None
+    assert pointer.status == "SUCCESS"
+    assert resolve_artifact(interim, pointer, "shortlist") == shortlist_path.resolve()
 
 
 def test_screen_script_preserves_outputs_when_gate_fails(tmp_path: Path) -> None:
@@ -257,9 +270,11 @@ def test_screen_script_preserves_outputs_when_gate_fails(tmp_path: Path) -> None
     assert exit_code == 1
     assert manifest_kwargs["status"] == "FAILED"
 
-    summary_path = root / "data/interim/resumo_execucao_fase2.json"
-    funnel_path = root / "data/interim/funil_amostral.csv"
-    shortlist_path = root / "data/interim/shortlist.csv"
+    interim = root / "data/interim"
+    output_dir = interim / "runs/screen-run"
+    summary_path = output_dir / "resumo_execucao_fase2.json"
+    funnel_path = output_dir / "funil_amostral.csv"
+    shortlist_path = output_dir / "shortlist.csv"
 
     assert summary_path.is_file()
     assert funnel_path.is_file()
@@ -269,11 +284,14 @@ def test_screen_script_preserves_outputs_when_gate_fails(tmp_path: Path) -> None
     assert summary["status"] == "FAILED"
     assert summary["gates"]["shortlist_bounds"] is False
     assert summary["gates"]["required_strata_present"] is False
+    pointer = load_latest_pointer(interim, "phase2_screen_sample")
+    assert pointer is not None
+    assert pointer.status == "FAILED"
 
 
-def test_checkpoint_round_trip_and_rejects_incompatible_identity(tmp_path: Path) -> None:
+def test_cache_round_trip_and_rejects_incompatible_identity(tmp_path: Path) -> None:
     screen_script = _load_screen_script()
-    checkpoint_path = tmp_path / "checkpoint.jsonl"
+    cache_path = tmp_path / "cache.jsonl"
     identity = {
         "record_type": "metadata",
         "schema_version": "1.0.0",
@@ -281,22 +299,22 @@ def test_checkpoint_round_trip_and_rejects_incompatible_identity(tmp_path: Path)
     }
 
     assert (
-        screen_script._prepare_checkpoint(
-            checkpoint_path,
+        screen_script._prepare_cache(
+            cache_path,
             identity,
             run_id="screen-run",
         )
         == []
     )
-    screen_script._append_checkpoint(
-        checkpoint_path,
+    screen_script._append_cache(
+        cache_path,
         _eligible_row(1, "apenas_dvc"),
     )
-    with checkpoint_path.open("a", encoding="utf-8") as handle:
+    with cache_path.open("a", encoding="utf-8") as handle:
         handle.write("{linha-interrompida")
 
-    recovered = screen_script._prepare_checkpoint(
-        checkpoint_path,
+    recovered = screen_script._prepare_cache(
+        cache_path,
         identity,
         run_id="resumed-run",
     )
@@ -306,10 +324,114 @@ def test_checkpoint_round_trip_and_rejects_incompatible_identity(tmp_path: Path)
 
     incompatible = {**identity, "source_run_id": "another-source-run"}
     assert (
-        screen_script._prepare_checkpoint(
-            checkpoint_path,
+        screen_script._prepare_cache(
+            cache_path,
             incompatible,
             run_id="fresh-run",
         )
         == []
     )
+
+
+def test_retry_errors_reuses_only_non_error_rows(tmp_path: Path) -> None:
+    screen_script = _load_screen_script()
+    root = _prepare_project_root(tmp_path)
+    config = load_config(root / "config/config.yaml")
+    source_run_id = "source-run"
+    _write_search_csvs(root, source_run_id)
+    interim = root / "data/interim"
+    prior_dir = interim / "runs/prior-screen-run"
+    prior_funnel = prior_dir / "funil_amostral.csv"
+    error_row = replace(
+        _rejected_row(3),
+        decision="error",
+        primary_reason="expensive_gate_unavailable",
+        decision_reasons=("expensive_gate_unavailable",),
+        error_detail="tree truncated",
+        expensive_gate_status="error",
+    )
+    prior_rows = [_eligible_row(1, "apenas_dvc"), _rejected_row(2), error_row]
+    screen_script._write_csv_atomic(
+        prior_funnel,
+        screen_script.SCREENING_FIELDS,
+        screen_script._funnel_rows(prior_rows, source_run_id=source_run_id),
+    )
+    write_latest_pointer(
+        interim,
+        build_run_pointer(
+            interim_directory=interim,
+            stage="phase2_screen_sample",
+            status="FAILED",
+            run_id="prior-screen-run",
+            source_run_id=source_run_id,
+            artifacts={"funnel": prior_funnel},
+        ),
+    )
+    context = RunContext(
+        run_id="retry-run",
+        stage="phase2_screen_sample",
+        started_at_utc=datetime(2026, 1, 2, tzinfo=UTC),
+        code_commit_sha="0123456789abcdef0123456789abcdef01234567",
+        dirty_worktree=False,
+    )
+
+    with (
+        patch.object(screen_script, "_project_root", return_value=root),
+        patch.object(screen_script, "start_run", return_value=context),
+        patch.object(
+            screen_script,
+            "screen_candidates",
+            return_value=[
+                _eligible_row(1, "apenas_dvc"),
+                _rejected_row(2),
+                _eligible_row(3, "dvc_e_mlflow"),
+            ],
+        ) as mocked_screen,
+        patch.object(
+            screen_script,
+            "write_manifest",
+            return_value=root / config.paths.manifests / "retry-run.json",
+        ),
+        patch.dict(
+            screen_script.os.environ,
+            {
+                config.github.token_environment_variable: "fake-token",
+                "SCREEN_RETRY_ERRORS_ONLY": "1",
+            },
+            clear=True,
+        ),
+    ):
+        screen_script.main()
+
+    reused_rows = mocked_screen.call_args.kwargs["existing_rows"]
+    assert {row.repository_numeric_id for row in reused_rows} == {1, 2}
+    assert all(row.decision != "error" for row in reused_rows)
+
+
+def test_summary_separates_primary_and_all_discard_reasons() -> None:
+    screen_script = _load_screen_script()
+    config = load_config("config/config.yaml")
+    row = replace(
+        _rejected_row(1),
+        primary_reason="first_reason",
+        decision_reasons=("first_reason", "second_reason"),
+    )
+
+    summary = screen_script._screening_summary(
+        candidates=[],
+        screened_rows=[row],
+        source_run_id="source-run",
+        screening_run_id="screen-run",
+        input_run_ids_match=True,
+        config=config,
+        input_artifacts=[],
+        output_artifacts=[],
+        worktree_clean=True,
+        reused_rows=0,
+    )
+
+    assert summary["discard_counts_by_primary_reason"] == {"first_reason": 1}
+    assert summary["discard_counts_by_reason"] == {
+        "first_reason": 1,
+        "second_reason": 1,
+    }

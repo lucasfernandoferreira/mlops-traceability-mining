@@ -42,9 +42,9 @@ das regras em cada resultado e auditar manualmente casos limítrofes.
   estratégia usada pelo Git.
 - Consultas distintas podem encontrar o mesmo repositório e a API pode devolver estado
   parcialmente atualizado ou sofrer limites de requisição.
-- A confirmação de MLflow é dirigida pelos caminhos encontrados na Fase 1. Como o Code
-  Search pode truncar resultados, um uso real fora dessas evidências pode não ser
-  observado e classificar um caso no estrato incorreto.
+- A confirmação de MLflow usa caminhos encontrados na Fase 1 e até 50 manifestos de
+  dependência observados na árvore. Como o Code Search ou a própria árvore podem
+  truncar resultados, um uso real fora dessas evidências ainda pode não ser observado.
 - Erros de fuso horário podem alterar a classificação na data de corte se timestamps não
   forem normalizados para UTC.
 

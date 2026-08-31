@@ -61,6 +61,8 @@ dados distribuído deve incluir sua licença e a data de obtenção.
   convertidos silenciosamente em zero.
 - Artefatos brutos e intermediários podem ser removidos depois da validação se puderem
   ser reconstruídos a partir dos identificadores, SHAs, configuração e manifesto.
+- Artefatos das Fases 1 e 2 são armazenados em `data/interim/runs/<run_id>/`; ponteiros
+  em `data/interim/latest/` podem mudar, mas diretórios de runs concluídos são imutáveis.
 - Se uma origem for apagada ou se tornar privada, a indisponibilidade deve ser registrada
   em vez de substituir o conteúdo por outra revisão.
 

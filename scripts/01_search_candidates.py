@@ -26,6 +26,11 @@ from mlops_traceability.manifest import (
     write_manifest,
 )
 from mlops_traceability.observability import ExecutionObserver
+from mlops_traceability.run_storage import (
+    build_run_pointer,
+    run_directory,
+    write_latest_pointer,
+)
 
 
 def _format_datetime(value: datetime) -> str:
@@ -223,10 +228,11 @@ def main() -> int:
             )
 
         interim_dir = root / config.paths.interim
-        candidates_path = interim_dir / "candidatos_brutos.csv"
-        evidences_path = interim_dir / "evidencias_busca.csv"
-        summary_path = interim_dir / "resumo_busca.csv"
-        report_path = interim_dir / "resumo_execucao_fase1.json"
+        output_dir = run_directory(interim_dir, context.run_id)
+        candidates_path = output_dir / "candidatos_brutos.csv"
+        evidences_path = output_dir / "evidencias_busca.csv"
+        summary_path = output_dir / "resumo_busca.csv"
+        report_path = output_dir / "resumo_execucao_fase1.json"
 
         _write_csv_atomic(
             candidates_path,
@@ -318,12 +324,29 @@ def main() -> int:
             status="SUCCESS",
             artifacts=artifacts,
         )
+        latest_pointer = write_latest_pointer(
+            interim_dir,
+            build_run_pointer(
+                interim_directory=interim_dir,
+                stage="phase1_search_candidates",
+                status="SUCCESS",
+                run_id=context.run_id,
+                artifacts={
+                    "candidates": candidates_path,
+                    "evidences": evidences_path,
+                    "search_summary": summary_path,
+                    "execution_report": report_path,
+                },
+                manifest_path=manifest_path,
+            ),
+        )
         observer.event(
             "run_finished",
             "Fase 1 finalizada",
             status="SUCCESS",
             candidates=len(collection.candidates),
             evidences=len(collection.evidences),
+            latest_pointer=latest_pointer,
         )
     except Exception as error:
         manifest_path = write_manifest(
@@ -349,6 +372,7 @@ def main() -> int:
     print(f"Evidências: {len(collection.evidences)}")
     print(f"Consultas: {len(collection.summaries)}")
     print(f"Relatório: {report_path}")
+    print(f"Ponteiro latest: {latest_pointer}")
     return 0
 
 

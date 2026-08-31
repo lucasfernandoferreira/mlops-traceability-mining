@@ -13,9 +13,10 @@ def test_load_valid_config() -> None:
     config = load_config(CONFIG_PATH)
 
     assert config.protocol.id == "TCC-MLOPS-TRACE-2026"
-    assert config.protocol.version == "1.4.0"
+    assert config.protocol.version == "1.5.0"
     assert config.execution.screening_workers == 4
     assert config.execution.progress_interval_seconds == 10
+    assert config.execution.mlflow_manifest_scan_limit == 50
     assert config.github.per_page == 100
     assert config.github.max_results_per_query == 1000
     assert config.github.request_timeout_seconds == 30
@@ -23,6 +24,7 @@ def test_load_valid_config() -> None:
     assert config.github.rate_limit.core_reserve == 50
     assert config.github.queries[0].id == "dvc_pipeline"
     assert config.github.queries[0].expression == "filename:dvc.yaml"
+    assert len(config.github.queries) == 11
     assert config.selection.min_shortlist == 10
     assert config.selection.max_shortlist == 200
     assert config.selection.exclude_forks is True
