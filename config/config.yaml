@@ -1,6 +1,6 @@
 protocol:
   id: "TCC-MLOPS-TRACE-2026"
-  version: "1.5.0"
+  version: "2.0.0"
 
 execution:
   screening_workers: 4
@@ -73,7 +73,7 @@ selection:
   min_shortlist: 10
   max_shortlist: 200
   final_sample_min: 3
-  final_sample_max: 5
+  final_sample_max: 3
   exclude_forks: true
   exclude_archived: true
   forbidden_terms:
@@ -86,9 +86,7 @@ selection:
 
 strata:
   required:
-    - apenas_dvc
     - apenas_mlflow
-    - dvc_e_mlflow
 
 commit_filter:
   exclude_merges: true

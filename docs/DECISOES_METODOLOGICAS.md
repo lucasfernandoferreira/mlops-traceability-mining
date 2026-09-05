@@ -4,11 +4,11 @@ Este documento registra o contrato metodológico da pesquisa. Os valores execut�
 correspondentes ficam em `config/config.yaml`; em caso de divergência, a documentação e
 a configuração devem ser corrigidas na mesma sessão de trabalho.
 
-## DM-001 — Funil de seleção e tamanho da amostra
+## DM-001 — Funil de seleção e tamanho da amostra (recorte revisto por DM-018)
 
 Exigir pelo menos 300 candidatos brutos, aplicar os critérios automáticos, obter uma
-shortlist mínima de 10 repositórios e selecionar manualmente entre 3 e 5 casos. A
-amostra final deve cobrir os três estratos definidos no protocolo: apenas DVC, apenas
+shortlist mínima de 10 repositórios e selecionar manualmente entre 3 e 5 casos. Na versão 1.5.0, a
+amostra deveria cobrir os três estratos definidos no protocolo: apenas DVC, apenas
 MLflow e DVC com MLflow.
 
 Justificativa: a shortlist de 10 resolve a divergência anterior entre 8 e 10 e preserva
@@ -142,7 +142,7 @@ recente de cada etapa. Uma Fase 2 com gates reprovados continua sendo uma execu�
 válida e preservada com status `FAILED`; esse status não transforma seus resultados em
 amostra final.
 
-## DM-016 — Proposta de recorte e evidências locais
+## DM-016 — Proposta de recorte e evidências locais (histórica; revista por DM-018)
 
 A inspeção fornecida pelo pesquisador propõe três casos principais com MLflow e
 três reservas ordenadas, descritos em `INSPECAO_MANUAL_AMOSTRA.md`. Essa proposta
@@ -164,3 +164,62 @@ YAML e, portanto, a identidade do cache. Manifestos anteriores conservam o hash
 original. Não se deve reescrevê-los nem declarar equivalência de hashes apenas
 porque os valores efetivos são iguais. Uma mudança futura de recorte exige revisão
 do protocolo e documentação de sua relação com a busca e triagem anteriores.
+
+## DM-018 — Recorte operacional MLflow (2.0.0, 05/09/2026)
+
+Em atendimento à solicitação do pesquisador de executar os próximos passos do parecer,
+adota-se para o piloto e seleção derivada o recorte MLflow: Ultralytics, PyMC Marketing
+e Composer. A decisão operacional foi registrada por Codex; não atesta aprovação da
+orientadora, cujo alinhamento permanece pendente. O objetivo operacional passa a ser
+caracterizar rastreabilidade publicamente observável e instrumentação de treinamento
+em bibliotecas/frameworks, sem comparação entre ferramentas e sem inferência de uso
+nas organizações clientes. DM-001 e DM-016 são superadas nesse ponto: três casos,
+exclusivamente do estrato `apenas_mlflow`; busca e triagem originais permanecem em 1.5.0.
+
+A derivação verifica hashes dos artefatos e dos instrumentos recuperados do commit
+original, além do SHA e elegibilidade de cada selecionado na shortlist. Não reescreve
+manifestos nem interpreta o protocolo 2.0.0 como aquele que produziu a coleta original.
+As reservas e critérios de substituição de `INSPECAO_MANUAL_AMOSTRA.md` permanecem.
+
+## DM-019 — Fórmulas, período e dados não observáveis
+
+O contrato normativo de cada fórmula é `GQM_MAPA_METRICAS.md` versão 2.0.0. Preservam-se
+as razões originais dados/código exclusivo e todas as runs/promoções, distinguindo a
+coalteração dados/código como complementar. A prioridade executável é C∩P/C e magnitude
+semântica de CONFIG. DATA_META não habilita D em MLflow sem validação do significado.
+Métricas de D e runtime recebem `not_available` neste piloto. Instrumentação estática
+é relatada em indicadores próprios, nunca convertida em runs ou versões de modelos.
+
+O universo é todo o histórico alcançável do SHA selecionado, sem descendentes e sem
+limite por data de atividade. Cada SHA aparece uma vez. Root compara com árvore vazia;
+outros commits com primeiro pai. Renomeações são adição/remoção explícitas. Período,
+exclusões e parsers estão fixados antes da leitura dos resultados.
+
+## DM-020 — Contribuidores ativos e amostra de piloto
+
+A contagem agregada da Fase 2 é um pré-filtro, não comprova cinco contribuidores ativos.
+O gate suplementar exige ao menos cinco identidades de autor com commit não merge e
+não bot posterior ao corte de atividade, alcançável do SHA. Identidades usam e-mail
+normalizado, com nome como fallback, sem mailmap; não se publica nenhuma identidade.
+Isso pode separar aliases da mesma pessoa e requer cautela interpretativa.
+
+`amostra_final.yaml` admite `status=pilot` com os três selecionados para investigação.
+Não afirma seleção final enquanto faltarem conferência humana e gates dos três casos.
+A Fase 3 congela um caso por execução em clone bare completo, rejeita shallow/partial,
+confere objetos e fixa `refs/tcc/frozen/<sha>`. A retomada reutiliza clones compatíveis,
+mas cada execução produz CSV e manifesto novos. Não há checkout nem execução de código
+externo. O primeiro aceite técnico é uma tabela integral do Ultralytics com evidências.
+
+## DM-021 — Piloto preliminar e aceite
+
+Mantém-se DM-009 para execuções oficiais. `--allow-dirty` permite explicitamente um
+piloto preliminar durante desenvolvimento, registra `dirty_worktree=true` e arquiva
+os bytes do código, scripts, configuração e locks em `source_snapshot.tar.gz`, cujo
+hash consta no manifesto. Esse snapshot não converte a execução em oficial.
+
+A Fase 5 aceita tecnicamente apenas métricas sem `error` e gate de contribuidores
+ativos aprovado. O aceite científico adicional exige rótulos humanos e concordância
+mínima de 95%, com 20 exemplos únicos por categoria. Categorias com poucos arquivos
+no piloto exigem completar a amostra nos demais casos/histórico antes desse aceite;
+não preencher rótulos humanos com previsões do classificador. A revisão qualitativa
+dos callbacks/loggers permanece no plano para sustentar a abordagem mista.

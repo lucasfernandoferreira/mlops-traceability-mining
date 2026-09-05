@@ -245,7 +245,7 @@ def test_screen_script_preserves_outputs_when_gate_fails(tmp_path: Path) -> None
         manifest_kwargs.update(kwargs)
         return root / config.paths.manifests / "run.json"
 
-    screened_rows = [_eligible_row(1, "apenas_dvc"), _eligible_row(2, "apenas_mlflow")]
+    screened_rows = [_eligible_row(1, "apenas_dvc"), _eligible_row(2, "dvc_e_mlflow")]
     context = RunContext(
         run_id="screen-run",
         stage="phase2_screen_sample",

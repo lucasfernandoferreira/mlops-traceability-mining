@@ -3,8 +3,8 @@
 ## Escopo e convenções
 
 Este dicionário descreve a configuração, a taxonomia, os manifestos e as saídas
-implementadas das Fases 1 e 2. Os contratos de mineração e métricas permanecem
-planejados. Execuções locais são identificadas pelos ponteiros em
+implementadas das Fases 1 a 5. Mineração e métricas foram executadas no piloto
+preliminar Ultralytics. Execuções locais são identificadas pelos ponteiros em
 `data/interim/latest/`; a presença do código ou a aprovação do CI não comprovam,
 por si sós, uma coleta empírica.
 
@@ -269,7 +269,7 @@ As justificativas fornecidas para a inspeção humana estão em
 `docs/INSPECAO_MANUAL_AMOSTRA.md`, separadas dos CSVs automáticos. A proposta de
 amostra não deve substituir a shortlist nem alterar suas decisões originais.
 
-## Commits e mudanças — contrato planejado
+## Commits e mudanças — implementado no piloto
 
 Uma linha de commit representa uma revisão elegível ou excluída. A tabela de mudanças
 possui uma linha por caminho modificado no commit.
@@ -284,13 +284,13 @@ possui uma linha por caminho modificado no commit.
 | `files_changed_count` | inteiro >= 0 | não | Total de caminhos alterados. |
 | `eligibility_status` | enum | não | `included`, `merge`, `bot`, `large_commit` ou `error`. |
 | `file_path` | string | não | Caminho da mudança; existe apenas na tabela de mudanças. |
-| `change_type` | enum | não | `added`, `modified`, `deleted` ou `renamed`. |
+| `change_type` | enum | não | `A`, `M`, `D` ou `T`, códigos Git; renomeação conta como D+A. |
 | `category` | enum | não | Categoria atribuída pela taxonomia vigente. |
 | `run_id` | string | não | Manifesto da mineração. |
 
 Não serão persistidos nome nem e-mail do autor nas tabelas publicáveis.
 
-## Resultado de métrica — contrato planejado
+## Resultado de métrica — implementado no piloto
 
 | Campo | Tipo | Anulável | Significado |
 |---|---|---:|---|
@@ -319,13 +319,48 @@ Fonte: `config/amostra_final.yaml`.
 | `schema_version` | string | não | Versão deste contrato. |
 | `protocol_id` | string | não | Protocolo que governa a seleção. |
 | `protocol_version` | string | não | Versão do protocolo. |
-| `status` | enum | não | `pending` ou `final`. |
+| `status` | enum | não | `pending`, `pilot` ou `final`. |
 | `selected_at_utc` | datetime | sim | Data da decisão final. |
 | `selection_commit_sha` | string | sim | Commit que congelou a seleção. |
 | `selection_config_sha256` | string | sim | Hash da configuração aplicada. |
-| `repositories` | lista de objetos | não | Casos selecionados; vazia enquanto `pending`. |
+| `repositories` | lista de objetos | não | Casos selecionados; preenchida para `pilot`/`final`. |
 | `pending_reason` | string | sim | Motivo enquanto a amostra não estiver finalizada. |
 
 Quando `status=final`, cada item de `repositories` deverá conter ao menos
 `repository_id`, `repository_url`, `head_commit_sha`, `stratum` e
 `selection_rationale`.
+
+
+## Extensões das Fases 3–5 (2.0.0)
+
+- `amostra_congelada.csv`: um caso por run, com URL, SHA, clone_path, estrato,
+  reachable_commits, shallow=false, clone_bytes e run_id. Clone bare completo.
+- `commits.parquet`: todas as revisões, incluídas/excluídas; acrescenta parent_sha,
+  large_commit, C/D/P, config_changed_keys e config_semantic_status. D é apenas o
+  indicador técnico DATA_META, não a dimensão científica D validada.
+- `changes.parquet`: somente arquivos de commits incluídos; acrescenta parent_sha,
+  change_type, semantic_status/detail, changed_keys (lista) e changed_key_count.
+  Chaves são caminhos JSON com tipos, contadas por arquivo/commit. Semântica de
+  arquivos fora de CONFIG é not_applicable, com contagem nula.
+- `mining_summary.json`: funil exclusivo, intervalo do universo, contagem de
+  contribuidores ativos sem identidades, gate suplementar e erros semânticos.
+- `tree_inspection.json`: arquivos e blobs do SHA, chamadas AST com linhas, URLs,
+  SHA-256 do conteúdo, categoria, erros de parser e caminhos mlruns aninhados.
+- `amostra_validacao_taxonomia.csv`: até 20 caminhos por categoria no SHA, ordenados
+  por SHA-256 de caminho:blob; expected_category, reviewer e reviewed_at_utc vazios.
+- `metric_membership.csv`: uma linha por membro de denominador longitudinal,
+  metric_id, commit_sha, in_numerator e numerator_contribution. A soma reproduz o
+  numerador; quantidade de linhas reproduz o denominador.
+- `metrics.csv`: contrato GQM, mais head_commit_sha, unit e validation_status.
+- `execution.json`: run, upstream, status técnico, erro e indicador preliminar.
+- `source_snapshot.tar.gz`: bytes do instrumento executado; não contém credenciais
+  nem clones de terceiros. Hash e byte_count registrados no manifesto.
+
+Manifesto 1.2.0 mantém compatibilidade com versões antigas: `line_count` é anulável
+para binários e `byte_count` registra tamanho. Nenhum manifesto anterior é reescrito.
+Ponteiros admitem `phase3_clone_repos`, `phase4_mine_commits`, `phase5_compute_metrics`.
+Resultados unavailable têm células vazias para valor/numerador/denominador.
+Amostra pilot registra source_runs, source_shortlist_sha256, responsabilidades,
+status de alinhamento acadêmico e de validação humana, além das evidências por caso.
+`selection_commit_sha` é o commit-base no instante da decisão; em desenvolvimento os
+bytes completos da seleção estão no snapshot. Não significa que o YAML já foi commitado.

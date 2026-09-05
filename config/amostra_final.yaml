@@ -1,15 +1,45 @@
-schema_version: "1.0.0"
-protocol_id: "TCC-MLOPS-TRACE-2026"
-protocol_version: "1.5.0"
-
-# A amostra só pode mudar para "final" depois da execução e documentação do funil.
-status: "pending"
-selected_at_utc: null
-selection_commit_sha: null
-selection_config_sha256: null
-repositories: []
-pending_reason: >-
-  Busca e triagem possuem evidências locais da coleta de 31/08/2026. A proposta de
-  três casos principais com MLflow e três reservas está registrada em
-  docs/INSPECAO_MANUAL_AMOSTRA.md. Falta decidir a mudança de recorte em relação
-  aos três estratos exigidos pelo protocolo e formalizar a seleção final.
+schema_version: 1.1.0
+protocol_id: TCC-MLOPS-TRACE-2026
+protocol_version: 2.0.0
+status: pilot
+selected_at_utc: '2026-09-05T23:19:29.993712+00:00'
+selection_commit_sha: b1b31b5bd62285e8e91e6af5a08dac2ae21dec51
+selection_config_sha256: f61c4e8da4656c2ab9579210511777a4010c066b5da5a4b1b248f27669655471
+decision_responsibility: Codex, execução técnica da solicitação do pesquisador; sem
+  atestar aprovação da orientadora
+academic_alignment_status: pending
+human_taxonomy_validation_status: pending
+source_runs:
+  phase1_search_candidates: 20260831T030743921886Z_bb7d2ee1_phase1_search_candidates
+  phase2_screen_sample: 20260831T121157885962Z_fc55f2d9_phase2_screen_sample
+source_shortlist_sha256: 69f0891d3a8d029d7e7ea44115c4ea7a88dbb5074eef4bfc5b843dc3d3acbfe2
+repositories:
+- repository_id: ultralytics/ultralytics
+  repository_url: https://github.com/ultralytics/ultralytics
+  head_commit_sha: fa34184a5080c81fff453670394e13303ac781b2
+  stratum: apenas_mlflow
+  selection_rationale: 'Piloto: callbacks concentrados de parâmetros, métricas e artefatos.'
+  integration_path: ultralytics/utils/callbacks/mlflow.py
+  evidence_url: https://github.com/ultralytics/ultralytics/blob/fa34184a5080c81fff453670394e13303ac781b2/ultralytics/utils/callbacks/mlflow.py
+  maintenance_url: https://github.com/ultralytics/ultralytics/commits/fa34184a5080c81fff453670394e13303ac781b2/
+  active_contributors_status: pending
+- repository_id: pymc-labs/pymc-marketing
+  repository_url: https://github.com/pymc-labs/pymc-marketing
+  head_commit_sha: fabba92c96aa6a4ec6d42fb3241a8ed725995d0a
+  stratum: apenas_mlflow
+  selection_rationale: Contraste de domínio, configuração e dados.
+  integration_path: pymc_marketing/mlflow.py
+  evidence_url: https://github.com/pymc-labs/pymc-marketing/blob/fabba92c96aa6a4ec6d42fb3241a8ed725995d0a/pymc_marketing/mlflow.py
+  maintenance_url: https://github.com/pymc-labs/pymc-marketing/commits/fabba92c96aa6a4ec6d42fb3241a8ed725995d0a/
+  active_contributors_status: pending
+- repository_id: mosaicml/composer
+  repository_url: https://github.com/mosaicml/composer
+  head_commit_sha: 6405188805a0054b4551ec49e4919c54c971d0e8
+  stratum: apenas_mlflow
+  selection_rationale: Contraste com logger e registro explícito de modelos.
+  integration_path: composer/loggers/mlflow_logger.py
+  evidence_url: https://github.com/mosaicml/composer/blob/6405188805a0054b4551ec49e4919c54c971d0e8/composer/loggers/mlflow_logger.py
+  maintenance_url: https://github.com/mosaicml/composer/commits/6405188805a0054b4551ec49e4919c54c971d0e8/
+  active_contributors_status: pending
+pending_reason: Seleção operacional para piloto; finalização depende da revisão humana
+  e checagem de contribuidores ativos nos três casos.
