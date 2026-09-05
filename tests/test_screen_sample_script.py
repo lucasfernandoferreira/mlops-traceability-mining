@@ -41,7 +41,7 @@ def _prepare_project_root(tmp_path: Path) -> Path:
     return root
 
 
-def _write_search_csvs(root: Path, run_id: str) -> None:
+def _write_search_csvs(root: Path, run_id: str, *, candidate_count: int = 3) -> None:
     interim = root / "data/interim"
     candidates_path = interim / "candidatos_brutos.csv"
     evidences_path = interim / "evidencias_busca.csv"
@@ -63,7 +63,7 @@ def _write_search_csvs(root: Path, run_id: str) -> None:
             ],
         )
         writer.writeheader()
-        for index in range(1, 4):
+        for index in range(1, candidate_count + 1):
             writer.writerow(
                 {
                     "repository_numeric_id": index,
@@ -96,7 +96,7 @@ def _write_search_csvs(root: Path, run_id: str) -> None:
             ],
         )
         writer.writeheader()
-        for index in range(1, 4):
+        for index in range(1, candidate_count + 1):
             writer.writerow(
                 {
                     "query_id": "q1",
@@ -489,3 +489,73 @@ def test_summary_separates_primary_and_all_discard_reasons() -> None:
         "first_reason": 1,
         "second_reason": 1,
     }
+
+
+def test_screen_errors_block_success_until_retry_resolves_them(tmp_path: Path) -> None:
+    screen_script = _load_screen_script()
+    root = _prepare_project_root(tmp_path)
+    config = load_config(root / "config/config.yaml")
+    _write_search_csvs(root, "source-run", candidate_count=13)
+    strata = ["apenas_dvc", "apenas_mlflow", "dvc_e_mlflow"]
+    eligible_rows = [_eligible_row(index, strata[(index - 1) % 3]) for index in range(1, 13)]
+    error_row = replace(
+        _rejected_row(13),
+        decision="error",
+        primary_reason="expensive_gate_unavailable",
+        decision_reasons=("expensive_gate_unavailable",),
+        error_detail="rate limit circuit open",
+        expensive_gate_status="error",
+    )
+    interim = root / "data/interim"
+    preserved_summaries: dict[Path, bytes] = {}
+
+    # Uma shortlist suficiente não elimina erros: nem o retry pode liberar o gate
+    # enquanto o candidato pendente continuar sem observação válida.
+    for attempt, resolved in enumerate((False, False, True)):
+        run_id = f"screen-attempt-{attempt}"
+        context = RunContext(
+            run_id=run_id,
+            stage="phase2_screen_sample",
+            started_at_utc=datetime(2026, 1, attempt + 1, tzinfo=UTC),
+            code_commit_sha="0123456789abcdef0123456789abcdef01234567",
+            dirty_worktree=False,
+        )
+        rows = [*eligible_rows, _rejected_row(13) if resolved else error_row]
+        rows = [replace(row, run_id=run_id) for row in rows]
+        environment = {config.github.token_environment_variable: "fake-token"}
+        if attempt:
+            environment["SCREEN_RETRY_ERRORS_ONLY"] = "1"
+
+        with (
+            patch.object(screen_script, "_project_root", return_value=root),
+            patch.object(screen_script, "start_run", return_value=context),
+            patch.object(screen_script, "screen_candidates", return_value=rows) as mocked_screen,
+            patch.dict(screen_script.os.environ, environment, clear=True),
+        ):
+            exit_code = screen_script.main()
+
+        expected_status = "SUCCESS" if resolved else "FAILED"
+        assert exit_code == (0 if resolved else 1)
+        summary_path = interim / "runs" / run_id / "resumo_execucao_fase2.json"
+        summary = json.loads(summary_path.read_text(encoding="utf-8"))
+        assert summary["eligible"] == 12
+        assert summary["errors"] == (0 if resolved else 1)
+        assert summary["gates"]["errors_absent"] is resolved
+        assert all(value for key, value in summary["gates"].items() if key != "errors_absent")
+        assert summary["status"] == expected_status
+        pointer = load_latest_pointer(interim, "phase2_screen_sample")
+        assert pointer is not None
+        assert pointer.status == expected_status
+        assert pointer.run_id == run_id
+        manifest_path = root / config.paths.manifests / f"{run_id}.json"
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        assert manifest["status"] == expected_status
+        assert (summary_path.parent / "funil_amostral.csv").is_file()
+        assert (summary_path.parent / "shortlist.csv").is_file()
+        if attempt:
+            reused = mocked_screen.call_args.kwargs["existing_rows"]
+            assert {row.repository_numeric_id for row in reused} == set(range(1, 13))
+            assert all(row.decision != "error" for row in reused)
+        for path, original in preserved_summaries.items():
+            assert path.read_bytes() == original
+        preserved_summaries[summary_path] = summary_path.read_bytes()

@@ -623,6 +623,7 @@ def _screening_summary(
     gates = {
         "worktree_clean": worktree_clean,
         "input_run_ids_match": input_run_ids_match,
+        "errors_absent": decisions.get("error", 0) == 0,
         "shortlist_bounds": config.selection.min_shortlist
         <= len(eligible_rows)
         <= config.selection.max_shortlist,

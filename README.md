@@ -19,6 +19,11 @@ A coleta detalhada do histórico, o cálculo das métricas GQM e a seleção fin
 amostra ainda não foram implementados. `config/amostra_final.yaml` permanece com
 status `pending` e não representa uma amostra real.
 
+O [roteiro atualizado](ROTEIRO_IMPLEMENTACAO.md) organiza as próximas entregas.
+Os três casos principais e as três reservas informados pelo pesquisador estão
+registrados na [proposta de amostra](docs/INSPECAO_MANUAL_AMOSTRA.md), com os SHAs
+da shortlist. A proposta de recorte MLflow ainda depende de formalização.
+
 ## Requisitos
 
 - Git;
@@ -157,6 +162,16 @@ make screen-retry-errors
 Esse modo exige que a Fase 2 anterior e a entrada `latest` da Fase 1 compartilhem o
 mesmo `source_run_id`. Árvores Git truncadas usam fallback dirigido pelos caminhos de
 evidência encontrados na Fase 1.
+
+Qualquer erro na triagem deixa o resumo, o manifesto e o ponteiro da execução com
+status `FAILED`, mesmo com shortlist suficiente e os três estratos presentes.
+O gate `errors_absent` só passa quando todos os erros forem resolvidos. Os CSVs
+parciais são preservados, e um retry ainda com erros permanece reprovado.
+
+Antes de reutilizar uma busca, confira manifesto `SUCCESS`, worktree de origem
+limpo, no mínimo 300 candidatos únicos, hashes, configuração e `run_id` comum nos
+CSVs de candidatos e evidências. Não presuma compatibilidade depois de editar o
+protocolo: inclusive explicitar defaults no YAML altera seu hash e o cache.
 
 ## Artefatos
 

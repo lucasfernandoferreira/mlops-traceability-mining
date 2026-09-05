@@ -2,7 +2,7 @@
 
 Este documento registra o contrato metodológico da pesquisa. Os valores executáveis
 correspondentes ficam em `config/config.yaml`; em caso de divergência, a documentação e
-a configuração devem ser corrigidas no mesmo commit.
+a configuração devem ser corrigidas na mesma sessão de trabalho.
 
 ## DM-001 — Funil de seleção e tamanho da amostra
 
@@ -112,6 +112,11 @@ máximos do protocolo e a amostra final continua dependente de inspeção humana
 posterior. A presença de `mlruns/` é registrada, mas não exclui automaticamente o
 repositório.
 
+Qualquer candidato com decisão `error` bloqueia o aceite da execução inteira,
+mesmo se o tamanho e os estratos da shortlist forem suficientes. O gate
+`errors_absent` só passa com zero erros. Os resultados parciais continuam
+preservados para retomada; um retry ainda com erros permanece `FAILED`.
+
 ## DM-014 — Paralelismo, retomada e confirmação dirigida
 
 A triagem executa chamadas de rede com paralelismo limitado e configurado, preservando
@@ -122,9 +127,10 @@ caminhos não equivale a uma busca exaustiva em todo o repositório e permanece 
 limitação do mecanismo de descoberta.
 
 Resultados concluídos são registrados em cache local identificado pelos hashes das
-entradas, versão do protocolo, configuração e SHA do código. Uma retomada só reutiliza
-o cache quando essa identidade coincide, e linhas com decisão `error` são sempre
-reprocessadas. Árvores recursivas truncadas usam confirmação direta dos caminhos
+entradas, versão do protocolo, configuração e versão da semântica da triagem.
+O SHA do código é registrado, mas não invalida o cache por si só. Uma retomada só
+reutiliza o cache quando a identidade de compatibilidade coincide, e linhas com
+decisão `error` são sempre reprocessadas. Árvores recursivas truncadas usam confirmação direta dos caminhos
 descobertos; arquivos de dependência como `pyproject.toml` e `requirements.txt` também
 podem confirmar MLflow no commit observado.
 
@@ -135,3 +141,26 @@ execução anterior. Arquivos JSON em `data/interim/latest/` apontam para o run 
 recente de cada etapa. Uma Fase 2 com gates reprovados continua sendo uma execução
 válida e preservada com status `FAILED`; esse status não transforma seus resultados em
 amostra final.
+
+## DM-016 — Proposta de recorte e evidências locais
+
+A inspeção fornecida pelo pesquisador propõe três casos principais com MLflow e
+três reservas ordenadas, descritos em `INSPECAO_MANUAL_AMOSTRA.md`. Essa proposta
+depende de uma decisão sobre a substituição dos três estratos de DM-001. Até sua
+formalização, os critérios executáveis permanecem vigentes e a amostra final fica
+`pending`. Não se deve classificar os casos MLflow como se cobrissem os três estratos.
+
+As justificativas recebidas são registradas com sua origem e os SHAs da shortlist.
+A conferência local desses SHAs não equivale a uma nova inspeção das fontes remotas.
+Runs locais demonstram a coleta quando seus artefatos e manifestos podem ser
+verificados; a falta de publicação no GitHub não significa que a coleta não ocorreu.
+
+## DM-017 — Parâmetros operacionais explícitos
+
+Os defaults de heartbeat, espaçamento, cooldown e retries foram explicitados em
+`config/config.yaml` sem alterar seus valores efetivos nem os critérios amostrais.
+O protocolo permanece em `1.5.0`; a inclusão das chaves altera o hash dos bytes do
+YAML e, portanto, a identidade do cache. Manifestos anteriores conservam o hash
+original. Não se deve reescrevê-los nem declarar equivalência de hashes apenas
+porque os valores efetivos são iguais. Uma mudança futura de recorte exige revisão
+do protocolo e documentação de sua relação com a busca e triagem anteriores.

@@ -2,10 +2,11 @@
 
 ## Escopo e convenções
 
-Este dicionário separa artefatos já implementados de contratos planejados para as fases
-de coleta e mineração. Na Fase 0, apenas a configuração, a taxonomia e o manifesto têm
-modelos executáveis. As tabelas analíticas abaixo definem a interface esperada e não
-atestam que dados reais já tenham sido coletados.
+Este dicionário descreve a configuração, a taxonomia, os manifestos e as saídas
+implementadas das Fases 1 e 2. Os contratos de mineração e métricas permanecem
+planejados. Execuções locais são identificadas pelos ponteiros em
+`data/interim/latest/`; a presença do código ou a aprovação do CI não comprovam,
+por si sós, uma coleta empírica.
 
 Convenções globais:
 
@@ -16,6 +17,11 @@ Convenções globais:
 - proporção: número entre 0 e 1, sem conversão implícita para percentual;
 - campo anulável: `null` somente quando acompanhado de um estado ou motivo explícito.
 
+Nos CSVs, valores ausentes são campos vazios; booleanos são `true`/`false`, e
+`decision_reasons` usa o separador literal ` | `. No JSON, são usados `null`,
+booleanos e listas nativos. Cada execução grava saídas em
+`data/interim/runs/<run_id>/`, preservando as execuções anteriores.
+
 ## Configuração executável — implementada
 
 Fonte: `config/config.yaml`. O carregador rejeita campos desconhecidos ou ausentes.
@@ -24,13 +30,22 @@ Fonte: `config/config.yaml`. O carregador rejeita campos desconhecidos ou ausent
 |---|---|---|
 | `protocol.id` | string | Identificador estável do protocolo. |
 | `protocol.version` | string | Versão do contrato metodológico. |
+| `execution.screening_workers` | inteiro 1–16 | Workers simultâneos da triagem. |
+| `execution.progress_interval_seconds` | inteiro >= 1 | Intervalo entre atualizações de progresso. |
+| `execution.progress_stall_threshold_seconds` | inteiro >= 1 | Tempo sem avanço para marcar espera e suspender a ETA. |
+| `execution.mlflow_manifest_scan_limit` | inteiro 1–500 | Máximo de manifestos de dependência inspecionados por repositório. |
 | `paths.*` | path | Diretórios de entrada, derivados, manifestos e relatórios. |
 | `github.token_environment_variable` | string | Nome da variável que contém o token; nunca o token. |
 | `github.per_page` | inteiro > 0 | Tamanho da página usado na busca paginada. |
 | `github.max_results_per_query` | inteiro > 0 | Limite coletável por consulta antes de truncar. |
 | `github.request_timeout_seconds` | inteiro > 0 | Timeout de requisição do adaptador GitHub. |
 | `github.rate_limit.code_search_reserve` | inteiro >= 0 | Reserva mínima antes de pausar chamadas de Code Search. |
+| `github.rate_limit.core_reserve` | inteiro >= 0 | Reserva mínima para chamadas da API core. |
 | `github.rate_limit.reset_buffer_seconds` | inteiro >= 0 | Folga aplicada após o reset declarado pela API. |
+| `github.rate_limit.request_interval_seconds` | número 0–10 | Espaçamento entre inícios de requisições. |
+| `github.rate_limit.secondary_cooldown_seconds` | inteiro 1–3600 | Espera compartilhada após limite secundário. |
+| `github.rate_limit.secondary_max_retries` | inteiro 0–10 | Retries permitidos antes de abrir o circuito. |
+| `github.rate_limit.max_rate_limit_wait_seconds` | inteiro 1–3600 | Limite de espera exigida pelo rate limit. |
 | `github.queries[].id` | string | Identificador estável de cada consulta. |
 | `github.queries[].expression` | string | Expressão Code Search executada. |
 | `selection.min_candidates` | inteiro > 0 | Quantidade mínima de candidatos brutos. |
@@ -39,7 +54,10 @@ Fonte: `config/config.yaml`. O carregador rejeita campos desconhecidos ou ausent
 | `selection.min_stars` | inteiro >= 0 | Mínimo de estrelas para elegibilidade. |
 | `selection.active_after` | datetime UTC | Corte de atividade para commit humano. |
 | `selection.min_shortlist` | inteiro > 0 | Quantidade mínima antes da inspeção manual. |
+| `selection.max_shortlist` | inteiro > 0 | Quantidade máxima antes da inspeção manual. |
 | `selection.final_sample_min/max` | inteiro > 0 | Intervalo permitido para a amostra final. |
+| `selection.exclude_forks` | booleano | Exclui forks na triagem. |
+| `selection.exclude_archived` | booleano | Exclui repositórios arquivados na triagem. |
 | `selection.forbidden_terms` | lista de strings | Termos usados para excluir material didático ou de demonstração. |
 | `strata.required` | lista enumerada | Estratos que a amostra final deve cobrir. |
 | `commit_filter.exclude_merges` | booleano | Exclui merges das métricas quando verdadeiro. |
@@ -177,30 +195,79 @@ Uma linha por consulta executada.
 | `finished_at_utc` | datetime UTC | Fim da consulta. |
 | `run_id` | string | Execução que produziu a linha. |
 
-## Candidatos e funil — contrato planejado
+## Triagem da Fase 2 — implementada
 
-Uma linha por repositório avaliado em cada execução de seleção.
+Fonte: `scripts/02_screen_sample.py`, lista `SCREENING_FIELDS` e função
+`_candidate_to_output_row`. `funil_amostral.csv` contém uma linha por candidato
+avaliado; `shortlist.csv` usa as mesmas colunas e contém apenas `decision=eligible`.
+Elegibilidade automática não equivale a inclusão manual na amostra final.
 
 | Campo | Tipo | Anulável | Significado |
 |---|---|---:|---|
+| `repository_numeric_id` | inteiro | não | Identificador numérico estável do GitHub. |
 | `repository_id` | string | não | Identificador público `owner/name`. |
 | `repository_url` | string | não | URL canônica observada. |
-| `observed_at_utc` | datetime | não | Instante da consulta. |
-| `query_ids` | lista de strings | não | Consultas que encontraram o candidato. |
-| `default_branch` | string | sim | Branch padrão informada pela origem. |
+| `source_run_id` | string | não | Execução de busca que originou o candidato. |
+| `screening_run_id` | string | não | Execução de triagem que publicou a linha, inclusive quando reutilizada. |
+| `observed_at_utc` | datetime | não | Instante de observação herdado do candidato da Fase 1; não é o horário de cada chamada da triagem. |
 | `head_commit_sha` | string | sim | Revisão observada durante a seleção. |
 | `stars_count` | inteiro >= 0 | sim | Estrelas na data de observação. |
 | `commit_count` | inteiro >= 0 | sim | Commits segundo o método registrado. |
 | `contributor_count` | inteiro >= 0 | sim | Contagem agregada de contribuidores. |
 | `last_human_commit_at_utc` | datetime | sim | Última atividade não automatizada. |
-| `detected_tools` | lista de enum | não | Evidência confirmada de `dvc` e/ou `mlflow`. |
+| `dvc_detected` | booleano | sim | Evidência de DVC pelo detector da triagem. |
+| `mlflow_detected` | booleano | sim | Import ou dependência MLflow confirmada; não mede proveniência. |
+| `mlruns_detected` | booleano | sim | Presença de `mlruns/` na raiz pelo procedimento atual. |
 | `stratum` | enum | sim | `apenas_dvc`, `apenas_mlflow` ou `dvc_e_mlflow`. |
-| `decision` | enum | não | `eligible`, `rejected`, `shortlisted` ou `selected`. |
-| `decision_reasons` | lista de strings | não | Critérios aplicados, inclusive rejeições. |
-| `run_id` | string | não | Manifesto da execução que produziu a linha. |
+| `cheap_gate_status` | enum | não | `passed`, `failed` ou `error` nos filtros iniciais. |
+| `expensive_gate_status` | enum | não | `passed`, `failed`, `error` ou `not_evaluated` nos filtros caros. |
+| `decision` | enum | não | `eligible`, `rejected` ou `error`. |
+| `exclusion_stage` | enum | sim | `snapshot`, `cheap` ou `expensive`; vazio para elegíveis. |
+| `primary_reason` | string | sim | Primeiro motivo de decisão, usado na contagem exclusiva do funil. |
+| `decision_reasons` | string delimitada | não | Motivos separados por ` | `; pode haver vários por candidato. |
+| `error_detail` | string | sim | Diagnóstico de falha de coleta; vazio quando não houve erro. |
 
-Valores não observados por falha ou limite da API devem permanecer `null` com motivo;
-não tornam o candidato inelegível silenciosamente.
+Campos podem ficar vazios quando um filtro anterior interrompe a avaliação.
+Falha de API produz `decision=error`, nunca rejeição científica silenciosa. `false`
+em `mlruns_detected` significa não detectado pelo procedimento atual; não exclui
+pastas aninhadas, histórico anterior ou serviços de tracking externos.
+
+### `resumo_execucao_fase2.json`
+
+| Campo | Tipo | Significado |
+|---|---|---|
+| `schema_version` | string | Versão do esquema do resumo. |
+| `stage` | string | `phase2_screen_sample`. |
+| `status` | enum | `SUCCESS` somente se todos os gates passarem; caso contrário `FAILED`. |
+| `screening_run_id` | string | Execução que produziu o resumo. |
+| `source_run_id` | string | Execução de busca usada como entrada. |
+| `received_candidates` | inteiro >= 0 | Candidatos recebidos da Fase 1. |
+| `screened_rows` | inteiro >= 0 | Linhas produzidas na triagem. |
+| `eligible` / `rejected` / `errors` | inteiro >= 0 | Contagens por decisão. |
+| `reused_rows` / `processed_rows` | inteiro >= 0 | Resultados reutilizados e processados nesta execução. |
+| `discard_counts_by_primary_reason` | objeto de contagens | Cada candidato não elegível conta uma vez pelo primeiro motivo. |
+| `discard_counts_by_reason` | objeto de contagens | Todos os motivos; a soma pode superar o total de candidatos descartados. |
+| `strata_distribution` | objeto de contagens | Distribuição dos elegíveis por estrato. |
+| `mlruns_detected_count` | inteiro >= 0 | Elegíveis com `mlruns_detected=true`. |
+| `gates` | objeto de booleanos | Critérios de aceite listados abaixo. |
+| `input_artifacts` / `output_artifacts` | lista de objetos | Caminhos e hashes SHA-256 dos CSVs de entrada e saída. |
+
+Os gates são `worktree_clean`, `input_run_ids_match`, `errors_absent`,
+`shortlist_bounds`, `required_strata_present` e `mlruns_evaluated_on_eligible`.
+`errors_absent` exige zero erros, mesmo que a shortlist já tenha tamanho e estratos
+suficientes. Resumos anteriores à introdução desse gate não contêm essa chave;
+seus arquivos e manifestos devem ser preservados sem alteração retroativa.
+
+### Ponteiros e decisões manuais
+
+`data/interim/latest/<stage>.json` contém `schema_version`, `stage`, `status`,
+`run_id`, `source_run_id`, `run_directory`, `artifacts` e `manifest_path`.
+Os caminhos de `artifacts` são relativos a `data/interim/`. O ponteiro aponta para
+a última execução, inclusive quando `FAILED`; não significa última execução aprovada.
+
+As justificativas fornecidas para a inspeção humana estão em
+`docs/INSPECAO_MANUAL_AMOSTRA.md`, separadas dos CSVs automáticos. A proposta de
+amostra não deve substituir a shortlist nem alterar suas decisões originais.
 
 ## Commits e mudanças — contrato planejado
 
