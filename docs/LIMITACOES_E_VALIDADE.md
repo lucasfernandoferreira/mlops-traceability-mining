@@ -25,6 +25,16 @@ conclusões sobre práticas de MLOps.
   parser suportado, `config_magnitude` não é aplicável, em vez de assumir magnitude zero.
 - Proveniência, runs e promoções privadas ou apagadas não são observáveis. A ausência
   pública será registrada como `not_available`, não como inexistência do fenômeno.
+- A triagem atual procura `mlruns/` na raiz. Um resultado negativo não exclui
+  diretórios aninhados ou evidências em commits anteriores. A inspeção final deve
+  distinguir esse limite de detecção da indisponibilidade confirmada das fontes.
+- CONFIG ainda não cobre todos os caminhos apontados na proposta de amostra,
+  incluindo `cfg/default.yaml` e configurações aninhadas em `examples/configs/`.
+  DATA_META é restrito a assinaturas DVC; sua ausência em casos MLflow não prova
+  desacoplamento de dados. Ambos exigem calibração antes da mineração analítica.
+- A proposta de três casos MLflow elimina o contraste entre ferramentas exigido
+  pelo protocolo atual. Esse recorte ainda precisa de decisão documentada; os
+  casos propostos não podem ser apresentados como cobertura dos três estratos.
 
 Mitigações: versionar e validar a taxonomia, manter exemplos rotulados, registrar versão
 das regras em cada resultado e auditar manualmente casos limítrofes.

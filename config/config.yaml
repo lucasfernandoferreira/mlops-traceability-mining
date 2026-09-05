@@ -5,6 +5,7 @@ protocol:
 execution:
   screening_workers: 4
   progress_interval_seconds: 10
+  progress_stall_threshold_seconds: 60
   mlflow_manifest_scan_limit: 50
 
 paths:
@@ -24,6 +25,10 @@ github:
     code_search_reserve: 1
     core_reserve: 50
     reset_buffer_seconds: 2
+    request_interval_seconds: 0.25
+    secondary_cooldown_seconds: 60
+    secondary_max_retries: 2
+    max_rate_limit_wait_seconds: 300
 
   queries:
     - id: "dvc_pipeline"

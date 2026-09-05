@@ -1,6 +1,6 @@
 schema_version: "1.0.0"
 protocol_id: "TCC-MLOPS-TRACE-2026"
-protocol_version: "1.2.0"
+protocol_version: "1.5.0"
 
 # A amostra só pode mudar para "final" depois da execução e documentação do funil.
 status: "pending"
@@ -9,5 +9,7 @@ selection_commit_sha: null
 selection_config_sha256: null
 repositories: []
 pending_reason: >-
-  Descoberta, aplicação dos critérios automáticos, inspeção manual e estratificação
-  ainda não foram executadas; nenhum repositório real foi selecionado.
+  Busca e triagem possuem evidências locais da coleta de 31/08/2026. A proposta de
+  três casos principais com MLflow e três reservas está registrada em
+  docs/INSPECAO_MANUAL_AMOSTRA.md. Falta decidir a mudança de recorte em relação
+  aos três estratos exigidos pelo protocolo e formalizar a seleção final.
