@@ -11,7 +11,13 @@ from typing import Literal
 
 from pydantic import BaseModel, ConfigDict, Field
 
-StageName = Literal["phase1_search_candidates", "phase2_screen_sample"]
+StageName = Literal[
+    "phase1_search_candidates",
+    "phase2_screen_sample",
+    "phase3_clone_repos",
+    "phase4_mine_commits",
+    "phase5_compute_metrics",
+]
 RunStatus = Literal["SUCCESS", "FAILED"]
 
 

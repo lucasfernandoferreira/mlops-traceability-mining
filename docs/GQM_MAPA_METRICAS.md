@@ -1,135 +1,95 @@
-# Mapa GQM e contrato das métricas
+# Mapa GQM e contrato das métricas — protocolo 2.0.0
 
-Este documento traduz os objetivos da pesquisa em perguntas e métricas. As funções
-citadas são nomes planejados para a etapa de mineração; ainda não estão implementadas.
+Recorte operacional: mecanismos de rastreabilidade publicamente observáveis e
+instrumentação de treinamento em três bibliotecas/frameworks com MLflow. Não há
+comparação entre ferramentas nem inferência sobre a execução nas organizações usuárias.
+A alteração foi adotada para o piloto solicitado em 05/09/2026; o alinhamento acadêmico
+com a orientadora permanece pendente. A proposta original não foi editada.
 
-## Convenções
+## Universo e fontes
 
-Para cada commit elegível:
+Unidade de comparação: repositório. Unidade longitudinal: commit alcançável a partir
+do SHA da seleção, em todo o DAG, desde a origem, sem incluir descendentes posteriores.
+Datas usam `committed_at` em UTC; início/fim reportados são mínimo/máximo do universo.
+A data de atividade da seleção não restringe o período das métricas.
 
-- `C`: alterou ao menos um arquivo `CODE` ou `NOTEBOOK`;
-- `D`: alterou ao menos um arquivo `DATA_META`;
-- `P`: alterou ao menos um arquivo `CONFIG`.
+`C` = altera CODE ou NOTEBOOK; `P` = altera CONFIG; `D` = altera um artefato de dados
+cujo papel foi validado. DATA_META continua sendo o detector estrutural de DVC, sem
+representar automaticamente D no recorte MLflow. `C_only` exige que todas as mudanças
+sejam CODE/NOTEBOOK. Exclusões: merge, bot, commit com mais de 1.000 arquivos, nessa
+precedência exclusiva. Bots são identificados pelo nome/e-mail do autor e pelos padrões
+versionados. A coalteração indica associação temporal, sem causalidade.
 
-Commits de merge, bots e commits acima do limite de arquivos seguem as exclusões de
-`config/config.yaml`. Uma interseção representa coalteração no mesmo commit, não uma
-relação causal.
+## Contratos fechados antes do piloto
 
-Os resultados devem separar `value` de `status`:
+| Pergunta / identificador | Fórmula | Unidade / escala | Fonte e denominador | Ausência |
+|---|---|---|---|---|
+| GQM 1.1: versões com proveniência? `provenance_coverage` | versões com vínculo verificável a código, dados e run / versões observadas | proporção [0,1] | Fonte pública de versões e vínculos; todas as versões no período | `not_available` sem fonte; `undefined` sem versões |
+| GQM 1.2.1 original: frequência relativa de dados e código exclusivo? `data_code_ratio_original` | commits D / commits C_only | razão não limitada a 1 | Histórico e dimensão D validada; commits exclusivamente de código | `not_available` sem D validada; `undefined` sem C_only |
+| GQM 1.2 complementar: código acompanha dados? `data_code_cochange` | commits C ∩ D / commits C | proporção [0,1] | Histórico e D validada; commits C | `not_available` sem D validada; `undefined` sem C |
+| GQM 2.1 original operacional: coalteração tripla? `cace_index` | commits C ∩ D ∩ P / commits C ∪ D ∪ P | proporção [0,1] | Histórico e D validada; união das dimensões | `not_available` sem D validada; `undefined` sem união |
+| GQM 2.1 complementar prioritária: código acompanha configuração? `code_config_cochange` | commits C ∩ P / commits C | proporção [0,1] | `commits.parquet`, elegíveis com C | `undefined` sem C |
+| GQM 2.2: magnitude de configuração? `config_magnitude` | soma das chaves alteradas / commits P | chaves por commit CONFIG | `changes.parquet`, todos os commits P, inclusive mudanças só de comentários | `undefined` sem P; `not_applicable` se formato não suportado; `error` se qualquer parser falhar |
+| GQM 3.1: ambiente recuperável? `env_versioning_rate` | runs com dependências/imagem recuperável / runs observadas | proporção [0,1] | Fonte pública de runs; todas as runs no período | `not_available` sem fonte; `undefined` sem runs |
+| GQM 3.2.1 original: runs por promoção? `experiment_redundancy` | todas as runs registradas no universo / versões promovidas observadas no mesmo universo | runs por versão promovida, razão >=0 | Tracking + registry públicos; todas as promoções no período | `not_available` sem fontes; `undefined` sem promoções |
 
-| Status | Uso |
-|---|---|
-| `observed` | Há evidência e o valor foi calculado. |
-| `not_available` | A evidência necessária não é pública ou não foi coletada. |
-| `not_applicable` | A métrica não se aplica ao caso analisado. |
-| `undefined` | O universo é aplicável, mas o denominador elegível é zero. |
-| `error` | A coleta ou o cálculo falhou; não é um resultado científico. |
+GQM 3.2 conserva o numerador original, inclusive runs sem vínculo com promoção. A versão
+anterior, restrita a runs vinculadas, foi retirada do contrato executável. Mesmo com
+fontes, essa razão agregada não determina causalmente quantas tentativas antecederam
+cada promoção. O identificador antigo `data_code_coupling` foi substituído pelos dois
+nomes distintos acima; nenhuma série anterior deve ser concatenada implicitamente.
 
-Somente `observed` carrega valor numérico. O valor zero é válido quando o denominador é
-positivo e nenhum evento satisfaz o numerador.
+O piloto implementa `code_config_cochange`, `config_magnitude` e os indicadores
+estáticos abaixo. Os seis resultados que dependem de D validada ou de runs/registry
+são emitidos com `not_available`; não existe ainda parser dessas fontes. A simples
+presença futura de `mlruns` não habilita cálculos sem uma nova implementação validada.
 
-## Objetivo 1 — Avaliar a rastreabilidade entre artefatos
+## Diferenças semânticas
 
-### GQM 1.1 — Qual parcela das versões de modelos possui proveniência recuperável?
+YAML/YML (incluindo MLproject), JSON e TOML são lidos com parsers seguros, sem executar
+arquivos do caso. Folhas de mapas são identificadas por caminho hierárquico com tipo
+da chave; listas contam como um valor atômico, mapas vazios como folhas. Comparação de
+valores preserva a distinção booleano/número. Comentários e ordem das chaves não contam.
+Adições/remoções de arquivos contam suas folhas. Identidade é `(caminho do arquivo,
+caminho da chave)` por commit, evitando fundir chaves de arquivos diferentes.
 
-`provenance_coverage`
+Renomeações são deliberadamente tratadas como remoção e adição (`--no-renames`);
+portanto, mudanças de diretório podem aumentar a magnitude sem mudar parâmetros.
+Chaves duplicadas, aliases recursivos, bytes inválidos e sintaxe inválida geram erro
+observável. A média integral nunca é substituída por uma média dos parsers que passaram.
+O YAML usa a semântica do PyYAML SafeLoader, incluindo resolução de escalares; isso
+pode diferir do loader efetivo de um projeto e exige revisão dos casos limítrofes.
 
-```text
-versões de modelo com vínculo verificável a código, dados e execução
---------------------------------------------------------------------
-versões de modelo observadas
-```
+## Indicadores estáticos próprios
 
-- Unidade: repositório e período analisado.
-- Escala: proporção entre 0 e 1.
-- Estado especial: `not_available` se as versões ou seus vínculos não forem públicos;
-  `undefined` se a fonte for observável, mas não contiver versões no período.
+| Identificador | Numerador | Denominador / unidade |
+|---|---|---|
+| `static_mlflow_param_calls` | posições sintáticas `log_param` e `log_params` | 1 / posições no SHA |
+| `static_mlflow_metric_calls` | posições `log_metric` e `log_metrics` | 1 / posições no SHA |
+| `static_mlflow_artifact_calls` | posições `log_artifact` e `log_artifacts` | 1 / posições no SHA |
+| `static_mlflow_model_calls` | posições `log_model` e `register_model` | 1 / posições no SHA |
 
-### GQM 1.2 — Com que frequência mudanças de código acompanham mudanças de dados?
+Fonte: AST dos arquivos Python da árvore congelada. Contam-se somente caminhos CODE;
+testes, exemplos classificados fora de CODE e notebooks não entram nesses indicadores.
+A tabela `tree_inspection.json` preserva também os candidatos nas demais categorias.
+Cada posição conta uma vez, independentemente de loops e quantidade de execuções.
+Chamadas de artefatos podem registrar pesos; não são automaticamente modelos promovidos.
 
-`data_code_coupling`
+O parser resolve imports diretos e aliases sintáticos de MLflow. Não resolve fluxo de
+controle, reatribuições, escopo de aliases, objetos MlflowClient, wrappers, delegação ao
+Lightning ou chamadas dinâmicas. Assim, os números são **candidatos sintáticos**, sujeitos
+a falsos positivos e negativos, com conferência qualitativa dos arquivos de integração.
+Falha de parse Python gera `error`, não contagem completa. Nenhuma dessas contagens é
+proxy numérico das métricas de runs ou proveniência.
 
-```text
-commits elegíveis em C ∩ D
--------------------------
-commits elegíveis em C
-```
+## Status e campos
 
-- Unidade: repositório e período analisado.
-- Escala: proporção entre 0 e 1.
-- Estado especial: `undefined` quando não houver commits em `C`.
+Somente `observed` carrega valor. Zero é válido com denominador positivo e ausência de
+evento. `not_available`: fonte não observável/ingerida ou dimensão não validada;
+`not_applicable`: operação fora do domínio implementado; `undefined`: denominador zero;
+`error`: falha de processamento, bloqueia aceite técnico da Fase 5.
 
-## Objetivo 2 — Caracterizar o acoplamento de configuração
-
-### GQM 2.1 — Qual a incidência de coalterações entre código, dados e parâmetros?
-
-`cace_index`
-
-```text
-commits elegíveis em C ∩ D ∩ P
------------------------------
-commits elegíveis em C ∪ D ∪ P
-```
-
-- Unidade: repositório e período analisado.
-- Escala: proporção entre 0 e 1.
-- Estado especial: `undefined` quando a união não contiver commits.
-
-O nome da função é mantido por compatibilidade com o plano de pesquisa; a interpretação
-operacional é a proporção de commits triplos no universo das três dimensões.
-
-### GQM 2.2 — Qual a magnitude das alterações de configuração?
-
-`config_magnitude`
-
-```text
-chaves de configuração adicionadas, removidas ou alteradas
-----------------------------------------------------------
-commits elegíveis que alteram CONFIG
-```
-
-- Unidade: repositório e período analisado.
-- Escala: média de chaves alteradas por commit de configuração.
-- Estado especial: `undefined` quando não houver commits em `P`; `not_applicable` para
-  formatos sem parser semântico definido.
-- Regra de contagem: uma chave é identificada por seu caminho hierárquico normalizado;
-  alteração de valor conta uma vez no commit.
-
-## Objetivo 3 — Avaliar a reprodutibilidade de experimentos e modelos
-
-### GQM 3.1 — Em que proporção as execuções registram o ambiente?
-
-`env_versioning_rate`
-
-```text
-runs com referência recuperável a dependências ou imagem de ambiente
---------------------------------------------------------------------
-runs observadas
-```
-
-- Unidade: repositório e período analisado.
-- Escala: proporção entre 0 e 1.
-- Estado especial: `not_available` quando as runs não forem públicas; `undefined` se a
-  fonte for observável, mas não houver runs no período.
-
-### GQM 3.2 — Quantas execuções antecedem cada modelo promovido?
-
-`experiment_redundancy`
-
-```text
-runs observadas vinculadas a modelos promovidos
------------------------------------------------
-versões de modelo promovidas observadas
-```
-
-- Unidade: repositório e período analisado.
-- Escala: razão não negativa; valores acima de 1 são esperados.
-- Estado especial: `not_available` quando runs ou promoções não forem públicas;
-  `undefined` quando a fonte for observável e não houver modelos promovidos.
-
-## Campos mínimos do resultado
-
-Cada resultado deve registrar, no mínimo: `repository_id`, `metric_id`, início e fim do
-período UTC, `value`, `status`, numerador, denominador, quantidade de commits excluídos,
-versão do protocolo, versão da taxonomia e `run_id` do manifesto. A ausência de valor
-deve ser explicada em `status_detail`.
+Cada linha registra repositório, SHA, período UTC, identificador, numerador, denominador,
+valor, unidade, status e detalhe, exclusões, versões de protocolo/taxonomia, `run_id` e
+`validation_status`. `observed` descreve cálculo, não certificação da taxonomia.
+Resultados do piloto são preliminares até a validação humana mínima de 95%.

@@ -4,7 +4,7 @@ from datetime import UTC, datetime, timedelta
 
 import pytest
 
-from mlops_traceability.config import ResearchConfig, load_config
+from mlops_traceability.config import ResearchConfig, StrataConfig, load_config
 from mlops_traceability.github_search import SearchCandidateRow, SearchEvidenceRow
 from mlops_traceability.sample_screen import (
     RepositorySnapshot,
@@ -132,7 +132,10 @@ def _snapshot(
 
 
 def _config() -> ResearchConfig:
-    return load_config(CONFIG_PATH)
+    # Preserve coverage of the original three-strata protocol independently of defaults.
+    return load_config(CONFIG_PATH).model_copy(
+        update={"strata": StrataConfig(required=["apenas_dvc", "apenas_mlflow", "dvc_e_mlflow"])}
+    )
 
 
 def _eligible_gateway(candidate: SearchCandidateRow) -> FakeGateway:
@@ -404,3 +407,19 @@ def test_screen_candidates_reuses_cached_rows() -> None:
 
     assert [row.repository_numeric_id for row in rows] == [1, 2]
     assert progress == [(2, 2)]
+
+
+def test_mlflow_protocol_rejects_dvc_only_candidate() -> None:
+    config = load_config(CONFIG_PATH)
+    candidate = _candidate(1)
+    rows = screen_candidates(
+        [candidate],
+        [_evidence(1)],
+        _eligible_gateway(candidate),
+        config.selection,
+        config.strata,
+        config.commit_filter,
+        run_id="mlflow-run",
+    )
+    assert rows[0].decision == "rejected"
+    assert rows[0].primary_reason == "stratum_not_required"

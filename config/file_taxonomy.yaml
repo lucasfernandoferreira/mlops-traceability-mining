@@ -1,4 +1,4 @@
-version: "1.0.0"
+version: "1.1.0"
 default_category: "OUTRO"
 
 rules:
@@ -40,6 +40,7 @@ rules:
       - '(^|/)params[^/]*\.ya?ml$'
       - '(^|/)MLproject$'
       - '(^|/)config[^/]*\.(ya?ml|json|toml)$'
+      - '(^|/)(cfg|configs?|config_files)/.*\.(ya?ml|json|toml)$'
 
   - category: "NOTEBOOK"
     description: "Notebooks versionados."

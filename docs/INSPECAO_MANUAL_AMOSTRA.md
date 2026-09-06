@@ -1,9 +1,10 @@
 # Proposta de amostra e registro da inspeção fornecida
 
-Estado: **proposta de recorte MLflow, aguardando decisão metodológica**.
+Estado: **seleção operacional MLflow para piloto, protocolo 2.0.0**.
+A seção histórica abaixo descreve o estado anterior; DM-018 a DM-021 registram a revisão.
 Este registro não finaliza `config/amostra_final.yaml` e não substitui a shortlist
 automática. Os seis candidatos pertencem ao estrato `apenas_mlflow`; portanto,
-os três casos principais não satisfazem a exigência vigente de três estratos.
+os três casos principais não satisfazem a exigência então vigente de três estratos.
 
 ## Origem e limites da verificação
 
@@ -96,7 +97,7 @@ promoções recebem `not_available`. Evidência estática MLflow/AST deve ficar 
 colunas próprias e não comprova que a instrumentação foi executada. O trilho DVC
 estrutural exige saída de modelo, dependência de dado e hash no `dvc.lock`.
 
-## Pendências para formalizar a seleção e iniciar o piloto
+## Pendências registradas antes da revisão 2.0.0
 
 1. Registrar a decisão sobre manter os três estratos ou adotar o recorte MLflow.
 2. Completar os links e caminhos nos SHAs inspecionados, justificativas finais,
@@ -115,3 +116,29 @@ estrutural exige saída de modelo, dependência de dado e hash no `dvc.lock`.
 As decisões e os limites de custo devem anteceder a substituição de um caso.
 O piloto proposto para Ultralytics deve percorrer clonagem, classificação, métrica
 e tabela antes da mineração completa dos três casos.
+
+
+## Atualização executada em 05/09/2026
+
+Responsável pelo registro técnico: Codex, a pedido do pesquisador. Não constitui
+validação humana independente ou aprovação da orientadora. Os hashes de todos os
+artefatos dos runs citados foram rechecados, incluindo instrumentos no commit original.
+O congelamento registra `source_audit.json` com essa proveniência.
+
+| Caso | Uso no SHA inspecionado | Manutenção vinculada ao SHA | Decisão |
+|---|---|---|---|
+| Ultralytics | [callbacks MLflow](https://github.com/ultralytics/ultralytics/blob/fa34184a5080c81fff453670394e13303ac781b2/ultralytics/utils/callbacks/mlflow.py) | [histórico](https://github.com/ultralytics/ultralytics/commits/fa34184a5080c81fff453670394e13303ac781b2/) | Piloto; parâmetros, métricas e pesos como artefatos |
+| PyMC Marketing | [integração MLflow](https://github.com/pymc-labs/pymc-marketing/blob/fabba92c96aa6a4ec6d42fb3241a8ed725995d0a/pymc_marketing/mlflow.py) | [histórico](https://github.com/pymc-labs/pymc-marketing/commits/fabba92c96aa6a4ec6d42fb3241a8ed725995d0a/) | Caso seguinte; contraste de domínio e dados |
+| Composer | [logger MLflow](https://github.com/mosaicml/composer/blob/6405188805a0054b4551ec49e4919c54c971d0e8/composer/loggers/mlflow_logger.py) | [histórico](https://github.com/mosaicml/composer/commits/6405188805a0054b4551ec49e4919c54c971d0e8/) | Caso seguinte; log_model/register_model e cliente |
+
+Os três arquivos foram consultados remotamente nesta sessão. Os links de histórico
+são localizadores para a conferência humana de manutenção; não atestam revisão de
+issues/PRs específicas. Os SHAs não foram atualizados para heads mais recentes.
+A conferência automatizada exaustiva da árvore e do histórico é executada somente para
+o piloto Ultralytics nesta entrega. O gate de atividade suplementar dos outros dois
+casos será executado antes da seleção final.
+
+CONFIG 1.1.0 cobre cfg/config/configs/config_files aninhados e conserva precedência
+TEST → CI → ENV → DATA_META → CONFIG. Os três exemplos do parecer e controles negativos
+compõem regressões automatizadas. A amostra real para revisão humana é saída da Fase 4.
+Ela ainda não comprova concordância de 95%.

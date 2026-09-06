@@ -29,7 +29,8 @@ class ManifestArtifact(BaseModel):
 
     path: str = Field(min_length=1)
     sha256: str = Field(min_length=1)
-    line_count: int = Field(ge=0)
+    line_count: int | None = Field(default=None, ge=0)
+    byte_count: int | None = Field(default=None, ge=0)
 
 
 class RunManifest(BaseModel):
@@ -78,10 +79,18 @@ def count_lines(path: str | Path) -> int:
 
 def build_artifact(path: str | Path) -> ManifestArtifact:
     target = Path(path)
+    # Binary artifacts have no meaningful physical text line count.
+    line_count = None
+    if target.suffix.lower() not in {".parquet", ".zip", ".gz", ".tar", ".png", ".pdf"}:
+        try:
+            line_count = count_lines(target)
+        except UnicodeDecodeError:
+            pass
     return ManifestArtifact(
         path=str(target.as_posix()),
         sha256=sha256_file(target),
-        line_count=count_lines(target),
+        line_count=line_count,
+        byte_count=target.stat().st_size,
     )
 
 
@@ -140,7 +149,7 @@ def write_manifest(
         raise ValueError("finished_at_utc não pode anteceder started_at_utc.")
 
     manifest = RunManifest(
-        schema_version="1.1.0",
+        schema_version="1.2.0",
         run_id=context.run_id,
         protocol_id=protocol_id,
         protocol_version=protocol_version,

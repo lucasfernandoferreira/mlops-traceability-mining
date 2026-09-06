@@ -2,12 +2,11 @@
 
 ## Estado atual
 
-O repositório contém a fundação técnica, a descoberta automatizada da Fase 1 e a
-triagem automática e retomável da Fase 2. Ainda não existem coleta histórica completa,
-validação manual da taxonomia, cálculo das métricas GQM nem seleção final da amostra.
-A amostra final está explicitamente `pending`. Assim, os testes atuais demonstram
-coerência do instrumento técnico, não validam resultados empíricos nem sustentam
-conclusões sobre práticas de MLOps.
+O projeto executa as Fases 0–5 e o piloto preliminar Ultralytics no SHA selecionado.
+O protocolo operacional 2.0.0 estuda três casos MLflow, sem comparação entre ferramentas.
+A amostra está em `pilot`; faltam validação humana da taxonomia, alinhamento acadêmico
+e gates suplementares dos outros casos. Testes e números observados demonstram o
+funcionamento do instrumento; não substituem validade empírica independente.
 
 ## Validade de construto
 
@@ -28,13 +27,21 @@ conclusões sobre práticas de MLOps.
 - A triagem atual procura `mlruns/` na raiz. Um resultado negativo não exclui
   diretórios aninhados ou evidências em commits anteriores. A inspeção final deve
   distinguir esse limite de detecção da indisponibilidade confirmada das fontes.
-- CONFIG ainda não cobre todos os caminhos apontados na proposta de amostra,
-  incluindo `cfg/default.yaml` e configurações aninhadas em `examples/configs/`.
-  DATA_META é restrito a assinaturas DVC; sua ausência em casos MLflow não prova
-  desacoplamento de dados. Ambos exigem calibração antes da mineração analítica.
-- A proposta de três casos MLflow elimina o contraste entre ferramentas exigido
-  pelo protocolo atual. Esse recorte ainda precisa de decisão documentada; os
-  casos propostos não podem ser apresentados como cobertura dos três estratos.
+- CONFIG 1.1.0 cobre cfg/config/configs/config_files, mas a calibração por exemplos
+  ainda precisa da revisão humana de 20 arquivos por categoria. Alguns grupos têm
+  poucos exemplos no piloto e precisam ser complementados nos outros casos/histórico.
+- DATA_META continua restrito a DVC e não valida a dimensão de dados em MLflow.
+  Arquivos de definição de datasets e rótulos podem cair em CONFIG: sua quantidade
+  de chaves não equivale a quantidade de hiperparâmetros ou ajustes de treinamento.
+- O recorte MLflow seleciona bibliotecas/frameworks; mecanismos oferecidos no código
+  não comprovam experimentos efetivamente executados por organizações usuárias.
+- O AST produz candidatos sintáticos com aliases de imports; não resolve escopos,
+  reatribuições, wrappers, clientes ou delegação. Chamadas a log_artifact podem salvar
+  pesos, sem demonstrar registro ou promoção. Autolog não é expandido em eventos.
+- Toda a árvore do SHA é verificada por caminhos mlruns, inclusive aninhados; a
+  ausência não exclui outros formatos, histórico anterior ou serviços externos.
+- A magnitude usa adição/remoção para renomeações e conta nomes de classes em mapas
+  de datasets. Migrações podem dominar a média; revisar os maiores contribuintes.
 
 Mitigações: versionar e validar a taxonomia, manter exemplos rotulados, registrar versão
 das regras em cada resultado e auditar manualmente casos limítrofes.
@@ -65,13 +72,13 @@ contagens e motivos de exclusão, preservar logs de coleta e usar manifestos com
 
 - A origem prevista são repositórios públicos do GitHub; resultados não se generalizam
   automaticamente para projetos privados, outras forjas ou ambientes corporativos.
-- Os limiares de 100 estrelas, 300 commits e 5 contribuidores favorecem projetos mais
+- Os limiares de 100 estrelas, 300 commits e 5 contribuidores agregados favorecem projetos mais
   visíveis, antigos e colaborativos.
 - As consultas atuais privilegiam artefatos DVC, MLflow e projetos associados a Python.
 - Termos de exclusão reduzem tutoriais, mas podem excluir projetos legítimos ou deixar
   passar demonstrações sem esses termos.
 - A atividade após `2025-09-01T00:00:00Z` favorece projetos mantidos recentemente.
-- A amostra intencional de 3 a 5 casos permite profundidade, não representatividade
+- A amostra intencional de 3 casos permite profundidade, não representatividade
   estatística.
 
 A análise deve ser apresentada como estudo de casos múltiplos dentro dos critérios
@@ -106,6 +113,9 @@ notebooks quando o volume permitir.
   formatos malformados ou todas as variantes de histórico Git.
 - Paralelismo reduz o tempo de parede, mas não remove as cotas do GitHub; throughput e
   ETA podem variar quando a execução aguarda renovação de rate limit.
+
+Pilotos com `--allow-dirty` preservam snapshot exato do instrumento e permanecem
+preliminares. O snapshot e seus hashes não substituem uma execução oficial limpa.
 
 Mitigações: executar com worktree limpo, usar Python 3.12 e locks versionados, registrar
 SHA integral das origens, hashes e horários UTC, e nunca sobrescrever resultados de runs

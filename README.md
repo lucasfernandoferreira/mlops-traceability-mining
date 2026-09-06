@@ -6,23 +6,52 @@ de máquina.
 
 ## Estado do projeto
 
-As Fases 0, 1 e 2 estão executáveis:
+As Fases 0 a 5 estão executáveis, com piloto preliminar Ultralytics:
 
 - a Fase 0 valida configuração, taxonomia, ambiente e repositório sintético;
 - a Fase 1 pesquisa, pagina e deduplica candidatos encontrados no GitHub;
 - a Fase 2 confirma critérios de elegibilidade e produz o funil e a shortlist;
-- todas as fases emitem eventos no terminal e logs JSONL locais;
+- as Fases 0–2 emitem eventos no terminal e logs JSONL locais;
 - a Fase 2 usa paralelismo limitado, requisições coordenadas, circuit breaker, cache
   persistente e retomada após interrupções.
 
-A coleta detalhada do histórico, o cálculo das métricas GQM e a seleção final da
-amostra ainda não foram implementados. `config/amostra_final.yaml` permanece com
-status `pending` e não representa uma amostra real.
+O protocolo 2.0.0 adota três casos MLflow, preservando a busca/triagem 1.5.0.
+A seleção está em `status=pilot`, com revisão humana e alinhamento acadêmico pendentes.
+As Fases 3–5 congelam um SHA, mineram o histórico e calculam uma tabela auditável.
 
-O [roteiro atualizado](ROTEIRO_IMPLEMENTACAO.md) organiza as próximas entregas.
-Os três casos principais e as três reservas informados pelo pesquisador estão
-registrados na [proposta de amostra](docs/INSPECAO_MANUAL_AMOSTRA.md), com os SHAs
-da shortlist. A proposta de recorte MLflow ainda depende de formalização.
+O [relatório do piloto](docs/PILOTO_ULTRALYTICS.md) apresenta resultados e limites.
+O [roteiro](ROTEIRO_IMPLEMENTACAO.md), o [contrato GQM](docs/GQM_MAPA_METRICAS.md)
+e o [registro da amostra](docs/INSPECAO_MANUAL_AMOSTRA.md) documentam escopo e limites.
+
+### Executar o piloto
+
+Após a coleta preservada e a seleção em `config/amostra_final.yaml`:
+
+```bash
+.venv/bin/python scripts/03_clone_repos.py --allow-dirty
+.venv/bin/python scripts/04_mine_commits.py --allow-dirty
+.venv/bin/python scripts/05_compute_metrics.py --allow-dirty
+```
+
+`--allow-dirty` identifica desenvolvimento preliminar e preserva o código exato em um
+snapshot com hash. Para execução oficial, use código commitado e omita essa opção.
+O padrão é Ultralytics; `--repository owner/name` seleciona outro caso registrado,
+sempre em todas as três etapas. Cada run preserva saídas e manifesto próprios.
+A etapa seguinte verifica hashes e identidade do protocolo/taxonomia da anterior.
+Clones bare completos ficam em `data/raw/repos/`; não se executa código dos casos.
+
+As saídas estão em `data/interim/runs/<run_id>/`, localizadas pelos ponteiros
+`data/interim/latest/phase{3,4,5}_*.json`. Incluem `amostra_congelada.csv`,
+`commits.parquet`, `changes.parquet`, `mining_summary.json`, `tree_inspection.json`,
+`amostra_validacao_taxonomia.csv`, `metrics.csv`, `metric_membership.csv` e `piloto.md`.
+Após preencher rótulos, responsável e data na cópia da amostra, execute:
+
+```bash
+.venv/bin/python scripts/06_validate_taxonomy.py caminho/amostra_revisada.csv
+```
+
+O gate exige 20 exemplos únicos por categoria e concordância mínima de 95%.
+Categorias ausentes ou insuficientes precisam de complementação nos outros casos.
 
 ## Requisitos
 
@@ -164,7 +193,7 @@ mesmo `source_run_id`. Árvores Git truncadas usam fallback dirigido pelos camin
 evidência encontrados na Fase 1.
 
 Qualquer erro na triagem deixa o resumo, o manifesto e o ponteiro da execução com
-status `FAILED`, mesmo com shortlist suficiente e os três estratos presentes.
+status `FAILED`, mesmo com shortlist suficiente e todos os estratos requeridos presentes.
 O gate `errors_absent` só passa quando todos os erros forem resolvidos. Os CSVs
 parciais são preservados, e um retry ainda com erros permanece reprovado.
 
