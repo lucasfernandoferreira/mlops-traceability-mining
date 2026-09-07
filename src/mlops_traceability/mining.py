@@ -98,6 +98,16 @@ def mine_history(
                     "changed_keys": [],
                     "changed_key_count": None,
                 }
+                for field, revision in (
+                    ("before_blob_sha", parent),
+                    ("after_blob_sha", commit.hexsha),
+                ):
+                    try:
+                        row[field] = (
+                            (repo.commit(revision).tree / file_path).hexsha if revision else None
+                        )
+                    except KeyError:
+                        row[field] = None
                 if category == Category.CONFIG:
                     try:
                         keys = changed_keys(

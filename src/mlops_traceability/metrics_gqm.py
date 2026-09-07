@@ -27,6 +27,8 @@ def compute_metrics(
         *,
         status: str = "observed",
         detail: str = "",
+        evidence_type: str = "structural",
+        availability_reason: str = "",
     ) -> None:
         if status == "observed" and denominator == 0:
             status, detail = "undefined", "Denominador elegível igual a zero."
@@ -42,6 +44,13 @@ def compute_metrics(
                 else None,
                 "status": status,
                 "status_detail": detail,
+                "evidence_type": evidence_type,
+                "availability_reason": availability_reason,
+                "evidence_scope": "reachable eligible history"
+                if evidence_type == "structural"
+                else "Python tree at selected SHA"
+                if evidence_type == "proxy"
+                else "public runtime sources not collected",
                 "numerator": numerator,
                 "denominator": denominator,
                 "unit": unit,
@@ -64,6 +73,7 @@ def compute_metrics(
         len(config),
         "keys/config_commit",
         status="error" if semantic_errors else "not_applicable" if unsupported else "observed",
+        availability_reason="parser_not_implemented" if unsupported and not semantic_errors else "",
         detail="Há CONFIG sem diferença semântica válida; não publicar média parcial."
         if semantic_errors or unsupported
         else "",
@@ -76,6 +86,7 @@ def compute_metrics(
             "ratio" if metric_id.endswith("original") else "proportion",
             status="not_available",
             detail="Dimensão D não validada para dados MLflow; DATA_META detecta DVC.",
+            availability_reason="dimension_not_validated",
         )
     for metric_id in ("provenance_coverage", "env_versioning_rate", "experiment_redundancy"):
         add(
@@ -85,6 +96,8 @@ def compute_metrics(
             "runs/promoted_version" if metric_id == "experiment_redundancy" else "proportion",
             status="not_available",
             detail=inspection["runtime_evidence_detail"],
+            evidence_type="direct",
+            availability_reason="not_collected",
         )
     operations = {
         "static_mlflow_param_calls": {"log_param", "log_params"},
@@ -102,6 +115,7 @@ def compute_metrics(
             1,
             "syntactic_call_sites_at_sha",
             status="error" if inspection["parse_errors"] else "observed",
+            evidence_type="proxy",
             detail=(
                 "Candidatos sintáticos em CODE no SHA; sem inferência de execução, "
                 "wrappers ou alias reatribuído."
