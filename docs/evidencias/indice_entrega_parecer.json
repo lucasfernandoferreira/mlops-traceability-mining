@@ -1,0 +1,38 @@
+{
+  "code_commit_sha": "11e480b5eac8d283cf98bd65031dd06c209a5866",
+  "development": true,
+  "artifacts": {
+    "study_index": "data/interim/runs/20260907T221633592494Z_11e480b5_study_index/study_index.json",
+    "validation": "20260907T222013354276Z_11e480b5_phase6_validate_taxonomy",
+    "qualitative": "20260907T223417426894Z_11e480b5_phase7_select_qualitative",
+    "report": "20260907T222635784384Z_11e480b5_phase8_report",
+    "finalization": "20260907T223428730424Z_11e480b5_phase9_finalize_study"
+  },
+  "manifests": [
+    {
+      "delivery": "study_index",
+      "run_id": "20260907T221633592494Z_11e480b5_study_index",
+      "manifest_sha256": "06c689744455ddede73ae3bc623e34d8b3af1043555871545684738df2123b9b"
+    },
+    {
+      "delivery": "validation",
+      "run_id": "20260907T222013354276Z_11e480b5_phase6_validate_taxonomy",
+      "manifest_sha256": "8d0964759d3734cd078efa2a35ec01173cd5c4fa1c9befc35666c77ab06ad212"
+    },
+    {
+      "delivery": "qualitative",
+      "run_id": "20260907T223417426894Z_11e480b5_phase7_select_qualitative",
+      "manifest_sha256": "6d27dbe015e713cbac59fdd0fa1ae5f9a7bd117a029d4d79266f7a49523b0b13"
+    },
+    {
+      "delivery": "report",
+      "run_id": "20260907T222635784384Z_11e480b5_phase8_report",
+      "manifest_sha256": "023f0bd621d803255d25ec009f67a09d86bf03e05c7017a63310962ac3046f0b"
+    },
+    {
+      "delivery": "finalization",
+      "run_id": "20260907T223428730424Z_11e480b5_phase9_finalize_study",
+      "manifest_sha256": "13dac7412daaa45ae794638ff639e4888c10d0c0e34f0c2938775959c866f7ee"
+    }
+  ]
+}

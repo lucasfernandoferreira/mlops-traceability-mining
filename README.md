@@ -6,52 +6,89 @@ de máquina.
 
 ## Estado do projeto
 
-As Fases 0 a 5 estão executáveis, com piloto preliminar Ultralytics:
+O protocolo **2.1.0** incorpora o parecer de 07/09/2026. Fases 0–9 e índice do estudo
+estão implementados; revisão humana, alinhamento acadêmico e redação final permanecem
+pendentes. Busca/triagem 1.5.0 e piloto Ultralytics 2.0.0 são registros históricos.
+A amostra de três casos MLflow continua `pilot`, sem representatividade estatística.
 
-- a Fase 0 valida configuração, taxonomia, ambiente e repositório sintético;
-- a Fase 1 pesquisa, pagina e deduplica candidatos encontrados no GitHub;
-- a Fase 2 confirma critérios de elegibilidade e produz o funil e a shortlist;
-- as Fases 0–2 emitem eventos no terminal e logs JSONL locais;
-- a Fase 2 usa paralelismo limitado, requisições coordenadas, circuit breaker, cache
-  persistente e retomada após interrupções.
+- [Roteiro vigente](ROTEIRO_IMPLEMENTACAO.md) e [respostas ao parecer](docs/PARECER_ORIENTADORA_E_RESPOSTAS.md).
+- [Plano de análise](docs/PLANO_ANALISE.md), [casos](docs/DEFINICAO_DOS_CASOS.md), [codebook](docs/CODEBOOK_QUALITATIVO.md).
+- [Entrega e pendências](docs/ENTREGA_PARECER_ORIENTADORA.md).
+- [Baseline](docs/BASELINE_PARECER_ORIENTADORA.md), [GQM](docs/GQM_MAPA_METRICAS.md), [piloto histórico](docs/PILOTO_ULTRALYTICS.md).
 
-O protocolo 2.0.0 adota três casos MLflow, preservando a busca/triagem 1.5.0.
-A seleção está em `status=pilot`, com revisão humana e alinhamento acadêmico pendentes.
-As Fases 3–5 congelam um SHA, mineram o histórico e calculam uma tabela auditável.
+### Executar o estudo
 
-O [relatório do piloto](docs/PILOTO_ULTRALYTICS.md) apresenta resultados e limites.
-O [roteiro](ROTEIRO_IMPLEMENTACAO.md), o [contrato GQM](docs/GQM_MAPA_METRICAS.md)
-e o [registro da amostra](docs/INSPECAO_MANUAL_AMOSTRA.md) documentam escopo e limites.
-
-### Executar o piloto
-
-Após a coleta preservada e a seleção em `config/amostra_final.yaml`:
+Preservar os insumos originais referidos em `config/amostra_final.yaml`. O checkout
+sozinho não reproduz a busca de 31/08. Para runs científicos, código/configuração
+commitados e worktree limpo; para desenvolvimento, adicionar `ALLOW_DIRTY=1` aos
+alvos abaixo. Isso preserva snapshot e impede a promoção científica da cadeia.
 
 ```bash
-.venv/bin/python scripts/03_clone_repos.py --allow-dirty
-.venv/bin/python scripts/04_mine_commits.py --allow-dirty
-.venv/bin/python scripts/05_compute_metrics.py --allow-dirty
+make clone REPO=ultralytics/ultralytics
+make mine REPO=ultralytics/ultralytics SOURCE_RUN_ID=RUN_FASE3
+make metrics REPO=ultralytics/ultralytics SOURCE_RUN_ID=RUN_FASE4
 ```
 
-`--allow-dirty` identifica desenvolvimento preliminar e preserva o código exato em um
-snapshot com hash. Para execução oficial, use código commitado e omita essa opção.
-O padrão é Ultralytics; `--repository owner/name` seleciona outro caso registrado,
-sempre em todas as três etapas. Cada run preserva saídas e manifesto próprios.
-A etapa seguinte verifica hashes e identidade do protocolo/taxonomia da anterior.
-Clones bare completos ficam em `data/raw/repos/`; não se executa código dos casos.
+Repetir para PyMC Marketing e Composer, sempre com os SHAs da seleção. Os scripts
+04/05 aceitam `--source-run-id`; se omitido, mantêm `latest` global legado, que pode
+apontar a outro caso e será rejeitado. Os wrappers exigem fontes explícitas. Um run
+solicitado inexistente/incompatível nunca é substituído por outro. Os novos artefatos
+usam caminhos relativos; a regra de leitura legada está no dicionário de dados.
 
-As saídas estão em `data/interim/runs/<run_id>/`, localizadas pelos ponteiros
-`data/interim/latest/phase{3,4,5}_*.json`. Incluem `amostra_congelada.csv`,
-`commits.parquet`, `changes.parquet`, `mining_summary.json`, `tree_inspection.json`,
-`amostra_validacao_taxonomia.csv`, `metrics.csv`, `metric_membership.csv` e `piloto.md`.
-Após preencher rótulos, responsável e data na cópia da amostra, execute:
+Criar um YAML com os três casos (o exemplo mostra o formato de uma entrada):
+
+```yaml
+cases:
+  - repository_id: ultralytics/ultralytics
+    head_commit_sha: fa34184a5080c81fff453670394e13303ac781b2
+    runs:
+      freeze: RUN_FASE3
+      mine: RUN_FASE4
+      metrics: RUN_FASE5
+    integration_paths:
+      - ultralytics/engine/trainer.py
+      - ultralytics/utils/callbacks/base.py
+      - ultralytics/utils/callbacks/mlflow.py
+```
+
+Caminhos confirmados e contexto técnico: `config/casos.yaml`. Registrar alterações
+nessa delimitação antes da seleção qualitativa; fontes diferentes geram novo índice.
 
 ```bash
-.venv/bin/python scripts/06_validate_taxonomy.py caminho/amostra_revisada.csv
+make study-index RUNS_FILE=caminho/runs.yaml
+make validate-taxonomy STUDY_INDEX=caminho/study_index.json SAMPLE=caminho/revisada.csv INVENTORY=caminho/taxonomy_inventory.json
+make qualitative STUDY_INDEX=caminho/study_index.json
+make report STUDY_INDEX=caminho/study_index.json
+make finalize-study STUDY_INDEX=caminho/study_index.json VALIDATION_RUN_ID=RUN_VALIDACAO QUALITATIVE_RUN_ID=RUN_QUALITATIVO REPORT_RUN_ID=RUN_RELATORIO CASE_REVIEW=caminho/casos_revisados.json ACADEMIC_REVIEW=caminho/alinhamento.json QUALITATIVE_REVIEW=caminho/codificacao_revisada.csv
 ```
 
-O gate exige 20 exemplos únicos por categoria e concordância mínima de 95%.
-Categorias ausentes ou insuficientes precisam de complementação nos outros casos.
+O índice é gerado em `data/interim/runs/<run_id>/study_index.json`; não editar seus
+bytes. Inclui inventário histórico consolidado, amostra original e modelos de fichas,
+alinhamento e mapa commit–PR. Preencher **cópias**: expected_category, reviewer,
+reviewed_at_utc em UTC e role_change_review para caminhos com observações históricas
+múltiplas. Rótulos da IA não são avaliação humana. Cota global por categoria: 20;
+1–19 = censo; zero em universo completo = ausência registrada, sem validação empírica
+da categoria. Inventário incompleto e concordância abaixo de 95% bloqueiam o aceite.
+
+`PR_MAP=caminho/mapa.json` permite mapa manual verificável para `make qualitative`.
+O modelo cobre todos os commits elegíveis. Presença/ausência de PR requer URL pública,
+responsável e data; not_collected e error não são pr_not_found. Sem mapa completo,
+a seleção é preliminar por commit e precisa ser regenerada quando o mapa for concluído.
+A codificação nasce vazia e segue o codebook; nenhuma interpretação humana é inventada.
+
+Cada entrega salva manifesto e hashes, inclusive revisão rejeitada. O validador e a
+finalização retornam código 1 quando o processamento terminou mas o aceite foi
+bloqueado; consultar `taxonomy_validation.json`/`study_acceptance.json` e execution.json.
+`processing_status`, `sample_status`, `measurement_validation_status` e
+`academic_alignment_status` são distintos. status: final isolado não aprova o estudo.
+Uma execução limpa com fonte de desenvolvimento continua inelegível cientificamente.
+
+O relatório produz tabelas reconciliadas, sensibilidade de magnitude e três figuras
+300 dpi. A finalização aceita gera nova tabela validada, integração qualitativa,
+rascunho de Resultados/Discussão e `reproduction.zip` com hashes e sem clones. A redação
+autoral e sua revisão acadêmica continuam responsabilidades do pesquisador.
+Nenhum treinamento dos projetos externos é executado. `make pipeline` cobre apenas
+check, busca e triagem; não executa todo o estudo.
 
 ## Requisitos
 
