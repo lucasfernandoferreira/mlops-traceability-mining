@@ -142,3 +142,10 @@ CONFIG 1.1.0 cobre cfg/config/configs/config_files aninhados e conserva precedê
 TEST → CI → ENV → DATA_META → CONFIG. Os três exemplos do parecer e controles negativos
 compõem regressões automatizadas. A amostra real para revisão humana é saída da Fase 4.
 Ela ainda não comprova concordância de 95%.
+
+## Revisão 2.1.0 — 07/09/2026
+
+Estado vigente: pilot, com fichas em `docs/casos/`. Texto anterior permanece histórico.
+DEFINICAO_DOS_CASOS.md fixa critérios; decisão humana, integração conectada e cinco
+identidades ativas são verificações distintas da detecção de import. A taxonomia
+segue 1.1.0; cotas antigas são substituídas por DM-023 e inventário histórico completo.

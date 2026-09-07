@@ -364,3 +364,30 @@ Amostra pilot registra source_runs, source_shortlist_sha256, responsabilidades,
 status de alinhamento acadêmico e de validação humana, além das evidências por caso.
 `selection_commit_sha` é o commit-base no instante da decisão; em desenvolvimento os
 bytes completos da seleção estão no snapshot. Não significa que o YAML já foi commitado.
+
+## Contratos adicionais — 2.1.0
+
+`evidence_type`: direct = registro público da prática; structural = vínculo nos
+artefatos; proxy = sinal indireto/candidato sintático. Não somar tipos em escore.
+`availability_reason`: not_found_in_inspected_scope, source_inaccessible,
+not_collected, parser_not_implemented, dimension_not_validated; vazio quando não
+aplicável. Status numéricos preservados. Falta de coleta/parser não é busca negativa.
+Escopo registra SHA, universo, método e limites. Não foi encontrada evidência pública
+suficiente nas fontes inspecionadas é formulação válida somente para busca realizada.
+
+Inventário: unit_id, repository_id, head_commit_sha, file_path normalizado, commit_sha,
+blob_revision, blob_sha, category, taxonomy_version, calibration_used. Unidade única
+por repositório/caminho; deletion recupera revisão pai. Amostras acrescentam
+expected_category, reviewer, reviewed_at_utc, justification e source_unit_id.
+Recibo: hashes origem/revisão/inventário, cobertura, concordância/matriz e aceite.
+
+Índice do estudo referencia manifesto e SHA-256 de cada run e caso; caminhos novos
+relativos à raiz do projeto. Leitura legada remapeia somente sufixo /data/ para a
+raiz local, ou configurações conhecidas; rejeita escape. Fontes explícitas inválidas
+não caem para latest. Compatibilidade requer protocolo, configuração, taxonomia e
+contrato de mineração iguais; SHA de código e snapshot preservados por etapa.
+
+Saídas descritivas: métricas por caso e status; série mensal UTC com numerador e
+denominador; distribuição CONFIG com quantis lineares; variantes de magnitude com
+unidade idêntica ao principal. Seleção: universo completo, PR/fonte/status, grupos
+possíveis, posição, motivo, cotas/déficits e revisão humana vazia.
