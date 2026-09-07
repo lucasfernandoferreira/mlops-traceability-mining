@@ -1,0 +1,69 @@
+{
+  "verified": true,
+  "sources": [
+    {
+      "stage": "phase1_search_candidates",
+      "run_id": "20260831T030743921886Z_bb7d2ee1_phase1_search_candidates",
+      "protocol_version": "1.5.0",
+      "manifest_sha256": "0d4b8c809a234a618a49ac07d65e5923336aff088771a3439904c81c8b860ac2",
+      "artifacts": [
+        {
+          "name": "config.yaml",
+          "sha256": "2e10277c98a04475a61c4b14926860c24f0612587ab5a21cf6eb1de29e97a806"
+        },
+        {
+          "name": "file_taxonomy.yaml",
+          "sha256": "6420070933ec8ac449f64fb7f726e411c3280f1f0c1caf5f22583217cfa48140"
+        },
+        {
+          "name": "requirements.txt",
+          "sha256": "a533b5b522a69a45a5feb4422107455555f41c39794c7da26b657b893a26dcda"
+        },
+        {
+          "name": "candidatos_brutos.csv",
+          "sha256": "78f5f6dbd53d8e105808e7838281eb1d427477eea600445332e735acbcac0ba3"
+        },
+        {
+          "name": "evidencias_busca.csv",
+          "sha256": "763777829d161110569441eafaeba5481e217f8504a698dd387bddc139884a39"
+        },
+        {
+          "name": "resumo_busca.csv",
+          "sha256": "2b2ed7cdeb223aecfa8e8162779477324ef73f229a30b6d7393f33718fadbf17"
+        },
+        {
+          "name": "resumo_execucao_fase1.json",
+          "sha256": "1f00d10fef29fea12b538f5df9bf7b0b0dca1d534dafdefba849881d7b632af7"
+        }
+      ]
+    },
+    {
+      "stage": "phase2_screen_sample",
+      "run_id": "20260831T121157885962Z_fc55f2d9_phase2_screen_sample",
+      "protocol_version": "1.5.0",
+      "manifest_sha256": "c778285e55c8b5f06422f41f4132502c9a5d4e9b4b50f14428f81a4e980f1f62",
+      "artifacts": [
+        {
+          "name": "candidatos_brutos.csv",
+          "sha256": "78f5f6dbd53d8e105808e7838281eb1d427477eea600445332e735acbcac0ba3"
+        },
+        {
+          "name": "evidencias_busca.csv",
+          "sha256": "763777829d161110569441eafaeba5481e217f8504a698dd387bddc139884a39"
+        },
+        {
+          "name": "funil_amostral.csv",
+          "sha256": "e7fbb4da3522b6f92cfe9a44f8112c1d0e2b3af4b83d794ed7d6045715025392"
+        },
+        {
+          "name": "shortlist.csv",
+          "sha256": "69f0891d3a8d029d7e7ea44115c4ea7a88dbb5074eef4bfc5b843dc3d3acbfe2"
+        },
+        {
+          "name": "resumo_execucao_fase2.json",
+          "sha256": "61e2c83454939f1c8fe5430f301716bc556ff84c1a37af6bba7c546a9f568de1"
+        }
+      ]
+    }
+  ]
+}

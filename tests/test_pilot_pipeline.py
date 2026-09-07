@@ -252,7 +252,7 @@ def test_human_validation_cannot_pass_blank_or_duplicate_labels(tmp_path: Path) 
     ]
     path = tmp_path / "review.csv"
     write_csv(path, rows)
-    assert evaluate_review(path, config)["accepted"]
+    assert not evaluate_review(path, config)["accepted"]  # legacy CSV has no inventory/origin
     rows[0]["expected_category"] = ""
     write_csv(path, rows)
     assert not evaluate_review(path, config)["accepted"]

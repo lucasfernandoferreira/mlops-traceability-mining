@@ -93,3 +93,14 @@ Cada linha registra repositório, SHA, período UTC, identificador, numerador, d
 valor, unidade, status e detalhe, exclusões, versões de protocolo/taxonomia, `run_id` e
 `validation_status`. `observed` descreve cálculo, não certificação da taxonomia.
 Resultados do piloto são preliminares até a validação humana mínima de 95%.
+
+## Revisão 2.1.0 — perguntas e força de evidência
+
+Dos seis objetivos métricos originais, magnitude CONFIG é operacionalizável nas
+fontes coletadas; proveniência, frequência D/C, CACE, ambiente e runs/promoções não
+são respondíveis atualmente. C/P complementa CACE, mas não responde à dimensão D.
+AST complementa descrição da integração, sem substituir proveniência/execução.
+DATA_META continua DVC. availability_reason distingue dimension_not_validated das
+fontes de runtime not_collected; parser futuro continua necessário.
+Plano quantitativo/qualitativo normativo: PLANO_ANALISE.md. Fórmulas principais
+2.0.0 preservadas; acrescentam-se distribuições, séries e sensibilidade separadas.

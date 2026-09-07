@@ -140,3 +140,15 @@ Cada relatório empírico deve declarar:
 5. cobertura e resultado da validação da taxonomia;
 6. versões do protocolo, taxonomia e código;
 7. desvios deste documento e análise de seu impacto.
+
+## Parecer 2.1.0
+
+Três casos intencionais não representam estatisticamente projetos GitHub. Commits
+são dependentes; descrição por caso/mês não prova causalidade. Bibliotecas expõem
+integração estrutural, sem comprovar execução em organizações usuárias. Aliases
+podem inflar identidades. DATA_META ausente no universo validado não implica ausência
+de dados nem validação empírica da categoria. Not_collected e parser_not_implemented
+não significam busca negativa. AST não é run/promoção; mapas de classes não são
+necessariamente hiperparâmetros. Plano qualitativo é pós-piloto e intencional,
+portanto temas não estimam prevalência. Um codificador, se único, será explicitado.
+Execução preliminar e sucesso técnico não substituem validação ou aprovação acadêmica.

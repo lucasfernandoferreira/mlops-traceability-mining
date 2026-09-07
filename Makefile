@@ -103,3 +103,31 @@ check: lint format-check typecheck test smoke
 clean:
 	rm -rf .pytest_cache .mypy_cache .ruff_cache htmlcov tmp
 	rm -f .coverage coverage.xml
+
+# Study stages require explicit inputs; ALLOW_DIRTY=1 only produces development runs.
+DEV_FLAG = $(if $(filter 1,$(ALLOW_DIRTY)),--allow-dirty,)
+.PHONY: clone mine metrics study-index validate-taxonomy qualitative report finalize-study
+clone:
+	@test -n "$(REPO)" || { echo "REPO is required"; exit 2; }
+	$(PYTHON) scripts/03_clone_repos.py --repository "$(REPO)" $(DEV_FLAG)
+mine:
+	@test -n "$(REPO)" -a -n "$(SOURCE_RUN_ID)" || { echo "REPO and SOURCE_RUN_ID are required"; exit 2; }
+	$(PYTHON) scripts/04_mine_commits.py --repository "$(REPO)" --source-run-id "$(SOURCE_RUN_ID)" $(DEV_FLAG)
+metrics:
+	@test -n "$(REPO)" -a -n "$(SOURCE_RUN_ID)" || { echo "REPO and SOURCE_RUN_ID are required"; exit 2; }
+	$(PYTHON) scripts/05_compute_metrics.py --repository "$(REPO)" --source-run-id "$(SOURCE_RUN_ID)" $(DEV_FLAG)
+study-index:
+	@test -n "$(RUNS_FILE)" || { echo "RUNS_FILE is required"; exit 2; }
+	$(PYTHON) scripts/build_study_index.py --runs-file "$(RUNS_FILE)" $(DEV_FLAG)
+validate-taxonomy:
+	@test -n "$(SAMPLE)" -a -n "$(INVENTORY)" -a -n "$(STUDY_INDEX)" || { echo "SAMPLE, INVENTORY and STUDY_INDEX are required"; exit 2; }
+	$(PYTHON) scripts/06_validate_taxonomy.py --sample "$(SAMPLE)" --inventory "$(INVENTORY)" --study-index "$(STUDY_INDEX)" $(DEV_FLAG)
+qualitative:
+	@test -n "$(STUDY_INDEX)" || { echo "STUDY_INDEX is required"; exit 2; }
+	$(PYTHON) scripts/07_select_qualitative.py --study-index "$(STUDY_INDEX)" $(if $(PR_MAP),--pr-map "$(PR_MAP)",) $(DEV_FLAG)
+report:
+	@test -n "$(STUDY_INDEX)" || { echo "STUDY_INDEX is required"; exit 2; }
+	$(PYTHON) scripts/08_report.py --study-index "$(STUDY_INDEX)" $(DEV_FLAG)
+finalize-study:
+	@test -n "$(STUDY_INDEX)" -a -n "$(VALIDATION_RUN_ID)" || { echo "STUDY_INDEX and VALIDATION_RUN_ID are required"; exit 2; }
+	$(PYTHON) scripts/09_finalize_study.py --study-index "$(STUDY_INDEX)" --validation-run-id "$(VALIDATION_RUN_ID)" $(if $(QUALITATIVE_RUN_ID),--qualitative-run-id "$(QUALITATIVE_RUN_ID)",) $(if $(REPORT_RUN_ID),--report-run-id "$(REPORT_RUN_ID)",) $(if $(CASE_REVIEW),--case-review "$(CASE_REVIEW)",) $(if $(ACADEMIC_REVIEW),--academic-review "$(ACADEMIC_REVIEW)",) $(if $(QUALITATIVE_REVIEW),--qualitative-review "$(QUALITATIVE_REVIEW)",) $(DEV_FLAG)

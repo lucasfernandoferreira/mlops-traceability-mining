@@ -13,7 +13,7 @@ def test_load_valid_config() -> None:
     config = load_config(CONFIG_PATH)
 
     assert config.protocol.id == "TCC-MLOPS-TRACE-2026"
-    assert config.protocol.version == "2.0.0"
+    assert config.protocol.version == "2.1.0"
     assert config.execution.screening_workers == 4
     assert config.execution.progress_interval_seconds == 10
     assert config.execution.mlflow_manifest_scan_limit == 50

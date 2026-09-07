@@ -223,3 +223,41 @@ mínima de 95%, com 20 exemplos únicos por categoria. Categorias com poucos arq
 no piloto exigem completar a amostra nos demais casos/histórico antes desse aceite;
 não preencher rótulos humanos com previsões do classificador. A revisão qualitativa
 dos callbacks/loggers permanece no plano para sustentar a abordagem mista.
+
+## DM-022 — Parecer, casos e análise (2.1.0, 07/09/2026)
+
+DEFINICAO_DOS_CASOS.md e PLANO_ANALISE.md operacionalizam os cinco requisitos.
+Estatística descritiva por caso, sem independência presumida entre commits.
+Integração funcional estrutural exige ligação entrada–componente–operação;
+importação é pré-filtro. Evidências e motivos de indisponibilidade ficam separados.
+Plano qualitativo pós-piloto, anterior à seleção final, determinístico e auditável.
+Recorte MLflow e substituição de perguntas continuam com alinhamento pending.
+
+## DM-023 — Inventário e revisão empírica (substitui DM-010 e parte de DM-021)
+
+Unidade: caminho POSIX por repositório no histórico elegível e árvore congelada,
+incluindo removidos (blob do pai) e renomeados (A/D). Revisão representante mínima
+por (commit SHA, revisão do blob, blob SHA), deterministicamente. Variações de papel
+exigem revisão complementar documentada. Amostra por categoria com 20 unidades ou
+censo se 1–19. Zero em inventário completo: absent_in_validated_universe, sem
+validação empírica dessa categoria. Inventário incompleto bloqueia cobertura.
+Calibração declarada separadamente; amostra de avaliação não reutiliza calibração
+quando existem unidades adicionais suficientes. Categorias raras em censo declaram
+essa limitação. Concordância global ≥95%, por categoria/caso e matriz de confusão;
+amostragem estratificada não estima automaticamente concordância populacional.
+Recibo verifica origem, revisão, inventário, hashes, responsáveis, UTC e instrumento.
+Rótulos humanos nunca são preenchidos pela IA.
+
+## DM-024 — Consolidação derivada
+
+Runs explícitos, índice imutável e manifesto por entrega. processing_status,
+sample_status, measurement_validation_status e academic_alignment_status separados.
+A cadeia inteira deve ser elegível; origem de desenvolvimento continua preliminar
+mesmo consumida por etapa limpa. Finalização verifica recibos e fontes e produz
+bloqueios recuperáveis. status: final isolado não é certificação.
+
+Em 2.1.0, o teste de contribuidores ativos deixa de compor o SUCCESS da Fase 5:
+seu resultado continua no resumo e passa a bloquear a seleção/consolidação.
+Isso substitui expressamente a primeira condição de DM-021. Não altera o mínimo
+científico de cinco nem reinterpreta runs históricos. Foi necessário distinguir
+processamento válido de caso inelegível: Composer apresentou duas identidades.

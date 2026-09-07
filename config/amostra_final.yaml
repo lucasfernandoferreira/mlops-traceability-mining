@@ -1,6 +1,9 @@
 schema_version: 1.1.0
 protocol_id: TCC-MLOPS-TRACE-2026
-protocol_version: 2.0.0
+protocol_version: 2.1.0
+previous_protocol_version: 2.0.0
+protocol_revision_reason: Parecer de 07/09; critérios de validação e operacionalização
+  revistos, fontes e SHAs originais preservados.
 status: pilot
 selected_at_utc: '2026-09-05T23:19:29.993712+00:00'
 selection_commit_sha: b1b31b5bd62285e8e91e6af5a08dac2ae21dec51
@@ -22,7 +25,9 @@ repositories:
   integration_path: ultralytics/utils/callbacks/mlflow.py
   evidence_url: https://github.com/ultralytics/ultralytics/blob/fa34184a5080c81fff453670394e13303ac781b2/ultralytics/utils/callbacks/mlflow.py
   maintenance_url: https://github.com/ultralytics/ultralytics/commits/fa34184a5080c81fff453670394e13303ac781b2/
-  active_contributors_status: pending
+  active_contributors_status: observed_pass
+  active_identity_count: 175
+  maturity_source_run_id: 20260907T220849687387Z_11e480b5_phase4_mine_commits
 - repository_id: pymc-labs/pymc-marketing
   repository_url: https://github.com/pymc-labs/pymc-marketing
   head_commit_sha: fabba92c96aa6a4ec6d42fb3241a8ed725995d0a
@@ -31,7 +36,9 @@ repositories:
   integration_path: pymc_marketing/mlflow.py
   evidence_url: https://github.com/pymc-labs/pymc-marketing/blob/fabba92c96aa6a4ec6d42fb3241a8ed725995d0a/pymc_marketing/mlflow.py
   maintenance_url: https://github.com/pymc-labs/pymc-marketing/commits/fabba92c96aa6a4ec6d42fb3241a8ed725995d0a/
-  active_contributors_status: pending
+  active_contributors_status: observed_pass
+  active_identity_count: 40
+  maturity_source_run_id: 20260907T220849191554Z_11e480b5_phase4_mine_commits
 - repository_id: mosaicml/composer
   repository_url: https://github.com/mosaicml/composer
   head_commit_sha: 6405188805a0054b4551ec49e4919c54c971d0e8
@@ -40,6 +47,9 @@ repositories:
   integration_path: composer/loggers/mlflow_logger.py
   evidence_url: https://github.com/mosaicml/composer/blob/6405188805a0054b4551ec49e4919c54c971d0e8/composer/loggers/mlflow_logger.py
   maintenance_url: https://github.com/mosaicml/composer/commits/6405188805a0054b4551ec49e4919c54c971d0e8/
-  active_contributors_status: pending
-pending_reason: Seleção operacional para piloto; finalização depende da revisão humana
-  e checagem de contribuidores ativos nos três casos.
+  active_contributors_status: observed_fail
+  active_identity_count: 2
+  maturity_source_run_id: 20260907T220852577444Z_11e480b5_phase4_mine_commits
+pending_reason: Revisão humana e alinhamento acadêmico pendentes; Composer tem 2 identidades
+  ativas (mínimo 5) e não satisfaz a seleção sob o protocolo vigente. Avaliar primeira
+  reserva conforme regra anterior, com novo universo e índice.

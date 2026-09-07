@@ -113,6 +113,26 @@ class CommitFilterConfig(StrictModel):
 class TaxonomyValidationConfig(StrictModel):
     samples_per_category: int = Field(gt=0)
     minimum_agreement: float = Field(ge=0, le=1)
+    calibration_units: list[str]
+
+
+class AnalysisConfig(StrictModel):
+    plan_version: Literal["1.0.0"]
+    planned_at_utc: datetime
+    events_per_group: int = Field(gt=0)
+    group_order: tuple[Literal["Q1"], Literal["Q2"], Literal["Q3"]]
+    fill_deficits: bool
+    quantile_method: Literal["linear"]
+    concentration_top_fraction: float = Field(gt=0, le=1)
+    figure_dpi: int = Field(ge=300)
+    dataset_path_pattern: str = Field(min_length=1)
+    class_map_key: str = Field(min_length=1)
+
+    @model_validator(mode="after")
+    def validate_plan_time(self) -> Self:
+        if self.planned_at_utc.utcoffset() is None:
+            raise ValueError("planned_at_utc requires timezone")
+        return self
 
 
 class ReproducibilityConfig(StrictModel):
@@ -138,6 +158,7 @@ class ResearchConfig(StrictModel):
     taxonomy_validation: TaxonomyValidationConfig
     reproducibility: ReproducibilityConfig
     execution: ExecutionConfig
+    analysis: AnalysisConfig
 
 
 def load_config(path: str | Path) -> ResearchConfig:

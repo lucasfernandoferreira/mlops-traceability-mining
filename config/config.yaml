@@ -1,6 +1,6 @@
 protocol:
   id: "TCC-MLOPS-TRACE-2026"
-  version: "2.0.0"
+  version: "2.1.0"
 
 execution:
   screening_workers: 4
@@ -102,6 +102,20 @@ commit_filter:
 taxonomy_validation:
   samples_per_category: 20
   minimum_agreement: 0.95
+  calibration_units:
+    - "ultralytics/ultralytics:ultralytics/cfg/default.yaml"
+
+analysis:
+  plan_version: "1.0.0"
+  planned_at_utc: "2026-09-07T21:40:00Z"
+  events_per_group: 5
+  group_order: [Q1, Q2, Q3]
+  fill_deficits: true
+  quantile_method: linear
+  concentration_top_fraction: 0.10
+  figure_dpi: 300
+  dataset_path_pattern: '(^|/)(datasets?|data)/'
+  class_map_key: 'str:names'
 
 reproducibility:
   require_clean_worktree: true
