@@ -1,0 +1,389 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at_utc": "2026-09-08T01:02:07.818160+00:00",
+  "study_index": "data/interim/runs/20260908T004303820864Z_43a2dae0_study_index/study_index.json",
+  "study_index_sha256": "e9494a0bd66aab187734fb3846312be9631bf440a348adc80ed0551edcc623dd",
+  "derived_runs": {
+    "study_index": "20260908T004303820864Z_43a2dae0_study_index",
+    "pr_directory": "data/interim/pr_maps/trio_20260908T003438Z",
+    "validation": "20260908T005059393593Z_43a2dae0_phase6_validate_taxonomy",
+    "qualitative": "20260908T005243869123Z_43a2dae0_phase7_select_qualitative",
+    "report": "20260908T005257217754Z_43a2dae0_phase8_report",
+    "finalization": "20260908T005336400217Z_43a2dae0_phase9_finalize_study"
+  },
+  "manifests": [
+    {
+      "run_id": "20260908T003443752785Z_43a2dae0_phase3_clone_repos",
+      "stage": "phase3_clone_repos",
+      "manifest_sha256": "46dd3309a0a4de167ed5a72ca1fa0da0547c1975e8ab0ecff5243325ddef02fe",
+      "code_commit_sha": "43a2dae0804ed3a2e0f2ec1c64dd02386d956a35",
+      "scientific_eligible": true
+    },
+    {
+      "run_id": "20260908T003451162760Z_43a2dae0_phase4_mine_commits",
+      "stage": "phase4_mine_commits",
+      "manifest_sha256": "29281440895c0f2bb19de35206c48f4abd6f702b5b74c275d4a0569e05caf9ed",
+      "code_commit_sha": "43a2dae0804ed3a2e0f2ec1c64dd02386d956a35",
+      "scientific_eligible": true
+    },
+    {
+      "run_id": "20260908T003846750404Z_43a2dae0_phase5_compute_metrics",
+      "stage": "phase5_compute_metrics",
+      "manifest_sha256": "bbb20fb1d3e1e006c83c38e797474e6735fb57a122b89d8c4d085a96e3ba16b4",
+      "code_commit_sha": "43a2dae0804ed3a2e0f2ec1c64dd02386d956a35",
+      "scientific_eligible": true
+    },
+    {
+      "run_id": "20260908T003854721749Z_43a2dae0_phase3_clone_repos",
+      "stage": "phase3_clone_repos",
+      "manifest_sha256": "dd8de2d210f99d185d34e9859d55f85a69fb6daa35f39568787e08e7d8b6620b",
+      "code_commit_sha": "43a2dae0804ed3a2e0f2ec1c64dd02386d956a35",
+      "scientific_eligible": true
+    },
+    {
+      "run_id": "20260908T003901796039Z_43a2dae0_phase4_mine_commits",
+      "stage": "phase4_mine_commits",
+      "manifest_sha256": "732c6c46d33f03849d981c663ec2dcb62d4c9d7b69851e10e99c4770bda30891",
+      "code_commit_sha": "43a2dae0804ed3a2e0f2ec1c64dd02386d956a35",
+      "scientific_eligible": true
+    },
+    {
+      "run_id": "20260908T004121682111Z_43a2dae0_phase5_compute_metrics",
+      "stage": "phase5_compute_metrics",
+      "manifest_sha256": "81bd66067a9cf15a0c2e273774411de6c9e0658fa4605a0a85b531b4d29ffb96",
+      "code_commit_sha": "43a2dae0804ed3a2e0f2ec1c64dd02386d956a35",
+      "scientific_eligible": true
+    },
+    {
+      "run_id": "20260908T004129552279Z_43a2dae0_phase3_clone_repos",
+      "stage": "phase3_clone_repos",
+      "manifest_sha256": "311c3d0e15f8caecf1ac345e5120703880af6a1dcc2eca8b56853796cc1f9dcb",
+      "code_commit_sha": "43a2dae0804ed3a2e0f2ec1c64dd02386d956a35",
+      "scientific_eligible": true
+    },
+    {
+      "run_id": "20260908T004136623679Z_43a2dae0_phase4_mine_commits",
+      "stage": "phase4_mine_commits",
+      "manifest_sha256": "9e51405a4ff414be33150878246e273e44ce6c864c1d558d54181e7e59b75e5f",
+      "code_commit_sha": "43a2dae0804ed3a2e0f2ec1c64dd02386d956a35",
+      "scientific_eligible": true
+    },
+    {
+      "run_id": "20260908T004255518258Z_43a2dae0_phase5_compute_metrics",
+      "stage": "phase5_compute_metrics",
+      "manifest_sha256": "344d4820e0ff31dec48800c0630faa09a73d7b7918b3e6c9a4dc98de61f72575",
+      "code_commit_sha": "43a2dae0804ed3a2e0f2ec1c64dd02386d956a35",
+      "scientific_eligible": true
+    },
+    {
+      "run_id": "20260908T004303820864Z_43a2dae0_study_index",
+      "stage": "study_index",
+      "manifest_sha256": "f40c7b1f085073c2170f001f8fe1dd51bd63ac665f29c01bafa7b914483ad4ab",
+      "code_commit_sha": "43a2dae0804ed3a2e0f2ec1c64dd02386d956a35",
+      "scientific_eligible": true
+    },
+    {
+      "run_id": "20260908T005059393593Z_43a2dae0_phase6_validate_taxonomy",
+      "stage": "phase6_validate_taxonomy",
+      "manifest_sha256": "f657eb1ad04eb22d07171a30197964a02ee656a4048865baf2b39ff77a59c2ae",
+      "code_commit_sha": "43a2dae0804ed3a2e0f2ec1c64dd02386d956a35",
+      "scientific_eligible": true
+    },
+    {
+      "run_id": "20260908T005243869123Z_43a2dae0_phase7_select_qualitative",
+      "stage": "phase7_select_qualitative",
+      "manifest_sha256": "794397c36ddca281f9b6ce50abfa6e69334077fe4e3fb0e13c6c0ee4df6552c5",
+      "code_commit_sha": "43a2dae0804ed3a2e0f2ec1c64dd02386d956a35",
+      "scientific_eligible": true
+    },
+    {
+      "run_id": "20260908T005257217754Z_43a2dae0_phase8_report",
+      "stage": "phase8_report",
+      "manifest_sha256": "8ab089f130ed027cd78e9813121e7350b792be6d17796f2725f056c23bcbb31d",
+      "code_commit_sha": "43a2dae0804ed3a2e0f2ec1c64dd02386d956a35",
+      "scientific_eligible": true
+    },
+    {
+      "run_id": "20260908T005336400217Z_43a2dae0_phase9_finalize_study",
+      "stage": "phase9_finalize_study",
+      "manifest_sha256": "8af678461678b3111cecdb49b1bbec637ea14e88683fff5b90afe60d325dabdf",
+      "code_commit_sha": "43a2dae0804ed3a2e0f2ec1c64dd02386d956a35",
+      "scientific_eligible": true
+    }
+  ],
+  "cases": [
+    {
+      "repository_id": "ultralytics/ultralytics",
+      "head_commit_sha": "fa34184a5080c81fff453670394e13303ac781b2",
+      "reachable_commits": 4974,
+      "included_commits": 4914,
+      "active_identities": 175,
+      "code_config_cochange": {
+        "numerator": "224",
+        "denominator": "3220",
+        "value": "0.06956521739130435",
+        "status": "observed"
+      },
+      "config_magnitude": {
+        "numerator": "8136",
+        "denominator": "276",
+        "value": "29.47826086956522",
+        "status": "observed"
+      }
+    },
+    {
+      "repository_id": "pymc-labs/pymc-marketing",
+      "head_commit_sha": "fabba92c96aa6a4ec6d42fb3241a8ed725995d0a",
+      "reachable_commits": 1506,
+      "included_commits": 1257,
+      "active_identities": 40,
+      "code_config_cochange": {
+        "numerator": "14",
+        "denominator": "876",
+        "value": "0.01598173515981735",
+        "status": "observed"
+      },
+      "config_magnitude": {
+        "numerator": "469",
+        "denominator": "16",
+        "value": "29.3125",
+        "status": "observed"
+      }
+    },
+    {
+      "repository_id": "open-edge-platform/anomalib",
+      "head_commit_sha": "0b7fdb9dde453f6474ac93f77188f4224d442999",
+      "reachable_commits": 1134,
+      "included_commits": 1011,
+      "active_identities": 39,
+      "code_config_cochange": {
+        "numerator": "108",
+        "denominator": "668",
+        "value": "0.16167664670658682",
+        "status": "observed"
+      },
+      "config_magnitude": {
+        "numerator": "10883",
+        "denominator": "119",
+        "value": "91.45378151260505",
+        "status": "observed"
+      }
+    }
+  ],
+  "inventory": {
+    "complete": true,
+    "unique_paths": 7631,
+    "review_sample_size": 180,
+    "sample_by_category": {
+      "CONFIG": 20,
+      "ENV": 20,
+      "CI": 20,
+      "TEST": 20,
+      "NOTEBOOK": 20,
+      "CODE": 20,
+      "DOC": 20,
+      "DATA_RAW": 20,
+      "OUTRO": 20
+    }
+  },
+  "pr_collection": {
+    "path": "data/interim/pr_maps/trio_20260908T003438Z/collection.json",
+    "sha256": "1ab9b4bb7a76253c008cc75a6615144d4d5595628459da7300e65c825a8c66c8",
+    "complete": true,
+    "counts": {
+      "pr_not_found": 227,
+      "found": 6955
+    }
+  },
+  "qualitative": {
+    "cases": [
+      {
+        "repository_id": "ultralytics/ultralytics",
+        "groups": [
+          {
+            "group": "Q1",
+            "quota": 5,
+            "candidate_count": 251,
+            "overlap_already_selected": 0,
+            "selected_count": 5,
+            "deficit": 0
+          },
+          {
+            "group": "Q2",
+            "quota": 5,
+            "candidate_count": 224,
+            "overlap_already_selected": 2,
+            "selected_count": 5,
+            "deficit": 0
+          },
+          {
+            "group": "Q3",
+            "quota": 5,
+            "candidate_count": 196,
+            "overlap_already_selected": 6,
+            "selected_count": 5,
+            "deficit": 0
+          }
+        ],
+        "candidate_count": 4913,
+        "selected_count": 15,
+        "total_deficit": 0,
+        "plan_version": "1.0.0",
+        "pr_map_complete": true,
+        "pr_errors": 0,
+        "integration_paths": [
+          "ultralytics/engine/trainer.py",
+          "ultralytics/utils/callbacks/base.py",
+          "ultralytics/utils/callbacks/mlflow.py"
+        ],
+        "integration_component": "ultralytics/utils/callbacks/mlflow.py",
+        "first_integration_event_id": "https://github.com/ultralytics/ultralytics/pull/3748"
+      },
+      {
+        "repository_id": "pymc-labs/pymc-marketing",
+        "groups": [
+          {
+            "group": "Q1",
+            "quota": 5,
+            "candidate_count": 146,
+            "overlap_already_selected": 0,
+            "selected_count": 5,
+            "deficit": 0
+          },
+          {
+            "group": "Q2",
+            "quota": 5,
+            "candidate_count": 14,
+            "overlap_already_selected": 0,
+            "selected_count": 5,
+            "deficit": 0
+          },
+          {
+            "group": "Q3",
+            "quota": 5,
+            "candidate_count": 16,
+            "overlap_already_selected": 5,
+            "selected_count": 5,
+            "deficit": 0
+          }
+        ],
+        "candidate_count": 1091,
+        "selected_count": 15,
+        "total_deficit": 0,
+        "plan_version": "1.0.0",
+        "pr_map_complete": true,
+        "pr_errors": 0,
+        "integration_paths": [
+          "pymc_marketing/model_builder.py",
+          "pymc_marketing/mmm/mmm.py",
+          "pymc_marketing/mlflow.py"
+        ],
+        "integration_component": "pymc_marketing/mlflow.py",
+        "first_integration_event_id": "a900f976074a7eee854d442a0152fe56da86faf9"
+      },
+      {
+        "repository_id": "open-edge-platform/anomalib",
+        "groups": [
+          {
+            "group": "Q1",
+            "quota": 5,
+            "candidate_count": 46,
+            "overlap_already_selected": 0,
+            "selected_count": 5,
+            "deficit": 0
+          },
+          {
+            "group": "Q2",
+            "quota": 5,
+            "candidate_count": 108,
+            "overlap_already_selected": 2,
+            "selected_count": 5,
+            "deficit": 0
+          },
+          {
+            "group": "Q3",
+            "quota": 5,
+            "candidate_count": 115,
+            "overlap_already_selected": 7,
+            "selected_count": 5,
+            "deficit": 0
+          }
+        ],
+        "candidate_count": 977,
+        "selected_count": 15,
+        "total_deficit": 0,
+        "plan_version": "1.0.0",
+        "pr_map_complete": true,
+        "pr_errors": 0,
+        "integration_paths": [
+          "src/anomalib/engine/engine.py",
+          "src/anomalib/callbacks/visualizer.py",
+          "src/anomalib/loggers/mlflow.py"
+        ],
+        "integration_component": "src/anomalib/loggers/mlflow.py",
+        "first_integration_event_id": "https://github.com/open-edge-platform/anomalib/pull/1847"
+      }
+    ],
+    "plan": {
+      "plan_version": "1.0.0",
+      "planned_at_utc": "2026-09-07T21:40:00Z",
+      "events_per_group": 5,
+      "group_order": [
+        "Q1",
+        "Q2",
+        "Q3"
+      ],
+      "fill_deficits": true,
+      "quantile_method": "linear",
+      "concentration_top_fraction": 0.1,
+      "figure_dpi": 300,
+      "dataset_path_pattern": "(^|/)(datasets?|data)/",
+      "class_map_key": "str:names"
+    }
+  },
+  "acceptance": {
+    "scientific_result_accepted": false,
+    "blocking_reasons": [
+      "case_selection_pending_or_ineligible",
+      "taxonomy_receipt_incompatible_or_unaccepted",
+      "academic_alignment_pending",
+      "qualitative_review_or_selection_pending"
+    ],
+    "processing_status": "SUCCESS",
+    "sample_status": "pending",
+    "measurement_validation_status": "pending",
+    "academic_alignment_status": "pending",
+    "qualitative_status": "pending",
+    "sources": [
+      {
+        "run_id": "20260908T004303820864Z_43a2dae0_study_index",
+        "manifest_sha256": "f40c7b1f085073c2170f001f8fe1dd51bd63ac665f29c01bafa7b914483ad4ab"
+      },
+      {
+        "run_id": "20260908T005059393593Z_43a2dae0_phase6_validate_taxonomy",
+        "manifest_sha256": "f657eb1ad04eb22d07171a30197964a02ee656a4048865baf2b39ff77a59c2ae"
+      },
+      {
+        "run_id": "20260908T005243869123Z_43a2dae0_phase7_select_qualitative",
+        "manifest_sha256": "794397c36ddca281f9b6ce50abfa6e69334077fe4e3fb0e13c6c0ee4df6552c5"
+      },
+      {
+        "run_id": "20260908T005257217754Z_43a2dae0_phase8_report",
+        "manifest_sha256": "8ab089f130ed027cd78e9813121e7350b792be6d17796f2725f056c23bcbb31d"
+      }
+    ],
+    "study_index_sha256": "e9494a0bd66aab187734fb3846312be9631bf440a348adc80ed0551edcc623dd"
+  },
+  "review_directory": "data/interim/reviews/trio_20260908T003438Z",
+  "quality": {
+    "command": "make check",
+    "tests_passed": 140,
+    "coverage_percent": 93.07,
+    "log": "docs/evidencias/validacao_atual.txt"
+  },
+  "review_package": {
+    "path": "data/interim/executions/trio_20260908T003438Z/revisao.zip",
+    "sha256": "b6c9e63fef3c339c5ed9560b0880e30e964874d1a779bd3b2680c10d8d5fc1f3",
+    "scientific_result_accepted": false
+  }
+}

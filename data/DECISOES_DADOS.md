@@ -1,74 +1,56 @@
-# Política de dados
+# Organização e preservação dos dados
 
-## Classificação dos artefatos
+Os dados da pesquisa são organizados por execução para manter a relação entre fonte,
+instrumento e resultado. Uma nova coleta ou revisão produz novos arquivos; os
+artefatos de uma execução concluída não são sobrescritos.
 
-| Local | Conteúdo | Versionamento |
-|---|---|---|
-| `data/raw/repos/` | Clones integrais usados como fonte. | Não versionado; reconstruível. |
-| `data/interim/` | Respostas normalizadas, inventários e tabelas intermediárias. | Não versionado por padrão. |
-| `data/processed/` | Tabelas analíticas derivadas e manifestos de execução. | Tabelas pequenas exigem revisão; manifestos são ignorados e sua publicação é explícita. |
-| `reports/` | Figuras, tabelas e resultados destinados à dissertação. | Versionado quando for produto final revisado. |
-| `tmp/` | Saídas locais descartáveis, inclusive smoke tests. | Nunca versionado. |
+| Diretório | Conteúdo e preservação |
+|---|---|
+| `data/raw/repos/` | Clones completos dos casos, mantidos localmente. |
+| `data/interim/runs/` | Tabelas, inventários, snapshots e recibos por `run_id`. |
+| `data/interim/reviews/` | Cópias de trabalho destinadas à revisão do pesquisador. |
+| `data/interim/documentation/` | Cópia local da documentação anterior à consolidação editorial. |
+| `data/processed/manifests/` | Manifestos locais com hashes das entradas e saídas. |
+| `docs/evidencias/` | Registros pequenos selecionados para acompanhar o código. |
+| `reports/` | Materiais destinados ao TCC, incluídos quando revisados. |
+| `tmp/` | Logs, caches e saídas temporárias; `make clean` remove esse diretório. |
 
-Diretórios ou formatos ainda não implementados descrevem a política pretendida; sua
-criação não deve ser interpretada como evidência de que uma coleta ocorreu.
+Os diretórios intermediários, clones e manifestos são ignorados pelo Git. Isso
+permite executar o estudo sem alterar o worktree. A inclusão de resultados no
+repositório é uma etapa separada da geração dos arquivos.
 
-## Proveniência obrigatória
+## Identificação e integridade
 
-Todo dado processado deve permitir identificar:
+Cada resultado identifica o repositório público, SHA integral, período em UTC,
+protocolo, taxonomia, código executor e `run_id`. Manifestos registram hashes das
+entradas e saídas. Caminhos usam `/` e são relativos à raiz apropriada; CSVs usam
+UTF-8, booleanos `true`/`false` e células vazias para valores ausentes. Os estados
+numéricos seguem o [contrato das métricas](../docs/GQM_MAPA_METRICAS.md).
 
-- repositório de origem pelo identificador público `owner/name` e URL canônica;
-- SHA integral do commit observado;
-- instante de coleta em UTC e intervalo temporal considerado;
-- consulta ou etapa que produziu o registro;
-- versão do protocolo e da taxonomia;
-- `run_id` e SHA do código registrados no manifesto;
-- hash do artefato de entrada quando aplicável.
+Ponteiros em `data/interim/latest/` indicam a última execução, inclusive uma falha.
+A reprodução usa identificadores explícitos e verifica a cadeia de fontes.
+Amostras originais e índices são imutáveis; o pesquisador trabalha em cópias das
+fichas e das tabelas de revisão. Os recibos preservam também revisões recusadas.
 
-Uma execução oficial deve ocorrer com worktree limpo. Dados derivados por uma execução
-falha devem permanecer separados e não podem ser promovidos a resultado final.
-Manifestos locais ficam ignorados pelo Git para que uma execução não altere o estado do
-worktree; quando forem parte de uma entrega científica, devem ser revisados e incluídos
-explicitamente.
+A coleta original de 31/08/2026 depende de respostas e CSVs locais. Uma consulta
+posterior ao GitHub não reconstrói necessariamente aquela observação, mesmo com as
+mesmas expressões. Esses insumos devem ser preservados junto com os manifestos.
+Clones só podem ser removidos quando sua recuperação no SHA registrado continuar
+viável. Indisponibilidade futura deve ser registrada, sem trocar silenciosamente
+a revisão analisada.
 
-## Minimização e privacidade
+## Dados pessoais e publicação
 
-- Tokens e outros segredos existem apenas no ambiente local; `.env` não é fonte de
-  dados e não deve ser versionado.
-- Nomes, e-mails e outros identificadores pessoais de autores de commits não serão
-  publicados.
-- Quando necessários aos filtros, autores serão tratados transitoriamente para detectar
-  bots e produzir contagens agregadas.
-- Mensagens de commit só serão preservadas quando indispensáveis à análise e deverão ser
-  revisadas antes de qualquer publicação, pois podem conter dados pessoais ou segredos.
-- Relatórios públicos devem preferir métricas agregadas. Exemplos textuais exigem
-  justificativa e revisão manual.
+Nomes e emails de autores são usados transitoriamente na detecção de bots e na
+contagem agregada de identidades. Não são incluídos nos Parquets ou nas tabelas de
+resultados. Credenciais ficam no ambiente local; `.env` não é insumo da pesquisa.
+Mensagens, trechos de código e exemplos públicos são revisados antes de publicação.
 
-## Licenças e redistribuição
+O conteúdo dos projetos mantém sua licença original. O pacote de reprodução não
+inclui clones completos; reúne identificadores, insumos permitidos, transformações,
+hashes e instruções. A publicação de um pacote exige conferir seu conteúdo e as
+condições de redistribuição aplicáveis aos materiais selecionados.
 
-Repositórios externos mantêm suas licenças e direitos autorais originais. O fato de um
-repositório ser público não autoriza redistribuir seu conteúdo. Clones brutos não serão
-incluídos neste repositório; quando permitido, serão publicados apenas identificadores,
-metadados mínimos, transformações e instruções de reconstrução. Qualquer conjunto de
-dados distribuído deve incluir sua licença e a data de obtenção.
-
-## Integridade e retenção
-
-- Arquivos tabulares devem usar esquema explícito, UTF-8 e datas ISO 8601 em UTC.
-- Caminhos de arquivos devem usar `/` e ser relativos à raiz do repositório analisado.
-- SHAs Git devem ser armazenados integralmente; abreviações servem apenas para exibição.
-- Valores ausentes seguem os estados definidos em `docs/GQM_MAPA_METRICAS.md` e não são
-  convertidos silenciosamente em zero.
-- Artefatos brutos e intermediários podem ser removidos depois da validação se puderem
-  ser reconstruídos a partir dos identificadores, SHAs, configuração e manifesto.
-- Artefatos das Fases 1 e 2 são armazenados em `data/interim/runs/<run_id>/`; ponteiros
-  em `data/interim/latest/` podem mudar, mas diretórios de runs concluídos são imutáveis.
-- Se uma origem for apagada ou se tornar privada, a indisponibilidade deve ser registrada
-  em vez de substituir o conteúdo por outra revisão.
-
-## Controle de mudanças
-
-Alterações de esquema, filtros, limiares ou regras de normalização exigem atualização
-coordenada de configuração, documentação, testes e versão do protocolo. Uma tabela já
-produzida não deve ser sobrescrita por uma execução com contrato diferente; use outro
-`run_id` e preserve o vínculo com o manifesto correspondente.
+Mudanças de esquema, filtro ou regra de normalização são registradas no instrumento
+e no método. Tabelas anteriores conservam sua versão e proveniência, mesmo quando
+o protocolo deixa de usar uma regra histórica.

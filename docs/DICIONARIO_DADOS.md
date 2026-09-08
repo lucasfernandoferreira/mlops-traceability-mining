@@ -1,28 +1,17 @@
 # Dicionário de dados
 
-## Escopo e convenções
+Este documento reúne os contratos dos arquivos usados nas fases de busca, triagem,
+mineração, análise e revisão do protocolo 2.1.0. Os resultados de cada rodada estão
+no [registro dos casos](INSPECAO_MANUAL_AMOSTRA.md); a existência de um esquema não
+indica que uma coleta ou revisão tenha sido concluída.
 
-Este dicionário descreve a configuração, a taxonomia, os manifestos e as saídas
-implementadas das Fases 1 a 5. Mineração e métricas foram executadas no piloto
-preliminar Ultralytics. Execuções locais são identificadas pelos ponteiros em
-`data/interim/latest/`; a presença do código ou a aprovação do CI não comprovam,
-por si sós, uma coleta empírica.
+Datas são ISO 8601 em UTC, commits usam SHA integral de 40 caracteres e caminhos
+usam `/`. Repositórios são identificados por `owner/name`. Proporções são armazenadas
+entre zero e um. CSVs usam UTF-8, booleanos `true`/`false` e campos vazios para valores
+ausentes; JSON usa tipos nativos. `decision_reasons` separa motivos por ` | `.
+Os estados que explicam a ausência de valores seguem o [mapa GQM](GQM_MAPA_METRICAS.md).
 
-Convenções globais:
-
-- datas e horários: ISO 8601 em UTC;
-- repositório: `owner/name`, preservando a grafia retornada pela origem;
-- commit: SHA Git integral de 40 caracteres;
-- caminho: relativo à raiz do repositório, normalizado com `/`;
-- proporção: número entre 0 e 1, sem conversão implícita para percentual;
-- campo anulável: `null` somente quando acompanhado de um estado ou motivo explícito.
-
-Nos CSVs, valores ausentes são campos vazios; booleanos são `true`/`false`, e
-`decision_reasons` usa o separador literal ` | `. No JSON, são usados `null`,
-booleanos e listas nativos. Cada execução grava saídas em
-`data/interim/runs/<run_id>/`, preservando as execuções anteriores.
-
-## Configuração executável — implementada
+## Configuração executável
 
 Fonte: `config/config.yaml`. O carregador rejeita campos desconhecidos ou ausentes.
 
@@ -67,11 +56,17 @@ Fonte: `config/config.yaml`. O carregador rejeita campos desconhecidos ou ausent
 | `commit_filter.bot_patterns` | lista de strings | Padrões textuais usados na identificação de automações. |
 | `taxonomy_validation.samples_per_category` | inteiro > 0 | Exemplos exigidos por categoria na validação manual. |
 | `taxonomy_validation.minimum_agreement` | número [0, 1] | Concordância mínima aceita. |
+| `taxonomy_validation.calibration_units` | lista de strings | Unidades `repositório:caminho` usadas na calibração, separadas da avaliação quando possível. |
+| `analysis.plan_version`, `analysis.planned_at_utc` | string / datetime | Versão e data de definição do plano analítico. |
+| `analysis.events_per_group`, `analysis.group_order`, `analysis.fill_deficits` | inteiro / lista / booleano | Cotas, precedência dos grupos e preenchimento dos eventos restantes. |
+| `analysis.quantile_method`, `analysis.concentration_top_fraction` | string / número | Interpolação de quantis e fração superior usada na concentração. |
+| `analysis.figure_dpi` | inteiro | Resolução das figuras exportadas. |
+| `analysis.dataset_path_pattern`, `analysis.class_map_key` | strings | Regras sintáticas das variantes de sensibilidade. |
 | `reproducibility.require_clean_worktree` | booleano | Exige estado Git limpo em execução oficial. |
 | `reproducibility.save_manifests` | booleano | Determina a persistência de manifestos. |
 | `reproducibility.hash_algorithm` | enum | Algoritmo dos artefatos; atualmente apenas `sha256`. |
 
-## Classificação de arquivos — implementada
+## Classificação de arquivos
 
 Fonte: `config/file_taxonomy.yaml`. A primeira regra compatível vence.
 
@@ -96,7 +91,7 @@ Categorias permitidas:
 | `DATA_RAW` | Dados ou mídia potencialmente pesados. |
 | `OUTRO` | Caminho sem correspondência anterior. |
 
-## Manifesto de execução — implementado
+## Manifesto de execução
 
 Fonte: JSON produzido por `mlops_traceability.manifest.write_manifest`.
 
@@ -120,13 +115,13 @@ Fonte: JSON produzido por `mlops_traceability.manifest.write_manifest`.
 | `artifacts` | lista de objetos | não | Artefatos gerados com caminho, SHA-256 e contagem de linhas. |
 | `error` | string | sim | Diagnóstico quando a etapa falha. |
 
-## Busca da Fase 1 — implementada
+## Busca da Fase 1
 
 Fonte: `scripts/01_search_candidates.py` e `src/mlops_traceability/github_search.py`.
 
 ### `resumo_execucao_fase1.json`
 
-Relatório pequeno de execução gerado ao final da Fase 1.
+Resumo da coleta, com volumes e referências aos arquivos produzidos.
 
 | Campo | Tipo | Significado |
 |---|---|---|
@@ -195,7 +190,7 @@ Uma linha por consulta executada.
 | `finished_at_utc` | datetime UTC | Fim da consulta. |
 | `run_id` | string | Execução que produziu a linha. |
 
-## Triagem da Fase 2 — implementada
+## Triagem da Fase 2
 
 Fonte: `scripts/02_screen_sample.py`, lista `SCREENING_FIELDS` e função
 `_candidate_to_output_row`. `funil_amostral.csv` contém uma linha por candidato
@@ -238,7 +233,7 @@ pastas aninhadas, histórico anterior ou serviços de tracking externos.
 |---|---|---|
 | `schema_version` | string | Versão do esquema do resumo. |
 | `stage` | string | `phase2_screen_sample`. |
-| `status` | enum | `SUCCESS` somente se todos os gates passarem; caso contrário `FAILED`. |
+| `status` | enum | `SUCCESS` somente se todos os critérios passarem; caso contrário `FAILED`. |
 | `screening_run_id` | string | Execução que produziu o resumo. |
 | `source_run_id` | string | Execução de busca usada como entrada. |
 | `received_candidates` | inteiro >= 0 | Candidatos recebidos da Fase 1. |
@@ -252,7 +247,7 @@ pastas aninhadas, histórico anterior ou serviços de tracking externos.
 | `gates` | objeto de booleanos | Critérios de aceite listados abaixo. |
 | `input_artifacts` / `output_artifacts` | lista de objetos | Caminhos e hashes SHA-256 dos CSVs de entrada e saída. |
 
-Os gates são `worktree_clean`, `input_run_ids_match`, `errors_absent`,
+Os critérios de aceite são `worktree_clean`, `input_run_ids_match`, `errors_absent`,
 `shortlist_bounds`, `required_strata_present` e `mlruns_evaluated_on_eligible`.
 `errors_absent` exige zero erros, mesmo que a shortlist já tenha tamanho e estratos
 suficientes. Resumos anteriores à introdução desse gate não contêm essa chave;
@@ -269,7 +264,7 @@ As justificativas fornecidas para a inspeção humana estão em
 `docs/INSPECAO_MANUAL_AMOSTRA.md`, separadas dos CSVs automáticos. A proposta de
 amostra não deve substituir a shortlist nem alterar suas decisões originais.
 
-## Commits e mudanças — implementado no piloto
+## Commits e mudanças
 
 Uma linha de commit representa uma revisão elegível ou excluída. A tabela de mudanças
 possui uma linha por caminho modificado no commit.
@@ -288,9 +283,9 @@ possui uma linha por caminho modificado no commit.
 | `category` | enum | não | Categoria atribuída pela taxonomia vigente. |
 | `run_id` | string | não | Manifesto da mineração. |
 
-Não serão persistidos nome nem e-mail do autor nas tabelas publicáveis.
+As tabelas analíticas não contêm nome ou email do autor.
 
-## Resultado de métrica — implementado no piloto
+## Resultado de métrica
 
 | Campo | Tipo | Anulável | Significado |
 |---|---|---:|---|
@@ -310,84 +305,120 @@ Não serão persistidos nome nem e-mail do autor nas tabelas publicáveis.
 
 As fórmulas, escalas e regras de ausência estão em `docs/GQM_MAPA_METRICAS.md`.
 
-## Amostra final — estado versionado
+## Seleção e contexto dos casos
 
-Fonte: `config/amostra_final.yaml`.
+`config/amostra_final.yaml` guarda a proposta de amostra e a relação com a coleta.
+`config/casos.yaml` descreve domínio, contraste, caminhos de integração, operação,
+habilitação e escopo das evidências. As fichas geradas pelo índice incorporam esses
+campos e deixam a decisão do pesquisador em branco.
 
-| Campo | Tipo | Anulável | Significado |
-|---|---|---:|---|
-| `schema_version` | string | não | Versão deste contrato. |
-| `protocol_id` | string | não | Protocolo que governa a seleção. |
-| `protocol_version` | string | não | Versão do protocolo. |
-| `status` | enum | não | `pending`, `pilot` ou `final`. |
-| `selected_at_utc` | datetime | sim | Data da decisão final. |
-| `selection_commit_sha` | string | sim | Commit que congelou a seleção. |
-| `selection_config_sha256` | string | sim | Hash da configuração aplicada. |
-| `repositories` | lista de objetos | não | Casos selecionados; preenchida para `pilot`/`final`. |
-| `pending_reason` | string | sim | Motivo enquanto a amostra não estiver finalizada. |
+| Campo da amostra | Significado |
+|---|---|
+| `schema_version`, `protocol_id`, `protocol_version` | Identidade do contrato e do protocolo. |
+| `status` | Estado da proposta: `pending`, `pilot` ou `final`; não certifica o aceite. |
+| `selected_at_utc` | Data de preparação da seleção registrada, que pode ainda ser piloto. |
+| `selection_commit_sha`, `selection_config_sha256` | Referências históricas do instrumento no início da seleção. |
+| `source_runs`, `source_shortlist_sha256` | Busca, triagem e hash da shortlist original. |
+| `repositories` | Casos atuais com ID, URL, SHA, estrato, justificativa e evidências. |
+| `historical_repositories` | Casos substituídos, com motivo técnico e situação da decisão humana. |
+| `technical_revision_at_utc`, `technical_revision_reason` | Data e motivo da atualização técnica da proposta. |
+| `academic_alignment_status`, `human_taxonomy_validation_status` | Situação das revisões declaradas. |
+| `pending_reason`, `decision_responsibility` | Pendência e responsabilidade pelo registro técnico. |
 
-Quando `status=final`, cada item de `repositories` deverá conter ao menos
-`repository_id`, `repository_url`, `head_commit_sha`, `stratum` e
-`selection_rationale`.
+Os campos históricos da seleção não afirmam que a configuração atual existia no
+commit inicial. Cada execução preserva os bytes usados em seu próprio snapshot.
 
+## Congelamento e mineração
 
-## Extensões das Fases 3–5 (2.0.0)
+| Arquivo | Conteúdo |
+|---|---|
+| `amostra_congelada.csv` | Um caso por execução: URL, SHA, clone, estrato, commits alcançáveis, tamanho, `shallow=false` e `run_id`. |
+| `source_audit.json` | Conferência dos artefatos e instrumentos originais de busca e triagem. |
+| `commits.parquet` | Todas as revisões: pais, data, elegibilidade, C/D/P, magnitude e estado semântico. |
+| `changes.parquet` | Caminhos dos commits incluídos: categoria, A/M/D/T, blobs anterior/posterior, chaves e estado semântico. |
+| `mining_summary.json` | Funil exclusivo, período, contagem de identidades ativas, critério de atividade e erros semânticos. |
+| `tree_inspection.json` | Arquivos da árvore congelada, blobs, candidatos AST, linhas, URLs, hashes, erros e caminhos `mlruns`. |
+| `metric_membership.csv` | Membros dos denominadores, com `metric_id`, `commit_sha`, `in_numerator` e `numerator_contribution`. |
+| `metrics.csv` | Medidas do mapa GQM, com SHA do caso, unidade e situação da validação. |
+| `source_snapshot.tar.gz` | Instrumento executado: código, scripts, configuração e documentos; sem credenciais nem clones. |
+| `execution.json` | Resultado técnico, erro, origem e condição de elegibilidade da cadeia. |
 
-- `amostra_congelada.csv`: um caso por run, com URL, SHA, clone_path, estrato,
-  reachable_commits, shallow=false, clone_bytes e run_id. Clone bare completo.
-- `commits.parquet`: todas as revisões, incluídas/excluídas; acrescenta parent_sha,
-  large_commit, C/D/P, config_changed_keys e config_semantic_status. D é apenas o
-  indicador técnico DATA_META, não a dimensão científica D validada.
-- `changes.parquet`: somente arquivos de commits incluídos; acrescenta parent_sha,
-  change_type, semantic_status/detail, changed_keys (lista) e changed_key_count.
-  Chaves são caminhos JSON com tipos, contadas por arquivo/commit. Semântica de
-  arquivos fora de CONFIG é not_applicable, com contagem nula.
-- `mining_summary.json`: funil exclusivo, intervalo do universo, contagem de
-  contribuidores ativos sem identidades, gate suplementar e erros semânticos.
-- `tree_inspection.json`: arquivos e blobs do SHA, chamadas AST com linhas, URLs,
-  SHA-256 do conteúdo, categoria, erros de parser e caminhos mlruns aninhados.
-- `amostra_validacao_taxonomia.csv`: até 20 caminhos por categoria no SHA, ordenados
-  por SHA-256 de caminho:blob; expected_category, reviewer e reviewed_at_utc vazios.
-- `metric_membership.csv`: uma linha por membro de denominador longitudinal,
-  metric_id, commit_sha, in_numerator e numerator_contribution. A soma reproduz o
-  numerador; quantidade de linhas reproduz o denominador.
-- `metrics.csv`: contrato GQM, mais head_commit_sha, unit e validation_status.
-- `execution.json`: run, upstream, status técnico, erro e indicador preliminar.
-- `source_snapshot.tar.gz`: bytes do instrumento executado; não contém credenciais
-  nem clones de terceiros. Hash e byte_count registrados no manifesto.
+Em `commits.parquet`, `parent_sha` é vazio no commit inicial; `large_commit` informa
+o limite de arquivos. `config_changed_keys` é nulo quando a semântica não foi
+observada. D continua sendo o indicador técnico DATA_META. Em `changes.parquet`,
+`before_blob_sha` e `after_blob_sha` permitem conferir adições e remoções;
+`changed_keys` é uma lista de caminhos tipados. Arquivos fora de CONFIG têm
+`semantic_status=not_applicable` e contagem nula.
 
-Manifesto 1.2.0 mantém compatibilidade com versões antigas: `line_count` é anulável
-para binários e `byte_count` registra tamanho. Nenhum manifesto anterior é reescrito.
-Ponteiros admitem `phase3_clone_repos`, `phase4_mine_commits`, `phase5_compute_metrics`.
-Resultados unavailable têm células vazias para valor/numerador/denominador.
-Amostra pilot registra source_runs, source_shortlist_sha256, responsabilidades,
-status de alinhamento acadêmico e de validação humana, além das evidências por caso.
-`selection_commit_sha` é o commit-base no instante da decisão; em desenvolvimento os
-bytes completos da seleção estão no snapshot. Não significa que o YAML já foi commitado.
+A quantidade de linhas de `metric_membership.csv` por medida reproduz seu denominador;
+a soma das contribuições reproduz o numerador. Renomeações contam como D+A na análise
+principal. O tamanho dos binários é registrado em `byte_count` no manifesto;
+`line_count` pode ser nulo. Manifestos anteriores mantêm seus esquemas originais.
 
-## Contratos adicionais — 2.1.0
+## Inventário e revisão da taxonomia
 
-`evidence_type`: direct = registro público da prática; structural = vínculo nos
-artefatos; proxy = sinal indireto/candidato sintático. Não somar tipos em escore.
-`availability_reason`: not_found_in_inspected_scope, source_inaccessible,
-not_collected, parser_not_implemented, dimension_not_validated; vazio quando não
-aplicável. Status numéricos preservados. Falta de coleta/parser não é busca negativa.
-Escopo registra SHA, universo, método e limites. Não foi encontrada evidência pública
-suficiente nas fontes inspecionadas é formulação válida somente para busca realizada.
+O inventário usa uma unidade por repositório e caminho, incluindo mudanças históricas
+e a árvore congelada. A amostra é derivada do inventário completo e das regras de
+cota e calibração. Os campos de revisão ficam vazios na origem.
 
-Inventário: unit_id, repository_id, head_commit_sha, file_path normalizado, commit_sha,
-blob_revision, blob_sha, category, taxonomy_version, calibration_used. Unidade única
-por repositório/caminho; deletion recupera revisão pai. Amostras acrescentam
-expected_category, reviewer, reviewed_at_utc, justification e source_unit_id.
-Recibo: hashes origem/revisão/inventário, cobertura, concordância/matriz e aceite.
+| Campo | Significado |
+|---|---|
+| `unit_id`, `source_unit_id` | Identificador da unidade e vínculo da amostra com sua origem. |
+| `repository_id`, `head_commit_sha`, `file_path` | Caso, limite do histórico e caminho normalizado. |
+| `commit_sha`, `blob_revision`, `blob_sha` | Mudança representativa, revisão recuperável e identidade do conteúdo. |
+| `category`, `taxonomy_version` | Predição do instrumento e versão usada. |
+| `historical_observations` | Número de observações do caminho no universo inventariado. |
+| `calibration_used` | Indica uso prévio da unidade na calibração. |
+| `expected_category` | Categoria atribuída pelo pesquisador. |
+| `reviewer`, `reviewed_at_utc` | Responsável pela revisão e data UTC. |
+| `justification`, `role_change_review` | Justificativa e conferência de mudanças históricas de papel. |
 
-Índice do estudo referencia manifesto e SHA-256 de cada run e caso; caminhos novos
-relativos à raiz do projeto. Leitura legada remapeia somente sufixo /data/ para a
-raiz local, ou configurações conhecidas; rejeita escape. Fontes explícitas inválidas
-não caem para latest. Compatibilidade requer protocolo, configuração, taxonomia e
-contrato de mineração iguais; SHA de código e snapshot preservados por etapa.
+`taxonomy_validation.json` registra hashes da amostra original, cópia revisada e
+inventário, cobertura, concordância, matriz de confusão e aceite. O arquivo original
+é conferido contra a amostra recalculada; campos imutáveis não podem ser editados.
+A definição das cotas está no [método](DECISOES_METODOLOGICAS.md#validação-da-taxonomia).
 
-Saídas descritivas: métricas por caso e status; série mensal UTC com numerador e
-denominador; distribuição CONFIG com quantis lineares; variantes de magnitude com
-unidade idêntica ao principal. Seleção: universo completo, PR/fonte/status, grupos
-possíveis, posição, motivo, cotas/déficits e revisão humana vazia.
+## Índice e arquivos de revisão
+
+`study_index.json` relaciona exatamente os casos e SHAs da seleção às execuções de
+congelamento, mineração e métricas. Cada referência contém o `run_id` e o hash do
+manifesto. O índice também registra versão do plano, taxonomia e hashes do inventário
+e da amostra. Uma origem incompatível interrompe a leitura, sem recorrer a `latest`.
+
+`case_review_template.json` contém as medições e o contexto dos casos. A revisão
+preenche `decision`, `decision_reason`, `reviewer` e `reviewed_at_utc`, mantendo
+medidas e fontes conferíveis. `academic_review_template.json` registra `status`,
+responsável, data, `evidence`, `operational_objective`, `unanswered_questions`,
+`mlflow_scope_resolved` e `metric_mapping_resolved`.
+
+`pr_map_template.json` contém todos os commits elegíveis, agrupados por repositório.
+Cada linha tem `commit_sha`, `status`, `pr_url`, `source_url`, `reviewer` e
+`checked_at_utc`. Os estados são `found`, `pr_not_found`, `not_collected` e `error`.
+Uma coleta automática acrescenta método, arquivo de evidência e hash da resposta;
+seu responsável é identificado como coleta técnica, sem atribuir revisão humana.
+
+## Análise e finalização
+
+O relatório produz `metricas_consolidadas.csv`, `serie_mensal.csv`,
+`distribuicao_configuracao.csv`, `sensibilidade_configuracao.csv`,
+`caracterizacao_casos.csv`, `funil_commits.csv` e `cobertura_evidencias.csv`.
+As tabelas preservam caso, unidade, estado e denominadores pertinentes.
+
+`eventos_candidatos.csv` guarda o universo documental e `eventos_selecionados.csv`
+registra grupo, posição, motivo, SHAs, status e fonte PR. A cobertura informa cotas,
+sobreposições, déficits e completude do mapa. A tabela de codificação acrescenta
+`themes`, `evidence`, `interpretation`, `justification`, `ambiguity`, `metric_id`,
+`quantitative_pattern`, `contrary_evidence`, `conclusion_limit`, `reviewer` e
+`reviewed_at_utc`. Esses campos dependem de leitura e julgamento do pesquisador.
+
+`study_acceptance.json` reúne `scientific_result_accepted`, `blocking_reasons` e os
+estados de processamento, amostra, validação, alinhamento e análise qualitativa.
+A finalização aceita gera nova tabela validada, integração dos resultados,
+rascunho de redação e pacote de reprodução com hashes. A condição científica da
+cadeia é distinta do sucesso de cada processamento.
+
+Caminhos novos são relativos à raiz do projeto. Na leitura de artefatos legados,
+somente caminhos absolutos com o sufixo `/data/` são remapeados; saídas fora da raiz
+são rejeitadas. A auditoria da coleta recupera os instrumentos históricos no commit
+original. Alterar protocolo, configuração, taxonomia ou contrato exige verificar a
+compatibilidade antes de reutilizar uma fonte.

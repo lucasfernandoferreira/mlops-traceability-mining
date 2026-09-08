@@ -113,7 +113,7 @@ def prepare_case_reviews(
                 "reviewed_at_utc": "",
                 "source_run_ids": case["runs"],
                 "protocol_version": config.protocol.version,
-                "preparation_by": "Codex; technical preparation, not human review",
+                "preparation_by": "Automated technical preparation; human review pending",
             }
         )
         commits = pd.read_parquet(files["commits.parquet"]).to_dict("records")
@@ -538,7 +538,8 @@ def write_results_packet(
         archive.writestr(
             "REPRODUCTION.md",
             "Instrumento e fontes por run preservados. Clones externos não incluídos.\n"
-            "Os Parquets não contêm nomes/emails dos autores. Veja docs/PLANO_ANALISE.md.\n"
+            "Os Parquets não contêm nomes/emails dos autores. "
+            "Veja docs/DECISOES_METODOLOGICAS.md.\n"
             "A redação é rascunho para revisão autoral, não aprovação acadêmica da redação.\n",
         )
 
