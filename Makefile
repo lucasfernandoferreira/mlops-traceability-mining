@@ -25,6 +25,9 @@ help:
 	@echo "make preserve-runs Preserva artefatos legados em diretórios por run_id"
 	@echo "make pipeline     Executa check, search e screen nesta ordem"
 	@echo "make check        Executa todos os gates da Fase 0"
+	@echo "make test-evidence Executa contratos e fixtures de verificação offline"
+	@echo "make test-counterexamples Executa mutações sintéticas com motivo de falha esperado"
+	@echo "make import-reviews Preserva e valida revisões de um índice explícito"
 
 bootstrap:
 	@command -v $(PYTHON_SYSTEM) >/dev/null 2>&1 || { \
@@ -138,3 +141,14 @@ report:
 finalize-study:
 	@test -n "$(STUDY_INDEX)" -a -n "$(VALIDATION_RUN_ID)" || { echo "STUDY_INDEX and VALIDATION_RUN_ID are required"; exit 2; }
 	$(PYTHON) scripts/09_finalize_study.py --study-index "$(STUDY_INDEX)" --validation-run-id "$(VALIDATION_RUN_ID)" $(if $(QUALITATIVE_RUN_ID),--qualitative-run-id "$(QUALITATIVE_RUN_ID)",) $(if $(REPORT_RUN_ID),--report-run-id "$(REPORT_RUN_ID)",) $(if $(CASE_REVIEW),--case-review "$(CASE_REVIEW)",) $(if $(ACADEMIC_REVIEW),--academic-review "$(ACADEMIC_REVIEW)",) $(if $(QUALITATIVE_REVIEW),--qualitative-review "$(QUALITATIVE_REVIEW)",) $(DEV_FLAG)
+
+.PHONY: test-evidence test-counterexamples import-reviews
+test-evidence:
+	$(PYTHON) -m pytest tests/verification -m 'not counterexample' --no-cov
+
+test-counterexamples:
+	$(PYTHON) -m pytest tests/verification -m counterexample --no-cov
+
+import-reviews:
+	@test -n "$(STUDY_INDEX)" -a -n "$(REVIEW_DIR)" -a -n "$(OUTPUT_DIR)" || { echo "STUDY_INDEX, REVIEW_DIR and OUTPUT_DIR are required"; exit 2; }
+	$(PYTHON) scripts/import_reviews.py --study-index "$(STUDY_INDEX)" --review-dir "$(REVIEW_DIR)" --output-dir "$(OUTPUT_DIR)"

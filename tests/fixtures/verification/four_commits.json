@@ -1,0 +1,21 @@
+{
+  "scope": "synthetic",
+  "description": "A code+config (2 keys), B code, C config comment (0 keys), D documentation. Expected values specified by hand.",
+  "commits": [
+    {"repository_id": "fixture/four", "commit_sha": "0000000000000000000000000000000000000001", "eligibility_status": "included", "C": true, "P": true, "config_semantic_status": "observed", "config_changed_keys": 2},
+    {"repository_id": "fixture/four", "commit_sha": "0000000000000000000000000000000000000002", "eligibility_status": "included", "C": true, "P": false, "config_semantic_status": "not_applicable", "config_changed_keys": 0},
+    {"repository_id": "fixture/four", "commit_sha": "0000000000000000000000000000000000000003", "eligibility_status": "included", "C": false, "P": true, "config_semantic_status": "observed", "config_changed_keys": 0},
+    {"repository_id": "fixture/four", "commit_sha": "0000000000000000000000000000000000000004", "eligibility_status": "included", "C": false, "P": false, "config_semantic_status": "not_applicable", "config_changed_keys": 0}
+  ],
+  "expected": {
+    "reachable": 4,
+    "funnel": {"included": 4},
+    "C": 2,
+    "P": 2,
+    "C_intersection_P": 1,
+    "metrics": {
+      "code_config_cochange": {"numerator": 1, "denominator": 2, "status": "observed", "value": 0.5},
+      "config_magnitude": {"numerator": 2, "denominator": 2, "status": "observed", "value": 1.0}
+    }
+  }
+}

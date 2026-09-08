@@ -15,6 +15,7 @@ precisam de revisão do pesquisador. O andamento e as evidências estão no
 
 | Documento | Conteúdo |
 |---|---|
+| [Verificação e evidências](docs/CRITERIOS_ACEITE_E_EVIDENCIAS.md) | Baseline preservado, importação de revisões, matriz de critérios e contraprovas. |
 | [Método](docs/DECISOES_METODOLOGICAS.md) | Delineamento, seleção, validação, plano de análise e temas qualitativos. |
 | [Casos e resultados](docs/INSPECAO_MANUAL_AMOSTRA.md) | Fontes, justificativas da amostra, execuções e pendências. |
 | [Métricas](docs/GQM_MAPA_METRICAS.md) | Perguntas, fórmulas, denominadores e interpretação. |

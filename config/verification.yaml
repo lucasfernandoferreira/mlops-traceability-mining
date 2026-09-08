@@ -1,0 +1,35 @@
+verification_policy_version: "1.0.0"
+absolute_tolerance: 1.0e-12
+quantile_method: linear
+pre_restoration_criteria: [G00, G01, G02, G03, G04, G05, G06, G07, G08, G09, G10, G11, G12, G13]
+final_criteria: [G00, G01, G02, G03, G04, G05, G06, G07, G08, G09, G10, G11, G12, G13, G14, G15]
+allowed_not_applicable: []
+required_scenarios:
+  - four_commit_arithmetic
+  - excluded_bot_and_merge
+  - zero_config_magnitude
+  - undefined_denominator
+  - unavailable_is_null
+  - duplicate_sha
+  - historical_blob
+  - review_identity_and_justification
+  - review_source_hash
+  - incomplete_criteria
+# These are the first increment, not the complete G04 mutation suite.
+initial_counterexamples:
+  - wrong_code_denominator
+  - omit_zero_magnitude_config
+  - unavailable_to_zero
+  - duplicate_commit
+  - swap_evidence_blob
+  - mutate_review_after_import
+  - replace_review_round
+  - force_partial_pass
+codebook_source: docs/DECISOES_METODOLOGICAS.md
+codebook:
+  training_integration: "Entrada que registra ou invoca callback/logger habilitado."
+  parameter_logging: "Valores ou configurações encaminhados a uma operação de registro."
+  artifact_tracking: "Saída do processamento ligada a um artefato registrado."
+  data_environment_reference: "Referências verificáveis a dados, versões ou dependências."
+  integration_failure: "Falha descrita em código, teste ou discussão vinculada."
+  configuration_refactoring: "Mudança de estrutura, caminho ou conteúdo de configuração."

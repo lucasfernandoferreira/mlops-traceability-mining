@@ -1,0 +1,151 @@
+{
+  "verification_policy_version": "1.0.0",
+  "scope": "empirical",
+  "scientific_result_accepted": false,
+  "criteria": [
+    {
+      "criterion_id": "G00",
+      "method": "Preservação e baseline",
+      "expected": "Provas completas conforme plano 1.0.0",
+      "observed": null,
+      "proof": [],
+      "status": "NOT_RUN",
+      "reason": "completed_review_source_files_not_located"
+    },
+    {
+      "criterion_id": "G01",
+      "method": "Registros humanos",
+      "expected": "Provas completas conforme plano 1.0.0",
+      "observed": null,
+      "proof": [],
+      "status": "NOT_RUN",
+      "reason": "local_review_templates_unfilled"
+    },
+    {
+      "criterion_id": "G02",
+      "method": "Afirmações, fontes e limites",
+      "expected": "Provas completas conforme plano 1.0.0",
+      "observed": null,
+      "proof": [],
+      "status": "NOT_RUN",
+      "reason": "initial_catalog_requires_author_review"
+    },
+    {
+      "criterion_id": "G03",
+      "method": "Oráculos independentes",
+      "expected": "Provas completas conforme plano 1.0.0",
+      "observed": null,
+      "proof": [],
+      "status": "NOT_RUN",
+      "reason": "source_oracle_pending"
+    },
+    {
+      "criterion_id": "G04",
+      "method": "Fixtures e mutações",
+      "expected": "Provas completas conforme plano 1.0.0",
+      "observed": null,
+      "proof": [],
+      "status": "NOT_RUN",
+      "reason": "complete_mandatory_suite_pending"
+    },
+    {
+      "criterion_id": "G05",
+      "method": "Histórico e filtros",
+      "expected": "Provas completas conforme plano 1.0.0",
+      "observed": null,
+      "proof": [],
+      "status": "NOT_RUN",
+      "reason": "empirical_git_reconciliation_pending"
+    },
+    {
+      "criterion_id": "G06",
+      "method": "Maturidade",
+      "expected": "Provas completas conforme plano 1.0.0",
+      "observed": null,
+      "proof": [],
+      "status": "NOT_RUN",
+      "reason": "empirical_activity_recount_pending"
+    },
+    {
+      "criterion_id": "G07",
+      "method": "Taxonomia",
+      "expected": "Provas completas conforme plano 1.0.0",
+      "observed": null,
+      "proof": [],
+      "status": "NOT_RUN",
+      "reason": "completed_reviews_and_blob_crosscheck_pending"
+    },
+    {
+      "criterion_id": "G08",
+      "method": "Métricas",
+      "expected": "Provas completas conforme plano 1.0.0",
+      "observed": null,
+      "proof": [],
+      "status": "NOT_RUN",
+      "reason": "empirical_double_check_pending"
+    },
+    {
+      "criterion_id": "G09",
+      "method": "Estatística descritiva",
+      "expected": "Provas completas conforme plano 1.0.0",
+      "observed": null,
+      "proof": [],
+      "status": "NOT_RUN",
+      "reason": "independent_descriptive_oracle_pending"
+    },
+    {
+      "criterion_id": "G10",
+      "method": "Seleção qualitativa",
+      "expected": "Provas completas conforme plano 1.0.0",
+      "observed": null,
+      "proof": [],
+      "status": "NOT_RUN",
+      "reason": "independent_selection_oracle_pending"
+    },
+    {
+      "criterion_id": "G11",
+      "method": "Fontes e afirmações",
+      "expected": "Provas completas conforme plano 1.0.0",
+      "observed": null,
+      "proof": [],
+      "status": "NOT_RUN",
+      "reason": "central_claim_evidence_resolution_pending"
+    },
+    {
+      "criterion_id": "G12",
+      "method": "Alinhamento e interpretação",
+      "expected": "Provas completas conforme plano 1.0.0",
+      "observed": null,
+      "proof": [],
+      "status": "NOT_RUN",
+      "reason": "academic_record_not_located"
+    },
+    {
+      "criterion_id": "G13",
+      "method": "Aceite e vínculos",
+      "expected": "Provas completas conforme plano 1.0.0",
+      "observed": null,
+      "proof": [],
+      "status": "NOT_RUN",
+      "reason": "finalization_integration_pending"
+    },
+    {
+      "criterion_id": "G14",
+      "method": "Restauração",
+      "expected": "Provas completas conforme plano 1.0.0",
+      "observed": null,
+      "proof": [],
+      "status": "NOT_RUN",
+      "reason": "candidate_package_and_isolated_reproduction_pending"
+    },
+    {
+      "criterion_id": "G15",
+      "method": "Manuscrito",
+      "expected": "Provas completas conforme plano 1.0.0",
+      "observed": null,
+      "proof": [],
+      "status": "NOT_RUN",
+      "reason": "author_review_pending"
+    }
+  ]
+}

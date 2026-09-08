@@ -1,0 +1,101 @@
+{
+  "baseline_code_sha": "a0a8de1f94b9307b03ad364d0d5b9d481f21202e",
+  "documented_code_sha": "a0a8de1f94b9307b03ad364d0d5b9d481f21202e",
+  "worktree_before_changes": "",
+  "historical_executors": [
+    "11e480b5eac8d283cf98bd65031dd06c209a5866",
+    "43a2dae0804ed3a2e0f2ec1c64dd02386d956a35",
+    "4ee9a4218ce6b8eac600aead21c6ea03e99a5391",
+    "a0a8de1f94b9307b03ad364d0d5b9d481f21202e",
+    "b1b31b5bd62285e8e91e6af5a08dac2ae21dec51",
+    "bb7d2ee151d3ecc398c7eef20f118d3225490e8f",
+    "fc55f2d945f36e64d3b2249d4615ff767bf91db7"
+  ],
+  "missing_executors": [],
+  "bundle_sha256": "d5e526c9c5a15c7fa8012b376da72379158ffb88a592171386fc83bc751c31f9",
+  "bundle_verified": true,
+  "archive_sha256": "d2b3e458f91e75e5bedfd4c64ebca22cdca8a220a918907301d987cd20e9fb1f",
+  "archive_members_verified": 532,
+  "study_index_sha256": "e9494a0bd66aab187734fb3846312be9631bf440a348adc80ed0551edcc623dd",
+  "baseline_check": {
+    "command": "make check",
+    "exit_code": 0,
+    "log_sha256": "d7f3192a4cdba824be7bdd2ba3d5304bebcd41f9f24a4eb49a863887fff98fc8",
+    "result_lines": [
+      "All checks passed!",
+      "_______________ coverage: platform linux, python 3.12.13-final-0 _______________",
+      "Required test coverage of 90% reached. Total coverage: 93.07%",
+      "============================= 140 passed in 59.34s ============================="
+    ]
+  },
+  "source_chain_checks": [
+    {
+      "run_id": "20260908T003443752785Z_43a2dae0_phase3_clone_repos",
+      "status": "PASS"
+    },
+    {
+      "run_id": "20260908T003451162760Z_43a2dae0_phase4_mine_commits",
+      "status": "PASS"
+    },
+    {
+      "run_id": "20260908T003846750404Z_43a2dae0_phase5_compute_metrics",
+      "status": "PASS"
+    },
+    {
+      "run_id": "20260908T003854721749Z_43a2dae0_phase3_clone_repos",
+      "status": "PASS"
+    },
+    {
+      "run_id": "20260908T003901796039Z_43a2dae0_phase4_mine_commits",
+      "status": "PASS"
+    },
+    {
+      "run_id": "20260908T004121682111Z_43a2dae0_phase5_compute_metrics",
+      "status": "PASS"
+    },
+    {
+      "run_id": "20260908T004129552279Z_43a2dae0_phase3_clone_repos",
+      "status": "PASS"
+    },
+    {
+      "run_id": "20260908T004136623679Z_43a2dae0_phase4_mine_commits",
+      "status": "PASS"
+    },
+    {
+      "run_id": "20260908T004255518258Z_43a2dae0_phase5_compute_metrics",
+      "status": "PASS"
+    },
+    {
+      "run_id": "20260908T004303820864Z_43a2dae0_study_index",
+      "status": "PASS"
+    },
+    {
+      "run_id": "20260908T005059393593Z_43a2dae0_phase6_validate_taxonomy",
+      "status": "PASS"
+    },
+    {
+      "run_id": "20260908T005243869123Z_43a2dae0_phase7_select_qualitative",
+      "status": "PASS"
+    },
+    {
+      "run_id": "20260908T005257217754Z_43a2dae0_phase8_report",
+      "status": "PASS"
+    },
+    {
+      "run_id": "20260908T005336400217Z_43a2dae0_phase9_finalize_study",
+      "status": "PASS"
+    }
+  ],
+  "executor_restoration_verified": true,
+  "git_sources_archive_sha256": "fb1cb107a95cb9c40d9ec237b798aef99745f64ded7158d0b8bec95a12dfe713",
+  "G00_status": "NOT_RUN",
+  "preservation_checks_passed": true,
+  "blocking_reasons": [
+    "completed_review_source_files_not_located"
+  ],
+  "local_directory": "data/interim/verification/baseline_20260908",
+  "limitations": [
+    "Completed human review files have not been located.",
+    "G00 is not complete until the completed human review inputs are identified and preserved."
+  ]
+}

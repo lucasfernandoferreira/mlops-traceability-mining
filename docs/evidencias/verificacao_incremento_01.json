@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0.0",
+  "created_at_utc": "2026-09-08T23:42:34.301746+00:00",
+  "increment": "baseline_reviews_criteria_and_initial_counterexamples",
+  "test_scope": "synthetic",
+  "full_study_verification_status": "NOT_RUN",
+  "scientific_result_accepted": false,
+  "verification_code_sha": "a0a8de1f94b9307b03ad364d0d5b9d481f21202e",
+  "dirty_worktree": true,
+  "source_archive": "data/interim/verification/importacao_local_20260908_02/verification_source.tar.gz",
+  "source_archive_sha256": "26d76ab21ef480f64e4f1eb50c24f5c7968404ba3265f814dfa73233b10d2c73",
+  "checks": {
+    "baseline": {
+      "tests_passed": 140,
+      "coverage_percent": 93.07,
+      "command": "make check"
+    },
+    "development": {
+      "tests_passed": 179,
+      "coverage_percent": 93.91,
+      "command": "make lint format-check typecheck test smoke-dev"
+    },
+    "fast_evidence": {
+      "tests_passed": 26,
+      "command": "make test-evidence"
+    },
+    "initial_counterexamples": {
+      "tests_passed": 13,
+      "command": "pytest tests/verification -m counterexample --no-cov"
+    }
+  },
+  "test_results_hashes": {
+    "docs/evidencias/validacao_verificacao.txt": "a12bc01379009f85dd6c6d8f63b765016435a69f1da676fa459411a65cf4a4e9",
+    "docs/evidencias/contraprovas_verificacao.xml": "97ff184175fa75217a1b4b873357f2090b9004f7fe3e8b72ceb407681b10da37",
+    "data/interim/verification/test_evidence_final.log": "a94b376a40961d2e19349b643e6eab4cd4b89c2cfeeed25db6aadb3a678705fe"
+  },
+  "limitations": [
+    "Only the initial mandatory counterexamples were implemented; G04 remains incomplete.",
+    "Completed human review source files remain to be located.",
+    "Empirical source/arithmetic double checks, finalization and isolated study reproduction are next increments."
+  ]
+}
