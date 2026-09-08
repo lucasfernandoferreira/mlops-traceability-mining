@@ -8,8 +8,8 @@ status: pilot
 selected_at_utc: '2026-09-05T23:19:29.993712+00:00'
 selection_commit_sha: b1b31b5bd62285e8e91e6af5a08dac2ae21dec51
 selection_config_sha256: f61c4e8da4656c2ab9579210511777a4010c066b5da5a4b1b248f27669655471
-decision_responsibility: Codex, execução técnica da solicitação do pesquisador; sem
-  atestar aprovação da orientadora
+decision_responsibility: Preparação técnica automatizada; decisão de seleção e
+  alinhamento acadêmico pendentes de registro pelo pesquisador
 academic_alignment_status: pending
 human_taxonomy_validation_status: pending
 source_runs:
@@ -27,7 +27,7 @@ repositories:
   maintenance_url: https://github.com/ultralytics/ultralytics/commits/fa34184a5080c81fff453670394e13303ac781b2/
   active_contributors_status: observed_pass
   active_identity_count: 175
-  maturity_source_run_id: 20260907T220849687387Z_11e480b5_phase4_mine_commits
+  maturity_source_run_id: 20260908T003451162760Z_43a2dae0_phase4_mine_commits
 - repository_id: pymc-labs/pymc-marketing
   repository_url: https://github.com/pymc-labs/pymc-marketing
   head_commit_sha: fabba92c96aa6a4ec6d42fb3241a8ed725995d0a
@@ -38,7 +38,24 @@ repositories:
   maintenance_url: https://github.com/pymc-labs/pymc-marketing/commits/fabba92c96aa6a4ec6d42fb3241a8ed725995d0a/
   active_contributors_status: observed_pass
   active_identity_count: 40
-  maturity_source_run_id: 20260907T220849191554Z_11e480b5_phase4_mine_commits
+  maturity_source_run_id: 20260908T003901796039Z_43a2dae0_phase4_mine_commits
+- repository_id: open-edge-platform/anomalib
+  repository_url: https://github.com/open-edge-platform/anomalib
+  head_commit_sha: 0b7fdb9dde453f6474ac93f77188f4224d442999
+  stratum: apenas_mlflow
+  selection_rationale: Primeira reserva previamente ordenada; substituição técnica
+    do Composer por inelegibilidade de contribuidores, antes de observar métricas
+    da reserva. Contraste por delegação ao Lightning e registro de imagens.
+  integration_path: src/anomalib/loggers/mlflow.py
+  evidence_url: https://github.com/open-edge-platform/anomalib/blob/0b7fdb9dde453f6474ac93f77188f4224d442999/src/anomalib/loggers/mlflow.py
+  maintenance_url: https://github.com/open-edge-platform/anomalib/commits/0b7fdb9dde453f6474ac93f77188f4224d442999/
+  active_contributors_status: observed_pass
+  active_identity_count: 39
+  maturity_evidence: docs/evidencias/anomalib_elegibilidade.json
+  maturity_source_run_id: 20260908T004136623679Z_43a2dae0_phase4_mine_commits
+pending_reason: Cadeia limpa e critérios técnicos conferidos. Faltam decisão humana
+  sobre os casos, revisão da taxonomia, alinhamento acadêmico e codificação qualitativa.
+historical_repositories:
 - repository_id: mosaicml/composer
   repository_url: https://github.com/mosaicml/composer
   head_commit_sha: 6405188805a0054b4551ec49e4919c54c971d0e8
@@ -50,6 +67,9 @@ repositories:
   active_contributors_status: observed_fail
   active_identity_count: 2
   maturity_source_run_id: 20260907T220852577444Z_11e480b5_phase4_mine_commits
-pending_reason: Revisão humana e alinhamento acadêmico pendentes; Composer tem 2 identidades
-  ativas (mínimo 5) e não satisfaz a seleção sob o protocolo vigente. Avaliar primeira
-  reserva conforme regra anterior, com novo universo e índice.
+  technical_exclusion_reason: active identities 2 < 5 under protocol 2.1.0; original
+    runs preserved
+  human_decision_status: pending
+technical_revision_at_utc: '2026-09-08T00:18:55.350754+00:00'
+technical_revision_reason: Anomalib substitui Composer na proposta piloto por elegibilidade;
+  decisão humana e alinhamento acadêmico pendentes.

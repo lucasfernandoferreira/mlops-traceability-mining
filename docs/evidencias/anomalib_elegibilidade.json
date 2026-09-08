@@ -1,0 +1,14 @@
+{
+  "repository_id": "open-edge-platform/anomalib",
+  "repository_url": "https://github.com/open-edge-platform/anomalib",
+  "head_commit_sha": "0b7fdb9dde453f6474ac93f77188f4224d442999",
+  "clone_path": "data/raw/repos/open-edge-platform__anomalib.git",
+  "stratum": "apenas_mlflow",
+  "reachable_commits": 1134,
+  "shallow": false,
+  "clone_bytes": 89431054,
+  "active_identity_count": 39,
+  "active_contributors_gate": true,
+  "checked_at_utc": "2026-09-08T00:16:24.393844+00:00",
+  "scope": "technical eligibility precheck before mining metrics; no human acceptance"
+}
