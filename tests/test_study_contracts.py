@@ -72,6 +72,7 @@ def review_fixture(tmp_path: Path, size: int = 3) -> tuple[Path, Path, Path, Res
         row.update(
             expected_category="CODE",
             reviewer="synthetic evaluator",
+            justification="Synthetic fixture: explicit known CODE role.",
             reviewed_at_utc="2026-09-07T22:00:00Z",
         )
     write_csv(reviewed, rows)
@@ -122,7 +123,10 @@ def test_inventory_duplicates_calibration_and_low_agreement(tmp_path: Path) -> N
     write_csv(original, rows)
     for row in rows:
         row.update(
-            expected_category="CODE", reviewer="synthetic", reviewed_at_utc="2026-09-07T00:00:00Z"
+            expected_category="CODE",
+            reviewer="synthetic",
+            reviewed_at_utc="2026-09-07T00:00:00Z",
+            justification="Synthetic fixture: explicit known CODE role.",
         )
     write_csv(reviewed, rows)
     assert not evaluate_review(reviewed, config, original=original, inventory_path=inv)["accepted"]
@@ -141,7 +145,10 @@ def test_historical_role_review_and_source_labels_are_required(tmp_path: Path) -
     write_csv(original, rows)
     for row in rows:
         row.update(
-            expected_category="CODE", reviewer="synthetic", reviewed_at_utc="2026-09-07T00:00:00Z"
+            expected_category="CODE",
+            reviewer="synthetic",
+            reviewed_at_utc="2026-09-07T00:00:00Z",
+            justification="Synthetic fixture: explicit known CODE role.",
         )
     write_csv(reviewed, rows)
     assert not evaluate_review(reviewed, config, original=original, inventory_path=inv)["accepted"]
