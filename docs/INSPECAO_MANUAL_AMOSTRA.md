@@ -1,151 +1,203 @@
-# Proposta de amostra e registro da inspeção fornecida
+# Casos e andamento da pesquisa
 
-Estado: **seleção operacional MLflow para piloto, protocolo 2.0.0**.
-A seção histórica abaixo descreve o estado anterior; DM-018 a DM-021 registram a revisão.
-Este registro não finaliza `config/amostra_final.yaml` e não substitui a shortlist
-automática. Os seis candidatos pertencem ao estrato `apenas_mlflow`; portanto,
-os três casos principais não satisfazem a exigência então vigente de três estratos.
+A amostra piloto reúne Ultralytics, PyMC Marketing e Anomalib. Os três apresentam
+integração funcional observável com MLflow e passaram na contagem técnica de
+atividade. A decisão definitiva sobre os casos, a revisão da taxonomia e o
+alinhamento acadêmico permanecem pendentes. Os critérios estão no
+[método](DECISOES_METODOLOGICAS.md).
 
-## Origem e limites da verificação
+## Origem da amostra
 
-As justificativas qualitativas abaixo foram fornecidas pelo pesquisador no texto
-“O projeto está tecnicamente na Fase 2, mas cientificamente ainda está no gate…”.
-Identificador do anexo: `7c70609e-9b84-4214-bba3-ed42e8bc24c2/pasted-text.txt`.
-SHA-256 do texto original:
-`22f74652ddf87a4eed30be1c706be5141690c19042cd35bc09e797ea5c04b485`.
-O texto relata uma revisão remota, mas não contém os links específicos das issues,
-PRs ou arquivos inspecionados. Esses links ainda precisam compor o registro final.
-Não houve uma nova inspeção remota durante a transcrição deste documento.
+A busca e a triagem de 31/08/2026 foram preservadas com os seguintes identificadores:
 
-Os nomes, SHAs, estratos e contagens foram conferidos contra a shortlist local:
-
-- Fase 1: `20260831T030743921886Z_bb7d2ee1_phase1_search_candidates`.
-- Fase 2: `20260831T121157885962Z_fc55f2d9_phase2_screen_sample`.
-- Arquivo: `data/interim/runs/20260831T121157885962Z_fc55f2d9_phase2_screen_sample/shortlist.csv`.
-- SHA-256: `69f0891d3a8d029d7e7ea44115c4ea7a88dbb5074eef4bfc5b843dc3d3acbfe2`.
-
-Os manifestos locais dessas execuções registram `SUCCESS` e
-`dirty_worktree=false`. A triagem contém 59 elegíveis e nenhum erro: 53 apenas
-MLflow, quatro apenas DVC e dois com ambas as ferramentas. Os artefatos são locais
-e ignorados pelo Git; a publicação do pacote empírico permanece uma tarefa distinta.
-
-O anexo cita a revisão remota `d099449`. O checkout usado para esta conferência
-estava em `fc55f2d945f36e64d3b2249d4615ff767bf91db7`, antes das alterações locais.
-Não foi realizada atualização de branch para assumir equivalência entre revisões.
-
-## Casos principais e reservas propostos
-
-Contagens referentes à coleta de 31/08/2026, antes dos filtros de mineração.
-
-| Ordem | Repositório | Commits brutos | Contribuidores | Justificativa fornecida e cuidado |
-|---|---|---:|---:|---|
-| Principal 1 | `ultralytics/ultralytics` | 4.974 | 441 | Treinamento registra parâmetros, métricas e artefatos de modelos; integração localizada. O parser deve reconhecer modelos registrados como artefatos. Caso proposto para o primeiro piloto. |
-| Principal 2 | `pymc-labs/pymc-marketing` | 1.506 | 88 | Registro de dados de entrada, versões de bibliotecas, configuração e modelos, em domínio diferente de visão computacional. O anexo relata clone volumoso; medir custo no piloto. |
-| Principal 3 | `mosaicml/composer` | 2.701 | 121 | Logger com operações explícitas de experimentos, hiperparâmetros e registro de modelos. |
-| Reserva 1 | `open-edge-platform/anomalib` | 1.134 | 119 | Detecção de anomalias e histórico menor. Parte da instrumentação é delegada ao Lightning. |
-| Reserva 2 | `axolotl-ai-cloud/axolotl` | 2.922 | 247 | Callback registra configuração de treinamento como artefato; acrescenta fine-tuning de LLMs e configurações mais complexas. |
-| Reserva 3 | `roboflow/rf-detr` | 1.094 | 93 | Treinador instancia `MLFlowLogger`; exige interpretação de operações delegadas ao Lightning. |
-
-Os principais somam **9.181 commits brutos**. Esse número não comprova o mínimo
-de commits elegíveis após excluir merges, bots e mudanças acima do limite.
-
-### SHAs observados para o futuro congelamento
-
-| Repositório | `head_commit_sha` da shortlist |
+| Etapa | Execução |
 |---|---|
-| `ultralytics/ultralytics` | `fa34184a5080c81fff453670394e13303ac781b2` |
-| `pymc-labs/pymc-marketing` | `fabba92c96aa6a4ec6d42fb3241a8ed725995d0a` |
-| `mosaicml/composer` | `6405188805a0054b4551ec49e4919c54c971d0e8` |
-| `open-edge-platform/anomalib` | `0b7fdb9dde453f6474ac93f77188f4224d442999` |
-| `axolotl-ai-cloud/axolotl` | `917a3d041972eb33be5d6fcbb40ac1681fd2b8f4` |
-| `roboflow/rf-detr` | `6674d8581b7694baf567b993a4f32000a6f4f4c2` |
+| Busca | `20260831T030743921886Z_bb7d2ee1_phase1_search_candidates` |
+| Triagem | `20260831T121157885962Z_fc55f2d9_phase2_screen_sample` |
 
-As reservas só devem substituir casos por elegibilidade, acesso ou custo de
-processamento, segundo critérios registrados antes de observar as métricas.
-O motivo de cada substituição deve ser documentado; resultados pouco interessantes
-não constituem critério de substituição.
+A shortlist tem SHA-256
+`69f0891d3a8d029d7e7ea44115c4ea7a88dbb5074eef4bfc5b843dc3d3acbfe2`.
+Os manifestos registram `SUCCESS`, origem com worktree limpo e 59 elegíveis, sem
+erros de triagem: 53 apenas MLflow, quatro apenas DVC e dois com ambas as ferramentas.
+Esses CSVs e manifestos são locais. A auditoria está em
+[baseline_audit.json](evidencias/baseline_audit.json).
 
-## Candidatos não priorizados na inspeção fornecida
+A inspeção inicial priorizou Ultralytics, PyMC Marketing e Composer, com Anomalib,
+Axolotl e RF-DETR como reservas, nessa ordem. Os SHAs permanecem os observados na
+shortlist; nenhum foi atualizado para uma revisão mais recente.
 
-Esses julgamentos tratam da adequação ao objeto do TCC. As decisões automáticas
-`eligible` permanecem intactas na shortlist original.
+| Projeto | SHA selecionado | Commits alcançáveis | Identidades ativas | Estrelas na coleta |
+|---|---|---:|---:|---:|
+| Ultralytics | `fa34184a5080c81fff453670394e13303ac781b2` | 4.974 | 175 | 61.103 |
+| PyMC Marketing | `fabba92c96aa6a4ec6d42fb3241a8ed725995d0a` | 1.506 | 40 | 1.250 |
+| Anomalib | `0b7fdb9dde453f6474ac93f77188f4224d442999` | 1.134 | 39 | 6.099 |
+| Composer, caso histórico | `6405188805a0054b4551ec49e4919c54c971d0e8` | 2.701 | 2 | 5.495 |
 
-| Repositório | Evidência relatada | Encaminhamento proposto |
-|---|---|---|
-| `pathwaycom/pathway` | DVC em teste de grafo e MLflow em avaliações RAG de integração. | Não usar como caso de integração DVC+MLflow sem demonstrar uso no mesmo pipeline. |
-| `hongbo-miao/hongbomiao.com` | Pipeline DVC com dados, parâmetros e modelo; treinamento inspecionado registra no W&B. | Não selecionar como combinado sem vínculo com MLflow; monorepositório com 45.160 commits. |
-| `evidentlyai/evidently` | DVC associado a dados e snapshots de testes visuais. | Não priorizar como evidência de proveniência dataset de treinamento–modelo. |
-| `owid/etl` | Snapshots DVC em sistema real de processamento de dados. | Treinamento pertinente ao objetivo não confirmado; 17.053 commits. |
-| `ROCm/rocm-systems` | DVC para bibliotecas PAL de interoperabilidade. | Baixa aderência ao objeto dataset–treinamento–modelo; 86.209 commits. |
-| `ROCm/rocm-libraries` | DVC armazena bancos de kernels no MIOpen. | Objeto diferente e custo elevado de mineração; 101.610 commits. |
+As identidades ativas correspondem a autores de commits não merge/não bot posteriores
+a 01/09/2025 UTC. A regra não resolve todos os aliases em pessoas distintas. As
+estrelas são referentes à coleta de 31/08, não ao estado atual dos projetos.
 
-## Decisão sobre o recorte e GQM 3
+## Ultralytics
 
-O recorte proposto é estudar mecanismos públicos de rastreabilidade de
-configurações, dados e modelos em três projetos maduros com integração MLflow.
-A decisão de adotá-lo ainda precisa ser formalizada no protocolo, no mapa GQM e
-nas limitações, incluindo a retirada da comparação entre ferramentas.
+Ultralytics representa o treinamento de modelos de visão computacional com integração
+por callbacks. O [treinador](https://github.com/ultralytics/ultralytics/blob/fa34184a5080c81fff453670394e13303ac781b2/ultralytics/engine/trainer.py)
+registra callbacks e dispara eventos; o
+[componente MLflow](https://github.com/ultralytics/ultralytics/blob/fa34184a5080c81fff453670394e13303ac781b2/ultralytics/utils/callbacks/mlflow.py)
+encaminha argumentos de treinamento, métricas e arquivos de saída.
 
-O detector automático marcou `mlruns_detected=false` nos 59 elegíveis, mas só
-procura `mlruns/` na raiz. O texto fornecido relata inspeção adicional, inclusive
-de diretórios aninhados, sem encontrar `mlruns` nos seis recomendados. Essa segunda
-observação deve ser acompanhada de evidência na finalização da inspeção; não prova
-ausência em todo o histórico nem em serviços externos.
+A habilitação depende da configuração MLflow, da disponibilidade do pacote e das
+condições de execução do callback. `log_artifact` recebe pesos e outros arquivos,
+sem comprovar promoção no registry. O caso permite examinar a relação entre mudanças
+de configuração e instrumentação de treinamento. Os testes de integração são
+fontes documentais e não foram executados como parte da pesquisa.
 
-Se as fontes necessárias continuarem indisponíveis, métricas diretas de runs e
-promoções recebem `not_available`. Evidência estática MLflow/AST deve ficar em
-colunas próprias e não comprova que a instrumentação foi executada. O trilho DVC
-estrutural exige saída de modelo, dependência de dado e hash no `dvc.lock`.
+## PyMC Marketing
 
-## Pendências registradas antes da revisão 2.0.0
+PyMC Marketing acrescenta modelos probabilísticos e contexto de dados de marketing.
+A [integração MLflow](https://github.com/pymc-labs/pymc-marketing/blob/fabba92c96aa6a4ec6d42fb3241a8ed725995d0a/pymc_marketing/mlflow.py)
+envolve operações de amostragem e, com `log_mmm`, o ajuste do modelo MMM. Configuração,
+entrada e dados de inferência aparecem nas operações de registro.
 
-1. Registrar a decisão sobre manter os três estratos ou adotar o recorte MLflow.
-2. Completar os links e caminhos nos SHAs inspecionados, justificativas finais,
-   responsável e data da decisão de inclusão/exclusão.
-3. Calibrar CONFIG: `ultralytics/cfg/default.yaml`,
-   `data/config_files/basic_model.yml` e `examples/configs/model/patchcore.yaml`
-   não são cobertos pelas regras atuais. Validar precedência e falsos positivos.
-4. Rever a dimensão de dados, hoje restrita a `DATA_META`/DVC. Falta de metadados
-   observáveis não deve produzir uma conclusão de desacoplamento.
-5. Consolidar fórmulas, denominadores e status antes de implementar métricas.
-6. Definir cobertura de chamadas diretas, `log_artifact(s)`, callbacks e delegação
-   ao Lightning no parser, com limites explícitos de inferência.
-7. Finalizar `amostra_final.yaml` e implementar clonagem completa no SHA observado,
-   manifesto, retomada e idempotência. Medir o custo de obtenção do PyMC Marketing.
+A ligação foi examinada junto ao
+[model builder](https://github.com/pymc-labs/pymc-marketing/blob/fabba92c96aa6a4ec6d42fb3241a8ed725995d0a/pymc_marketing/model_builder.py)
+e aos testes `tests/test_mlflow.py`. O contraste está na instrumentação do contexto
+probabilístico, em comparação com callbacks de treinamento visual. A existência dos
+wrappers não comprova que uma organização tenha executado ou persistido esses runs.
 
-As decisões e os limites de custo devem anteceder a substituição de um caso.
-O piloto proposto para Ultralytics deve percorrer clonagem, classificação, métrica
-e tabela antes da mineração completa dos três casos.
+## Anomalib e substituição do Composer
 
+O Composer oferece um logger conectado ao Trainer e operações de parâmetros,
+métricas e modelos. Entretanto, a mineração encontrou apenas duas identidades
+ativas, abaixo do mínimo de cinco. Seus resultados foram mantidos como históricos,
+e a primeira reserva passou a ser avaliada por esse motivo de elegibilidade.
 
-## Atualização executada em 05/09/2026
+O Anomalib apresentou 1.134 commits alcançáveis e 39 identidades ativas no SHA
+original. O clone completo e a contagem foram conferidos antes do cálculo de suas
+métricas. A substituição técnica foi registrada em 08/09/2026 UTC, ainda em 07/09 no
+horário de São Paulo, sem alterar os critérios de inclusão. O recibo está em
+[anomalib_elegibilidade.json](evidencias/anomalib_elegibilidade.json).
 
-Responsável pelo registro técnico: Codex, a pedido do pesquisador. Não constitui
-validação humana independente ou aprovação da orientadora. Os hashes de todos os
-artefatos dos runs citados foram rechecados, incluindo instrumentos no commit original.
-O congelamento registra `source_audit.json` com essa proveniência.
+O [Engine](https://github.com/open-edge-platform/anomalib/blob/0b7fdb9dde453f6474ac93f77188f4224d442999/src/anomalib/engine/engine.py#L158)
+recebe o logger e o encaminha ao Trainer do Lightning. O
+[callback de visualização](https://github.com/open-edge-platform/anomalib/blob/0b7fdb9dde453f6474ac93f77188f4224d442999/src/anomalib/callbacks/visualizer.py#L258)
+chama `add_image`, implementado no
+[AnomalibMLFlowLogger](https://github.com/open-edge-platform/anomalib/blob/0b7fdb9dde453f6474ac93f77188f4224d442999/src/anomalib/loggers/mlflow.py#L50)
+com operações `self.experiment.log_image` e `log_figure`. O exemplo
+`examples/api/04_advanced/loggers.py` mostra a configuração do logger no Engine.
 
-| Caso | Uso no SHA inspecionado | Manutenção vinculada ao SHA | Decisão |
-|---|---|---|---|
-| Ultralytics | [callbacks MLflow](https://github.com/ultralytics/ultralytics/blob/fa34184a5080c81fff453670394e13303ac781b2/ultralytics/utils/callbacks/mlflow.py) | [histórico](https://github.com/ultralytics/ultralytics/commits/fa34184a5080c81fff453670394e13303ac781b2/) | Piloto; parâmetros, métricas e pesos como artefatos |
-| PyMC Marketing | [integração MLflow](https://github.com/pymc-labs/pymc-marketing/blob/fabba92c96aa6a4ec6d42fb3241a8ed725995d0a/pymc_marketing/mlflow.py) | [histórico](https://github.com/pymc-labs/pymc-marketing/commits/fabba92c96aa6a4ec6d42fb3241a8ed725995d0a/) | Caso seguinte; contraste de domínio e dados |
-| Composer | [logger MLflow](https://github.com/mosaicml/composer/blob/6405188805a0054b4551ec49e4919c54c971d0e8/composer/loggers/mlflow_logger.py) | [histórico](https://github.com/mosaicml/composer/commits/6405188805a0054b4551ec49e4919c54c971d0e8/) | Caso seguinte; log_model/register_model e cliente |
+MLflow deve estar instalado, o logger precisa ser fornecido ao Engine e a
+visualização precisa habilitar o registro. `log_model=False` é o padrão do
+componente. Operações herdadas de parâmetros e métricas são delegadas ao Lightning;
+a execução dessa dependência não foi verificada. Essa delegação também limita a
+contagem pelo parser AST de imports diretos.
 
-Os três arquivos foram consultados remotamente nesta sessão. Os links de histórico
-são localizadores para a conferência humana de manutenção; não atestam revisão de
-issues/PRs específicas. Os SHAs não foram atualizados para heads mais recentes.
-A conferência automatizada exaustiva da árvore e do histórico é executada somente para
-o piloto Ultralytics nesta entrega. O gate de atividade suplementar dos outros dois
-casos será executado antes da seleção final.
+O contraste do Anomalib está no logger delegado e no registro de imagens. Seu domínio
+de visão computacional se aproxima do Ultralytics, reduzindo a diversidade de
+domínios. A classificação técnica dos três casos é
+`functional_integration_observed`, com evidência estrutural; a aceitação humana
+continua em aberto.
 
-CONFIG 1.1.0 cobre cfg/config/configs/config_files aninhados e conserva precedência
-TEST → CI → ENV → DATA_META → CONFIG. Os três exemplos do parecer e controles negativos
-compõem regressões automatizadas. A amostra real para revisão humana é saída da Fase 4.
-Ela ainda não comprova concordância de 95%.
+## Reservas e candidatos não priorizados
 
-## Revisão 2.1.0 — 07/09/2026
+As próximas reservas permanecem Axolotl, SHA
+`917a3d041972eb33be5d6fcbb40ac1681fd2b8f4`, e RF-DETR, SHA
+`6674d8581b7694baf567b993a4f32000a6f4f4c2`. A primeira acrescentaria fine-tuning de
+LLMs; a segunda, outra integração delegada ao Lightning. Uma nova substituição
+exigiria justificativa e avaliação segundo as mesmas regras.
 
-Estado vigente: pilot, com fichas em `docs/casos/`. Texto anterior permanece histórico.
-DEFINICAO_DOS_CASOS.md fixa critérios; decisão humana, integração conectada e cinco
-identidades ativas são verificações distintas da detecção de import. A taxonomia
-segue 1.1.0; cotas antigas são substituídas por DM-023 e inventário histórico completo.
+A inspeção inicial não priorizou Pathway, pois as evidências de DVC e MLflow não
+confirmavam uso no mesmo pipeline; Hongbomiao, pelo tracking observado em outra
+ferramenta e pelo custo do monorepositório; Evidently, por artefatos associados a
+testes visuais; OWID ETL, sem treinamento pertinente confirmado; e os repositórios
+ROCm, cujos bancos de kernels e bibliotecas tinham outro objeto. Esses julgamentos
+não alteraram as decisões automáticas da shortlist.
+
+## Execuções anteriores
+
+A fundação do projeto foi validada em 30/08, com 32 testes e 96,93% de cobertura.
+O baseline de 07/09, no commit `11e480b5eac8d283cf98bd65031dd06c209a5866`, registrou
+112 testes, 92,69% de cobertura e `make check` aprovado. O ambiente era Python
+3.12.13 em WSL2. O log está em [baseline_check.txt](evidencias/baseline_check.txt).
+Esses números são verificações de software, não medidas de conclusão científica.
+
+O primeiro piloto Ultralytics usou o protocolo 2.0.0. Seus runs de congelamento,
+mineração e métricas foram, respectivamente,
+`20260905T232906312900Z_b1b31b5b_phase3_clone_repos`,
+`20260905T232916405045Z_b1b31b5b_phase4_mine_commits` e
+`20260905T233337569768Z_b1b31b5b_phase5_compute_metrics`.
+
+Foram incluídos 4.914 dos 4.974 commits; os 60 descartes eram bots. Houve 224 commits
+C∩P entre 3.220 commits C (6,96%) e 8.136 chaves em 276 commits P
+(29,48 chaves por commit). A mediana foi uma chave, e 80 commits P tiveram magnitude
+zero. Um movimento de diretórios contribuiu com 3.281 chaves, cerca de 40,33% do total.
+Esses resultados motivaram as análises de distribuição e sensibilidade, preservando
+a fórmula principal. Os valores permanecem preliminares.
+
+A rodada de desenvolvimento de 07/09 processou Ultralytics, PyMC Marketing e Composer.
+Produziu um inventário de 6.214 caminhos, amostra de 178 unidades e 45 eventos
+qualitativos preliminares. Composer não teve commits CONFIG elegíveis; sua magnitude
+foi indefinida, o que não demonstra ausência de configurações no projeto. A
+finalização registrou pendências de cadeia limpa, seleção, taxonomia, alinhamento e
+codificação. Os runs e hashes estão no
+[índice da rodada](evidencias/indice_entrega_parecer.json); a verificação técnica
+registrou 125 testes em [parecer_quality.txt](evidencias/parecer_quality.txt).
+
+## Rodada atual: 08/09/2026 UTC
+
+O trio com Anomalib foi processado no commit `43a2dae0804ed3a2e0f2ec1c64dd02386d956a35`,
+com worktree limpo. Essa revisão foi preservada em arquivo local antes da
+reorganização dos commits; os identificadores das execuções continuam vinculados
+ao instrumento original. As nove execuções das fases 3–5 e as etapas derivadas tiveram
+suas fontes e hashes conferidos. Os três inventários ficaram completos e nenhum
+erro semântico foi encontrado. Ultralytics e PyMC Marketing reproduziram os valores
+e estados das 12 métricas da rodada anterior.
+
+| Caso | Commits incluídos | C∩P / C | Coalteração | Chaves / commits P | Magnitude média |
+|---|---:|---|---:|---|---:|
+| ultralytics/ultralytics | 4.914 | 224 / 3.220 | 6,96% | 8.136 / 276 | 29,48 |
+| pymc-labs/pymc-marketing | 1.257 | 14 / 876 | 1,60% | 469 / 16 | 29,31 |
+| open-edge-platform/anomalib | 1.011 | 108 / 668 | 16,17% | 10.883 / 119 | 91,45 |
+
+Esses valores descrevem o cálculo e continuam preliminares até a revisão do
+instrumento. O inventário reúne 7.631 caminhos e a amostra de revisão contém
+180 unidades, 20 em cada categoria presente. DATA_META não foi encontrada
+sob as regras no universo inventariado; isso não demonstra ausência de dados.
+
+A API foi consultada para os 7.182 commits elegíveis: 6.955 tiveram associação única
+com PR e 227 não tiveram vínculo retornado. Não restaram
+erros ou consultas pendentes. A seleção qualitativa produziu 45 eventos,
+com cinco eventos por grupo em cada caso, sem déficits nas cotas.
+
+O [registro da rodada](evidencias/rodada_atual.json) reúne os identificadores, hashes,
+contagens e recibos. A verificação `make check` passou com 140 testes e 93,07% de
+cobertura; o log está em [validacao_atual.txt](evidencias/validacao_atual.txt).
+
+## Revisão e continuidade
+
+O [guia de revisão](../data/interim/reviews/trio_20260908T003438Z/revisao.html) reúne as prévias dos
+arquivos, seus históricos e os eventos selecionados. As quatro cópias de trabalho
+ficam no mesmo diretório: taxonomia, fichas dos casos, alinhamento acadêmico e
+codificação qualitativa. O [pacote de revisão](../data/interim/executions/trio_20260908T003438Z/revisao.zip)
+contém esses arquivos, o inventário e as respostas da consulta commit–PR.
+Os links apontam para artefatos locais e não estarão disponíveis em um checkout
+que contenha somente os arquivos versionados.
+
+A finalização desta rodada confirmou a cadeia limpa e manteve quatro pendências:
+decisão sobre os casos, validação humana da taxonomia, alinhamento acadêmico e
+codificação qualitativa. Depois de preencher as cópias, o comando abaixo executa
+nova validação e, se aceita, tenta a finalização com as fontes desta rodada:
+
+```bash
+.venv/bin/python data/interim/reviews/trio_20260908T003438Z/retomar.py
+```
+
+No alinhamento acadêmico, permanecem sem fonte ou dimensão validada
+`provenance_coverage`, `data_code_ratio_original`, `data_code_cochange`, `cace_index`,
+`env_versioning_rate` e `experiment_redundancy`. A decisão deve explicar como essas
+lacunas se relacionam ao objetivo do TCC e às condições do parecer.
+
+A documentação foi reunida nos arquivos de método, casos, métricas, dados e limitações
+para evitar versões concorrentes. O [roteiro recebido](../data/interim/documentation/roteiro_recebido_2026-09-07.txt)
+e os registros originais continuam preservados. Seis documentos ausentes foram
+recuperados de um snapshot conferido por hash antes da consolidação; a origem está
+em [recuperacao_documentos.json](evidencias/recuperacao_documentos.json).

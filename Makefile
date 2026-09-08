@@ -106,7 +106,7 @@ clean:
 
 # Study stages require explicit inputs; ALLOW_DIRTY=1 only produces development runs.
 DEV_FLAG = $(if $(filter 1,$(ALLOW_DIRTY)),--allow-dirty,)
-.PHONY: clone mine metrics study-index validate-taxonomy qualitative report finalize-study
+.PHONY: clone mine metrics study-index validate-taxonomy collect-pr-map qualitative report finalize-study
 clone:
 	@test -n "$(REPO)" || { echo "REPO is required"; exit 2; }
 	$(PYTHON) scripts/03_clone_repos.py --repository "$(REPO)" $(DEV_FLAG)
@@ -125,6 +125,13 @@ validate-taxonomy:
 qualitative:
 	@test -n "$(STUDY_INDEX)" || { echo "STUDY_INDEX is required"; exit 2; }
 	$(PYTHON) scripts/07_select_qualitative.py --study-index "$(STUDY_INDEX)" $(if $(PR_MAP),--pr-map "$(PR_MAP)",) $(DEV_FLAG)
+collect-pr-map:
+	@test -n "$(STUDY_INDEX)" -a -n "$(OUTPUT_DIR)" || { echo "STUDY_INDEX and OUTPUT_DIR are required"; exit 2; }
+	@set -a; \
+	if test -f .env; then . ./.env; fi; \
+	if test -f .env.local; then . ./.env.local; fi; \
+	set +a; \
+	$(PYTHON) scripts/collect_pr_map.py --study-index "$(STUDY_INDEX)" --output-dir "$(OUTPUT_DIR)"
 report:
 	@test -n "$(STUDY_INDEX)" || { echo "STUDY_INDEX is required"; exit 2; }
 	$(PYTHON) scripts/08_report.py --study-index "$(STUDY_INDEX)" $(DEV_FLAG)

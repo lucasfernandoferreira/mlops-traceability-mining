@@ -1,263 +1,198 @@
-# Decisões metodológicas
+# Método da pesquisa
 
-Este documento registra o contrato metodológico da pesquisa. Os valores executáveis
-correspondentes ficam em `config/config.yaml`; em caso de divergência, a documentação e
-a configuração devem ser corrigidas na mesma sessão de trabalho.
+O estudo examina mecanismos públicos de rastreabilidade em três projetos de
+aprendizado de máquina que integram MLflow. A análise combina medidas do histórico
+Git com a leitura dos artefatos e dos eventos de mudança. O protocolo vigente é
+2.1.0, definido em `config/config.yaml`, com taxonomia 1.1.0.
 
-## DM-001 — Funil de seleção e tamanho da amostra (recorte revisto por DM-018)
+## Delineamento e unidade de análise
 
-Exigir pelo menos 300 candidatos brutos, aplicar os critérios automáticos, obter uma
-shortlist mínima de 10 repositórios e selecionar manualmente entre 3 e 5 casos. Na versão 1.5.0, a
-amostra deveria cobrir os três estratos definidos no protocolo: apenas DVC, apenas
-MLflow e DVC com MLflow.
+Cada caso corresponde a um projeto de software, delimitado por seu repositório
+canônico, pelo SHA observado na seleção e por todo o histórico alcançável a partir
+desse SHA. Commits, arquivos e eventos são observações internas ao caso. Runs e
+versões de modelos só podem ser analisados quando houver fontes públicas que
+permitam identificá-los e vinculá-los ao projeto.
 
-Justificativa: a shortlist de 10 resolve a divergência anterior entre 8 e 10 e preserva
-margem para exclusões justificadas durante a inspeção manual. A amostra pequena é
-intencional e favorece análise longitudinal aprofundada; ela não sustenta inferência
-estatística para toda a população do GitHub.
+A escolha de três casos mantém o intervalo de três a cinco previsto na proposta e
+permite aprofundar a leitura documental dentro do prazo disponível. Busca-se
+contraste entre mecanismos de integração e contextos de uso, sem representatividade
+estatística dos projetos do GitHub. O número de commits descreve a extensão dos
+históricos; não aumenta, por si só, o número de casos independentes.
 
-## DM-002 — Definição de atividade
+## Seleção dos casos
 
-Um repositório é considerado ativo quando possui pelo menos um commit não automatizado
-posterior a `2025-09-01T00:00:00Z`. A data será comparada em UTC. Commits de merge e de
-bots não entram nas métricas, conforme DM-006.
+A descoberta exige pelo menos 300 candidatos e produz uma shortlist entre 10 e 200
+repositórios. As consultas são paginadas e os candidatos são deduplicados pelo ID
+numérico do GitHub. Limites e respostas incompletas da API ficam registrados.
+A triagem exclui forks, projetos arquivados e os termos de material didático
+configurados no protocolo. A presença de MLflow é inicialmente verificada por
+imports e dependências, com confirmação dos caminhos encontrados na busca e de até
+50 manifestos. Essa verificação funciona como pré-filtro da inspeção do caso.
 
-## DM-003 — Unidade e ordem da classificação
+Os critérios de maturidade são pelo menos 300 commits alcançáveis, 100 estrelas no
+instante da coleta e cinco identidades de autor com atividade posterior a
+01/09/2025 UTC. Para atividade, contam-se commits não merge e não bot. O identificador
+usa email em minúsculas, com nome como alternativa quando não há email; aliases
+podem representar a mesma pessoa. A contagem agregada de contribuidores da triagem
+não substitui essa verificação no histórico congelado.
 
-Cada caminho modificado recebe exatamente uma categoria. A primeira expressão regular
-compatível em `config/file_taxonomy.yaml` vence; portanto, a ordem das regras é parte
-versionada do instrumento. `NOTEBOOK` permanece uma categoria própria para auditoria,
-mas compõe a dimensão lógica de código (`CODE + NOTEBOOK`) nas métricas GQM de
-acoplamento.
+A evidência mínima de integração é uma ligação observável entre entrada ou
+orquestração, componente MLflow e operação de registro. A ficha descreve a ligação,
+as condições de habilitação e os caminhos no SHA inspecionado. Os estados
+`dependency_only`, `functional_integration_observed`, `execution_publicly_verified`
+e `insufficient_evidence` indicam a natureza da evidência e não formam uma escala
+numérica. O critério proposto é `functional_integration_observed`. Uma exigência
+acadêmica de execução comprovada demandaria reavaliar as fontes e os casos.
 
-## DM-004 — Ausência não equivale a zero
+As reservas seguem a ordem registrada antes das métricas: Anomalib, Axolotl e
+RF-DETR. A substituição depende de inelegibilidade, indisponibilidade ou custo
+previamente delimitado, com motivo e data. Não há teto de custo definido como
+critério automático. O Composer apresentou duas identidades ativas e foi substituído
+tecnicamente pelo Anomalib, que apresentou 39, antes do cálculo das métricas da
+reserva. A amostra permanece `pilot` até a decisão do pesquisador.
 
-A falta de dados públicos necessários recebe status `not_available`, nunca valor zero.
-Uma métrica fora do escopo de um caso recebe `not_applicable`; denominador elegível igual
-a zero recebe `undefined`. Falha de coleta ou processamento é `error` e não pode ser
-publicada como resultado observado.
+## Mineração e classificação
 
-## DM-005 — Commits grandes
+A mineração percorre todo o grafo de ancestrais do SHA selecionado, uma vez por
+commit. O corte de atividade usado na seleção não restringe o período das métricas.
+As datas de commit são normalizadas para UTC. O commit inicial é comparado à árvore
+vazia; os demais, ao primeiro pai. Renomeações são tratadas como remoção e adição.
 
-Commits com mais de 1.000 arquivos modificados serão sinalizados e excluídos da
-mineração semântica. Eles permanecem contabilizados no funil de descarte, com o motivo
-registrado, para evitar uma exclusão invisível.
+As exclusões obedecem à ordem merge, bot e commit com mais de 1.000 arquivos. Cada
+commit excluído recebe um único motivo no funil. Bots são identificados pelos
+padrões versionados de nome e email. A tabela de commits mantém os excluídos; a
+tabela de mudanças contém somente os caminhos dos commits incluídos.
 
-## DM-006 — Merges e automações
+Cada caminho recebe a primeira categoria compatível com as regras de
+`config/file_taxonomy.yaml`. A precedência faz parte do instrumento. CODE e
+NOTEBOOK compõem a dimensão C; CONFIG compõe P. DATA_META identifica artefatos DVC
+e permanece um indicador técnico, sem representar toda a dimensão de dados em
+projetos MLflow. Os contratos das medidas estão no [mapa GQM](GQM_MAPA_METRICAS.md).
 
-Commits de merge e commits identificados como bots serão excluídos das métricas de
-acoplamento. A identificação de bot usa os padrões versionados em `config/config.yaml`.
-As contagens excluídas e seus motivos devem ser preservados para auditoria, pois padrões
-textuais podem produzir falsos positivos ou falsos negativos.
+## Validação da taxonomia
 
-## DM-007 — Critérios automáticos de elegibilidade
+A unidade de validação é um caminho por repositório, considerando os históricos
+incluídos e a árvore congelada. Arquivos removidos são recuperados no primeiro pai
+do commit de remoção. A revisão representativa é escolhida pela ordem dos SHAs do
+commit e da revisão do blob. O inventário registra o blob e o número de observações
+históricas, permitindo investigar mudanças de papel do mesmo caminho.
 
-Antes da inspeção manual, o repositório deve ter ao menos 300 commits, 5 contribuidores
-e 100 estrelas, além de satisfazer a definição de atividade. Termos de exclusão como
-`tutorial`, `course`, `classroom`, `homework`, `awesome-list` e `toy-project` reduzem a
-presença de material didático e projetos de demonstração. Todo descarte deve indicar o
-critério aplicado.
+A amostra seleciona até 20 unidades por categoria, alternando os casos de forma
+determinística. Categorias com uma a 19 unidades são avaliadas integralmente.
+Uma categoria sem unidades em inventário completo é registrada como ausente naquele
+universo e não recebe validação empírica. Inventários incompletos impedem o aceite.
 
-As consultas à API são mecanismos de descoberta, não evidência suficiente de uso das
-ferramentas. A presença efetiva de DVC e/ou MLflow deve ser confirmada por artefatos
-versionados e registrada antes da estratificação.
+Os exemplos de calibração são identificados e separados da avaliação quando há
+unidades adicionais suficientes. Categorias raras avaliadas por censo mantêm essa
+limitação explícita. A revisão registra classe esperada, responsável, data UTC,
+justificativa e, quando necessário, a conferência de variação histórica de papel.
+A concordância mínima é 95%, acompanhada de matriz de confusão e resultados por
+categoria e caso. Como a amostra é estratificada, sua concordância não estima
+automaticamente a precisão em todos os arquivos do estudo.
 
-A busca inicial é intencionalmente amostral e preserva a evidência bruta. Consultas
-que ultrapassam o limite coletável da API são marcadas como truncadas, e buscas
-incompletas não devem ser reinterpretadas como cobertura total da população.
+## Análise quantitativa
 
-## DM-008 — Unidades de análise
+O plano de análise 1.0.0 foi registrado em 07/09/2026, após o piloto exploratório do
+Ultralytics e antes da seleção qualitativa final. Portanto, não é um pré-registro
+do piloto. A configuração normativa fica no bloco `analysis` do protocolo.
 
-O repositório é a unidade de seleção e comparação entre casos. O commit elegível é a
-unidade temporal das métricas baseadas em coalteração. Arquivos são classificados para
-formar as dimensões do commit. Runs e versões de modelos só serão unidades observáveis
-quando houver evidência pública e vinculável ao repositório.
+A coalteração código–configuração é descrita por caso e por mês UTC. Numeradores e
+denominadores mensais devem reconciliar com os totais; a média simples das taxas
+mensais não representa a taxa global. Meses sem commits C têm resultado indefinido.
 
-## DM-009 — Proveniência das execuções
+Para a magnitude CONFIG, são calculados média, mediana, p90, p95, máximo, fração de
+zeros e participação dos 10% maiores valores, arredondando a quantidade para cima.
+Os quantis usam interpolação linear. Todos os commits P entram no denominador,
+inclusive os que alteram somente comentários. Um erro de parser bloqueia a medida
+afetada, sem recalcular uma média apenas com os arquivos que foram lidos.
 
-Cada execução oficial deve ocorrer com worktree limpo e registrar um manifesto com o
-SHA do código, versão do protocolo, hashes da configuração, taxonomia e dependências,
-versão do Python, sistema operacional, intervalo temporal e estado da execução. Horários
-devem ser gravados em UTC.
+A análise principal mantém remoção e adição de renomeações. A sensibilidade pareia
+A/D no mesmo commit quando os blobs são idênticos, ordenando caminhos e pareando
+um a um; ambas as contribuições são subtraídas apenas nessa variante. Outras
+variantes distinguem a chave `str:names` e caminhos data/dataset(s), conforme a
+configuração. Essas regras não tornam nomes de classes equivalentes a
+hiperparâmetros, nem autorizam retirar valores extremos para reduzir a média.
 
-## DM-010 — Validação da taxonomia
+As comparações são descritivas. A dependência temporal e organizacional entre
+commits impede tratá-los como observações independentes em qui-quadrado,
+Kruskal-Wallis ou bootstrap simples. Intervalos de incerteza só caberiam após
+definição do estimando e de um modelo de dependência. A primeira integração
+observável é um marco documental, sem interpretação causal.
 
-A taxonomia deve ser avaliada com 20 exemplos por categoria e concordância mínima de
-0,95. A amostra de validação, os rótulos esperados, o resultado e qualquer mudança nas
-regras devem ser versionados. Enquanto essa avaliação manual não for realizada, a
-taxonomia é considerada tecnicamente testada, mas não empiricamente validada.
+## Análise qualitativa
 
-## DM-011 — Congelamento da amostra final
+A seleção prevê 15 eventos por caso, com cinco posições em cada grupo, na ordem
+Q1, Q2 e Q3. Q1 cobre os caminhos de integração confirmados e seus chamadores; Q2,
+a coalteração C/P; Q3, as maiores mudanças semânticas positivas em CONFIG.
 
-`config/amostra_final.yaml` permanece com status `pending` até a conclusão documentada
-do funil. Ao ser finalizado, deve registrar repositórios, estratos, justificativas,
-data UTC, commit da seleção e hash da configuração usada. Nenhum repositório será
-incluído apenas para preencher os estratos sem satisfazer os critérios de elegibilidade.
+Commits associados ao mesmo PR verificado são agrupados antes da seleção. Todos os
+SHAs elegíveis e os grupos aos quais o evento pertence são preservados. Quando
+não há vínculo verificável, o commit é a unidade documental. O mapa deve cobrir
+todo o universo elegível para que a seleção deixe de ser preliminar.
 
-## DM-012 — Descoberta bruta por GitHub Search
+A coleta factual pode usar `associatedPullRequests` da API GraphQL do GitHub,
+guardando consulta, resposta, data e hashes. Um único vínculo no repositório define
+o PR do evento. Resposta completa sem vínculo registra `pr_not_found` no escopo
+da API. Vínculos múltiplos, paginação incompleta, objeto ausente ou falha de acesso
+permanecem `error` até resolução. A coleta automática é identificada como tal e
+não substitui a codificação do pesquisador.
 
-A Fase 1 usa consultas configuradas com paginação serial no GitHub Code Search para
-gerar `candidatos_brutos.csv`, `evidencias_busca.csv` e `resumo_busca.csv`. A
-deduplicação da saída bruta usa o ID numérico do repositório, e a ordenação final dos
-artefatos é determinística para facilitar auditoria. O viés de ordenação inerente à
-API, bem como truncamentos por limite coletável, devem permanecer explícitos na
-documentação e no manifesto.
+Em Q1, a primeira adição elegível do componente de integração é incluída, seguida
+de posições distribuídas no tempo. A ausência de um marco recuperável é registrada.
+Para Q1 e Q2, os candidatos são ordenados por data UTC e SHA; entre n candidatos,
+escolhem-se k posições por `floor(i*(n-1)/(k-1))`. Quando k=1, usa-se a primeira
+posição. Q3 é ordenado por magnitude decrescente, com desempate por data e SHA.
 
-## DM-013 — Triagem automática da amostra
+A seleção é sem reposição. Sobreposições e déficits ficam registrados; os lugares
+restantes até 15 são preenchidos por seleção temporal dos eventos disponíveis, sem
+atribuí-los aos grupos deficitários. Um universo com menos de 15 eventos é analisado
+integralmente. Alterar o mapa PR exige nova seleção; alterar as regras após a leitura
+dos eventos exige versão, data e justificativa.
 
-A Fase 2 aplica primeiro filtros baratos e, em seguida, filtros caros para gerar o
-`funil_amostral.csv` e a `shortlist.csv`. Forks e repositórios arquivados são
-excluídos na triagem inicial, a shortlist deve respeitar os limites mínimos e
-máximos do protocolo e a amostra final continua dependente de inspeção humana
-posterior. A presença de `mlruns/` é registrada, mas não exclui automaticamente o
-repositório.
+A codificação parte dos temas abaixo. Eles orientam a leitura e não antecipam achados.
 
-Qualquer candidato com decisão `error` bloqueia o aceite da execução inteira,
-mesmo se o tamanho e os estratos da shortlist forem suficientes. O gate
-`errors_absent` só passa com zero erros. Os resultados parciais continuam
-preservados para retomada; um retry ainda com erros permanece `FAILED`.
+| Tema | Evidência pertinente | Limite de interpretação |
+|---|---|---|
+| `training_integration` | Entrada que registra ou invoca callback/logger habilitado. | Import isolado não comprova ligação ao fluxo. |
+| `parameter_logging` | Valores ou configurações encaminhados a uma operação de registro. | Nome de arquivo não identifica o uso dos valores. |
+| `artifact_tracking` | Saída do processamento ligada a um artefato registrado. | Registro de artefato não comprova promoção no registry. |
+| `data_environment_reference` | Referências verificáveis a dados, versões ou dependências. | DATA_META não abrange todos os datasets. |
+| `integration_failure` | Falha descrita em código, teste ou discussão vinculada. | Falta de log público não demonstra falha. |
+| `configuration_refactoring` | Mudança de estrutura, caminho ou conteúdo de configuração. | Movimento de YAML não implica novos hiperparâmetros. |
 
-## DM-014 — Paralelismo, retomada e confirmação dirigida
+Cada evento recebe evidência, interpretação, justificativa, ambiguidade, relação
+com uma métrica, evidência contrária e limite da conclusão, além de responsável e
+data UTC. Podem ser usados vários temas, separados por `;`. Temas emergentes exigem
+registro datado e revisão do conjunto de códigos. A análise integrada relaciona o
+padrão quantitativo ao evento e à explicação documental. Essa amostra intencional
+não estima a prevalência dos temas. O número efetivo de codificadores será declarado,
+considerando os pesquisadores que realizarem a leitura e o julgamento dos eventos.
 
-A triagem executa chamadas de rede com paralelismo limitado e configurado, preservando
-a ordenação determinística dos artefatos. Os filtros caros são interrompidos assim que
-um critério eliminatório é confirmado. A evidência de MLflow é validada no commit
-observado usando os caminhos retornados pela consulta da Fase 1; a ausência desses
-caminhos não equivale a uma busca exaustiva em todo o repositório e permanece uma
-limitação do mecanismo de descoberta.
+## Histórico do protocolo e condições de conclusão
 
-Resultados concluídos são registrados em cache local identificado pelos hashes das
-entradas, versão do protocolo, configuração e versão da semântica da triagem.
-O SHA do código é registrado, mas não invalida o cache por si só. Uma retomada só
-reutiliza o cache quando a identidade de compatibilidade coincide, e linhas com
-decisão `error` são sempre reprocessadas. Árvores recursivas truncadas usam confirmação direta dos caminhos
-descobertos; arquivos de dependência como `pyproject.toml` e `requirements.txt` também
-podem confirmar MLflow no commit observado.
+A busca e a triagem de 31/08/2026 usaram o protocolo 1.5.0, com descoberta de DVC,
+MLflow e uso combinado. O piloto de 05/09 adotou o recorte MLflow no protocolo 2.0.0.
+O protocolo 2.1.0 incorporou os cinco pontos do parecer de 07/09: definição e
+quantidade dos casos, maturidade e integração, força das evidências, dependência
+entre commits e seleção qualitativa integrada. As fórmulas principais e a taxonomia
+1.1.0 foram mantidas.
 
-## DM-015 — Imutabilidade dos artefatos de execução
+Os registros DM-001 a DM-025 foram reunidos neste texto. As versões anteriores estão
+no histórico Git e nos arquivos preservados, inclusive as regras substituídas.
+A exigência antiga de 20 exemplos em todas as categorias foi ajustada para censo ou
+ausência no universo.
+O critério de contribuidores passou a impedir o aceite da amostra, sem impedir
+que a etapa de métricas registre processamento bem-sucedido de um caso inelegível.
+A contagem agregada de 1.500 commits deixou de ser justificativa de poder inferencial.
 
-Cada Fase grava seus artefatos em `data/interim/runs/<run_id>/` e nunca sobrescreve uma
-execução anterior. Arquivos JSON em `data/interim/latest/` apontam para o run mais
-recente de cada etapa. Uma Fase 2 com gates reprovados continua sendo uma execução
-válida e preservada com status `FAILED`; esse status não transforma seus resultados em
-amostra final.
+O parecer foi descrito no roteiro recebido como aprovação do delineamento com
+condicionantes. O recorte exclusivamente MLflow e o mapeamento das perguntas ainda
+precisam de alinhamento acadêmico documentado. Nenhuma aprovação específica foi
+presumida a partir da implementação.
 
-## DM-016 — Proposta de recorte e evidências locais (histórica; revista por DM-018)
-
-A inspeção fornecida pelo pesquisador propõe três casos principais com MLflow e
-três reservas ordenadas, descritos em `INSPECAO_MANUAL_AMOSTRA.md`. Essa proposta
-depende de uma decisão sobre a substituição dos três estratos de DM-001. Até sua
-formalização, os critérios executáveis permanecem vigentes e a amostra final fica
-`pending`. Não se deve classificar os casos MLflow como se cobrissem os três estratos.
-
-As justificativas recebidas são registradas com sua origem e os SHAs da shortlist.
-A conferência local desses SHAs não equivale a uma nova inspeção das fontes remotas.
-Runs locais demonstram a coleta quando seus artefatos e manifestos podem ser
-verificados; a falta de publicação no GitHub não significa que a coleta não ocorreu.
-
-## DM-017 — Parâmetros operacionais explícitos
-
-Os defaults de heartbeat, espaçamento, cooldown e retries foram explicitados em
-`config/config.yaml` sem alterar seus valores efetivos nem os critérios amostrais.
-O protocolo permanece em `1.5.0`; a inclusão das chaves altera o hash dos bytes do
-YAML e, portanto, a identidade do cache. Manifestos anteriores conservam o hash
-original. Não se deve reescrevê-los nem declarar equivalência de hashes apenas
-porque os valores efetivos são iguais. Uma mudança futura de recorte exige revisão
-do protocolo e documentação de sua relação com a busca e triagem anteriores.
-
-## DM-018 — Recorte operacional MLflow (2.0.0, 05/09/2026)
-
-Em atendimento à solicitação do pesquisador de executar os próximos passos do parecer,
-adota-se para o piloto e seleção derivada o recorte MLflow: Ultralytics, PyMC Marketing
-e Composer. A decisão operacional foi registrada por Codex; não atesta aprovação da
-orientadora, cujo alinhamento permanece pendente. O objetivo operacional passa a ser
-caracterizar rastreabilidade publicamente observável e instrumentação de treinamento
-em bibliotecas/frameworks, sem comparação entre ferramentas e sem inferência de uso
-nas organizações clientes. DM-001 e DM-016 são superadas nesse ponto: três casos,
-exclusivamente do estrato `apenas_mlflow`; busca e triagem originais permanecem em 1.5.0.
-
-A derivação verifica hashes dos artefatos e dos instrumentos recuperados do commit
-original, além do SHA e elegibilidade de cada selecionado na shortlist. Não reescreve
-manifestos nem interpreta o protocolo 2.0.0 como aquele que produziu a coleta original.
-As reservas e critérios de substituição de `INSPECAO_MANUAL_AMOSTRA.md` permanecem.
-
-## DM-019 — Fórmulas, período e dados não observáveis
-
-O contrato normativo de cada fórmula é `GQM_MAPA_METRICAS.md` versão 2.0.0. Preservam-se
-as razões originais dados/código exclusivo e todas as runs/promoções, distinguindo a
-coalteração dados/código como complementar. A prioridade executável é C∩P/C e magnitude
-semântica de CONFIG. DATA_META não habilita D em MLflow sem validação do significado.
-Métricas de D e runtime recebem `not_available` neste piloto. Instrumentação estática
-é relatada em indicadores próprios, nunca convertida em runs ou versões de modelos.
-
-O universo é todo o histórico alcançável do SHA selecionado, sem descendentes e sem
-limite por data de atividade. Cada SHA aparece uma vez. Root compara com árvore vazia;
-outros commits com primeiro pai. Renomeações são adição/remoção explícitas. Período,
-exclusões e parsers estão fixados antes da leitura dos resultados.
-
-## DM-020 — Contribuidores ativos e amostra de piloto
-
-A contagem agregada da Fase 2 é um pré-filtro, não comprova cinco contribuidores ativos.
-O gate suplementar exige ao menos cinco identidades de autor com commit não merge e
-não bot posterior ao corte de atividade, alcançável do SHA. Identidades usam e-mail
-normalizado, com nome como fallback, sem mailmap; não se publica nenhuma identidade.
-Isso pode separar aliases da mesma pessoa e requer cautela interpretativa.
-
-`amostra_final.yaml` admite `status=pilot` com os três selecionados para investigação.
-Não afirma seleção final enquanto faltarem conferência humana e gates dos três casos.
-A Fase 3 congela um caso por execução em clone bare completo, rejeita shallow/partial,
-confere objetos e fixa `refs/tcc/frozen/<sha>`. A retomada reutiliza clones compatíveis,
-mas cada execução produz CSV e manifesto novos. Não há checkout nem execução de código
-externo. O primeiro aceite técnico é uma tabela integral do Ultralytics com evidências.
-
-## DM-021 — Piloto preliminar e aceite
-
-Mantém-se DM-009 para execuções oficiais. `--allow-dirty` permite explicitamente um
-piloto preliminar durante desenvolvimento, registra `dirty_worktree=true` e arquiva
-os bytes do código, scripts, configuração e locks em `source_snapshot.tar.gz`, cujo
-hash consta no manifesto. Esse snapshot não converte a execução em oficial.
-
-A Fase 5 aceita tecnicamente apenas métricas sem `error` e gate de contribuidores
-ativos aprovado. O aceite científico adicional exige rótulos humanos e concordância
-mínima de 95%, com 20 exemplos únicos por categoria. Categorias com poucos arquivos
-no piloto exigem completar a amostra nos demais casos/histórico antes desse aceite;
-não preencher rótulos humanos com previsões do classificador. A revisão qualitativa
-dos callbacks/loggers permanece no plano para sustentar a abordagem mista.
-
-## DM-022 — Parecer, casos e análise (2.1.0, 07/09/2026)
-
-DEFINICAO_DOS_CASOS.md e PLANO_ANALISE.md operacionalizam os cinco requisitos.
-Estatística descritiva por caso, sem independência presumida entre commits.
-Integração funcional estrutural exige ligação entrada–componente–operação;
-importação é pré-filtro. Evidências e motivos de indisponibilidade ficam separados.
-Plano qualitativo pós-piloto, anterior à seleção final, determinístico e auditável.
-Recorte MLflow e substituição de perguntas continuam com alinhamento pending.
-
-## DM-023 — Inventário e revisão empírica (substitui DM-010 e parte de DM-021)
-
-Unidade: caminho POSIX por repositório no histórico elegível e árvore congelada,
-incluindo removidos (blob do pai) e renomeados (A/D). Revisão representante mínima
-por (commit SHA, revisão do blob, blob SHA), deterministicamente. Variações de papel
-exigem revisão complementar documentada. Amostra por categoria com 20 unidades ou
-censo se 1–19. Zero em inventário completo: absent_in_validated_universe, sem
-validação empírica dessa categoria. Inventário incompleto bloqueia cobertura.
-Calibração declarada separadamente; amostra de avaliação não reutiliza calibração
-quando existem unidades adicionais suficientes. Categorias raras em censo declaram
-essa limitação. Concordância global ≥95%, por categoria/caso e matriz de confusão;
-amostragem estratificada não estima automaticamente concordância populacional.
-Recibo verifica origem, revisão, inventário, hashes, responsáveis, UTC e instrumento.
-Rótulos humanos nunca são preenchidos pela IA.
-
-## DM-024 — Consolidação derivada
-
-Runs explícitos, índice imutável e manifesto por entrega. processing_status,
-sample_status, measurement_validation_status e academic_alignment_status separados.
-A cadeia inteira deve ser elegível; origem de desenvolvimento continua preliminar
-mesmo consumida por etapa limpa. Finalização verifica recibos e fontes e produz
-bloqueios recuperáveis. status: final isolado não é certificação.
-
-Em 2.1.0, o teste de contribuidores ativos deixa de compor o SUCCESS da Fase 5:
-seu resultado continua no resumo e passa a bloquear a seleção/consolidação.
-Isso substitui expressamente a primeira condição de DM-021. Não altera o mínimo
-científico de cinco nem reinterpreta runs históricos. Foi necessário distinguir
-processamento válido de caso inelegível: Composer apresentou duas identidades.
+A conclusão exige três casos elegíveis com fichas revisadas, validação da taxonomia,
+mapa PR completo, codificação qualitativa e alinhamento acadêmico. Também exige
+cadeia de execuções com código commitado, fontes identificadas e hashes conferidos.
+Cada etapa tem seu próprio estado; sucesso de processamento não certifica o estudo.
+Revisões e finalizações recusadas são preservadas com seus motivos para permitir
+retomada sem alterar os registros anteriores.

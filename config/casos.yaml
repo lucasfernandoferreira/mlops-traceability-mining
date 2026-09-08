@@ -1,4 +1,3 @@
-# Preparação técnica por Codex em 07/09/2026. Decisão humana permanece vazia.
 protocol_version: 2.1.0
 cases:
   ultralytics/ultralytics:
@@ -8,44 +7,74 @@ cases:
     integration_entrypoint: ultralytics/engine/trainer.py
     integration_component: ultralytics/utils/callbacks/mlflow.py
     integration_paths:
-      - ultralytics/engine/trainer.py
-      - ultralytics/utils/callbacks/base.py
-      - ultralytics/utils/callbacks/mlflow.py
+    - ultralytics/engine/trainer.py
+    - ultralytics/utils/callbacks/base.py
+    - ultralytics/utils/callbacks/mlflow.py
     operation: log_params; log_metrics; log_artifact
-    enablement: add_integration_callbacks registra callbacks; SETTINGS.mlflow verdadeiro, pacote disponível e guards de execução/teste.
-    evidence_scope: BaseTrainer registra os callbacks e dispara eventos; callback envia trainer.args, métricas e pesos. Não comprova execução pública.
+    enablement: add_integration_callbacks registra callbacks; SETTINGS.mlflow verdadeiro,
+      pacote disponível e guards de execução/teste.
+    evidence_scope: BaseTrainer registra os callbacks e dispara eventos; callback
+      envia trainer.args, métricas e pesos. Não comprova execução pública.
     test_path: tests/test_integrations.py
     integration_evidence_status: functional_integration_observed
     evidence_type: structural
   pymc-labs/pymc-marketing:
     domain: Modelagem probabilística de marketing
-    research_questions_supported: C/P, magnitude CONFIG e contexto do modelo/dados na instrumentação
+    research_questions_supported: C/P, magnitude CONFIG e contexto do modelo/dados
+      na instrumentação
     expected_contrast: Autologging de modelos, configuração, dados e inferência
     integration_entrypoint: pymc_marketing/model_builder.py
     integration_component: pymc_marketing/mlflow.py
     integration_paths:
-      - pymc_marketing/model_builder.py
-      - pymc_marketing/mmm/mmm.py
-      - pymc_marketing/mlflow.py
+    - pymc_marketing/model_builder.py
+    - pymc_marketing/mmm/mmm.py
+    - pymc_marketing/mlflow.py
     operation: log_params; log_input; log_inference_data
-    enablement: autolog envolve pm.sample; log_mmm habilita wrapper de MMM.fit, registrando configuração antes e inferência depois.
-    evidence_scope: Wrappers conectados às operações de amostragem/fit. Testes documentam chamadas; exemplos não foram executados nesta coleta.
+    enablement: autolog envolve pm.sample; log_mmm habilita wrapper de MMM.fit, registrando
+      configuração antes e inferência depois.
+    evidence_scope: Wrappers conectados às operações de amostragem/fit. Testes documentam
+      chamadas; exemplos não foram executados nesta coleta.
     test_path: tests/test_mlflow.py
     integration_evidence_status: functional_integration_observed
     evidence_type: structural
   mosaicml/composer:
     domain: Infraestrutura de treinamento
-    research_questions_supported: C/P, magnitude CONFIG e vínculos estruturados pelo logger
+    research_questions_supported: C/P, magnitude CONFIG e vínculos estruturados pelo
+      logger
     expected_contrast: LoggerDestination e operações de modelos
     integration_entrypoint: composer/trainer/trainer.py
     integration_component: composer/loggers/mlflow_logger.py
     integration_paths:
-      - composer/trainer/trainer.py
-      - composer/loggers/logger.py
-      - composer/loggers/mlflow_logger.py
+    - composer/trainer/trainer.py
+    - composer/loggers/logger.py
+    - composer/loggers/mlflow_logger.py
     operation: log_params; log_metrics; register_model
-    enablement: Trainer instancia Logger com destinations=loggers; destino MLFlowLogger é condicionado por _enabled/rank e configuração.
-    evidence_scope: Logger delega parâmetros/métricas; MLFlowLogger oferece registro de modelos. Disponibilidade da API não comprova promoção executada.
+    enablement: Trainer instancia Logger com destinations=loggers; destino MLFlowLogger
+      é condicionado por _enabled/rank e configuração.
+    evidence_scope: Logger delega parâmetros/métricas; MLFlowLogger oferece registro
+      de modelos. Disponibilidade da API não comprova promoção executada.
     test_path: tests/loggers/test_mlflow_logger.py
+    integration_evidence_status: functional_integration_observed
+    evidence_type: structural
+  open-edge-platform/anomalib:
+    domain: Detecção de anomalias em visão computacional
+    research_questions_supported: C/P, magnitude CONFIG e integração estrutural delegada
+      ao Lightning
+    expected_contrast: Logger delegado ao Lightning com interface explícita para registro
+      de imagens
+    integration_entrypoint: src/anomalib/engine/engine.py
+    integration_component: src/anomalib/loggers/mlflow.py
+    integration_paths:
+    - src/anomalib/engine/engine.py
+    - src/anomalib/callbacks/visualizer.py
+    - src/anomalib/loggers/mlflow.py
+    operation: log_image; log_figure; operações de parâmetros/métricas delegadas ao
+      Lightning
+    enablement: Engine encaminha logger ao Trainer; pacote mlflow necessário; visualização
+      deve habilitar logging; log_model=False por padrão.
+    evidence_scope: Callback de visualização chama add_image; AnomalibMLFlowLogger
+      invoca self.experiment.log_image/log_figure. Ligação estrutural; execução pública
+      e implementação externa do Lightning não foram verificadas.
+    example_path: examples/api/04_advanced/loggers.py
     integration_evidence_status: functional_integration_observed
     evidence_type: structural

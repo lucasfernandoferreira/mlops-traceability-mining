@@ -1,26 +1,22 @@
-# Mapa GQM e contrato das métricas — protocolo 2.0.0
+# Perguntas e métricas
 
-Recorte operacional: mecanismos de rastreabilidade publicamente observáveis e
-instrumentação de treinamento em três bibliotecas/frameworks com MLflow. Não há
-comparação entre ferramentas nem inferência sobre a execução nas organizações usuárias.
-A alteração foi adotada para o piloto solicitado em 05/09/2026; o alinhamento acadêmico
-com a orientadora permanece pendente. A proposta original não foi editada.
+As medidas do protocolo 2.1.0 descrevem o histórico dos casos e a instrumentação
+MLflow visível no código. O caso é a unidade de comparação; o commit elegível é a
+observação temporal. A análise cobre todos os ancestrais do SHA selecionado, desde
+a origem do repositório, com datas de commit em UTC.
 
-## Universo e fontes
+## Dimensões e denominadores
 
-Unidade de comparação: repositório. Unidade longitudinal: commit alcançável a partir
-do SHA da seleção, em todo o DAG, desde a origem, sem incluir descendentes posteriores.
-Datas usam `committed_at` em UTC; início/fim reportados são mínimo/máximo do universo.
-A data de atividade da seleção não restringe o período das métricas.
+C indica mudança em CODE ou NOTEBOOK; P indica mudança em CONFIG. A dimensão D
+exigiria artefatos cujo papel como dados fosse validado. A categoria DATA_META,
+restrita a DVC, não satisfaz essa condição para o recorte MLflow. `C_only` designa
+commits cujas mudanças são exclusivamente CODE ou NOTEBOOK.
 
-`C` = altera CODE ou NOTEBOOK; `P` = altera CONFIG; `D` = altera um artefato de dados
-cujo papel foi validado. DATA_META continua sendo o detector estrutural de DVC, sem
-representar automaticamente D no recorte MLflow. `C_only` exige que todas as mudanças
-sejam CODE/NOTEBOOK. Exclusões: merge, bot, commit com mais de 1.000 arquivos, nessa
-precedência exclusiva. Bots são identificados pelo nome/e-mail do autor e pelos padrões
-versionados. A coalteração indica associação temporal, sem causalidade.
+Merges, bots e commits com mais de 1.000 arquivos são excluídos nessa ordem. As
+contagens de descarte acompanham os resultados. A data de corte da atividade serve
+à seleção do caso e não reduz o período das métricas.
 
-## Contratos fechados antes do piloto
+## Relação com as perguntas da pesquisa
 
 | Pergunta / identificador | Fórmula | Unidade / escala | Fonte e denominador | Ausência |
 |---|---|---|---|---|
@@ -33,34 +29,37 @@ versionados. A coalteração indica associação temporal, sem causalidade.
 | GQM 3.1: ambiente recuperável? `env_versioning_rate` | runs com dependências/imagem recuperável / runs observadas | proporção [0,1] | Fonte pública de runs; todas as runs no período | `not_available` sem fonte; `undefined` sem runs |
 | GQM 3.2.1 original: runs por promoção? `experiment_redundancy` | todas as runs registradas no universo / versões promovidas observadas no mesmo universo | runs por versão promovida, razão >=0 | Tracking + registry públicos; todas as promoções no período | `not_available` sem fontes; `undefined` sem promoções |
 
-GQM 3.2 conserva o numerador original, inclusive runs sem vínculo com promoção. A versão
-anterior, restrita a runs vinculadas, foi retirada do contrato executável. Mesmo com
-fontes, essa razão agregada não determina causalmente quantas tentativas antecederam
-cada promoção. O identificador antigo `data_code_coupling` foi substituído pelos dois
-nomes distintos acima; nenhuma série anterior deve ser concatenada implicitamente.
+A magnitude CONFIG é calculável nas fontes atuais. Coalteração C/P é uma medida
+complementar, mas não responde à dimensão de dados do CACE. Proveniência, ambiente
+de runs e promoções dependem de fontes ainda não ingeridas. As perguntas afetadas
+permanecem visíveis na tabela, com `not_available`, e precisam constar no
+alinhamento acadêmico do recorte.
 
-O piloto implementa `code_config_cochange`, `config_magnitude` e os indicadores
-estáticos abaixo. Os seis resultados que dependem de D validada ou de runs/registry
-são emitidos com `not_available`; não existe ainda parser dessas fontes. A simples
-presença futura de `mlruns` não habilita cálculos sem uma nova implementação validada.
+`experiment_redundancy` mantém todas as runs no numerador, inclusive as sem vínculo
+com promoção. Mesmo com fontes completas, a razão não determina quantas tentativas
+causaram uma promoção. A antiga denominação `data_code_coupling` foi desdobrada em
+`data_code_ratio_original` e `data_code_cochange`, pois razão de frequências e
+proporção de coalteração têm interpretações diferentes.
 
-## Diferenças semânticas
+## Magnitude de configuração
 
-YAML/YML (incluindo MLproject), JSON e TOML são lidos com parsers seguros, sem executar
-arquivos do caso. Folhas de mapas são identificadas por caminho hierárquico com tipo
-da chave; listas contam como um valor atômico, mapas vazios como folhas. Comparação de
-valores preserva a distinção booleano/número. Comentários e ordem das chaves não contam.
-Adições/remoções de arquivos contam suas folhas. Identidade é `(caminho do arquivo,
-caminho da chave)` por commit, evitando fundir chaves de arquivos diferentes.
+YAML/YML, MLproject, JSON e TOML são lidos por parsers estruturados. As folhas são
+representadas por caminhos com tipos, permitindo distinguir uma chave numérica de
+uma chave textual. Contam-se adições, remoções e alterações de valor por arquivo e
+commit. Mudanças apenas de comentário podem produzir zero chaves e continuam no
+denominador dos commits CONFIG.
 
-Renomeações são deliberadamente tratadas como remoção e adição (`--no-renames`);
-portanto, mudanças de diretório podem aumentar a magnitude sem mudar parâmetros.
-Chaves duplicadas, aliases recursivos, bytes inválidos e sintaxe inválida geram erro
-observável. A média integral nunca é substituída por uma média dos parsers que passaram.
-O YAML usa a semântica do PyYAML SafeLoader, incluindo resolução de escalares; isso
-pode diferir do loader efetivo de um projeto e exige revisão dos casos limítrofes.
+Renomeações contam como remoção e adição na medida principal. Por isso, movimentos
+de diretório e grandes mapas de classes podem concentrar a soma sem representar
+ajustes de hiperparâmetros. Média, quantis, concentração e variantes de sensibilidade
+seguem o [plano de análise](DECISOES_METODOLOGICAS.md#análise-quantitativa).
 
-## Indicadores estáticos próprios
+Chaves duplicadas, aliases recursivos, bytes inválidos e sintaxe inválida produzem
+erro. Um erro impede o cálculo integral da magnitude; os arquivos bem-sucedidos não
+são usados para fabricar uma média parcial. A leitura YAML segue o SafeLoader do
+PyYAML, cuja resolução de escalares pode diferir da aplicação analisada.
+
+## Instrumentação estática
 
 | Identificador | Numerador | Denominador / unidade |
 |---|---|---|
@@ -69,38 +68,36 @@ pode diferir do loader efetivo de um projeto e exige revisão dos casos limítro
 | `static_mlflow_artifact_calls` | posições `log_artifact` e `log_artifacts` | 1 / posições no SHA |
 | `static_mlflow_model_calls` | posições `log_model` e `register_model` | 1 / posições no SHA |
 
-Fonte: AST dos arquivos Python da árvore congelada. Contam-se somente caminhos CODE;
-testes, exemplos classificados fora de CODE e notebooks não entram nesses indicadores.
-A tabela `tree_inspection.json` preserva também os candidatos nas demais categorias.
-Cada posição conta uma vez, independentemente de loops e quantidade de execuções.
-Chamadas de artefatos podem registrar pesos; não são automaticamente modelos promovidos.
+A fonte é a árvore sintática dos arquivos Python classificados como CODE no SHA
+congelado. Uma posição conta uma vez, independentemente de loops ou de quantas
+vezes o programa poderia ser executado. `tree_inspection.json` preserva também os
+candidatos encontrados nas outras categorias, suas linhas, URLs e hashes.
 
-O parser resolve imports diretos e aliases sintáticos de MLflow. Não resolve fluxo de
-controle, reatribuições, escopo de aliases, objetos MlflowClient, wrappers, delegação ao
-Lightning ou chamadas dinâmicas. Assim, os números são **candidatos sintáticos**, sujeitos
-a falsos positivos e negativos, com conferência qualitativa dos arquivos de integração.
-Falha de parse Python gera `error`, não contagem completa. Nenhuma dessas contagens é
-proxy numérico das métricas de runs ou proveniência.
+O parser reconhece imports diretos e aliases sintáticos de MLflow. Não acompanha
+reatribuições, escopos, objetos MlflowClient, wrappers nem delegação ao Lightning.
+Essas limitações admitem falsos positivos e negativos; as fichas dos casos ajudam
+a interpretar a diferença entre integração estrutural e chamadas detectadas.
+Autolog não é expandido em operações presumidas. Pesos registrados como artefatos
+não são automaticamente versões promovidas de modelos.
 
-## Status e campos
+## Estados dos resultados
 
-Somente `observed` carrega valor. Zero é válido com denominador positivo e ausência de
-evento. `not_available`: fonte não observável/ingerida ou dimensão não validada;
-`not_applicable`: operação fora do domínio implementado; `undefined`: denominador zero;
-`error`: falha de processamento, bloqueia aceite técnico da Fase 5.
+| Estado | Interpretação |
+|---|---|
+| `observed` | Cálculo realizado; zero é possível quando o denominador é positivo. |
+| `not_available` | Fonte não coletada, inacessível, sem parser ou dimensão não validada. |
+| `not_applicable` | Operação fora do domínio implementado. |
+| `undefined` | Denominador igual a zero. |
+| `error` | Falha de coleta ou processamento que impede aceitar a medida. |
 
-Cada linha registra repositório, SHA, período UTC, identificador, numerador, denominador,
-valor, unidade, status e detalhe, exclusões, versões de protocolo/taxonomia, `run_id` e
-`validation_status`. `observed` descreve cálculo, não certificação da taxonomia.
-Resultados do piloto são preliminares até a validação humana mínima de 95%.
+Somente `observed` tem valor numérico. O campo `availability_reason` distingue
+`not_found_in_inspected_scope`, `source_inaccessible`, `not_collected`,
+`parser_not_implemented` e `dimension_not_validated`. A falta de coleta não é uma
+busca com resultado negativo.
 
-## Revisão 2.1.0 — perguntas e força de evidência
-
-Dos seis objetivos métricos originais, magnitude CONFIG é operacionalizável nas
-fontes coletadas; proveniência, frequência D/C, CACE, ambiente e runs/promoções não
-são respondíveis atualmente. C/P complementa CACE, mas não responde à dimensão D.
-AST complementa descrição da integração, sem substituir proveniência/execução.
-DATA_META continua DVC. availability_reason distingue dimension_not_validated das
-fontes de runtime not_collected; parser futuro continua necessário.
-Plano quantitativo/qualitativo normativo: PLANO_ANALISE.md. Fórmulas principais
-2.0.0 preservadas; acrescentam-se distribuições, séries e sensibilidade separadas.
+O tipo de evidência é informado separadamente: `direct` para registros públicos da
+prática, `structural` para vínculos nos artefatos e `proxy` para sinais indiretos,
+como candidatos sintáticos. Esses tipos não são somados em um escore de maturidade.
+Cada medida registra caso, SHA, período, unidade, numerador, denominador, exclusões,
+versões do instrumento e execução. O estado observado informa que o cálculo foi
+feito; a validação da taxonomia consta em outro campo.

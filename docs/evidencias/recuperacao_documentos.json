@@ -1,0 +1,39 @@
+{
+  "source_run_id": "20260907T223428730424Z_11e480b5_phase9_finalize_study",
+  "source_snapshot_sha256": "2c37a2838edf68c2915aa8250b826fcbb7f96588b9999e5af480a7f9de384ea9",
+  "method": "exact member bytes from preserved development snapshot",
+  "files": [
+    {
+      "path": "docs/BASELINE_PARECER_ORIENTADORA.md",
+      "sha256": "3d6b580eb1a66212a03ead5c1589962a693c10bf744c4e0dbaef9f1d4ce3c53b"
+    },
+    {
+      "path": "docs/CODEBOOK_QUALITATIVO.md",
+      "sha256": "ea96e2b2f8c103f9ac1ecffae82b3241de7bf8feff3801114459ad26751be3fe"
+    },
+    {
+      "path": "docs/DEFINICAO_DOS_CASOS.md",
+      "sha256": "71091549d8cfc6c0c9a3483e770799f00a0c0e678e9146bf50699f638814f86e"
+    },
+    {
+      "path": "docs/ENTREGA_PARECER_ORIENTADORA.md",
+      "sha256": "54999229cfbe3cbbfae2f6bcbe1d48f4761a4fb5ec6da95b6d903d497bc4dc72"
+    },
+    {
+      "path": "docs/PARECER_ORIENTADORA_E_RESPOSTAS.md",
+      "sha256": "49171e1305e139b6838947dd6131fbc2d7900f372d0ad521851a169838a57f08"
+    },
+    {
+      "path": "docs/PLANO_ANALISE.md",
+      "sha256": "418e75ed00d2143cc494b19852ea3a531539561352a27e7397027f5eb9e5e96d"
+    }
+  ],
+  "consolidated_into": [
+    "docs/DECISOES_METODOLOGICAS.md",
+    "docs/INSPECAO_MANUAL_AMOSTRA.md",
+    "docs/GQM_MAPA_METRICAS.md",
+    "docs/LIMITACOES_E_VALIDADE.md",
+    "README.md"
+  ],
+  "note": "File paths and hashes above identify the original archive members, before editorial consolidation."
+}
