@@ -1,0 +1,84 @@
+.venv/bin/python -m ruff check .
+All checks passed!
+.venv/bin/python -m ruff format --check .
+74 files already formatted
+.venv/bin/python -m mypy
+Success: no issues found in 65 source files
+.venv/bin/python -m pytest
+============================= test session starts ==============================
+platform linux -- Python 3.12.13, pytest-9.1.1, pluggy-1.6.0
+rootdir: /mnt/c/Users/lucca/development/projects/tcc/tcc_mba/mlops-traceability-mining
+configfile: pyproject.toml
+testpaths: tests
+plugins: cov-7.1.0
+collected 203 items
+
+tests/test_config.py .....                                               [  2%]
+tests/test_github_search.py ......                                       [  5%]
+tests/test_manifest.py ...                                               [  6%]
+tests/test_observability.py ......                                       [  9%]
+tests/test_pilot_metrics.py ..................                           [ 18%]
+tests/test_pilot_pipeline.py .....                                       [ 21%]
+tests/test_pr_mapping.py ...............                                 [ 28%]
+tests/test_run_storage.py ...                                            [ 30%]
+tests/test_sample_screen.py ............                                 [ 35%]
+tests/test_sample_screen_gateway.py .........                            [ 40%]
+tests/test_screen_sample_script.py .......                               [ 43%]
+tests/test_search_candidates_script.py ...                               [ 45%]
+tests/test_study_contracts.py .........                                  [ 49%]
+tests/test_study_pipeline.py ....                                        [ 51%]
+tests/test_synthetic_repo.py ...                                         [ 53%]
+tests/test_taxonomy.py ................................                  [ 68%]
+tests/verification/test_contracts.py ............                        [ 74%]
+tests/verification/test_oracles.py ................                      [ 82%]
+tests/verification/test_reviews.py ...........                           [ 88%]
+tests/verification/test_runner.py .                                      [ 88%]
+tests/verification/test_source_oracles.py .......................        [100%]
+
+================================ tests coverage ================================
+_______________ coverage: platform linux, python 3.12.13-final-0 _______________
+
+Name                                                   Stmts   Miss  Cover   Missing
+------------------------------------------------------------------------------------
+src/mlops_traceability/__init__.py                         1      0   100%
+src/mlops_traceability/config.py                         122      5    96%   87, 90, 93, 170, 176
+src/mlops_traceability/config_diff.py                     50      1    98%   58
+src/mlops_traceability/descriptive_analysis.py            59      1    98%   41
+src/mlops_traceability/github_search.py                  168     12    93%   110-113, 120-122, 158-161, 183, 190, 208
+src/mlops_traceability/manifest.py                        93      3    97%   101, 119, 149
+src/mlops_traceability/metrics_gqm.py                     24      0   100%
+src/mlops_traceability/mining.py                         126      4    97%   61, 124, 130, 152
+src/mlops_traceability/observability.py                  113      4    96%   27, 164, 176, 182
+src/mlops_traceability/pilot.py                          231     16    93%   119, 125, 127, 130-132, 134, 220, 227, 249, 255, 277, 287, 350-352, 359
+src/mlops_traceability/pr_mapping.py                      28      0   100%
+src/mlops_traceability/qualitative_selection.py           73      0   100%
+src/mlops_traceability/run_storage.py                    123     10    92%   79, 86, 95, 97, 104, 108, 110, 132, 200, 219
+src/mlops_traceability/sample_screen.py                  513     67    87%   113, 119, 131, 185, 198, 250-251, 311-312, 317-323, 344, 357-358, 388, 395-396, 404-409, 441, 495-505, 530-537, 554, 562, 576-579, 638, 642, 652-654, 708, 818, 820, 822, 826, 921-922, 979, 995, 999, 1041-1048
+src/mlops_traceability/study.py                          364     34    91%   49, 175, 185, 271, 497-521, 795, 804, 812, 827, 846, 851, 853, 907-912, 921
+src/mlops_traceability/taxonomy.py                        62      0   100%
+src/mlops_traceability/validation/__init__.py              1      0   100%
+src/mlops_traceability/validation/synthetic_repo.py       34      0   100%
+src/mlops_traceability/validation/taxonomy_review.py     109      1    99%   180
+src/mlops_traceability/verification/__init__.py            0      0   100%
+src/mlops_traceability/verification/contracts.py          53      0   100%
+src/mlops_traceability/verification/descriptive.py        61      0   100%
+src/mlops_traceability/verification/evidence.py           51      0   100%
+src/mlops_traceability/verification/git_oracle.py        142     10    93%   55, 60, 94, 99, 139, 194-201, 237
+src/mlops_traceability/verification/oracles.py            73      0   100%
+src/mlops_traceability/verification/reviews.py           172      3    98%   181, 198, 233
+src/mlops_traceability/verification/runner.py            213     12    94%   102, 105, 113, 191, 194, 258, 277, 286, 310, 317, 340, 343
+src/mlops_traceability/verification/semantics.py          52      1    98%   62
+src/mlops_traceability/verification/tables.py             43      0   100%
+------------------------------------------------------------------------------------
+TOTAL                                                   3154    184    94%
+Required test coverage of 90% reached. Total coverage: 94.17%
+======================== 203 passed in 69.27s (0:01:09) ========================
+.venv/bin/python scripts/00_smoke.py --allow-dirty
+[2026-09-09T01:08:00.572933Z] phase0_smoke | Fase 0 iniciada | log_path=/mnt/c/Users/lucca/development/projects/tcc/tcc_mba/mlops-traceability-mining/tmp/logs/20260909T010800082551Z_7863bd62_phase0_smoke.jsonl
+[2026-09-09T01:08:00.589514Z] phase0_smoke | Configuração validada
+[2026-09-09T01:08:00.603417Z] phase0_smoke | Taxonomia validada
+[2026-09-09T01:08:00.701495Z] phase0_smoke | Repositório sintético validado | tracked_files=6
+[2026-09-09T01:08:00.750557Z] phase0_smoke | Fase 0 finalizada | status=SUCCESS
+Fase 0 validada com sucesso.
+Manifesto: /mnt/c/Users/lucca/development/projects/tcc/tcc_mba/mlops-traceability-mining/tmp/manifests/20260909T010800082551Z_7863bd62_phase0_smoke.json
+Categorias encontradas: {<Category.OUTRO: 'OUTRO'>: 1, <Category.DATA_META: 'DATA_META'>: 1, <Category.DOC: 'DOC'>: 1, <Category.CONFIG: 'CONFIG'>: 1, <Category.CODE: 'CODE'>: 2}

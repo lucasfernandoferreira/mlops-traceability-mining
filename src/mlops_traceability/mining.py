@@ -29,7 +29,7 @@ def read_blob(repo: Repo, revision: str | None, path: str) -> bytes | None:
         blob = repo.commit(revision).tree / path
     except KeyError:
         return None
-    return bytes(blob.data_stream.read())
+    return bytes(blob.data_stream.read()) if isinstance(blob, Blob) else None
 
 
 def mine_history(
@@ -103,9 +103,8 @@ def mine_history(
                     ("after_blob_sha", commit.hexsha),
                 ):
                     try:
-                        row[field] = (
-                            (repo.commit(revision).tree / file_path).hexsha if revision else None
-                        )
+                        item = repo.commit(revision).tree / file_path if revision else None
+                        row[field] = item.hexsha if isinstance(item, Blob) else None
                     except KeyError:
                         row[field] = None
                 if category == Category.CONFIG:

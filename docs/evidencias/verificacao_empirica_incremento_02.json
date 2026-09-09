@@ -1,0 +1,580 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at_utc": "2026-09-09T13:18:30.856709+00:00",
+  "verification_policy_version": "1.1.0",
+  "scope": "empirical",
+  "criteria_scope": [
+    "G00",
+    "G01",
+    "G02",
+    "G03",
+    "G04",
+    "G05",
+    "G06",
+    "G07",
+    "G08",
+    "G09",
+    "G10",
+    "G11",
+    "G12",
+    "G13"
+  ],
+  "verification_status": "FAIL",
+  "exit_code": 1,
+  "scientific_result_accepted": false,
+  "verification_code_sha": "7863bd625c203a08197518b3f3714e4a4d0e0751",
+  "dirty_worktree": true,
+  "study_index_sha256": "e9494a0bd66aab187734fb3846312be9631bf440a348adc80ed0551edcc623dd",
+  "receipt_path": "data/interim/verification/incremento_02/empirical_03/verification_receipt.json",
+  "receipt_sha256": "33f68cb6e2560dd427f345c47c587d66030c5ebcc603bbc61b56d0055f3099f4",
+  "verification_source_sha256": "af4524cd654a57272f1840415c509d4fbeaa89a40f29d86726a5c5ceb5cfb52c",
+  "criteria": [
+    {
+      "criterion_id": "G00",
+      "method": "Pending implementation or evidence",
+      "status": "NOT_RUN",
+      "proof": [],
+      "reason": "Not executed in this increment",
+      "discrepancy_count": null
+    },
+    {
+      "criterion_id": "G01",
+      "method": "Validate preserved human decision records",
+      "status": "FAIL",
+      "proof": [
+        "reviews/review_import.json"
+      ],
+      "reason": "",
+      "discrepancy_count": 1283
+    },
+    {
+      "criterion_id": "G02",
+      "method": "Pending implementation or evidence",
+      "status": "NOT_RUN",
+      "proof": [],
+      "reason": "Not executed in this increment",
+      "discrepancy_count": null
+    },
+    {
+      "criterion_id": "G03",
+      "method": "Independent implementations and comparable outputs recorded",
+      "status": "PASS",
+      "proof": [
+        "ultralytics__ultralytics/crosscheck.json",
+        "pymc-labs__pymc-marketing/crosscheck.json",
+        "open-edge-platform__anomalib/crosscheck.json",
+        "independence.json"
+      ],
+      "reason": "",
+      "discrepancy_count": 0
+    },
+    {
+      "criterion_id": "G04",
+      "method": "Pending implementation or evidence",
+      "status": "NOT_RUN",
+      "proof": [],
+      "reason": "Not executed in this increment",
+      "discrepancy_count": null
+    },
+    {
+      "criterion_id": "G05",
+      "method": "Full raw Git objects/diffs versus commit and file tables",
+      "status": "FAIL",
+      "proof": [
+        "ultralytics__ultralytics/crosscheck.json",
+        "pymc-labs__pymc-marketing/crosscheck.json",
+        "open-edge-platform__anomalib/crosscheck.json"
+      ],
+      "reason": "",
+      "discrepancy_count": 1
+    },
+    {
+      "criterion_id": "G06",
+      "method": "Git activity identities and historical shortlist thresholds",
+      "status": "PASS",
+      "proof": [
+        "ultralytics__ultralytics/crosscheck.json",
+        "pymc-labs__pymc-marketing/crosscheck.json",
+        "open-edge-platform__anomalib/crosscheck.json",
+        "original_collection_audit.json"
+      ],
+      "reason": "",
+      "discrepancy_count": 0
+    },
+    {
+      "criterion_id": "G07",
+      "method": "Full inventory and historical sample blobs; preserved human labels",
+      "status": "FAIL",
+      "proof": [
+        "ultralytics__ultralytics/crosscheck.json",
+        "pymc-labs__pymc-marketing/crosscheck.json",
+        "open-edge-platform__anomalib/crosscheck.json",
+        "reviews/review_import.json"
+      ],
+      "reason": "",
+      "discrepancy_count": 2
+    },
+    {
+      "criterion_id": "G08",
+      "method": "Git C/P and CONFIG pairs; independent integer ratios; six unavailable metrics",
+      "status": "FAIL",
+      "proof": [
+        "ultralytics__ultralytics/crosscheck.json",
+        "pymc-labs__pymc-marketing/crosscheck.json",
+        "open-edge-platform__anomalib/crosscheck.json"
+      ],
+      "reason": "",
+      "discrepancy_count": 1
+    },
+    {
+      "criterion_id": "G09",
+      "method": "Independent linear quantiles, concentration, monthly totals and sensitivity",
+      "status": "FAIL",
+      "proof": [
+        "ultralytics__ultralytics/crosscheck.json",
+        "pymc-labs__pymc-marketing/crosscheck.json",
+        "open-edge-platform__anomalib/crosscheck.json"
+      ],
+      "reason": "",
+      "discrepancy_count": 1
+    },
+    {
+      "criterion_id": "G10",
+      "method": "Pending implementation or evidence",
+      "status": "NOT_RUN",
+      "proof": [],
+      "reason": "Not executed in this increment",
+      "discrepancy_count": null
+    },
+    {
+      "criterion_id": "G11",
+      "method": "Pending implementation or evidence",
+      "status": "NOT_RUN",
+      "proof": [],
+      "reason": "Not executed in this increment",
+      "discrepancy_count": null
+    },
+    {
+      "criterion_id": "G12",
+      "method": "Pending implementation or evidence",
+      "status": "NOT_RUN",
+      "proof": [],
+      "reason": "Not executed in this increment",
+      "discrepancy_count": null
+    },
+    {
+      "criterion_id": "G13",
+      "method": "Verification/finalization integration and clean empirical code",
+      "status": "FAIL",
+      "proof": [
+        "ultralytics__ultralytics/crosscheck.json",
+        "pymc-labs__pymc-marketing/crosscheck.json",
+        "open-edge-platform__anomalib/crosscheck.json"
+      ],
+      "reason": "",
+      "discrepancy_count": 2
+    }
+  ],
+  "cases": [
+    {
+      "repository_id": "ultralytics/ultralytics",
+      "head_commit_sha": "fa34184a5080c81fff453670394e13303ac781b2",
+      "source_summary": {
+        "repository_id": "ultralytics/ultralytics",
+        "head_commit_sha": "fa34184a5080c81fff453670394e13303ac781b2",
+        "reachable_commits": 4974,
+        "active_contributors_count": 175,
+        "funnel": {
+          "included": 4914,
+          "bot": 60
+        },
+        "config_blob_pairs_checked": 873,
+        "identity_rule": "lowercase email or name; no mailmap; identities are not persons",
+        "shared_dependencies": [
+          "Git object engine",
+          "Python regex",
+          "PyYAML parser",
+          "JSON scalar serialization"
+        ]
+      },
+      "arithmetic": {
+        "reachable": 4974,
+        "funnel": {
+          "bot": 60,
+          "included": 4914
+        },
+        "C": 3220,
+        "P": 276,
+        "C_intersection_P": 224,
+        "metrics": {
+          "code_config_cochange": {
+            "numerator": 224,
+            "denominator": 3220,
+            "status": "observed",
+            "value": 0.06956521739130435
+          },
+          "config_magnitude": {
+            "numerator": 8136,
+            "denominator": 276,
+            "status": "observed",
+            "value": 29.47826086956522
+          }
+        }
+      },
+      "historical_stars": 61103,
+      "inventory": {
+        "inventory_paths": 2128,
+        "historical_sample_blobs_checked": 51,
+        "differences": []
+      },
+      "history_differences": [],
+      "metric_differences": [],
+      "descriptive_differences": [],
+      "distribution": {
+        "repository_id": "ultralytics/ultralytics",
+        "status": "observed",
+        "denominator": 276,
+        "unit": "keys/config_commit",
+        "quantile_method": "linear",
+        "mean": 29.47826086956522,
+        "median": 1.0,
+        "p90": 23.5,
+        "p95": 85.0,
+        "maximum": 3281.0,
+        "semantic_zero_fraction": 0.2898550724637681,
+        "top_fraction_share": 0.9208456243854474
+      },
+      "sensitivity": [
+        {
+          "repository_id": "ultralytics/ultralytics",
+          "variant": "principal",
+          "status": "observed",
+          "numerator": 8136,
+          "denominator": 276,
+          "value": 29.47826086956522,
+          "removed_key_contribution": 0,
+          "paired_move_paths": 8,
+          "unit": "keys/config_commit"
+        },
+        {
+          "repository_id": "ultralytics/ultralytics",
+          "variant": "identical_blob_moves",
+          "status": "observed",
+          "numerator": 7820,
+          "denominator": 276,
+          "value": 28.333333333333332,
+          "removed_key_contribution": 316,
+          "paired_move_paths": 8,
+          "unit": "keys/config_commit"
+        },
+        {
+          "repository_id": "ultralytics/ultralytics",
+          "variant": "class_map_keys",
+          "status": "observed",
+          "numerator": 3397,
+          "denominator": 276,
+          "value": 12.307971014492754,
+          "removed_key_contribution": 4739,
+          "paired_move_paths": 8,
+          "unit": "keys/config_commit"
+        },
+        {
+          "repository_id": "ultralytics/ultralytics",
+          "variant": "dataset_paths",
+          "status": "observed",
+          "numerator": 1718,
+          "denominator": 276,
+          "value": 6.22463768115942,
+          "removed_key_contribution": 6418,
+          "paired_move_paths": 8,
+          "unit": "keys/config_commit"
+        }
+      ],
+      "months_compared": 48,
+      "proof": "data/interim/verification/incremento_02/empirical_03/ultralytics__ultralytics/crosscheck.json"
+    },
+    {
+      "repository_id": "pymc-labs/pymc-marketing",
+      "head_commit_sha": "fabba92c96aa6a4ec6d42fb3241a8ed725995d0a",
+      "source_summary": {
+        "repository_id": "pymc-labs/pymc-marketing",
+        "head_commit_sha": "fabba92c96aa6a4ec6d42fb3241a8ed725995d0a",
+        "reachable_commits": 1506,
+        "active_contributors_count": 40,
+        "funnel": {
+          "included": 1257,
+          "bot": 229,
+          "large_commit": 1,
+          "merge": 19
+        },
+        "config_blob_pairs_checked": 46,
+        "identity_rule": "lowercase email or name; no mailmap; identities are not persons",
+        "shared_dependencies": [
+          "Git object engine",
+          "Python regex",
+          "PyYAML parser",
+          "JSON scalar serialization"
+        ]
+      },
+      "arithmetic": {
+        "reachable": 1506,
+        "funnel": {
+          "bot": 229,
+          "included": 1257,
+          "large_commit": 1,
+          "merge": 19
+        },
+        "C": 876,
+        "P": 16,
+        "C_intersection_P": 14,
+        "metrics": {
+          "code_config_cochange": {
+            "numerator": 14,
+            "denominator": 876,
+            "status": "observed",
+            "value": 0.01598173515981735
+          },
+          "config_magnitude": {
+            "numerator": 469,
+            "denominator": 16,
+            "status": "observed",
+            "value": 29.3125
+          }
+        }
+      },
+      "historical_stars": 1250,
+      "inventory": {
+        "inventory_paths": 2724,
+        "historical_sample_blobs_checked": 70,
+        "differences": []
+      },
+      "history_differences": [
+        {
+          "identity": [
+            "pymc-labs/pymc-marketing",
+            "003b1a2916e57e6baafac826eab849433e1fa7ad",
+            ".cursor/skills/mmm-modeling"
+          ],
+          "field": "before_blob_sha",
+          "expected": null,
+          "observed": "227a6606a6a04d47b8ebbe0f0c1a82a19d5c0159"
+        }
+      ],
+      "metric_differences": [],
+      "descriptive_differences": [],
+      "distribution": {
+        "repository_id": "pymc-labs/pymc-marketing",
+        "status": "observed",
+        "denominator": 16,
+        "unit": "keys/config_commit",
+        "quantile_method": "linear",
+        "mean": 29.3125,
+        "median": 12.5,
+        "p90": 86.5,
+        "p95": 127.5,
+        "maximum": 153.0,
+        "semantic_zero_fraction": 0.0,
+        "top_fraction_share": 0.579957356076759
+      },
+      "sensitivity": [
+        {
+          "repository_id": "pymc-labs/pymc-marketing",
+          "variant": "principal",
+          "status": "observed",
+          "numerator": 469,
+          "denominator": 16,
+          "value": 29.3125,
+          "removed_key_contribution": 0,
+          "paired_move_paths": 0,
+          "unit": "keys/config_commit"
+        },
+        {
+          "repository_id": "pymc-labs/pymc-marketing",
+          "variant": "identical_blob_moves",
+          "status": "observed",
+          "numerator": 469,
+          "denominator": 16,
+          "value": 29.3125,
+          "removed_key_contribution": 0,
+          "paired_move_paths": 0,
+          "unit": "keys/config_commit"
+        },
+        {
+          "repository_id": "pymc-labs/pymc-marketing",
+          "variant": "class_map_keys",
+          "status": "observed",
+          "numerator": 469,
+          "denominator": 16,
+          "value": 29.3125,
+          "removed_key_contribution": 0,
+          "paired_move_paths": 0,
+          "unit": "keys/config_commit"
+        },
+        {
+          "repository_id": "pymc-labs/pymc-marketing",
+          "variant": "dataset_paths",
+          "status": "observed",
+          "numerator": 5,
+          "denominator": 16,
+          "value": 0.3125,
+          "removed_key_contribution": 464,
+          "paired_move_paths": 0,
+          "unit": "keys/config_commit"
+        }
+      ],
+      "months_compared": 54,
+      "proof": "data/interim/verification/incremento_02/empirical_03/pymc-labs__pymc-marketing/crosscheck.json"
+    },
+    {
+      "repository_id": "open-edge-platform/anomalib",
+      "head_commit_sha": "0b7fdb9dde453f6474ac93f77188f4224d442999",
+      "source_summary": {
+        "repository_id": "open-edge-platform/anomalib",
+        "head_commit_sha": "0b7fdb9dde453f6474ac93f77188f4224d442999",
+        "reachable_commits": 1134,
+        "active_contributors_count": 39,
+        "funnel": {
+          "included": 1011,
+          "bot": 110,
+          "merge": 13
+        },
+        "config_blob_pairs_checked": 557,
+        "identity_rule": "lowercase email or name; no mailmap; identities are not persons",
+        "shared_dependencies": [
+          "Git object engine",
+          "Python regex",
+          "PyYAML parser",
+          "JSON scalar serialization"
+        ]
+      },
+      "arithmetic": {
+        "reachable": 1134,
+        "funnel": {
+          "bot": 110,
+          "included": 1011,
+          "merge": 13
+        },
+        "C": 668,
+        "P": 119,
+        "C_intersection_P": 108,
+        "metrics": {
+          "code_config_cochange": {
+            "numerator": 108,
+            "denominator": 668,
+            "status": "observed",
+            "value": 0.16167664670658682
+          },
+          "config_magnitude": {
+            "numerator": 10883,
+            "denominator": 119,
+            "status": "observed",
+            "value": 91.45378151260505
+          }
+        }
+      },
+      "historical_stars": 6099,
+      "inventory": {
+        "inventory_paths": 2779,
+        "historical_sample_blobs_checked": 59,
+        "differences": []
+      },
+      "history_differences": [],
+      "metric_differences": [],
+      "descriptive_differences": [],
+      "distribution": {
+        "repository_id": "open-edge-platform/anomalib",
+        "status": "observed",
+        "denominator": 119,
+        "unit": "keys/config_commit",
+        "quantile_method": "linear",
+        "mean": 91.45378151260505,
+        "median": 9.0,
+        "p90": 118.4,
+        "p95": 578.4999999999997,
+        "maximum": 2258.0,
+        "semantic_zero_fraction": 0.03361344537815126,
+        "top_fraction_share": 0.7880180097399614
+      },
+      "sensitivity": [
+        {
+          "repository_id": "open-edge-platform/anomalib",
+          "variant": "principal",
+          "status": "observed",
+          "numerator": 10883,
+          "denominator": 119,
+          "value": 91.45378151260505,
+          "removed_key_contribution": 0,
+          "paired_move_paths": 142,
+          "unit": "keys/config_commit"
+        },
+        {
+          "repository_id": "open-edge-platform/anomalib",
+          "variant": "identical_blob_moves",
+          "status": "observed",
+          "numerator": 7265,
+          "denominator": 119,
+          "value": 61.05042016806723,
+          "removed_key_contribution": 3618,
+          "paired_move_paths": 142,
+          "unit": "keys/config_commit"
+        },
+        {
+          "repository_id": "open-edge-platform/anomalib",
+          "variant": "class_map_keys",
+          "status": "observed",
+          "numerator": 10883,
+          "denominator": 119,
+          "value": 91.45378151260505,
+          "removed_key_contribution": 0,
+          "paired_move_paths": 142,
+          "unit": "keys/config_commit"
+        },
+        {
+          "repository_id": "open-edge-platform/anomalib",
+          "variant": "dataset_paths",
+          "status": "observed",
+          "numerator": 9515,
+          "denominator": 119,
+          "value": 79.95798319327731,
+          "removed_key_contribution": 1368,
+          "paired_move_paths": 142,
+          "unit": "keys/config_commit"
+        }
+      ],
+      "months_compared": 58,
+      "proof": "data/interim/verification/incremento_02/empirical_03/open-edge-platform__anomalib/crosscheck.json"
+    }
+  ],
+  "checks": {
+    "baseline_tests": 179,
+    "final_tests": 203,
+    "coverage_percent": 94.17,
+    "initial_counterexamples_passed": 15,
+    "proof_hashes_rechecked": 20,
+    "bound_input_hashes_rechecked": 91
+  },
+  "test_results_hashes": {
+    "docs/evidencias/validacao_verificacao_incremento_02.txt": "9f84b6785a2b9a3baa523b92054209b4d15d71236f9b29675a5b7d85f83db7b5",
+    "docs/evidencias/contraprovas_incremento_02.xml": "80aae23570697470a9f85b4a79101107bf0b57d0fd78469b8b2512b951752736"
+  },
+  "metric_table_sha256": "8473cd56478c0deab4bdc43e480867faec9d0e1945b223a7dc80867a49802458",
+  "earlier_attempts": [
+    {
+      "directory": "data/interim/verification/incremento_02/empirical_01",
+      "status": "input_error",
+      "reason": "Verifier transport parser rejected integral CSV 7820.0; corrected with exact Decimal parsing."
+    },
+    {
+      "directory": "data/interim/verification/incremento_02/empirical_02",
+      "status": "interrupted",
+      "reason": "No running process or final receipt on resumption; partial files preserved."
+    }
+  ],
+  "limitations": [
+    "Git, regex, PyYAML and JSON serialization are shared dependencies.",
+    "Static MLflow call counts are not recalculated by this increment.",
+    "G00-G13 remain incomplete; G14-G15 and final acceptance are outside this receipt.",
+    "Record validation does not authenticate reviewers or academic approval."
+  ],
+  "next_required_data_action": "After committing the fix with a clean worktree, re-mine PyMC Marketing and rebuild its source-bound derivatives. Preserve this refusal."
+}

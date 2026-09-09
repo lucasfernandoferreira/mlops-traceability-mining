@@ -28,6 +28,7 @@ help:
 	@echo "make test-evidence Executa contratos e fixtures de verificação offline"
 	@echo "make test-counterexamples Executa mutações sintéticas com motivo de falha esperado"
 	@echo "make import-reviews Preserva e valida revisões de um índice explícito"
+	@echo "make verify-study Confere Git, métricas e estatísticas de um índice explícito"
 
 bootstrap:
 	@command -v $(PYTHON_SYSTEM) >/dev/null 2>&1 || { \
@@ -152,3 +153,8 @@ test-counterexamples:
 import-reviews:
 	@test -n "$(STUDY_INDEX)" -a -n "$(REVIEW_DIR)" -a -n "$(OUTPUT_DIR)" || { echo "STUDY_INDEX, REVIEW_DIR and OUTPUT_DIR are required"; exit 2; }
 	$(PYTHON) scripts/import_reviews.py --study-index "$(STUDY_INDEX)" --review-dir "$(REVIEW_DIR)" --output-dir "$(OUTPUT_DIR)"
+
+.PHONY: verify-study
+verify-study:
+	@test -n "$(STUDY_INDEX)" -a -n "$(REVIEW_DIR)" || { echo "STUDY_INDEX and REVIEW_DIR are required"; exit 2; }
+	$(PYTHON) scripts/verify_study.py --study-index "$(STUDY_INDEX)" --review-dir "$(REVIEW_DIR)" $(if $(OUTPUT_DIR),--output-dir "$(OUTPUT_DIR)",)
