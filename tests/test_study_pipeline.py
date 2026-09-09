@@ -183,6 +183,7 @@ def test_full_derived_pipeline_blank_review_and_tampering(
         row.update(
             expected_category=row["category"],
             reviewer="synthetic evaluator",
+            justification="Synthetic fixture: explicit known CODE role.",
             reviewed_at_utc="2026-09-07T00:00:00Z",
             role_change_review="synthetic role checked",
         )

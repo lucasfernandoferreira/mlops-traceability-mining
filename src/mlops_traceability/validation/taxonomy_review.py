@@ -183,6 +183,7 @@ def evaluate_review(
         for r in rows
         if r.get("expected_category") in categories
         and r.get("reviewer", "").strip()
+        and r.get("justification", "").strip()
         and valid_utc(r.get("reviewed_at_utc", ""))
         and (
             str(r.get("historical_observations", "1")).isdigit()

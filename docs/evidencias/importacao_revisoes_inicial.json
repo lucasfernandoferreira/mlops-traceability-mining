@@ -1,0 +1,41 @@
+{
+  "review_import_schema_version": "1.0.0",
+  "scope": "empirical",
+  "created_at_utc": "2026-09-08T23:39:59.401777+00:00",
+  "review_import_status": "FAIL",
+  "exit_code": 1,
+  "scientific_result_accepted": false,
+  "record_counts": {
+    "taxonomy": 180,
+    "cases": 3,
+    "coding": 45
+  },
+  "study_index_sha256": "e9494a0bd66aab187734fb3846312be9631bf440a348adc80ed0551edcc623dd",
+  "review_file_hashes": {
+    "taxonomia_revisada.csv": "ec4823b48b326bc593aa69f026bb8ed50b3a2da311f7b156b991f07f8f63809e",
+    "casos_revisados.json": "66064c78d9ef6b28befd2a4df3e81b2d1ed5da15e0b764fa5aad43a8896ddc24",
+    "codificacao_revisada.csv": "3394fb809cd8cf54c1f1e3460eb4058bd780efb975fa4509b274cd2e2bdb9db9",
+    "alinhamento_academico.json": "5a54515dbdca21ac6ef40e0230652044fc395fe1c7277fc334da004baa6fec12",
+    "origens.json": "7a67a6851ce3156b90cc9741a685838bdc4badaf31b4b22b59ccadd5ffd530e9"
+  },
+  "source_archive_sha256": "26d76ab21ef480f64e4f1eb50c24f5c7968404ba3265f814dfa73233b10d2c73",
+  "verification_code_sha": "a0a8de1f94b9307b03ad364d0d5b9d481f21202e",
+  "dirty_worktree": true,
+  "limitations": [
+    "Record validation does not authenticate reviewers or academic approval.",
+    "G00-G15 verification, evidence relevance and restoration remain separate gates.",
+    "No judgments, dates or labels are inferred; no normalization was performed."
+  ],
+  "receipt_path": "data/interim/verification/importacao_local_20260908_02/review_import.json",
+  "receipt_sha256": "f8f5e19a64f75588b5977541ca51167730580b09982e43229eaf181584395bf6",
+  "local_taxonomy_valid_review_count": 0,
+  "blocking_groups": {
+    "academic": 6,
+    "cases": 15,
+    "coding": 540,
+    "taxonomy": 722
+  },
+  "completed_reviews_reported_by_researcher": true,
+  "completed_review_files_located": false,
+  "blocking_reason_count": 1283
+}

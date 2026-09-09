@@ -1,0 +1,219 @@
+{
+  "catalog_schema_version": "1.0.0",
+  "scope": "empirical",
+  "study_index_sha256": "e9494a0bd66aab187734fb3846312be9631bf440a348adc80ed0551edcc623dd",
+  "claims": [
+    {
+      "claim_id": "CLM-CODE_CONFIG_COCHANGE-ULTRALYTICS",
+      "statement": "O registro histórico de ultralytics/ultralytics no SHA fa34184a5080c81fff453670394e13303ac781b2 informa C/P = 224/3220; pendente de dupla conferência.",
+      "criterion_id": "G08",
+      "repository_id": "ultralytics/ultralytics",
+      "head_commit_sha": "fa34184a5080c81fff453670394e13303ac781b2",
+      "source_run_ids": [
+        "20260908T003451162760Z_43a2dae0_phase4_mine_commits",
+        "20260908T003846750404Z_43a2dae0_phase5_compute_metrics"
+      ],
+      "source_hashes": {
+        "data/interim/runs/20260908T003846750404Z_43a2dae0_phase5_compute_metrics/metrics.csv": "087ac4ecf230bab7422b7c92d6fd71610af202dfa997d8d3750ff7e71d9bb63b",
+        "freeze": "46dd3309a0a4de167ed5a72ca1fa0da0547c1975e8ab0ecff5243325ddef02fe",
+        "mine": "29281440895c0f2bb19de35206c48f4abd6f702b5b74c275d4a0569e05caf9ed",
+        "metrics": "bbb20fb1d3e1e006c83c38e797474e6735fb57a122b89d8c4d085a96e3ba16b4"
+      },
+      "evidence_ids": [
+        "E-METRICS-ULTRALYTICS"
+      ],
+      "evidence_kind": "structural",
+      "verification_method": "Recálculo aritmético e comparação com Git congelado (próximo incremento)",
+      "expected_result": {
+        "numerator": 224,
+        "denominator": 3220,
+        "status": "observed"
+      },
+      "observed_result": null,
+      "assertion_status": "not_assessed",
+      "allowed_conclusion": "Referência histórica por caso; não constitui recálculo independente já executado.",
+      "limitation": "Coalteração não demonstra causalidade; chaves CONFIG não equivalem necessariamente a hiperparâmetros. Não generalizar a amostra intencional.",
+      "reviewer_ref": null
+    },
+    {
+      "claim_id": "CLM-CONFIG_MAGNITUDE-ULTRALYTICS",
+      "statement": "O registro histórico de ultralytics/ultralytics no SHA fa34184a5080c81fff453670394e13303ac781b2 informa magnitude CONFIG = 8136/276; pendente de dupla conferência.",
+      "criterion_id": "G08",
+      "repository_id": "ultralytics/ultralytics",
+      "head_commit_sha": "fa34184a5080c81fff453670394e13303ac781b2",
+      "source_run_ids": [
+        "20260908T003451162760Z_43a2dae0_phase4_mine_commits",
+        "20260908T003846750404Z_43a2dae0_phase5_compute_metrics"
+      ],
+      "source_hashes": {
+        "data/interim/runs/20260908T003846750404Z_43a2dae0_phase5_compute_metrics/metrics.csv": "087ac4ecf230bab7422b7c92d6fd71610af202dfa997d8d3750ff7e71d9bb63b",
+        "freeze": "46dd3309a0a4de167ed5a72ca1fa0da0547c1975e8ab0ecff5243325ddef02fe",
+        "mine": "29281440895c0f2bb19de35206c48f4abd6f702b5b74c275d4a0569e05caf9ed",
+        "metrics": "bbb20fb1d3e1e006c83c38e797474e6735fb57a122b89d8c4d085a96e3ba16b4"
+      },
+      "evidence_ids": [
+        "E-METRICS-ULTRALYTICS"
+      ],
+      "evidence_kind": "structural",
+      "verification_method": "Recálculo aritmético e comparação com Git congelado (próximo incremento)",
+      "expected_result": {
+        "numerator": 8136,
+        "denominator": 276,
+        "status": "observed"
+      },
+      "observed_result": null,
+      "assertion_status": "not_assessed",
+      "allowed_conclusion": "Referência histórica por caso; não constitui recálculo independente já executado.",
+      "limitation": "Coalteração não demonstra causalidade; chaves CONFIG não equivalem necessariamente a hiperparâmetros. Não generalizar a amostra intencional.",
+      "reviewer_ref": null
+    },
+    {
+      "claim_id": "CLM-CODE_CONFIG_COCHANGE-PYMC_MARKETING",
+      "statement": "O registro histórico de pymc-labs/pymc-marketing no SHA fabba92c96aa6a4ec6d42fb3241a8ed725995d0a informa C/P = 14/876; pendente de dupla conferência.",
+      "criterion_id": "G08",
+      "repository_id": "pymc-labs/pymc-marketing",
+      "head_commit_sha": "fabba92c96aa6a4ec6d42fb3241a8ed725995d0a",
+      "source_run_ids": [
+        "20260908T003901796039Z_43a2dae0_phase4_mine_commits",
+        "20260908T004121682111Z_43a2dae0_phase5_compute_metrics"
+      ],
+      "source_hashes": {
+        "data/interim/runs/20260908T004121682111Z_43a2dae0_phase5_compute_metrics/metrics.csv": "972c503b9e867c14b35f07ae2155cc503cb73994714d7407c4f5c1704f2361cd",
+        "freeze": "dd8de2d210f99d185d34e9859d55f85a69fb6daa35f39568787e08e7d8b6620b",
+        "mine": "732c6c46d33f03849d981c663ec2dcb62d4c9d7b69851e10e99c4770bda30891",
+        "metrics": "81bd66067a9cf15a0c2e273774411de6c9e0658fa4605a0a85b531b4d29ffb96"
+      },
+      "evidence_ids": [
+        "E-METRICS-PYMC_MARKETING"
+      ],
+      "evidence_kind": "structural",
+      "verification_method": "Recálculo aritmético e comparação com Git congelado (próximo incremento)",
+      "expected_result": {
+        "numerator": 14,
+        "denominator": 876,
+        "status": "observed"
+      },
+      "observed_result": null,
+      "assertion_status": "not_assessed",
+      "allowed_conclusion": "Referência histórica por caso; não constitui recálculo independente já executado.",
+      "limitation": "Coalteração não demonstra causalidade; chaves CONFIG não equivalem necessariamente a hiperparâmetros. Não generalizar a amostra intencional.",
+      "reviewer_ref": null
+    },
+    {
+      "claim_id": "CLM-CONFIG_MAGNITUDE-PYMC_MARKETING",
+      "statement": "O registro histórico de pymc-labs/pymc-marketing no SHA fabba92c96aa6a4ec6d42fb3241a8ed725995d0a informa magnitude CONFIG = 469/16; pendente de dupla conferência.",
+      "criterion_id": "G08",
+      "repository_id": "pymc-labs/pymc-marketing",
+      "head_commit_sha": "fabba92c96aa6a4ec6d42fb3241a8ed725995d0a",
+      "source_run_ids": [
+        "20260908T003901796039Z_43a2dae0_phase4_mine_commits",
+        "20260908T004121682111Z_43a2dae0_phase5_compute_metrics"
+      ],
+      "source_hashes": {
+        "data/interim/runs/20260908T004121682111Z_43a2dae0_phase5_compute_metrics/metrics.csv": "972c503b9e867c14b35f07ae2155cc503cb73994714d7407c4f5c1704f2361cd",
+        "freeze": "dd8de2d210f99d185d34e9859d55f85a69fb6daa35f39568787e08e7d8b6620b",
+        "mine": "732c6c46d33f03849d981c663ec2dcb62d4c9d7b69851e10e99c4770bda30891",
+        "metrics": "81bd66067a9cf15a0c2e273774411de6c9e0658fa4605a0a85b531b4d29ffb96"
+      },
+      "evidence_ids": [
+        "E-METRICS-PYMC_MARKETING"
+      ],
+      "evidence_kind": "structural",
+      "verification_method": "Recálculo aritmético e comparação com Git congelado (próximo incremento)",
+      "expected_result": {
+        "numerator": 469,
+        "denominator": 16,
+        "status": "observed"
+      },
+      "observed_result": null,
+      "assertion_status": "not_assessed",
+      "allowed_conclusion": "Referência histórica por caso; não constitui recálculo independente já executado.",
+      "limitation": "Coalteração não demonstra causalidade; chaves CONFIG não equivalem necessariamente a hiperparâmetros. Não generalizar a amostra intencional.",
+      "reviewer_ref": null
+    },
+    {
+      "claim_id": "CLM-CODE_CONFIG_COCHANGE-ANOMALIB",
+      "statement": "O registro histórico de open-edge-platform/anomalib no SHA 0b7fdb9dde453f6474ac93f77188f4224d442999 informa C/P = 108/668; pendente de dupla conferência.",
+      "criterion_id": "G08",
+      "repository_id": "open-edge-platform/anomalib",
+      "head_commit_sha": "0b7fdb9dde453f6474ac93f77188f4224d442999",
+      "source_run_ids": [
+        "20260908T004136623679Z_43a2dae0_phase4_mine_commits",
+        "20260908T004255518258Z_43a2dae0_phase5_compute_metrics"
+      ],
+      "source_hashes": {
+        "data/interim/runs/20260908T004255518258Z_43a2dae0_phase5_compute_metrics/metrics.csv": "5a787a74ddcc8b7e88ee75420e4818c8c43d80c47e02c5da7419d29b09856293",
+        "freeze": "311c3d0e15f8caecf1ac345e5120703880af6a1dcc2eca8b56853796cc1f9dcb",
+        "mine": "9e51405a4ff414be33150878246e273e44ce6c864c1d558d54181e7e59b75e5f",
+        "metrics": "344d4820e0ff31dec48800c0630faa09a73d7b7918b3e6c9a4dc98de61f72575"
+      },
+      "evidence_ids": [
+        "E-METRICS-ANOMALIB"
+      ],
+      "evidence_kind": "structural",
+      "verification_method": "Recálculo aritmético e comparação com Git congelado (próximo incremento)",
+      "expected_result": {
+        "numerator": 108,
+        "denominator": 668,
+        "status": "observed"
+      },
+      "observed_result": null,
+      "assertion_status": "not_assessed",
+      "allowed_conclusion": "Referência histórica por caso; não constitui recálculo independente já executado.",
+      "limitation": "Coalteração não demonstra causalidade; chaves CONFIG não equivalem necessariamente a hiperparâmetros. Não generalizar a amostra intencional.",
+      "reviewer_ref": null
+    },
+    {
+      "claim_id": "CLM-CONFIG_MAGNITUDE-ANOMALIB",
+      "statement": "O registro histórico de open-edge-platform/anomalib no SHA 0b7fdb9dde453f6474ac93f77188f4224d442999 informa magnitude CONFIG = 10883/119; pendente de dupla conferência.",
+      "criterion_id": "G08",
+      "repository_id": "open-edge-platform/anomalib",
+      "head_commit_sha": "0b7fdb9dde453f6474ac93f77188f4224d442999",
+      "source_run_ids": [
+        "20260908T004136623679Z_43a2dae0_phase4_mine_commits",
+        "20260908T004255518258Z_43a2dae0_phase5_compute_metrics"
+      ],
+      "source_hashes": {
+        "data/interim/runs/20260908T004255518258Z_43a2dae0_phase5_compute_metrics/metrics.csv": "5a787a74ddcc8b7e88ee75420e4818c8c43d80c47e02c5da7419d29b09856293",
+        "freeze": "311c3d0e15f8caecf1ac345e5120703880af6a1dcc2eca8b56853796cc1f9dcb",
+        "mine": "9e51405a4ff414be33150878246e273e44ce6c864c1d558d54181e7e59b75e5f",
+        "metrics": "344d4820e0ff31dec48800c0630faa09a73d7b7918b3e6c9a4dc98de61f72575"
+      },
+      "evidence_ids": [
+        "E-METRICS-ANOMALIB"
+      ],
+      "evidence_kind": "structural",
+      "verification_method": "Recálculo aritmético e comparação com Git congelado (próximo incremento)",
+      "expected_result": {
+        "numerator": 10883,
+        "denominator": 119,
+        "status": "observed"
+      },
+      "observed_result": null,
+      "assertion_status": "not_assessed",
+      "allowed_conclusion": "Referência histórica por caso; não constitui recálculo independente já executado.",
+      "limitation": "Coalteração não demonstra causalidade; chaves CONFIG não equivalem necessariamente a hiperparâmetros. Não generalizar a amostra intencional.",
+      "reviewer_ref": null
+    }
+  ],
+  "evidence": [
+    {
+      "evidence_id": "E-METRICS-ULTRALYTICS",
+      "kind": "file",
+      "path": "data/interim/runs/20260908T003846750404Z_43a2dae0_phase5_compute_metrics/metrics.csv",
+      "sha256": "087ac4ecf230bab7422b7c92d6fd71610af202dfa997d8d3750ff7e71d9bb63b"
+    },
+    {
+      "evidence_id": "E-METRICS-PYMC_MARKETING",
+      "kind": "file",
+      "path": "data/interim/runs/20260908T004121682111Z_43a2dae0_phase5_compute_metrics/metrics.csv",
+      "sha256": "972c503b9e867c14b35f07ae2155cc503cb73994714d7407c4f5c1704f2361cd"
+    },
+    {
+      "evidence_id": "E-METRICS-ANOMALIB",
+      "kind": "file",
+      "path": "data/interim/runs/20260908T004255518258Z_43a2dae0_phase5_compute_metrics/metrics.csv",
+      "sha256": "5a787a74ddcc8b7e88ee75420e4818c8c43d80c47e02c5da7419d29b09856293"
+    }
+  ]
+}
