@@ -1,6 +1,10 @@
 # Critérios de aceite e evidências — primeiro incremento
 
-Política de verificação **1.0.0**, separada do protocolo científico **2.1.0**,
+Este documento preserva o primeiro incremento, com política **1.0.0**.
+A política atual **1.1.0** e o comando `verify-study` estão descritos no
+[incremento empírico 2](VERIFICACAO_EMPIRICA_INCREMENTO_02.md).
+
+A política de verificação é separada do protocolo científico **2.1.0**,
 da taxonomia **1.1.0** e do plano de análise **1.0.0**. O arquivo
 `config/config.yaml`, a taxonomia e os locks da coleta foram preservados sem alterações.
 Este incremento implementa a primeira entrega indicada no plano de 08/09/2026.
@@ -160,7 +164,7 @@ CLI; GitPython também depende de Git. Essa dependência comum é explícita.
 Contagens/componentes inteiros são exatos e floats usam tolerância absoluta de
 `1e-12`, sem arredondamento editorial.
 
-Os comandos `verify-study`, `evidence-pack` e `reproduce-study` e a integração do
-novo recibo com a finalização pertencem ao próximo incremento. Este documento não
-os apresenta como disponíveis. O próximo trabalho técnico é implementar os
-oráculos empíricos e sua orquestração, mantendo toda reprovação recuperável.
+`verify-study` foi implementado no [incremento 2](VERIFICACAO_EMPIRICA_INCREMENTO_02.md).
+`evidence-pack`, `reproduce-study` e a integração do novo recibo com a finalização
+continuam pendentes. Os recibos empíricos preservam as reprovações e os critérios
+ainda não executados.

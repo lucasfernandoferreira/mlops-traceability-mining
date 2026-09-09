@@ -1,0 +1,7 @@
+repository_id,metric_id,numerator,denominator,status,value,arithmetic_matches_preserved_metric,complete_source_match
+ultralytics/ultralytics,code_config_cochange,224,3220,observed,0.06956521739130435,True,True
+ultralytics/ultralytics,config_magnitude,8136,276,observed,29.47826086956522,True,True
+pymc-labs/pymc-marketing,code_config_cochange,14,876,observed,0.01598173515981735,True,False
+pymc-labs/pymc-marketing,config_magnitude,469,16,observed,29.3125,True,False
+open-edge-platform/anomalib,code_config_cochange,108,668,observed,0.16167664670658682,True,True
+open-edge-platform/anomalib,config_magnitude,10883,119,observed,91.45378151260505,True,True

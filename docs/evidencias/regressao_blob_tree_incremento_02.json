@@ -1,0 +1,15 @@
+{
+  "recorded_at_utc": "2026-09-09T13:14:47.624856+00:00",
+  "repository_id": "pymc-labs/pymc-marketing",
+  "commit_sha": "003b1a2916e57e6baafac826eab849433e1fa7ad",
+  "parent_sha": "64d13f1b466b6e968a7451123d4c198821cea442",
+  "file_path": ".cursor/skills/mmm-modeling",
+  "recorded_before_blob_sha": "227a6606a6a04d47b8ebbe0f0c1a82a19d5c0159",
+  "recorded_object_type": "tree",
+  "corrected_before_blob_sha": null,
+  "after_blob_sha": "2e2f889b0d1c919ee9cb05cfbf8821ca8516a340",
+  "after_content_sha256": "1cb45ec9f50e0d9518bad099eae174c6537c014f1984d0fcf3fabf5cec8271c6",
+  "mining_source_sha256": "47c95a0c3fc16f80d38dc83676c1d2756b76849804d1832b114be5dbb4960b9e",
+  "check_scope": "Single offending path verified with current read_blob; historical Parquet not regenerated.",
+  "scientific_result_accepted": false
+}
