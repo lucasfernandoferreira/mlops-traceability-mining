@@ -432,7 +432,7 @@ def write_results_packet(
     academic: dict[str, Any],
     config: ResearchConfig,
 ) -> None:
-    """Assemble accepted evidence and a manuscript draft, without cloning/training."""
+    """Assemble a candidate awaiting restoration and manuscript review (G14–G15)."""
     lines = [
         "# Resultados e Discussão — rascunho derivado",
         "",
@@ -485,7 +485,8 @@ def write_results_packet(
         "",
         "## Conclusão",
         "",
-        "Este rascunho reúne medidas validadas e interpretações documentais assinadas.",
+        "Este pacote candidato reúne medidas e interpretações documentais registradas.",
+        "O aceite científico final depende da restauração e da revisão do manuscrito.",
         "A conclusão autoral deve responder ao objetivo operacional respeitando esses limites.",
         "Não é uma declaração de revisão ou aprovação da redação pela orientadora.",
     ]
@@ -519,7 +520,9 @@ def write_results_packet(
                     }:
                         continue  # Original instrument is recoverable from its Git code_commit_sha.
                     files.add(portable_path(root, artifact["path"]))
-    files.update(p for p in directory.iterdir() if p.is_file())
+    files.update(
+        p for p in directory.iterdir() if p.is_file() and p.name != "study_acceptance.json"
+    )
     files.update(
         p for folder in ("config", "docs") for p in (root / folder).rglob("*") if p.is_file()
     )
@@ -533,7 +536,16 @@ def write_results_packet(
             entries.append({"path": relative, "sha256": sha256_file(path)})
         archive.writestr(
             "PACKAGE_MANIFEST.json",
-            json.dumps({"files": entries, "protocol_version": config.protocol.version}, indent=2),
+            json.dumps(
+                {
+                    "files": entries,
+                    "protocol_version": config.protocol.version,
+                    "package_status": "candidate",
+                    "scientific_result_accepted": False,
+                    "pending_criteria": ["G14", "G15"],
+                },
+                indent=2,
+            ),
         )
         archive.writestr(
             "REPRODUCTION.md",
@@ -597,6 +609,7 @@ def acceptance(
     metrics_valid: bool,
     qualitative_valid: bool,
     case_measurements_valid: bool = False,
+    verification_valid: bool = False,
     unanswered_metric_ids: set[str] | None = None,
 ) -> dict[str, Any]:
     case_set = {(c["repository_id"], c["head_commit_sha"]) for c in index["cases"]}
@@ -684,12 +697,14 @@ def acceptance(
         (academic_ok, "academic_alignment_pending"),
         (metrics_valid, "metric_error_or_missing_scope"),
         (coding_ok and qualitative_valid, "qualitative_review_or_selection_pending"),
+        (verification_valid, "empirical_verification_missing_invalid_or_incomplete"),
     ):
         if not flag:
             reasons.append(reason)
     return {
-        "scientific_result_accepted": not reasons,
-        "blocking_reasons": reasons,
+        "candidate_eligible": not reasons,
+        "scientific_result_accepted": False,
+        "blocking_reasons": reasons + ["G14:NOT_RUN", "G15:NOT_RUN"],
         "processing_status": "SUCCESS",
         "sample_status": "accepted" if sample_ok else "pending",
         "measurement_validation_status": "accepted" if receipt_ok and metrics_valid else "pending",
@@ -712,7 +727,9 @@ def run_study(stage: StageName, argv: list[str] | None = None, root: Path | None
     parser.add_argument("--case-review", type=Path)
     parser.add_argument("--academic-review", type=Path)
     parser.add_argument("--qualitative-review", type=Path)
+    parser.add_argument("--verification-receipt", type=Path)
     args = parser.parse_args(argv)
+    verification_receipt_path = args.verification_receipt
     root = (root or Path(__file__).resolve().parents[2]).resolve()
     config = load_config(root / "config/config.yaml")
     context = start_run(project_root=root, stage=stage)
@@ -737,6 +754,7 @@ def run_study(stage: StageName, argv: list[str] | None = None, root: Path | None
             "case_review",
             "academic_review",
             "qualitative_review",
+            "verification_receipt",
         ):
             path = getattr(args, name)
             if path:
@@ -786,6 +804,7 @@ def run_study(stage: StageName, argv: list[str] | None = None, root: Path | None
             elif stage == "phase9_finalize_study":
                 receipt, coding, original_coding, case_reviews, academic = {}, [], [], [], {}
                 metrics: list[dict[str, Any]] = []
+                taxonomy_review = None
                 if args.validation_run_id:
                     _, files, execution = verified_run(
                         root, args.validation_run_id, "phase6_validate_taxonomy"
@@ -794,6 +813,7 @@ def run_study(stage: StageName, argv: list[str] | None = None, root: Path | None
                     if execution["sources"][0] != sources[0]:
                         raise ValueError("Validation uses a different study index")
                     receipt = json.loads(files["taxonomy_validation.json"].read_text())
+                    taxonomy_review = files["input_sample.csv"]
                     reevaluated = evaluate_review(
                         files["input_sample.csv"],
                         config,
@@ -866,6 +886,23 @@ def run_study(stage: StageName, argv: list[str] | None = None, root: Path | None
                         )
                     except ValueError:
                         chain_eligible = False
+                from mlops_traceability.verification.finalization import assess_verification
+
+                verification = assess_verification(
+                    root,
+                    args.study_index,
+                    verification_receipt_path,
+                    directory,
+                    {
+                        "taxonomia_revisada.csv": taxonomy_review,
+                        "casos_revisados.json": args.case_review,
+                        "alinhamento_academico.json": args.academic_review,
+                        "codificacao_revisada.csv": args.qualitative_review,
+                    },
+                    args.qualitative_run_id,
+                    args.report_run_id,
+                )
+                write_json(directory / "verification_assessment.json", verification)
                 result = acceptance(
                     index,
                     receipt,
@@ -878,12 +915,14 @@ def run_study(stage: StageName, argv: list[str] | None = None, root: Path | None
                     metrics_valid=metrics_valid,
                     qualitative_valid=qualitative_valid,
                     case_measurements_valid=case_measurements_valid,
+                    verification_valid=verification["candidate_eligible"],
                     unanswered_metric_ids={
                         r["metric_id"] for r in metrics if r["status"] == "not_available"
                     },
                 )
                 result["sources"] = sources
                 result["study_index_sha256"] = sha256_file(args.study_index)
+                result["verification"] = verification
                 write_json(directory / "study_acceptance.json", result)
                 accepted = result["scientific_result_accepted"]
                 write_csv(
@@ -903,11 +942,16 @@ def run_study(stage: StageName, argv: list[str] | None = None, root: Path | None
                     if metrics
                     else ["metric_id", "validation_status", "scientific_result_accepted"],
                 )
-                if accepted:
+                if result["candidate_eligible"]:
                     write_csv(directory / "integracao_resultados.csv", coding)
                     write_results_packet(
                         root, directory, sources, metrics, coding, academic, config
                     )
+                    result["candidate_package"] = {
+                        "path": (directory / "reproduction.zip").relative_to(root).as_posix(),
+                        "sha256": sha256_file(directory / "reproduction.zip"),
+                    }
+                    write_json(directory / "study_acceptance.json", result)
             else:
                 raise ValueError("Unsupported study stage")
         for source in sources:

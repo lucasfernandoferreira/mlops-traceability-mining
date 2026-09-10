@@ -18,10 +18,11 @@ from mlops_traceability.study import run_study
 from mlops_traceability.verification.runner import main, verify_study
 
 
-def test_runner_compares_sources_and_keeps_unexecuted_gates_blocked(
+@pytest.fixture
+def verification_inputs(
     imported_sources: tuple[Path, Path, Path],
     monkeypatch: pytest.MonkeyPatch,
-) -> None:
+) -> tuple[Path, Path, Path]:
     root, index, reviews = imported_sources
     config = yaml.safe_load((root / "config/amostra_final.yaml").read_text())
     shortlist = (
@@ -63,6 +64,14 @@ def test_runner_compares_sources_and_keeps_unexecuted_gates_blocked(
     }
     origins["report_run_id"] = latest_study(root, "phase8_report").name
     write_json(origins_path, origins)
+    return root, index, reviews
+
+
+def test_runner_compares_sources_and_keeps_unexecuted_gates_blocked(
+    verification_inputs: tuple[Path, Path, Path],
+) -> None:
+    root, index, reviews = verification_inputs
+    collection = root / "pr_collection/collection.json"
     output = root / "verification"
     assert verify_study(root, index, reviews, output, scope="synthetic") == 1
     receipt = json.loads((output / "verification_receipt.json").read_text())

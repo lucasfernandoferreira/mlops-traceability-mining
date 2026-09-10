@@ -354,25 +354,34 @@ def test_final_status_never_overrides_scientific_gates() -> None:
             "metrics_valid": True,
             "qualitative_valid": True,
             "case_measurements_valid": True,
+            "verification_valid": True,
             **overrides,
         }
         return acceptance(index, receipt, [case], academic, [row], [row], config, **flags)
 
-    assert check()["scientific_result_accepted"]
-    for flag in ("chain_eligible", "metrics_valid", "qualitative_valid", "case_measurements_valid"):
-        assert not check(**{flag: False})["scientific_result_accepted"]
-    case["integration_evidence_status"] = "dependency_only"
+    assert check()["candidate_eligible"]
     assert not check()["scientific_result_accepted"]
+    assert check()["blocking_reasons"] == ["G14:NOT_RUN", "G15:NOT_RUN"]
+    for flag in (
+        "chain_eligible",
+        "metrics_valid",
+        "qualitative_valid",
+        "case_measurements_valid",
+        "verification_valid",
+    ):
+        assert not check(**{flag: False})["candidate_eligible"]
+    case["integration_evidence_status"] = "dependency_only"
+    assert not check()["candidate_eligible"]
     case["integration_evidence_status"] = "functional_integration_observed"
     receipt["taxonomy_version"] = "other"
-    assert not check()["scientific_result_accepted"]
+    assert not check()["candidate_eligible"]
     receipt["taxonomy_version"] = "1.1.0"
     receipt["input_hashes"]["inventory"] = "other"
-    assert not check()["scientific_result_accepted"]
+    assert not check()["candidate_eligible"]
     receipt["input_hashes"]["inventory"] = "inventory"
-    assert not check(unanswered_metric_ids={"provenance_coverage"})["scientific_result_accepted"]
+    assert not check(unanswered_metric_ids={"provenance_coverage"})["candidate_eligible"]
     academic["status"] = "pending"
-    assert not check()["scientific_result_accepted"]
+    assert not check()["candidate_eligible"]
 
 
 def test_first_component_introduction_is_mandatory_even_after_caller_history() -> None:

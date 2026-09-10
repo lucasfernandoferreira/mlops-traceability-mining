@@ -146,10 +146,12 @@ make report STUDY_INDEX=caminho/study_index.json
 
 A seleção gera os eventos e uma tabela de codificação vazia. O relatório reúne as
 métricas por caso, as séries mensais, a distribuição de magnitude, as análises de
-sensibilidade e três figuras em 300 dpi. Com a revisão concluída, execute:
+sensibilidade e três figuras em 300 dpi. Com as revisões preservadas, execute a
+verificação sobre o índice explícito e use seu recibo na finalização:
 
 ```bash
-make finalize-study STUDY_INDEX=caminho/study_index.json VALIDATION_RUN_ID=RUN_VALIDACAO QUALITATIVE_RUN_ID=RUN_QUALITATIVO REPORT_RUN_ID=RUN_RELATORIO CASE_REVIEW=caminho/casos_revisados.json ACADEMIC_REVIEW=caminho/alinhamento_academico.json QUALITATIVE_REVIEW=caminho/codificacao_revisada.csv
+make verify-study STUDY_INDEX=caminho/study_index.json REVIEW_DIR=caminho/revisoes OUTPUT_DIR=data/interim/verification/nova_rodada
+make finalize-study STUDY_INDEX=caminho/study_index.json VERIFICATION_RECEIPT=data/interim/verification/nova_rodada/verification_receipt.json VALIDATION_RUN_ID=RUN_VALIDACAO QUALITATIVE_RUN_ID=RUN_QUALITATIVO REPORT_RUN_ID=RUN_RELATORIO CASE_REVIEW=caminho/casos_revisados.json ACADEMIC_REVIEW=caminho/alinhamento_academico.json QUALITATIVE_REVIEW=caminho/codificacao_revisada.csv
 ```
 
 Os scripts de validação e finalização retornam código 1 quando os critérios de
@@ -159,9 +161,14 @@ chamados pelo Make, esse encerramento aparece como código 2. O motivo está em
 informa o funcionamento da etapa; os demais estados registram seleção, revisão e
 alinhamento acadêmico. Uma fonte de desenvolvimento mantém toda a cadeia preliminar.
 
-Quando o estudo é aceito, a finalização produz tabelas validadas, integração
-qualitativa, um rascunho de Resultados e Discussão e `reproduction.zip`, sem clones.
-Esses materiais subsidiam a redação e a revisão do TCC.
+O finalizador confere as entradas e repete a verificação empírica quando o recibo
+declara PASS completo em G00–G13. Mantém todos os controles de revisão anteriores.
+Somente com esses controles atendidos produz integração qualitativa, rascunho de
+Resultados e Discussão e `reproduction.zip`, identificado como **candidato**, sem clones.
+O recibo `study_acceptance.json` fica fora desse ZIP e registra seu checksum.
+`scientific_result_accepted` permanece falso e a saída permanece 1 enquanto G14
+(restauração isolada) e G15 (manuscrito) não estiverem implementados e comprovados.
+A implementação e as provas estão no [incremento 5](docs/INTEGRACAO_FINALIZADOR_INCREMENTO_05.md).
 
 ## Acompanhamento e retomada
 
