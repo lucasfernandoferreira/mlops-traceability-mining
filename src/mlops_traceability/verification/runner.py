@@ -23,6 +23,7 @@ from mlops_traceability.run_storage import verified_run
 from mlops_traceability.study import load_index
 from mlops_traceability.verification.contracts import Criterion, aggregate_criteria
 from mlops_traceability.verification.descriptive import describe
+from mlops_traceability.verification.finalization import check_receipt_bindings
 from mlops_traceability.verification.git_oracle import (
     classify,
     git,
@@ -447,6 +448,12 @@ def verify_study(
             )
             for path in qualitative_inputs:
                 bound(path)
+            qualitative_manifest = (
+                root / cfg["paths"]["manifests"] / f"{origins['qualitative_run_id']}.json"
+            )
+            receipt["input_manifest_hashes"][origins["qualitative_run_id"]] = sha256_file(
+                qualitative_manifest
+            )
             receipt["qualitative"] = dict(proof="qualitative/crosscheck.json")
             criterion(
                 "G10",
@@ -458,12 +465,23 @@ def verify_study(
             message = f"qualitative_input:{type(error).__name__}:{error}"
             receipt["processing_errors"].append(message)
             criterion("G10", "Independent PR and event selection", [message], proofs)
+        receipt["proof_hashes"] = {
+            path.relative_to(output).as_posix(): sha256_file(path)
+            for path in output.rglob("*")
+            if path.is_file()
+        }
+        contract: dict[str, Any] = {"binding_errors": [], "scientific_result_accepted": False}
+        try:
+            contract["bindings"] = check_receipt_bindings(root, index_path, output, receipt)
+        except (OSError, ValueError, KeyError, TypeError, AttributeError) as error:
+            contract["binding_errors"].append(f"{type(error).__name__}: {error}")
+        write_json(output / "finalization_contract.json", contract)
         criterion(
             "G13",
-            "Verification/finalization integration and clean empirical code",
-            ["finalization_integration_not_implemented"]
+            "Finalizer input bindings, mandatory empirical replay and candidate-only packaging",
+            contract["binding_errors"]
             + (["dirty_verifier_worktree"] if receipt["dirty_worktree"] else []),
-            proofs,
+            ["finalization_contract.json"],
         )
     except (
         OSError,

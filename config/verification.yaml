@@ -1,4 +1,4 @@
-verification_policy_version: "1.2.0"
+verification_policy_version: "1.3.0"
 absolute_tolerance: 1.0e-12
 quantile_method: linear
 pre_restoration_criteria: [G00, G01, G02, G03, G04, G05, G06, G07, G08, G09, G10, G11, G12, G13]
@@ -35,7 +35,7 @@ codebook:
   configuration_refactoring: "Mudança de estrutura, caminho ou conteúdo de configuração."
 
 # These components run on the explicit empirical index.
-implemented_empirical_checks: [G03, G05, G06, G07, G08, G09, G10]
+implemented_empirical_checks: [G03, G05, G06, G07, G08, G09, G10, G13]
 source_checks:
   history: full_reachable_dag
   diff: raw_first_parent_no_renames
@@ -61,3 +61,8 @@ qualitative_checks:
   selection: git_rows_sorted_partitions_rational_positions
   incomplete_associations: fail_without_inferring_absence
   production_selection_imported: false
+finalization_checks:
+  receipt: explicit_empirical_exact_G00_G13
+  claimed_pass: recompute_before_candidate
+  package_status: candidate_pending_G14_G15
+  final_acceptance: unavailable_until_restoration_and_manuscript_review

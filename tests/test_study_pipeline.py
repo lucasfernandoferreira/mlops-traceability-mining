@@ -234,6 +234,9 @@ def test_full_derived_pipeline_blank_review_and_tampering(
         and "development_or_invalid_source_chain" in final["blocking_reasons"]
     )
     assert "academic_alignment_pending" in final["blocking_reasons"]
+    assert "empirical_verification_missing_invalid_or_incomplete" in final["blocking_reasons"]
+    assert not final["candidate_eligible"]
+    assert "Explicit --verification-receipt" in final["verification"]["blocking_reasons"][0]
     assert (
         run_study(
             "phase6_validate_taxonomy",
@@ -333,6 +336,7 @@ def test_case_measurements_cannot_be_filled_with_invented_counts(
             "conclusion_limit": "synthetic limit",
         }
     ]
+    (output / "study_acceptance.json").write_text('{"scientific_result_accepted": false}')
     write_results_packet(
         project,
         output,
@@ -345,5 +349,9 @@ def test_case_measurements_cannot_be_filled_with_invented_counts(
     with zipfile.ZipFile(output / "reproduction.zip") as archive:
         manifest = json.loads(archive.read("PACKAGE_MANIFEST.json"))
         assert manifest["files"]
+        assert manifest["package_status"] == "candidate"
+        assert manifest["scientific_result_accepted"] is False
+        assert manifest["pending_criteria"] == ["G14", "G15"]
+        assert "packet/study_acceptance.json" not in archive.namelist()
         assert not any("data/raw/repos" in name for name in archive.namelist())
         assert "synthetic interpretation" in archive.read("packet/resultados_discussao.md").decode()
