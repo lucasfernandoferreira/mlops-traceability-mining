@@ -1,8 +1,14 @@
 # Critérios de aceite e evidências — primeiro incremento
 
+O estado empírico mais recente está no
+[incremento 4](VERIFICACAO_QUALITATIVA_INCREMENTO_04.md), com a seleção por PR
+reconstruída independentemente e G10 aprovado, além de G05, G08 e G09.
+O aceite agregado permanece bloqueado.
+Esta matriz inicial e seus resultados históricos continuam preservados abaixo.
+
 Este documento preserva o primeiro incremento, com política **1.0.0**.
-A política atual **1.1.0** e o comando `verify-study` estão descritos no
-[incremento empírico 2](VERIFICACAO_EMPIRICA_INCREMENTO_02.md).
+A política atual **1.2.0** está descrita no incremento 4. A introdução do comando
+`verify-study` está no [incremento empírico 2](VERIFICACAO_EMPIRICA_INCREMENTO_02.md).
 
 A política de verificação é separada do protocolo científico **2.1.0**,
 da taxonomia **1.1.0** e do plano de análise **1.0.0**. O arquivo

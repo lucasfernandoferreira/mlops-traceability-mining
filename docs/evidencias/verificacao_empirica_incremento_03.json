@@ -1,0 +1,670 @@
+{
+  "summary_schema_version": "1.0.0",
+  "recorded_at_utc": "2026-09-09T14:58:19.311805+00:00",
+  "scope": "empirical",
+  "scientific_result_accepted": false,
+  "verification_status": "FAIL",
+  "exit_code": 1,
+  "processing_errors": [],
+  "verification_policy_version": "1.1.0",
+  "verification_code_sha": "af5a00489166bf262e0cc8c8f3c2ad5bc6842e19",
+  "dirty_worktree": false,
+  "receipt": "data/interim/verification/incremento_03/empirical_01/verification_receipt.json",
+  "receipt_sha256": "95f62eb7f66add403b79633aadecfa5f02f8c0fee80ac8813424dd818e4f05c1",
+  "reprocessing_receipt": "data/interim/verification/incremento_03/reprocessing_receipt.json",
+  "reprocessing_receipt_sha256": "44bae6b33602e70b070baa69f7707cea10b9e58627159fe7d74a0d3989d8f948",
+  "study_index": "data/interim/runs/20260909T144632500174Z_af5a0048_study_index/study_index.json",
+  "study_index_sha256": "74b3822ae8f166fc4ab4e875235fba530e0fdcc1de547f3c44515e646e7edce1",
+  "review_dir": "data/interim/reviews/reprocessamento_20260909T144632500174Z_af5a0048_study_index",
+  "review_file_hashes": {
+    "taxonomia_revisada.csv": "ec4823b48b326bc593aa69f026bb8ed50b3a2da311f7b156b991f07f8f63809e",
+    "casos_revisados.json": "1ccd25e0f6680f3e33a33021db3e979ba4b52b064343e841e7be6d7c97b6e2ae",
+    "codificacao_revisada.csv": "3394fb809cd8cf54c1f1e3460eb4058bd780efb975fa4509b274cd2e2bdb9db9",
+    "alinhamento_academico.json": "5a54515dbdca21ac6ef40e0230652044fc395fe1c7277fc334da004baa6fec12",
+    "origens.json": "e9616bf120a01d9bfb640db0b655d3f65356a1cf651aee2d33157e27bc18bc60"
+  },
+  "review_import_exit_code": 1,
+  "review_record_counts": {
+    "taxonomy": 180,
+    "cases": 3,
+    "coding": 45
+  },
+  "criteria_scope": [
+    "G00",
+    "G01",
+    "G02",
+    "G03",
+    "G04",
+    "G05",
+    "G06",
+    "G07",
+    "G08",
+    "G09",
+    "G10",
+    "G11",
+    "G12",
+    "G13"
+  ],
+  "criteria": [
+    {
+      "criterion_id": "G00",
+      "previous_status": "NOT_RUN",
+      "status": "NOT_RUN",
+      "method": "Pending implementation or evidence",
+      "observed_issue_count": null,
+      "proof": []
+    },
+    {
+      "criterion_id": "G01",
+      "previous_status": "FAIL",
+      "status": "FAIL",
+      "method": "Validate preserved human decision records",
+      "observed_issue_count": 1283,
+      "proof": [
+        "reviews/review_import.json"
+      ]
+    },
+    {
+      "criterion_id": "G02",
+      "previous_status": "NOT_RUN",
+      "status": "NOT_RUN",
+      "method": "Pending implementation or evidence",
+      "observed_issue_count": null,
+      "proof": []
+    },
+    {
+      "criterion_id": "G03",
+      "previous_status": "PASS",
+      "status": "PASS",
+      "method": "Independent implementations and comparable outputs recorded",
+      "observed_issue_count": 0,
+      "proof": [
+        "ultralytics__ultralytics/crosscheck.json",
+        "pymc-labs__pymc-marketing/crosscheck.json",
+        "open-edge-platform__anomalib/crosscheck.json",
+        "independence.json"
+      ]
+    },
+    {
+      "criterion_id": "G04",
+      "previous_status": "NOT_RUN",
+      "status": "NOT_RUN",
+      "method": "Pending implementation or evidence",
+      "observed_issue_count": null,
+      "proof": []
+    },
+    {
+      "criterion_id": "G05",
+      "previous_status": "FAIL",
+      "status": "PASS",
+      "method": "Full raw Git objects/diffs versus commit and file tables",
+      "observed_issue_count": 0,
+      "proof": [
+        "ultralytics__ultralytics/crosscheck.json",
+        "pymc-labs__pymc-marketing/crosscheck.json",
+        "open-edge-platform__anomalib/crosscheck.json"
+      ]
+    },
+    {
+      "criterion_id": "G06",
+      "previous_status": "PASS",
+      "status": "PASS",
+      "method": "Git activity identities and historical shortlist thresholds",
+      "observed_issue_count": 0,
+      "proof": [
+        "ultralytics__ultralytics/crosscheck.json",
+        "pymc-labs__pymc-marketing/crosscheck.json",
+        "open-edge-platform__anomalib/crosscheck.json",
+        "original_collection_audit.json"
+      ]
+    },
+    {
+      "criterion_id": "G07",
+      "previous_status": "FAIL",
+      "status": "FAIL",
+      "method": "Full inventory and historical sample blobs; preserved human labels",
+      "observed_issue_count": 2,
+      "proof": [
+        "ultralytics__ultralytics/crosscheck.json",
+        "pymc-labs__pymc-marketing/crosscheck.json",
+        "open-edge-platform__anomalib/crosscheck.json",
+        "reviews/review_import.json"
+      ]
+    },
+    {
+      "criterion_id": "G08",
+      "previous_status": "FAIL",
+      "status": "PASS",
+      "method": "Git C/P and CONFIG pairs; independent integer ratios; six unavailable metrics",
+      "observed_issue_count": 0,
+      "proof": [
+        "ultralytics__ultralytics/crosscheck.json",
+        "pymc-labs__pymc-marketing/crosscheck.json",
+        "open-edge-platform__anomalib/crosscheck.json"
+      ]
+    },
+    {
+      "criterion_id": "G09",
+      "previous_status": "FAIL",
+      "status": "PASS",
+      "method": "Independent linear quantiles, concentration, monthly totals and sensitivity",
+      "observed_issue_count": 0,
+      "proof": [
+        "ultralytics__ultralytics/crosscheck.json",
+        "pymc-labs__pymc-marketing/crosscheck.json",
+        "open-edge-platform__anomalib/crosscheck.json"
+      ]
+    },
+    {
+      "criterion_id": "G10",
+      "previous_status": "NOT_RUN",
+      "status": "NOT_RUN",
+      "method": "Pending implementation or evidence",
+      "observed_issue_count": null,
+      "proof": []
+    },
+    {
+      "criterion_id": "G11",
+      "previous_status": "NOT_RUN",
+      "status": "NOT_RUN",
+      "method": "Pending implementation or evidence",
+      "observed_issue_count": null,
+      "proof": []
+    },
+    {
+      "criterion_id": "G12",
+      "previous_status": "NOT_RUN",
+      "status": "NOT_RUN",
+      "method": "Pending implementation or evidence",
+      "observed_issue_count": null,
+      "proof": []
+    },
+    {
+      "criterion_id": "G13",
+      "previous_status": "FAIL",
+      "status": "FAIL",
+      "method": "Verification/finalization integration and clean empirical code",
+      "observed_issue_count": 1,
+      "proof": [
+        "ultralytics__ultralytics/crosscheck.json",
+        "pymc-labs__pymc-marketing/crosscheck.json",
+        "open-edge-platform__anomalib/crosscheck.json"
+      ]
+    }
+  ],
+  "previous_receipt": "data/interim/verification/incremento_02/empirical_03/verification_receipt.json",
+  "previous_receipt_sha256": "33f68cb6e2560dd427f345c47c587d66030c5ebcc603bbc61b56d0055f3099f4",
+  "cases": [
+    {
+      "repository_id": "ultralytics/ultralytics",
+      "head_commit_sha": "fa34184a5080c81fff453670394e13303ac781b2",
+      "source_summary": {
+        "repository_id": "ultralytics/ultralytics",
+        "head_commit_sha": "fa34184a5080c81fff453670394e13303ac781b2",
+        "reachable_commits": 4974,
+        "active_contributors_count": 175,
+        "funnel": {
+          "included": 4914,
+          "bot": 60
+        },
+        "config_blob_pairs_checked": 873,
+        "identity_rule": "lowercase email or name; no mailmap; identities are not persons",
+        "shared_dependencies": [
+          "Git object engine",
+          "Python regex",
+          "PyYAML parser",
+          "JSON scalar serialization"
+        ]
+      },
+      "arithmetic": {
+        "reachable": 4974,
+        "funnel": {
+          "bot": 60,
+          "included": 4914
+        },
+        "C": 3220,
+        "P": 276,
+        "C_intersection_P": 224,
+        "metrics": {
+          "code_config_cochange": {
+            "numerator": 224,
+            "denominator": 3220,
+            "status": "observed",
+            "value": 0.06956521739130435
+          },
+          "config_magnitude": {
+            "numerator": 8136,
+            "denominator": 276,
+            "status": "observed",
+            "value": 29.47826086956522
+          }
+        }
+      },
+      "inventory": {
+        "inventory_paths": 2128,
+        "historical_sample_blobs_checked": 51,
+        "differences": []
+      },
+      "proof": "ultralytics__ultralytics/crosscheck.json",
+      "proof_sha256": "6535786e92f3d5eb2b8ff8d5f00876fe77fae96fef54ab55fb52216126e727a0",
+      "history_differences": 0,
+      "metric_differences": 0,
+      "descriptive_differences": 0,
+      "distribution": [
+        {
+          "repository_id": "ultralytics/ultralytics",
+          "status": "observed",
+          "denominator": 276,
+          "unit": "keys/config_commit",
+          "quantile_method": "linear",
+          "mean": 29.47826086956522,
+          "median": 1.0,
+          "p90": 23.5,
+          "p95": 85.0,
+          "maximum": 3281.0,
+          "semantic_zero_fraction": 0.2898550724637681,
+          "top_fraction_share": 0.9208456243854474
+        }
+      ],
+      "sensitivity": [
+        {
+          "repository_id": "ultralytics/ultralytics",
+          "variant": "principal",
+          "status": "observed",
+          "numerator": 8136,
+          "denominator": 276,
+          "value": 29.47826086956522,
+          "removed_key_contribution": 0,
+          "paired_move_paths": 8,
+          "unit": "keys/config_commit"
+        },
+        {
+          "repository_id": "ultralytics/ultralytics",
+          "variant": "identical_blob_moves",
+          "status": "observed",
+          "numerator": 7820,
+          "denominator": 276,
+          "value": 28.333333333333332,
+          "removed_key_contribution": 316,
+          "paired_move_paths": 8,
+          "unit": "keys/config_commit"
+        },
+        {
+          "repository_id": "ultralytics/ultralytics",
+          "variant": "class_map_keys",
+          "status": "observed",
+          "numerator": 3397,
+          "denominator": 276,
+          "value": 12.307971014492754,
+          "removed_key_contribution": 4739,
+          "paired_move_paths": 8,
+          "unit": "keys/config_commit"
+        },
+        {
+          "repository_id": "ultralytics/ultralytics",
+          "variant": "dataset_paths",
+          "status": "observed",
+          "numerator": 1718,
+          "denominator": 276,
+          "value": 6.22463768115942,
+          "removed_key_contribution": 6418,
+          "paired_move_paths": 8,
+          "unit": "keys/config_commit"
+        }
+      ],
+      "monthly_rows": 48
+    },
+    {
+      "repository_id": "pymc-labs/pymc-marketing",
+      "head_commit_sha": "fabba92c96aa6a4ec6d42fb3241a8ed725995d0a",
+      "source_summary": {
+        "repository_id": "pymc-labs/pymc-marketing",
+        "head_commit_sha": "fabba92c96aa6a4ec6d42fb3241a8ed725995d0a",
+        "reachable_commits": 1506,
+        "active_contributors_count": 40,
+        "funnel": {
+          "included": 1257,
+          "bot": 229,
+          "large_commit": 1,
+          "merge": 19
+        },
+        "config_blob_pairs_checked": 46,
+        "identity_rule": "lowercase email or name; no mailmap; identities are not persons",
+        "shared_dependencies": [
+          "Git object engine",
+          "Python regex",
+          "PyYAML parser",
+          "JSON scalar serialization"
+        ]
+      },
+      "arithmetic": {
+        "reachable": 1506,
+        "funnel": {
+          "bot": 229,
+          "included": 1257,
+          "large_commit": 1,
+          "merge": 19
+        },
+        "C": 876,
+        "P": 16,
+        "C_intersection_P": 14,
+        "metrics": {
+          "code_config_cochange": {
+            "numerator": 14,
+            "denominator": 876,
+            "status": "observed",
+            "value": 0.01598173515981735
+          },
+          "config_magnitude": {
+            "numerator": 469,
+            "denominator": 16,
+            "status": "observed",
+            "value": 29.3125
+          }
+        }
+      },
+      "inventory": {
+        "inventory_paths": 2724,
+        "historical_sample_blobs_checked": 70,
+        "differences": []
+      },
+      "proof": "pymc-labs__pymc-marketing/crosscheck.json",
+      "proof_sha256": "a5797c9269c6357784c5ad29f1a09dc49cf12225374c473ff6c16a1365089ae8",
+      "history_differences": 0,
+      "metric_differences": 0,
+      "descriptive_differences": 0,
+      "distribution": [
+        {
+          "repository_id": "pymc-labs/pymc-marketing",
+          "status": "observed",
+          "denominator": 16,
+          "unit": "keys/config_commit",
+          "quantile_method": "linear",
+          "mean": 29.3125,
+          "median": 12.5,
+          "p90": 86.5,
+          "p95": 127.5,
+          "maximum": 153.0,
+          "semantic_zero_fraction": 0.0,
+          "top_fraction_share": 0.579957356076759
+        }
+      ],
+      "sensitivity": [
+        {
+          "repository_id": "pymc-labs/pymc-marketing",
+          "variant": "principal",
+          "status": "observed",
+          "numerator": 469,
+          "denominator": 16,
+          "value": 29.3125,
+          "removed_key_contribution": 0,
+          "paired_move_paths": 0,
+          "unit": "keys/config_commit"
+        },
+        {
+          "repository_id": "pymc-labs/pymc-marketing",
+          "variant": "identical_blob_moves",
+          "status": "observed",
+          "numerator": 469,
+          "denominator": 16,
+          "value": 29.3125,
+          "removed_key_contribution": 0,
+          "paired_move_paths": 0,
+          "unit": "keys/config_commit"
+        },
+        {
+          "repository_id": "pymc-labs/pymc-marketing",
+          "variant": "class_map_keys",
+          "status": "observed",
+          "numerator": 469,
+          "denominator": 16,
+          "value": 29.3125,
+          "removed_key_contribution": 0,
+          "paired_move_paths": 0,
+          "unit": "keys/config_commit"
+        },
+        {
+          "repository_id": "pymc-labs/pymc-marketing",
+          "variant": "dataset_paths",
+          "status": "observed",
+          "numerator": 5,
+          "denominator": 16,
+          "value": 0.3125,
+          "removed_key_contribution": 464,
+          "paired_move_paths": 0,
+          "unit": "keys/config_commit"
+        }
+      ],
+      "monthly_rows": 54
+    },
+    {
+      "repository_id": "open-edge-platform/anomalib",
+      "head_commit_sha": "0b7fdb9dde453f6474ac93f77188f4224d442999",
+      "source_summary": {
+        "repository_id": "open-edge-platform/anomalib",
+        "head_commit_sha": "0b7fdb9dde453f6474ac93f77188f4224d442999",
+        "reachable_commits": 1134,
+        "active_contributors_count": 39,
+        "funnel": {
+          "included": 1011,
+          "bot": 110,
+          "merge": 13
+        },
+        "config_blob_pairs_checked": 557,
+        "identity_rule": "lowercase email or name; no mailmap; identities are not persons",
+        "shared_dependencies": [
+          "Git object engine",
+          "Python regex",
+          "PyYAML parser",
+          "JSON scalar serialization"
+        ]
+      },
+      "arithmetic": {
+        "reachable": 1134,
+        "funnel": {
+          "bot": 110,
+          "included": 1011,
+          "merge": 13
+        },
+        "C": 668,
+        "P": 119,
+        "C_intersection_P": 108,
+        "metrics": {
+          "code_config_cochange": {
+            "numerator": 108,
+            "denominator": 668,
+            "status": "observed",
+            "value": 0.16167664670658682
+          },
+          "config_magnitude": {
+            "numerator": 10883,
+            "denominator": 119,
+            "status": "observed",
+            "value": 91.45378151260505
+          }
+        }
+      },
+      "inventory": {
+        "inventory_paths": 2779,
+        "historical_sample_blobs_checked": 59,
+        "differences": []
+      },
+      "proof": "open-edge-platform__anomalib/crosscheck.json",
+      "proof_sha256": "80cd532890281a7a8f473a44e927102f23af7126c64fcdf68596e080172d9c03",
+      "history_differences": 0,
+      "metric_differences": 0,
+      "descriptive_differences": 0,
+      "distribution": [
+        {
+          "repository_id": "open-edge-platform/anomalib",
+          "status": "observed",
+          "denominator": 119,
+          "unit": "keys/config_commit",
+          "quantile_method": "linear",
+          "mean": 91.45378151260505,
+          "median": 9.0,
+          "p90": 118.4,
+          "p95": 578.4999999999997,
+          "maximum": 2258.0,
+          "semantic_zero_fraction": 0.03361344537815126,
+          "top_fraction_share": 0.7880180097399614
+        }
+      ],
+      "sensitivity": [
+        {
+          "repository_id": "open-edge-platform/anomalib",
+          "variant": "principal",
+          "status": "observed",
+          "numerator": 10883,
+          "denominator": 119,
+          "value": 91.45378151260505,
+          "removed_key_contribution": 0,
+          "paired_move_paths": 142,
+          "unit": "keys/config_commit"
+        },
+        {
+          "repository_id": "open-edge-platform/anomalib",
+          "variant": "identical_blob_moves",
+          "status": "observed",
+          "numerator": 7265,
+          "denominator": 119,
+          "value": 61.05042016806723,
+          "removed_key_contribution": 3618,
+          "paired_move_paths": 142,
+          "unit": "keys/config_commit"
+        },
+        {
+          "repository_id": "open-edge-platform/anomalib",
+          "variant": "class_map_keys",
+          "status": "observed",
+          "numerator": 10883,
+          "denominator": 119,
+          "value": 91.45378151260505,
+          "removed_key_contribution": 0,
+          "paired_move_paths": 142,
+          "unit": "keys/config_commit"
+        },
+        {
+          "repository_id": "open-edge-platform/anomalib",
+          "variant": "dataset_paths",
+          "status": "observed",
+          "numerator": 9515,
+          "denominator": 119,
+          "value": 79.95798319327731,
+          "removed_key_contribution": 1368,
+          "paired_move_paths": 142,
+          "unit": "keys/config_commit"
+        }
+      ],
+      "monthly_rows": 58
+    }
+  ],
+  "new_stages": {
+    "mine_run_id": {
+      "run_id": "20260909T144237582697Z_af5a0048_phase4_mine_commits",
+      "manifest_sha256": "e54d92bc7d57d825bb970bbe48747c3916857191456908bcc9bc30d84c799368",
+      "code_commit_sha": "af5a00489166bf262e0cc8c8f3c2ad5bc6842e19",
+      "dirty_worktree": false,
+      "scientific_eligible": true
+    },
+    "metrics_run_id": {
+      "run_id": "20260909T144621249616Z_af5a0048_phase5_compute_metrics",
+      "manifest_sha256": "a2c108ae4174ab0a9736254edca70433dd4e7dcaaa7dec10c1ce47207cd8874e",
+      "code_commit_sha": "af5a00489166bf262e0cc8c8f3c2ad5bc6842e19",
+      "dirty_worktree": false,
+      "scientific_eligible": true
+    },
+    "qualitative_run_id": {
+      "run_id": "20260909T144655212671Z_af5a0048_phase7_select_qualitative",
+      "manifest_sha256": "b481450dabcc1565c7c7d6c091f27a9d31c4b12dcc12edf802a89cc30cfdaf05",
+      "code_commit_sha": "af5a00489166bf262e0cc8c8f3c2ad5bc6842e19",
+      "dirty_worktree": false,
+      "scientific_eligible": true
+    },
+    "report_run_id": {
+      "run_id": "20260909T144717557913Z_af5a0048_phase8_report",
+      "manifest_sha256": "3d1b444748e0ac16fcaae86c7baae7d2ea57df86a4504d94d3783791372b0250",
+      "code_commit_sha": "af5a00489166bf262e0cc8c8f3c2ad5bc6842e19",
+      "dirty_worktree": false,
+      "scientific_eligible": true
+    },
+    "study_index_run_id": {
+      "run_id": "20260909T144632500174Z_af5a0048_study_index",
+      "manifest_sha256": "9c700c35116962a5337aafcced7c9466c8ddcce8fb30f62ce3606d4ab2c7d337",
+      "code_commit_sha": "af5a00489166bf262e0cc8c8f3c2ad5bc6842e19",
+      "dirty_worktree": false,
+      "scientific_eligible": true
+    }
+  },
+  "figures": {
+    "distribuicao_magnitude.png": {
+      "sha256": "a4fd8c3361f7280be9b8e049cc84cb5e539203731688eebf0d8fbd6028b06e6a",
+      "byte_identical_to_previous_report": true
+    },
+    "proporcao_cp.png": {
+      "sha256": "a64923e708c93a4df63ff3be6b213c40a85362c2e7782b3523f988265e31840f",
+      "byte_identical_to_previous_report": true
+    },
+    "serie_mensal.png": {
+      "sha256": "7ec3ad421fecfab404277e2b9ccaca6406a9c8c47056e15b2af8acff4ec640a9",
+      "byte_identical_to_previous_report": true
+    }
+  },
+  "integrity_recheck": {
+    "verification_proofs": 20,
+    "bound_inputs": 91,
+    "historical_files_unchanged": 495,
+    "review_import_bindings_checked": true
+  },
+  "baseline_check": {
+    "command": "make check",
+    "tests_passed": 203,
+    "coverage_percent": 94.17,
+    "log": "data/interim/verification/incremento_03/baseline_check.log",
+    "sha256": "74c75674e51d2171f26686109b5193063e0ca035a7924bed9315405207bfa630"
+  },
+  "proof_hashes": {
+    "independence.json": "9af95070d7802fd926084b45df4a32fd47668edaedeb4f98e5e8ffbfed299362",
+    "instrument.bundle": "524aa443dfa8c25a998591d17044efe2cfcbcb659dab69938c248168dc237646",
+    "original_collection_audit.json": "2c04006a03e57f87ec3f9803159440006ee20bca6f7624fcff22302743ba166b",
+    "verification_source.tar.gz": "f62d8dc3ea4b52e0398a2b58e4e90db29c050887ac7e9779160ea879bea25a22",
+    "open-edge-platform__anomalib/crosscheck.json": "80cd532890281a7a8f473a44e927102f23af7126c64fcdf68596e080172d9c03",
+    "open-edge-platform__anomalib/source_changes.json": "3a976bd4f53a006c85db0dc2516a27105f457e9aae804fff434925acfea80ed2",
+    "open-edge-platform__anomalib/source_commits.json": "1d4b289ab357c9b888c4c2a95672c2dc92927d440c7e2f19ebb97c65fad9bdb8",
+    "pymc-labs__pymc-marketing/crosscheck.json": "a5797c9269c6357784c5ad29f1a09dc49cf12225374c473ff6c16a1365089ae8",
+    "pymc-labs__pymc-marketing/source_changes.json": "27f353a044ce404f1029c30462f862a2c7e1927b4fbb73d6b38965207764a247",
+    "pymc-labs__pymc-marketing/source_commits.json": "047107909f6a29f6d91d5b7d5a1d2762ca4f8b9bc4b6a2703852394d37b17022",
+    "reviews/review_import.json": "b4533973f21d7888a88b157dc51e89a03dd844a634adf8f75de50bad08f00461",
+    "reviews/verification_source.tar.gz": "888232ec6e8258d54d2afebede36e39b44f9c1cf6546638769c86b14c463924e",
+    "ultralytics__ultralytics/crosscheck.json": "6535786e92f3d5eb2b8ff8d5f00876fe77fae96fef54ab55fb52216126e727a0",
+    "ultralytics__ultralytics/source_changes.json": "2fe1736a2aa40acc5ef73d7a6639a89d73c3478cd20fd0d5ee68e3587adbf641",
+    "ultralytics__ultralytics/source_commits.json": "0aa0b90211de8408d4b03034a17859b27faa1d8d7fbd38c8ce7d05ed90bf68bd",
+    "reviews/original_reviews/alinhamento_academico.json": "5a54515dbdca21ac6ef40e0230652044fc395fe1c7277fc334da004baa6fec12",
+    "reviews/original_reviews/casos_revisados.json": "1ccd25e0f6680f3e33a33021db3e979ba4b52b064343e841e7be6d7c97b6e2ae",
+    "reviews/original_reviews/codificacao_revisada.csv": "3394fb809cd8cf54c1f1e3460eb4058bd780efb975fa4509b274cd2e2bdb9db9",
+    "reviews/original_reviews/origens.json": "e9616bf120a01d9bfb640db0b655d3f65356a1cf651aee2d33157e27bc18bc60",
+    "reviews/original_reviews/taxonomia_revisada.csv": "ec4823b48b326bc593aa69f026bb8ed50b3a2da311f7b156b991f07f8f63809e"
+  },
+  "input_manifest_hashes": {
+    "20260909T144632500174Z_af5a0048_study_index": "9c700c35116962a5337aafcced7c9466c8ddcce8fb30f62ce3606d4ab2c7d337",
+    "20260908T003443752785Z_43a2dae0_phase3_clone_repos": "46dd3309a0a4de167ed5a72ca1fa0da0547c1975e8ab0ecff5243325ddef02fe",
+    "20260908T003451162760Z_43a2dae0_phase4_mine_commits": "29281440895c0f2bb19de35206c48f4abd6f702b5b74c275d4a0569e05caf9ed",
+    "20260908T003846750404Z_43a2dae0_phase5_compute_metrics": "bbb20fb1d3e1e006c83c38e797474e6735fb57a122b89d8c4d085a96e3ba16b4",
+    "20260908T003854721749Z_43a2dae0_phase3_clone_repos": "dd8de2d210f99d185d34e9859d55f85a69fb6daa35f39568787e08e7d8b6620b",
+    "20260909T144237582697Z_af5a0048_phase4_mine_commits": "e54d92bc7d57d825bb970bbe48747c3916857191456908bcc9bc30d84c799368",
+    "20260909T144621249616Z_af5a0048_phase5_compute_metrics": "a2c108ae4174ab0a9736254edca70433dd4e7dcaaa7dec10c1ce47207cd8874e",
+    "20260908T004129552279Z_43a2dae0_phase3_clone_repos": "311c3d0e15f8caecf1ac345e5120703880af6a1dcc2eca8b56853796cc1f9dcb",
+    "20260908T004136623679Z_43a2dae0_phase4_mine_commits": "9e51405a4ff414be33150878246e273e44ce6c864c1d558d54181e7e59b75e5f",
+    "20260908T004255518258Z_43a2dae0_phase5_compute_metrics": "344d4820e0ff31dec48800c0630faa09a73d7b7918b3e6c9a4dc98de61f72575",
+    "20260909T144717557913Z_af5a0048_phase8_report": "3d1b444748e0ac16fcaae86c7baae7d2ea57df86a4504d94d3783791372b0250"
+  },
+  "limitations": [
+    "Git, regex, PyYAML and JSON serialization are shared dependencies.",
+    "Static MLflow call counts are not recalculated by this increment.",
+    "G00-G13 remain incomplete; G14-G15 and final acceptance are outside this receipt.",
+    "Record validation does not authenticate reviewers or academic approval.",
+    "Human decisions in the available files remain blank; this does not deny reviews reported as completed elsewhere.",
+    "Identical regenerated selection is an impact check, not the independent PR selection oracle required by G10.",
+    "No G00-G15 scientific acceptance, package restoration or manuscript approval is claimed."
+  ]
+}

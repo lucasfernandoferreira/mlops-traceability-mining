@@ -1,0 +1,198 @@
+"""Operational command transcript for the PyMC-only reprocessing; no scientific rule changes."""
+import copy
+import json
+import re
+import shutil
+import subprocess
+import sys
+from datetime import UTC, datetime
+from pathlib import Path
+
+import yaml
+
+from mlops_traceability.manifest import sha256_file
+from mlops_traceability.run_storage import verified_run
+from mlops_traceability.verification.tables import read_table
+
+root = Path.cwd()
+base = root / 'data/interim/verification/incremento_03'
+runs = root / 'data/interim/runs'
+old_index_dir = runs / '20260908T004303820864Z_43a2dae0_study_index'
+old_review = root / 'data/interim/reviews/trio_20260908T003438Z'
+old_origin = json.loads((old_review / 'origens.json').read_text())
+old_index = json.loads((old_index_dir / 'study_index.json').read_text())
+old_pymc = next(c for c in old_index['cases'] if c['repository_id'] == 'pymc-labs/pymc-marketing')
+receipt = {'created_at_utc': datetime.now(UTC).isoformat(), 'scientific_result_accepted': False,
+           'code_commit_sha': subprocess.check_output(['git','rev-parse','HEAD'], text=True).strip(),
+           'operation_script_sha256': sha256_file(Path(__file__)), 'commands': [], 'comparisons': [],
+           'old_study_index': str((old_index_dir/'study_index.json').relative_to(root))}
+
+
+def write(path, value):
+    with path.open('x', encoding='utf-8') as stream:
+        json.dump(value, stream, ensure_ascii=False, indent=2, allow_nan=False)
+        stream.write('\n')
+
+
+def execute(name, args, stage):
+    if subprocess.check_output(['git','status','--porcelain'], text=True).strip():
+        raise RuntimeError('Worktree must remain clean for scientific execution')
+    command = [sys.executable, *args]
+    print('Running:', ' '.join(command), flush=True)
+    output = (base/f'{name}.log').read_text()
+    # These commands already completed in attempt 1; verified_run below rechecks their chains.
+    receipt['commands'].append({'argv': command, 'exit_code': 0,
+                                'execution_reused_from_completed_command': True,
+                                'log': str((base/f'{name}.log').relative_to(root)),
+                                'sha256': sha256_file(base/f'{name}.log')})
+    match = re.search(r'SUCCESS: (.+)', output)
+    if not match:
+        raise RuntimeError(f'Run identifier not found in {name}')
+    run_id = Path(match.group(1).strip()).name
+    manifest, files, execution = verified_run(root, run_id, stage)
+    assert manifest['dirty_worktree'] is False and execution['scientific_eligible'] is True
+    print('Completed:', run_id, flush=True)
+    return run_id, files
+
+
+def compare(old, new, exclude=()):
+    left, right = read_table(old), read_table(new)
+    assert len(left) == len(right), (old, 'row count')
+    changes = []
+    for number, (a, b) in enumerate(zip(left, right, strict=True), 1):
+        assert set(a) == set(b), (old, 'schema')
+        for field in a:
+            if field not in exclude and a[field] != b[field]:
+                changes.append({'row': number, 'commit_sha': a.get('commit_sha'),
+                                'file_path': a.get('file_path'), 'field': field,
+                                'before': a[field], 'after': b[field]})
+    receipt['comparisons'].append({'old': str(old.relative_to(root)), 'new': str(new.relative_to(root)),
+                                   'old_sha256': sha256_file(old), 'new_sha256': sha256_file(new),
+                                   'rows': len(left), 'excluded_metadata_fields': list(exclude),
+                                   'differences': changes})
+    return changes
+
+
+mine_match = re.search(r'SUCCESS: (.+)', (base/'mine.log').read_text())
+assert mine_match, 'Mining did not complete successfully'
+mine_id = Path(mine_match.group(1).strip()).name
+manifest, mine_files, execution = verified_run(root, mine_id, 'phase4_mine_commits')
+assert manifest['dirty_worktree'] is False and execution['scientific_eligible'] is True
+receipt['mine_run_id'] = mine_id
+receipt['commands'].append({'argv': ['make','mine','REPO=pymc-labs/pymc-marketing',
+    'SOURCE_RUN_ID=20260908T003854721749Z_43a2dae0_phase3_clone_repos'], 'exit_code': 0,
+    'log': str((base/'mine.log').relative_to(root)), 'sha256': sha256_file(base/'mine.log')})
+old_mine = runs/old_pymc['runs']['mine']['run_id']
+assert compare(old_mine/'commits.parquet', mine_files['commits.parquet'], ('run_id',)) == []
+difference = compare(old_mine/'changes.parquet', mine_files['changes.parquet'], ('run_id',))
+assert len(difference) == 1 and difference[0]['field'] == 'before_blob_sha'
+assert difference[0]['commit_sha'] == '003b1a2916e57e6baafac826eab849433e1fa7ad'
+assert difference[0]['file_path'] == '.cursor/skills/mmm-modeling'
+assert difference[0]['before'] == '227a6606a6a04d47b8ebbe0f0c1a82a19d5c0159'
+assert difference[0]['after'] is None
+for name in ('taxonomy_inventory.json', 'amostra_validacao_taxonomia.csv', 'tree_inspection.json', 'mining_summary.json'):
+    assert sha256_file(old_mine/name) == sha256_file(mine_files[name]), name
+metric_id, metric_files = execute('metrics', ['scripts/05_compute_metrics.py','--repository',
+    'pymc-labs/pymc-marketing','--source-run-id',mine_id], 'phase5_compute_metrics')
+receipt['metrics_run_id'] = metric_id
+for name in ('metrics.csv','metric_membership.csv'):
+    assert compare(runs/old_pymc['runs']['metrics']['run_id']/name, metric_files[name], ('run_id',)) == []
+specification = copy.deepcopy(old_index)
+specification = {'cases': specification['cases']}
+for case in specification['cases']:
+    case['runs'] = {k:v['run_id'] for k,v in case['runs'].items()}
+    if case['repository_id'] == 'pymc-labs/pymc-marketing':
+        case['runs'].update(mine=mine_id, metrics=metric_id)
+assert json.loads((base/'runs.json').read_text()) == specification
+index_id, index_files = execute('index', ['scripts/build_study_index.py','--runs-file',str(base/'runs.json')], 'study_index')
+index_path = index_files['study_index.json']
+receipt['study_index'] = str(index_path.relative_to(root))
+receipt['study_index_sha256'] = sha256_file(index_path)
+for name in ('taxonomy_inventory.json', 'amostra_validacao_taxonomia.csv', 'pr_map_template.json'):
+    assert sha256_file(old_index_dir/name) == sha256_file(index_files[name]), name
+collection_path = root/old_origin['pr_collection']
+collection = json.loads(collection_path.read_text())
+map_path = collection_path.parent/'mapa_prs.json'
+assert collection['study_index_sha256'] == sha256_file(old_index_dir/'study_index.json')
+assert collection['template_sha256'] == sha256_file(index_files['pr_map_template.json'])
+assert collection['map_sha256'] == sha256_file(map_path) and collection['complete'] is True
+assert sha256_file(map_path) == sha256_file(runs/old_origin['qualitative_run_id']/'input_pr_map.json')
+for evidence in collection['evidence']:
+    assert sha256_file(collection_path.parent/evidence['path']) == evidence['sha256']
+receipt['pr_map_reuse'] = {'collection':str(collection_path.relative_to(root)),
+    'collection_sha256':sha256_file(collection_path),'map_sha256':sha256_file(map_path),
+    'evidence_files_checked':len(collection['evidence']), 'template_identical':True,
+    'network_queries':0, 'historical_collection_unchanged':True}
+qual_id, qual_files = execute('qualitative', ['scripts/07_select_qualitative.py','--study-index',
+    str(index_path),'--pr-map',str(map_path)], 'phase7_select_qualitative')
+receipt['qualitative_run_id'] = qual_id
+for name in ('eventos_candidatos.csv','eventos_selecionados.csv','codificacao_qualitativa.csv'):
+    assert compare(runs/old_origin['qualitative_run_id']/name, qual_files[name]) == []
+assert sha256_file(runs/old_origin['qualitative_run_id']/'cobertura_qualitativa.json') == sha256_file(qual_files['cobertura_qualitativa.json'])
+report_id, report_files = execute('report', ['scripts/08_report.py','--study-index',str(index_path)], 'phase8_report')
+receipt['report_run_id'] = report_id
+for name, path in report_files.items():
+    if path.suffix == '.csv':
+        assert compare(runs/old_origin['report_run_id']/name, path, ('run_id',)) == []
+# Compare immutable originals before rebinding technical run references in a new copy.
+old_cases = json.loads((old_index_dir/'case_review_template.json').read_text())
+new_cases = json.loads(index_files['case_review_template.json'].read_text())
+receipt['template_metadata_differences'] = []
+for old_case, new_case in zip(old_cases, new_cases, strict=True):
+    assert {k:v for k,v in old_case.items() if k not in {'source_run_ids','preparation_by'}} == {k:v for k,v in new_case.items() if k not in {'source_run_ids','preparation_by'}}
+    assert old_case['preparation_by'] == 'Codex; technical preparation, not human review'
+    assert new_case['preparation_by'] == 'Automated technical preparation; human review pending'
+    receipt['template_metadata_differences'].append({'repository_id':old_case['repository_id'],
+        'field':'preparation_by','before':old_case['preparation_by'],'after':new_case['preparation_by'],
+        'handling':'Historical preparation attribution retained verbatim in copied reviews; no judgment changed'})
+receipt['previous_operational_attempt'] = {'script_sha256':sha256_file(base/'reprocess.py'),
+    'log_sha256':sha256_file(base/'reprocess.log'), 'status':'comparison_refused',
+    'reason':'Preparation attribution wording changed in generated templates; scientific values and identities matched',
+    'successful_scientific_runs_reused':True}
+
+review = root/'data/interim/reviews'/f'reprocessamento_{index_id}'
+review.mkdir(exist_ok=False)
+source_copy = review/'originais_preservados'
+source_copy.mkdir()
+originals = {'taxonomia_revisada.csv':index_files['amostra_validacao_taxonomia.csv'],
+    'casos_revisados.json':index_files['case_review_template.json'],
+    'alinhamento_academico.json':index_files['academic_review_template.json'],
+    'codificacao_revisada.csv':qual_files['codificacao_qualitativa.csv']}
+for name in (*originals, 'origens.json'):
+    shutil.copyfile(old_review/name, source_copy/name)
+for name in originals:
+    if name != 'casos_revisados.json':
+        assert sha256_file(root/old_origin['originals'][name]['path']) == sha256_file(originals[name])
+        shutil.copyfile(old_review/name, review/name)
+review_cases = json.loads((old_review/'casos_revisados.json').read_text())
+assert len(review_cases) == len(old_cases)
+transformations = []
+for row, old_case, new_case in zip(review_cases, old_cases, new_cases, strict=True):
+    assert row['repository_id'] == old_case['repository_id'] == new_case['repository_id']
+    assert row['source_run_ids'] == old_case['source_run_ids']
+    if row['source_run_ids'] != new_case['source_run_ids']:
+        transformations.append({'file':'casos_revisados.json', 'repository_id':row['repository_id'],
+            'field':'source_run_ids', 'before':row['source_run_ids'], 'after':new_case['source_run_ids'],
+            'reason':'Same frozen SHA and case facts; corrected mining and dependent metrics runs'})
+        row['source_run_ids'] = new_case['source_run_ids']
+write(review/'casos_revisados.json', review_cases)
+write(review/'origens.json', {'study_index_sha256':sha256_file(index_path),
+    'study_index':str(index_path.relative_to(root)), 'created_at_utc':datetime.now(UTC).isoformat(),
+    'human_review_status':old_origin['human_review_status'],
+    'originals':{k:{'path':str(v.relative_to(root)), 'sha256':sha256_file(v)} for k,v in originals.items()},
+    'qualitative_run_id':qual_id,'report_run_id':report_id,'pr_collection':old_origin['pr_collection'],
+    'pr_map_complete':True, 'source_review_dir':str(old_review.relative_to(root)),
+    'source_review_hashes':{p.name:sha256_file(p) for p in source_copy.iterdir()},
+    'transformations':transformations,
+    'pr_map_reuse':receipt['pr_map_reuse'],
+    'limitations':['Technical references updated only after exact source/sample/event comparison.',
+                    'No human judgments, dates, agreement or approval were created.']})
+receipt['resume_refusal'] = {'script_sha256':sha256_file(base/'reprocess_resume.py'), 'log_sha256':sha256_file(base/'reprocess_resume.log'), 'reason':'Existing identical run specification refused by write-once guard; resumed by comparison without rewriting'}
+receipt['review_dir'] = str(review.relative_to(root))
+receipt['review_transformations'] = transformations
+receipt['review_file_hashes'] = {p.name:sha256_file(p) for p in review.iterdir() if p.is_file()}
+historical = json.loads((base/'historical_hashes.json').read_text())
+assert all(sha256_file(root/path) == digest for path,digest in historical.items())
+receipt['historical_files_unchanged'] = len(historical)
+write(base/'reprocessing_receipt.json', receipt)
+print('Reprocessing complete:', json.dumps({k:receipt[k] for k in ('study_index','review_dir','historical_files_unchanged')}), flush=True)
