@@ -1,4 +1,4 @@
-verification_policy_version: "1.1.0"
+verification_policy_version: "1.2.0"
 absolute_tolerance: 1.0e-12
 quantile_method: linear
 pre_restoration_criteria: [G00, G01, G02, G03, G04, G05, G06, G07, G08, G09, G10, G11, G12, G13]
@@ -34,8 +34,8 @@ codebook:
   integration_failure: "Falha descrita em código, teste ou discussão vinculada."
   configuration_refactoring: "Mudança de estrutura, caminho ou conteúdo de configuração."
 
-# Increment 2: these components run on the explicit empirical index.
-implemented_empirical_checks: [G03, G05, G06, G07, G08, G09]
+# These components run on the explicit empirical index.
+implemented_empirical_checks: [G03, G05, G06, G07, G08, G09, G10]
 source_checks:
   history: full_reachable_dag
   diff: raw_first_parent_no_renames
@@ -49,3 +49,15 @@ additional_counterexamples:
   - directory_sha_mislabeled_as_blob
   - missing_source_commit
   - boolean_flag_replaced_by_integer
+  - incomplete_pr_response_to_absence
+  - duplicate_pr_query_commit
+  - swapped_pr_response_oid
+  - changed_pr_association
+  - changed_event_order_or_quota
+  - duplicated_selected_event
+  - missing_or_duplicate_case_template
+qualitative_checks:
+  associations: preserved_query_and_response_all_eligible_commits
+  selection: git_rows_sorted_partitions_rational_positions
+  incomplete_associations: fail_without_inferring_absence
+  production_selection_imported: false

@@ -1,5 +1,10 @@
 # Verificação empírica — incremento 2
 
+O reprocessamento descrito ao final deste documento foi concluído no
+[incremento 3](REPROCESSAMENTO_E_VERIFICACAO_INCREMENTO_03.md): a divergência de
+blob foi resolvida nos novos dados e G05, G08 e G09 passaram. Os resultados abaixo
+preservam a rodada anterior e sua recusa; não são o estado do índice atual.
+
 O incremento parte do merge `7863bd6`, com worktree limpo e `make check` aprovado
 (179 testes). A política de verificação passa a **1.1.0**; protocolo, taxonomia,
 configuração científica e locks permanecem iguais aos da coleta. O objetivo deste

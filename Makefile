@@ -28,7 +28,7 @@ help:
 	@echo "make test-evidence Executa contratos e fixtures de verificação offline"
 	@echo "make test-counterexamples Executa mutações sintéticas com motivo de falha esperado"
 	@echo "make import-reviews Preserva e valida revisões de um índice explícito"
-	@echo "make verify-study Confere Git, métricas e estatísticas de um índice explícito"
+	@echo "make verify-study Confere Git, métricas, estatísticas e seleção por PR de um índice explícito"
 
 bootstrap:
 	@command -v $(PYTHON_SYSTEM) >/dev/null 2>&1 || { \

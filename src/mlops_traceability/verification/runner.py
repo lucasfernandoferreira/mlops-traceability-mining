@@ -31,6 +31,7 @@ from mlops_traceability.verification.git_oracle import (
     source_history,
 )
 from mlops_traceability.verification.oracles import arithmetic, compare_metrics
+from mlops_traceability.verification.qualitative import verify_qualitative
 from mlops_traceability.verification.reviews import import_reviews
 from mlops_traceability.verification.tables import read_table
 
@@ -393,6 +394,7 @@ def verify_study(
                 "config": "Paired recursive tree comparison; typed paths; cached blob pairs",
                 "arithmetic": "Plain Python integer counts and SQLite human label tally",
                 "descriptive": "Python linear quantiles, month buckets and path contributions",
+                "qualitative": "GraphQL parsing, sorted event partitions and rational sampling",
                 "common_dependencies": [
                     "Git",
                     "Python regex",
@@ -439,6 +441,23 @@ def verify_study(
                 all_history + all_descriptive,
                 proofs,
             )
+        try:
+            qualitative, qualitative_inputs = verify_qualitative(
+                root, index_path, origins, output, cfg["analysis"], scientific=scope == "empirical"
+            )
+            for path in qualitative_inputs:
+                bound(path)
+            receipt["qualitative"] = dict(proof="qualitative/crosscheck.json")
+            criterion(
+                "G10",
+                "Recorded PR associations; independent grouping, quotas, ties and deficit fill",
+                all_history + qualitative["differences"],
+                proofs + ["qualitative/crosscheck.json"],
+            )
+        except (OSError, ValueError, KeyError, TypeError, AttributeError) as error:
+            message = f"qualitative_input:{type(error).__name__}:{error}"
+            receipt["processing_errors"].append(message)
+            criterion("G10", "Independent PR and event selection", [message], proofs)
         criterion(
             "G13",
             "Verification/finalization integration and clean empirical code",

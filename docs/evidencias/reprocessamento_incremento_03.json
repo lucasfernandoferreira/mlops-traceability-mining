@@ -1,0 +1,326 @@
+{
+  "created_at_utc": "2026-09-09T14:49:13.189300+00:00",
+  "scientific_result_accepted": false,
+  "code_commit_sha": "af5a00489166bf262e0cc8c8f3c2ad5bc6842e19",
+  "operation_script_sha256": "072d1f9a42a9fd442c69712a5e1b36c1db8542b1d6d195c0eaa1a7dcb3cd0482",
+  "commands": [
+    {
+      "argv": [
+        "make",
+        "mine",
+        "REPO=pymc-labs/pymc-marketing",
+        "SOURCE_RUN_ID=20260908T003854721749Z_43a2dae0_phase3_clone_repos"
+      ],
+      "exit_code": 0,
+      "log": "data/interim/verification/incremento_03/mine.log",
+      "sha256": "d21bac82b98efe1356f7abec993102b69b98d210c0f5ae1e6c2f59717b14c719"
+    },
+    {
+      "argv": [
+        "/mnt/c/Users/lucca/development/projects/tcc/tcc_mba/mlops-traceability-mining/.venv/bin/python",
+        "scripts/05_compute_metrics.py",
+        "--repository",
+        "pymc-labs/pymc-marketing",
+        "--source-run-id",
+        "20260909T144237582697Z_af5a0048_phase4_mine_commits"
+      ],
+      "exit_code": 0,
+      "execution_reused_from_completed_command": true,
+      "log": "data/interim/verification/incremento_03/metrics.log",
+      "sha256": "5ce758e467131de36b93537a8f0812cb694e368a28b1c20fe5f15ec1f7250761"
+    },
+    {
+      "argv": [
+        "/mnt/c/Users/lucca/development/projects/tcc/tcc_mba/mlops-traceability-mining/.venv/bin/python",
+        "scripts/build_study_index.py",
+        "--runs-file",
+        "/mnt/c/Users/lucca/development/projects/tcc/tcc_mba/mlops-traceability-mining/data/interim/verification/incremento_03/runs.json"
+      ],
+      "exit_code": 0,
+      "execution_reused_from_completed_command": true,
+      "log": "data/interim/verification/incremento_03/index.log",
+      "sha256": "582fa1c529cf529603970e2ac0a1cf7733b5f02ba119324308495431650b5e77"
+    },
+    {
+      "argv": [
+        "/mnt/c/Users/lucca/development/projects/tcc/tcc_mba/mlops-traceability-mining/.venv/bin/python",
+        "scripts/07_select_qualitative.py",
+        "--study-index",
+        "/mnt/c/Users/lucca/development/projects/tcc/tcc_mba/mlops-traceability-mining/data/interim/runs/20260909T144632500174Z_af5a0048_study_index/study_index.json",
+        "--pr-map",
+        "/mnt/c/Users/lucca/development/projects/tcc/tcc_mba/mlops-traceability-mining/data/interim/pr_maps/trio_20260908T003438Z/mapa_prs.json"
+      ],
+      "exit_code": 0,
+      "execution_reused_from_completed_command": true,
+      "log": "data/interim/verification/incremento_03/qualitative.log",
+      "sha256": "7a710acefe4c3a79450446b0cd348033e2f81b8ee8e80ff39569d0beea6c8852"
+    },
+    {
+      "argv": [
+        "/mnt/c/Users/lucca/development/projects/tcc/tcc_mba/mlops-traceability-mining/.venv/bin/python",
+        "scripts/08_report.py",
+        "--study-index",
+        "/mnt/c/Users/lucca/development/projects/tcc/tcc_mba/mlops-traceability-mining/data/interim/runs/20260909T144632500174Z_af5a0048_study_index/study_index.json"
+      ],
+      "exit_code": 0,
+      "execution_reused_from_completed_command": true,
+      "log": "data/interim/verification/incremento_03/report.log",
+      "sha256": "e4972461e36a0cbe3d21b57a9a871c73b0b484b2eea7afc4f519ab945901a3cb"
+    }
+  ],
+  "comparisons": [
+    {
+      "old": "data/interim/runs/20260908T003901796039Z_43a2dae0_phase4_mine_commits/commits.parquet",
+      "new": "data/interim/runs/20260909T144237582697Z_af5a0048_phase4_mine_commits/commits.parquet",
+      "old_sha256": "4f02e512ed628f0bd70e2354f230e04e85f8746cf2b5f0b6fec07ee1ee1e85c5",
+      "new_sha256": "cbec124925efe1fa99bc7b8dda14edbc3ad33e96acdea5a392f7a6e7f1bf1685",
+      "rows": 1506,
+      "excluded_metadata_fields": [
+        "run_id"
+      ],
+      "differences": []
+    },
+    {
+      "old": "data/interim/runs/20260908T003901796039Z_43a2dae0_phase4_mine_commits/changes.parquet",
+      "new": "data/interim/runs/20260909T144237582697Z_af5a0048_phase4_mine_commits/changes.parquet",
+      "old_sha256": "8dd7c4c624128c80e65dd5edaa3f487844b30410803cb51523c58c1e162964c9",
+      "new_sha256": "9e91199cadb669cbf430be6ec397b005f200da391cee47d711a87dd92bc4d506",
+      "rows": 8506,
+      "excluded_metadata_fields": [
+        "run_id"
+      ],
+      "differences": [
+        {
+          "row": 7057,
+          "commit_sha": "003b1a2916e57e6baafac826eab849433e1fa7ad",
+          "file_path": ".cursor/skills/mmm-modeling",
+          "field": "before_blob_sha",
+          "before": "227a6606a6a04d47b8ebbe0f0c1a82a19d5c0159",
+          "after": null
+        }
+      ]
+    },
+    {
+      "old": "data/interim/runs/20260908T004121682111Z_43a2dae0_phase5_compute_metrics/metrics.csv",
+      "new": "data/interim/runs/20260909T144621249616Z_af5a0048_phase5_compute_metrics/metrics.csv",
+      "old_sha256": "972c503b9e867c14b35f07ae2155cc503cb73994714d7407c4f5c1704f2361cd",
+      "new_sha256": "1e47068e8035e5ab2134e4cc81bc1f467b725bded7b1ae7dcd4c911db0d95649",
+      "rows": 12,
+      "excluded_metadata_fields": [
+        "run_id"
+      ],
+      "differences": []
+    },
+    {
+      "old": "data/interim/runs/20260908T004121682111Z_43a2dae0_phase5_compute_metrics/metric_membership.csv",
+      "new": "data/interim/runs/20260909T144621249616Z_af5a0048_phase5_compute_metrics/metric_membership.csv",
+      "old_sha256": "48213702da3f22072b49b1eac6da169dc1e194e9352277c6b76a40564e4a318e",
+      "new_sha256": "48213702da3f22072b49b1eac6da169dc1e194e9352277c6b76a40564e4a318e",
+      "rows": 892,
+      "excluded_metadata_fields": [
+        "run_id"
+      ],
+      "differences": []
+    },
+    {
+      "old": "data/interim/runs/20260908T005243869123Z_43a2dae0_phase7_select_qualitative/eventos_candidatos.csv",
+      "new": "data/interim/runs/20260909T144655212671Z_af5a0048_phase7_select_qualitative/eventos_candidatos.csv",
+      "old_sha256": "16c675c41572f1f32084ed06f6228a80f8c84296a36799841d99599a00ce4a07",
+      "new_sha256": "16c675c41572f1f32084ed06f6228a80f8c84296a36799841d99599a00ce4a07",
+      "rows": 6981,
+      "excluded_metadata_fields": [],
+      "differences": []
+    },
+    {
+      "old": "data/interim/runs/20260908T005243869123Z_43a2dae0_phase7_select_qualitative/eventos_selecionados.csv",
+      "new": "data/interim/runs/20260909T144655212671Z_af5a0048_phase7_select_qualitative/eventos_selecionados.csv",
+      "old_sha256": "b4331aa2c7037363c64b7b9104f2e9c3117f5593c44245ddf67476bf0be8ed3d",
+      "new_sha256": "b4331aa2c7037363c64b7b9104f2e9c3117f5593c44245ddf67476bf0be8ed3d",
+      "rows": 45,
+      "excluded_metadata_fields": [],
+      "differences": []
+    },
+    {
+      "old": "data/interim/runs/20260908T005243869123Z_43a2dae0_phase7_select_qualitative/codificacao_qualitativa.csv",
+      "new": "data/interim/runs/20260909T144655212671Z_af5a0048_phase7_select_qualitative/codificacao_qualitativa.csv",
+      "old_sha256": "3394fb809cd8cf54c1f1e3460eb4058bd780efb975fa4509b274cd2e2bdb9db9",
+      "new_sha256": "3394fb809cd8cf54c1f1e3460eb4058bd780efb975fa4509b274cd2e2bdb9db9",
+      "rows": 45,
+      "excluded_metadata_fields": [],
+      "differences": []
+    },
+    {
+      "old": "data/interim/runs/20260908T005257217754Z_43a2dae0_phase8_report/caracterizacao_casos.csv",
+      "new": "data/interim/runs/20260909T144717557913Z_af5a0048_phase8_report/caracterizacao_casos.csv",
+      "old_sha256": "dab2231d3dea9b29b179d594b218ee952bc4a055a1b2c605d27601e547a9b5b3",
+      "new_sha256": "dab2231d3dea9b29b179d594b218ee952bc4a055a1b2c605d27601e547a9b5b3",
+      "rows": 3,
+      "excluded_metadata_fields": [
+        "run_id"
+      ],
+      "differences": []
+    },
+    {
+      "old": "data/interim/runs/20260908T005257217754Z_43a2dae0_phase8_report/cobertura_evidencias.csv",
+      "new": "data/interim/runs/20260909T144717557913Z_af5a0048_phase8_report/cobertura_evidencias.csv",
+      "old_sha256": "77d6d28fb016d04f5a93b6ad47abb9279bfc04a5c001af9e47ba1f9ce1481975",
+      "new_sha256": "77d6d28fb016d04f5a93b6ad47abb9279bfc04a5c001af9e47ba1f9ce1481975",
+      "rows": 36,
+      "excluded_metadata_fields": [
+        "run_id"
+      ],
+      "differences": []
+    },
+    {
+      "old": "data/interim/runs/20260908T005257217754Z_43a2dae0_phase8_report/distribuicao_configuracao.csv",
+      "new": "data/interim/runs/20260909T144717557913Z_af5a0048_phase8_report/distribuicao_configuracao.csv",
+      "old_sha256": "edc75090c915db4bf719268b6c0979ca465a856349f1df4a73b0768c9524bb12",
+      "new_sha256": "edc75090c915db4bf719268b6c0979ca465a856349f1df4a73b0768c9524bb12",
+      "rows": 3,
+      "excluded_metadata_fields": [
+        "run_id"
+      ],
+      "differences": []
+    },
+    {
+      "old": "data/interim/runs/20260908T005257217754Z_43a2dae0_phase8_report/funil_commits.csv",
+      "new": "data/interim/runs/20260909T144717557913Z_af5a0048_phase8_report/funil_commits.csv",
+      "old_sha256": "a14e99c8c55f33d4e937b16d33b9f68f0dacecf1f5d1d3cc27832c8254e2eab7",
+      "new_sha256": "a14e99c8c55f33d4e937b16d33b9f68f0dacecf1f5d1d3cc27832c8254e2eab7",
+      "rows": 9,
+      "excluded_metadata_fields": [
+        "run_id"
+      ],
+      "differences": []
+    },
+    {
+      "old": "data/interim/runs/20260908T005257217754Z_43a2dae0_phase8_report/metricas_consolidadas.csv",
+      "new": "data/interim/runs/20260909T144717557913Z_af5a0048_phase8_report/metricas_consolidadas.csv",
+      "old_sha256": "fd147b28c3dadb30cb81f05ac86661e17c85a524889cee7c58ba6d4557f6991e",
+      "new_sha256": "93c3e02568c60639618a31ee60967bf4f7b3d9e137216cb97b52143199f55482",
+      "rows": 36,
+      "excluded_metadata_fields": [
+        "run_id"
+      ],
+      "differences": []
+    },
+    {
+      "old": "data/interim/runs/20260908T005257217754Z_43a2dae0_phase8_report/sensibilidade_configuracao.csv",
+      "new": "data/interim/runs/20260909T144717557913Z_af5a0048_phase8_report/sensibilidade_configuracao.csv",
+      "old_sha256": "ecfcc2b569a2f4b4774f3ec98119b68b642eda7c401470e3185839934594f5ea",
+      "new_sha256": "ecfcc2b569a2f4b4774f3ec98119b68b642eda7c401470e3185839934594f5ea",
+      "rows": 12,
+      "excluded_metadata_fields": [
+        "run_id"
+      ],
+      "differences": []
+    },
+    {
+      "old": "data/interim/runs/20260908T005257217754Z_43a2dae0_phase8_report/serie_mensal.csv",
+      "new": "data/interim/runs/20260909T144717557913Z_af5a0048_phase8_report/serie_mensal.csv",
+      "old_sha256": "bd5307924f805e76c7a41ad883504cc697cd73bd950ff7de33ba519727fa980f",
+      "new_sha256": "bd5307924f805e76c7a41ad883504cc697cd73bd950ff7de33ba519727fa980f",
+      "rows": 160,
+      "excluded_metadata_fields": [
+        "run_id"
+      ],
+      "differences": []
+    }
+  ],
+  "old_study_index": "data/interim/runs/20260908T004303820864Z_43a2dae0_study_index/study_index.json",
+  "mine_run_id": "20260909T144237582697Z_af5a0048_phase4_mine_commits",
+  "metrics_run_id": "20260909T144621249616Z_af5a0048_phase5_compute_metrics",
+  "study_index": "data/interim/runs/20260909T144632500174Z_af5a0048_study_index/study_index.json",
+  "study_index_sha256": "74b3822ae8f166fc4ab4e875235fba530e0fdcc1de547f3c44515e646e7edce1",
+  "pr_map_reuse": {
+    "collection": "data/interim/pr_maps/trio_20260908T003438Z/collection.json",
+    "collection_sha256": "1ab9b4bb7a76253c008cc75a6615144d4d5595628459da7300e65c825a8c66c8",
+    "map_sha256": "12f01e8ecf9414415a31cc785e626c09fb7e920bb8dcb658d872a8d451b6d48f",
+    "evidence_files_checked": 146,
+    "template_identical": true,
+    "network_queries": 0,
+    "historical_collection_unchanged": true
+  },
+  "qualitative_run_id": "20260909T144655212671Z_af5a0048_phase7_select_qualitative",
+  "report_run_id": "20260909T144717557913Z_af5a0048_phase8_report",
+  "template_metadata_differences": [
+    {
+      "repository_id": "ultralytics/ultralytics",
+      "field": "preparation_by",
+      "before": "Codex; technical preparation, not human review",
+      "after": "Automated technical preparation; human review pending",
+      "handling": "Historical preparation attribution retained verbatim in copied reviews; no judgment changed"
+    },
+    {
+      "repository_id": "pymc-labs/pymc-marketing",
+      "field": "preparation_by",
+      "before": "Codex; technical preparation, not human review",
+      "after": "Automated technical preparation; human review pending",
+      "handling": "Historical preparation attribution retained verbatim in copied reviews; no judgment changed"
+    },
+    {
+      "repository_id": "open-edge-platform/anomalib",
+      "field": "preparation_by",
+      "before": "Codex; technical preparation, not human review",
+      "after": "Automated technical preparation; human review pending",
+      "handling": "Historical preparation attribution retained verbatim in copied reviews; no judgment changed"
+    }
+  ],
+  "previous_operational_attempt": {
+    "script_sha256": "b656aeb742fff70192bbee25a77009518feceb0c6008146d4641e55a9154d7d2",
+    "log_sha256": "d851c41e8b93a2fec1476015c7d1269faf677e8a75c94c7f3f62e679d7dc0fee",
+    "status": "comparison_refused",
+    "reason": "Preparation attribution wording changed in generated templates; scientific values and identities matched",
+    "successful_scientific_runs_reused": true
+  },
+  "resume_refusal": {
+    "script_sha256": "bb1f4ea14cbcdbb69da4bae10d7dfe7588c197912f94934b34992949b86a0d39",
+    "log_sha256": "13ea1cb0255b3b6a77056e29ded0c3225e2e2042f5a7894143cb9350795e1666",
+    "reason": "Existing identical run specification refused by write-once guard; resumed by comparison without rewriting"
+  },
+  "review_dir": "data/interim/reviews/reprocessamento_20260909T144632500174Z_af5a0048_study_index",
+  "review_transformations": [
+    {
+      "file": "casos_revisados.json",
+      "repository_id": "pymc-labs/pymc-marketing",
+      "field": "source_run_ids",
+      "before": {
+        "freeze": {
+          "run_id": "20260908T003854721749Z_43a2dae0_phase3_clone_repos",
+          "manifest_sha256": "dd8de2d210f99d185d34e9859d55f85a69fb6daa35f39568787e08e7d8b6620b"
+        },
+        "mine": {
+          "run_id": "20260908T003901796039Z_43a2dae0_phase4_mine_commits",
+          "manifest_sha256": "732c6c46d33f03849d981c663ec2dcb62d4c9d7b69851e10e99c4770bda30891"
+        },
+        "metrics": {
+          "run_id": "20260908T004121682111Z_43a2dae0_phase5_compute_metrics",
+          "manifest_sha256": "81bd66067a9cf15a0c2e273774411de6c9e0658fa4605a0a85b531b4d29ffb96"
+        }
+      },
+      "after": {
+        "freeze": {
+          "run_id": "20260908T003854721749Z_43a2dae0_phase3_clone_repos",
+          "manifest_sha256": "dd8de2d210f99d185d34e9859d55f85a69fb6daa35f39568787e08e7d8b6620b"
+        },
+        "mine": {
+          "run_id": "20260909T144237582697Z_af5a0048_phase4_mine_commits",
+          "manifest_sha256": "e54d92bc7d57d825bb970bbe48747c3916857191456908bcc9bc30d84c799368"
+        },
+        "metrics": {
+          "run_id": "20260909T144621249616Z_af5a0048_phase5_compute_metrics",
+          "manifest_sha256": "a2c108ae4174ab0a9736254edca70433dd4e7dcaaa7dec10c1ce47207cd8874e"
+        }
+      },
+      "reason": "Same frozen SHA and case facts; corrected mining and dependent metrics runs"
+    }
+  ],
+  "review_file_hashes": {
+    "alinhamento_academico.json": "5a54515dbdca21ac6ef40e0230652044fc395fe1c7277fc334da004baa6fec12",
+    "casos_revisados.json": "1ccd25e0f6680f3e33a33021db3e979ba4b52b064343e841e7be6d7c97b6e2ae",
+    "codificacao_revisada.csv": "3394fb809cd8cf54c1f1e3460eb4058bd780efb975fa4509b274cd2e2bdb9db9",
+    "origens.json": "e9616bf120a01d9bfb640db0b655d3f65356a1cf651aee2d33157e27bc18bc60",
+    "taxonomia_revisada.csv": "ec4823b48b326bc593aa69f026bb8ed50b3a2da311f7b156b991f07f8f63809e"
+  },
+  "historical_files_unchanged": 495
+}
