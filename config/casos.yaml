@@ -58,23 +58,28 @@ cases:
     evidence_type: structural
   open-edge-platform/anomalib:
     domain: Detecção de anomalias em visão computacional
-    research_questions_supported: C/P, magnitude CONFIG e integração estrutural delegada
-      ao Lightning
-    expected_contrast: Logger delegado ao Lightning com interface explícita para registro
-      de imagens
+    research_questions_supported: C/P, magnitude CONFIG e integração estrutural por injeção de logger,
+      com operações herdadas do Lightning
+    expected_contrast: Ativação por injeção do logger pelo usuário num framework de treinamento (Lightning);
+      componente MLflow como adaptador fino com operações herdadas
     integration_entrypoint: src/anomalib/engine/engine.py
     integration_component: src/anomalib/loggers/mlflow.py
     integration_paths:
     - src/anomalib/engine/engine.py
-    - src/anomalib/callbacks/visualizer.py
     - src/anomalib/loggers/mlflow.py
-    operation: log_image; log_figure; operações de parâmetros/métricas delegadas ao
-      Lightning
-    enablement: Engine encaminha logger ao Trainer; pacote mlflow necessário; visualização
-      deve habilitar logging; log_model=False por padrão.
-    evidence_scope: Callback de visualização chama add_image; AnomalibMLFlowLogger
-      invoca self.experiment.log_image/log_figure. Ligação estrutural; execução pública
-      e implementação externa do Lightning não foram verificadas.
+    operation: log_hyperparams; log_metrics (herdadas do Lightning 2.6.5 via MlflowClient.log_batch);
+      checkpoints condicionados a log_model; add_image disponível para chamada explícita, fora da
+      ligação automática demonstrada
+    enablement: Extra loggers; usuário fornece AnomalibMLFlowLogger ao Engine; logger=None resulta
+      em logger=False; log_model=False por padrão; registro sujeito às condições do Trainer e do
+      modelo
+    evidence_scope: Engine recebe o logger e o repassa ao Trainer (engine.py:155-174, 305-332). O
+      AnomalibModule salva hiperparâmetros; modelos LightningModule chamam self.log. As operações
+      log_hyperparams/log_metrics são herdadas do Lightning 2.6.5, commit be98784a1a03581b7051a355ae1084fd352d7cea,
+      inspecionado e preservado em docs/evidencias/dm026_fontes.json. Evidência estrutural conforme
+      DM-026 A; sem execução de dependências ou comprovação de uso por terceiros. O Engine deixou
+      de registrar _VisualizationCallback na v2.0.0; add_image permanece API disponível e não compõe
+      a ligação automática demonstrada.
     example_path: examples/api/04_advanced/loggers.py
     integration_evidence_status: functional_integration_observed
     evidence_type: structural

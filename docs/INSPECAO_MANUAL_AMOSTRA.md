@@ -77,25 +77,29 @@ métricas. A substituição técnica foi registrada em 08/09/2026 UTC, ainda em 
 horário de São Paulo, sem alterar os critérios de inclusão. O recibo está em
 [anomalib_elegibilidade.json](evidencias/anomalib_elegibilidade.json).
 
-O [Engine](https://github.com/open-edge-platform/anomalib/blob/0b7fdb9dde453f6474ac93f77188f4224d442999/src/anomalib/engine/engine.py#L158)
-recebe o logger e o encaminha ao Trainer do Lightning. O
-[callback de visualização](https://github.com/open-edge-platform/anomalib/blob/0b7fdb9dde453f6474ac93f77188f4224d442999/src/anomalib/callbacks/visualizer.py#L258)
-chama `add_image`, implementado no
-[AnomalibMLFlowLogger](https://github.com/open-edge-platform/anomalib/blob/0b7fdb9dde453f6474ac93f77188f4224d442999/src/anomalib/loggers/mlflow.py#L50)
-com operações `self.experiment.log_image` e `log_figure`. O exemplo
-`examples/api/04_advanced/loggers.py` mostra a configuração do logger no Engine.
+O Engine recebe o logger e o repassa ao Trainer do Lightning; quando nenhum logger
+é fornecido, o registro fica desligado. O AnomalibMLFlowLogger especializa o logger
+MLflow do Lightning. A ligação documentada envolve os hiperparâmetros salvos pelo
+AnomalibModule e as métricas enviadas por modelos LightningModule, encaminhadas
+às operações herdadas de parâmetros e métricas. A versão 2.6.5 do lockfile foi
+conferida no commit `be98784a1a03581b7051a355ae1084fd352d7cea` do Lightning.
+As fontes e os trechos estão no [dossiê DM-026](DM026_E_FECHAMENTO_TAXONOMIA.md).
 
-MLflow deve estar instalado, o logger precisa ser fornecido ao Engine e a
-visualização precisa habilitar o registro. `log_model=False` é o padrão do
-componente. Operações herdadas de parâmetros e métricas são delegadas ao Lightning;
-a execução dessa dependência não foi verificada. Essa delegação também limita a
-contagem pelo parser AST de imports diretos.
+O usuário precisa instalar o extra de loggers e fornecer o logger ao Engine.
+`log_model=False` é o padrão; a disponibilidade de registro de checkpoints é
+condicional e não comprova uma promoção de modelo ou execução pública.
 
-O contraste do Anomalib está no logger delegado e no registro de imagens. Seu domínio
-de visão computacional se aproxima do Ultralytics, reduzindo a diversidade de
-domínios. A classificação técnica dos três casos é
-`functional_integration_observed`, com evidência estrutural; a aceitação humana
-continua em aberto.
+**Correção da ficha em 11/09/2026:** o Engine removeu o registro de
+`_VisualizationCallback` no commit `084331dad4e320c7dc200823aa8ae8857ec94d4b`
+(v2.0.0). A cadeia automática de imagens anteriormente descrita não se sustenta
+no SHA estudado. `add_image`, `log_image` e `log_figure` continuam disponíveis
+para chamada explícita, mas não justificam o contraste originalmente atribuído.
+Os runs e fichas anteriores são históricos e permanecem preservados.
+
+O contraste corrigido é a injeção de logger num framework de treinamento, com
+operações herdadas verificadas conforme DM-026 A. O domínio ainda se aproxima do
+Ultralytics. A correção técnica não preenche as decisões humanas dos casos.
+O novo índice e seus derivados precisam ser registrados com worktree limpo.
 
 ## Reservas e candidatos não priorizados
 
