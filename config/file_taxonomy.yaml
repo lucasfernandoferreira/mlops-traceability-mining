@@ -1,6 +1,8 @@
-version: "1.1.0"
+version: "1.2.0"
 default_category: "OUTRO"
 
+# DM-027: a 1.2.0 corrige os mecanismos das 16 divergências da validação da 1.1.0.
+# As regras substituídas estão no histórico Git e em docs/DM027_TAXONOMIA_1_2_0.md.
 rules:
   - category: "TEST"
     description: "Testes automatizados e fixtures."
@@ -23,9 +25,15 @@ rules:
       - '(^|/)pyproject\.toml$'
       - '(^|/)(poetry|uv)\.lock$'
       - '(^|/)Pipfile(\.lock)?$'
-      - '(^|/)(environment|conda)\.ya?ml$'
-      - '(^|/)Dockerfile$'
-      - '(^|/)docker-compose\.ya?ml$'
+      - '(^|/)(environment|conda)[^/]*\.ya?ml$'
+      - '(^|/)Dockerfile[^/]*$'
+      - '[^/]\.dockerfile$'
+      - '(^|/)docker-compose[^/]*\.ya?ml$'
+      # Somente o script de empacotamento da raiz; setup.py internos continuam CODE.
+      - '^setup\.(py|cfg)$'
+      - '(^|/)package(-lock)?\.json$'
+      - '(^|/)(yarn\.lock|pnpm-lock\.yaml)$'
+      - '(^|/)Cargo\.(toml|lock)$'
 
   - category: "DATA_META"
     description: "Metadados de versionamento e pipeline DVC."
@@ -40,7 +48,10 @@ rules:
       - '(^|/)params[^/]*\.ya?ml$'
       - '(^|/)MLproject$'
       - '(^|/)config[^/]*\.(ya?ml|json|toml)$'
+      # Prefixo separado por _ ou -; arquivos ocultos de ferramentas ficam fora.
+      - '(^|/)[^/.][^/]*[_-](config|params)\.(ya?ml|json|toml)$'
       - '(^|/)(cfg|configs?|config_files)/.*\.(ya?ml|json|toml)$'
+      - '(^|/)(models?|datasets?)/.*\.ya?ml$'
 
   - category: "NOTEBOOK"
     description: "Notebooks versionados."
@@ -50,20 +61,22 @@ rules:
   - category: "CODE"
     description: "Código-fonte executável."
     patterns:
-      - '\.(py|r|scala|java|kt|cpp|c|h)$'
+      - '\.(py|r|scala|java|kt|cpp|c|h|hpp|hh|hxx|cc|cxx|cu|rs|ts|tsx|js|jsx|mjs|cjs|sh|bash)$'
 
   - category: "DOC"
     description: "Documentação textual."
     patterns:
       - '(^|/)README(\.[^/]+)?$'
-      - '(^|/)docs?/'
+      # Formatos de dados sob docs/ não são documentação textual e seguem para DATA_RAW.
+      - '^(?!.*\.(csv|tsv|parquet|feather|avro|nc)$)(.*/)?docs?/'
       - '\.(md|rst|adoc)$'
 
   - category: "DATA_RAW"
     description: "Arquivos de dados potencialmente pesados."
     patterns:
-      - '\.(csv|tsv|parquet|feather|avro)$'
-      - '\.(jpg|jpeg|png|wav|mp3|mp4)$'
+      - '\.(csv|tsv|parquet|feather|avro|nc)$'
+      # Imagens de interface (ui/, icons/) são ativos visuais, não dados.
+      - '^(?!(.*/)?(ui|icons)/).*\.(jpg|jpeg|png|wav|mp3|mp4)$'
 
   - category: "OUTRO"
     description: "Arquivos sem correspondência anterior."

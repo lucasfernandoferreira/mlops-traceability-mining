@@ -370,13 +370,18 @@ cota e calibração. Os campos de revisão ficam vazios na origem.
 | `historical_observations` | Número de observações do caminho no universo inventariado. |
 | `calibration_used` | Indica uso prévio da unidade na calibração. |
 | `expected_category` | Categoria atribuída pelo pesquisador. |
-| `reviewer`, `reviewed_at_utc` | Responsável pela revisão e data UTC. |
+| `reviewer`, `reviewed_at_utc` | Responsável pela revisão e instante UTC (ISO 8601 com `+00:00`). |
 | `justification`, `role_change_review` | Justificativa e conferência de mudanças históricas de papel. |
 
 `taxonomy_validation.json` registra hashes da amostra original, cópia revisada e
 inventário, cobertura, concordância, matriz de confusão e aceite. O arquivo original
 é conferido contra a amostra recalculada; campos imutáveis não podem ser editados.
 A definição das cotas está no [método](DECISOES_METODOLOGICAS.md#validação-da-taxonomia).
+
+`docs/evidencias/taxonomia_calibracao_1_2_0.csv` lista as 180 unidades revisadas na
+validação da 1.1.0 que calibraram a 1.2.0: `unit_id`, `repository_id`, `file_path`,
+`blob_sha`, `category_1_1_0` e `expected_category`. As mesmas identidades constam em
+`calibration_units`, e um teste confere que a taxonomia vigente reproduz esses rótulos.
 
 ## Índice e arquivos de revisão
 

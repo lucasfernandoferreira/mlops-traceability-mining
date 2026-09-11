@@ -1,0 +1,443 @@
+{
+  "created_at_utc": "2026-09-11T19:52:59.602242+00:00",
+  "scope": "Diagnóstico; não é recibo de aceite. A concordância formal da fase 6 depende de role_change_review.",
+  "sources": {
+    "review": {
+      "path": "data/interim/reviews/fechamento_taxonomia_dm026_20260911/taxonomia_revisada.csv",
+      "sha256": "9a0fff859dd062e015436ee086b06d43d513903a3bd95524e617919810557a1a"
+    },
+    "study_index": {
+      "path": "data/interim/runs/20260911T193457396587Z_f6fa8256_study_index/study_index.json",
+      "sha256": "18bc3c784bc21f3edaf78282c4c1647d763a425c988bcd1a80979df5897c24f9"
+    },
+    "phase6_run": "20260911T193603470335Z_f6fa8256_phase6_validate_taxonomy",
+    "phase6_receipt_sha256": "e522198b61c467c2bda4fa01de4f4221697c945d8428683fefbffb500c93f59b",
+    "phase6_blocking_reasons": [
+      "agreement_below_threshold",
+      "incomplete_human_review"
+    ]
+  },
+  "taxonomy_1_1_0": {
+    "classifications": {
+      "reviewed": 180,
+      "agreement": 164,
+      "rate": 0.9111
+    },
+    "minimum_agreement": 0.95,
+    "passes_threshold": false,
+    "by_category": {
+      "CI": {
+        "reviewed": 20,
+        "agreement": 20,
+        "rate": 1.0
+      },
+      "CODE": {
+        "reviewed": 20,
+        "agreement": 19,
+        "rate": 0.95
+      },
+      "CONFIG": {
+        "reviewed": 20,
+        "agreement": 20,
+        "rate": 1.0
+      },
+      "DATA_RAW": {
+        "reviewed": 20,
+        "agreement": 17,
+        "rate": 0.85
+      },
+      "DOC": {
+        "reviewed": 20,
+        "agreement": 19,
+        "rate": 0.95
+      },
+      "ENV": {
+        "reviewed": 20,
+        "agreement": 20,
+        "rate": 1.0
+      },
+      "NOTEBOOK": {
+        "reviewed": 20,
+        "agreement": 20,
+        "rate": 1.0
+      },
+      "OUTRO": {
+        "reviewed": 20,
+        "agreement": 9,
+        "rate": 0.45
+      },
+      "TEST": {
+        "reviewed": 20,
+        "agreement": 20,
+        "rate": 1.0
+      }
+    },
+    "by_case": {
+      "open-edge-platform/anomalib": {
+        "reviewed": 59,
+        "agreement": 51,
+        "rate": 0.8644
+      },
+      "pymc-labs/pymc-marketing": {
+        "reviewed": 70,
+        "agreement": 68,
+        "rate": 0.9714
+      },
+      "ultralytics/ultralytics": {
+        "reviewed": 51,
+        "agreement": 45,
+        "rate": 0.8824
+      }
+    },
+    "confusion_matrix": [
+      {
+        "expected_category": "CI",
+        "predicted_category": "CI",
+        "count": 20
+      },
+      {
+        "expected_category": "CODE",
+        "predicted_category": "CODE",
+        "count": 19
+      },
+      {
+        "expected_category": "CODE",
+        "predicted_category": "OUTRO",
+        "count": 4
+      },
+      {
+        "expected_category": "CONFIG",
+        "predicted_category": "CONFIG",
+        "count": 20
+      },
+      {
+        "expected_category": "CONFIG",
+        "predicted_category": "OUTRO",
+        "count": 5
+      },
+      {
+        "expected_category": "DATA_RAW",
+        "predicted_category": "DATA_RAW",
+        "count": 17
+      },
+      {
+        "expected_category": "DATA_RAW",
+        "predicted_category": "DOC",
+        "count": 1
+      },
+      {
+        "expected_category": "DOC",
+        "predicted_category": "DOC",
+        "count": 19
+      },
+      {
+        "expected_category": "ENV",
+        "predicted_category": "CODE",
+        "count": 1
+      },
+      {
+        "expected_category": "ENV",
+        "predicted_category": "ENV",
+        "count": 20
+      },
+      {
+        "expected_category": "ENV",
+        "predicted_category": "OUTRO",
+        "count": 2
+      },
+      {
+        "expected_category": "NOTEBOOK",
+        "predicted_category": "NOTEBOOK",
+        "count": 20
+      },
+      {
+        "expected_category": "OUTRO",
+        "predicted_category": "DATA_RAW",
+        "count": 3
+      },
+      {
+        "expected_category": "OUTRO",
+        "predicted_category": "OUTRO",
+        "count": 9
+      },
+      {
+        "expected_category": "TEST",
+        "predicted_category": "TEST",
+        "count": 20
+      }
+    ],
+    "data_meta": "ausente no universo validado; sem concordância atribuída"
+  },
+  "mechanisms": {
+    "M1": "Lista fechada de extensões de código-fonte executável.",
+    "M2": "Padrões de nome exato que não reconhecem variantes do mesmo artefato.",
+    "M3": "Manifestos, locks e empacotamento de outros ecossistemas ausentes em ENV.",
+    "M4": "Regra de imagens independente do contexto: ativos de interface tratados como dados.",
+    "M5": "Precedência do caminho docs/ sobre formatos de dados.",
+    "M6": "Configurações de modelo e dataset fora de cfg/configs/ (layout histórico)."
+  },
+  "divergences": [
+    {
+      "unit_id": "0023480f7c5f71724dbb807da2753fae42f611164021476df78831852121fdde",
+      "repository_id": "pymc-labs/pymc-marketing",
+      "file_path": "setup.py",
+      "category_1_1_0": "CODE",
+      "expected_category": "ENV",
+      "mechanism": "M3",
+      "rule_1_1_0": "CODE: \\.(py|r|scala|java|kt|cpp|c|h)$",
+      "rule_1_2_0": "ENV: ^setup\\.(py|cfg)$",
+      "category_1_2_0": "ENV"
+    },
+    {
+      "unit_id": "07217db53589684be4fd06324b06def5a8576366143250fc44df63cdbac0d910",
+      "repository_id": "pymc-labs/pymc-marketing",
+      "file_path": "docs/source/notebooks/mmm/multidimensional_model.nc",
+      "category_1_1_0": "DOC",
+      "expected_category": "DATA_RAW",
+      "mechanism": "M5",
+      "rule_1_1_0": "DOC: (^|/)docs?/",
+      "rule_1_2_0": "DATA_RAW: \\.(csv|tsv|parquet|feather|avro|nc)$",
+      "category_1_2_0": "DATA_RAW"
+    },
+    {
+      "unit_id": "9d4d3d55955279f42c3454357a8fbd201ca6f5ca13e787032bacf97731fadca6",
+      "repository_id": "open-edge-platform/anomalib",
+      "file_path": "application/ui/src/assets/background.png",
+      "category_1_1_0": "DATA_RAW",
+      "expected_category": "OUTRO",
+      "mechanism": "M4",
+      "rule_1_1_0": "DATA_RAW: \\.(jpg|jpeg|png|wav|mp3|mp4)$",
+      "rule_1_2_0": "default OUTRO",
+      "category_1_2_0": "OUTRO"
+    },
+    {
+      "unit_id": "e9648de458198538061d575e0ee765bfd0a960e0ac13704a95b52d83647331c9",
+      "repository_id": "open-edge-platform/anomalib",
+      "file_path": "application/binary/tauri/src-tauri/icons/icon.png",
+      "category_1_1_0": "DATA_RAW",
+      "expected_category": "OUTRO",
+      "mechanism": "M4",
+      "rule_1_1_0": "DATA_RAW: \\.(jpg|jpeg|png|wav|mp3|mp4)$",
+      "rule_1_2_0": "default OUTRO",
+      "category_1_2_0": "OUTRO"
+    },
+    {
+      "unit_id": "ee371d76d9cfe66a58f6feb7944d43d28fde33fac3bfa882a171f49fccb21825",
+      "repository_id": "open-edge-platform/anomalib",
+      "file_path": "application/ui/src/assets/mocked-project-thumbnail.png",
+      "category_1_1_0": "DATA_RAW",
+      "expected_category": "OUTRO",
+      "mechanism": "M4",
+      "rule_1_1_0": "DATA_RAW: \\.(jpg|jpeg|png|wav|mp3|mp4)$",
+      "rule_1_2_0": "default OUTRO",
+      "category_1_2_0": "OUTRO"
+    },
+    {
+      "unit_id": "026684da0cdcc8da6bb31ec74176e5cc9976ed53028b09a54f4759a14857898d",
+      "repository_id": "ultralytics/ultralytics",
+      "file_path": "ultralytics/models/v3/yolov3-tiny.yaml",
+      "category_1_1_0": "OUTRO",
+      "expected_category": "CONFIG",
+      "mechanism": "M6",
+      "rule_1_1_0": "default OUTRO",
+      "rule_1_2_0": "CONFIG: (^|/)(models?|datasets?)/.*\\.ya?ml$",
+      "category_1_2_0": "CONFIG"
+    },
+    {
+      "unit_id": "0278c7bd0b4850bc144c96b7f024d8fc3ad8ff1605bc559177ce86a32ae7af83",
+      "repository_id": "open-edge-platform/anomalib",
+      "file_path": "application/ui/src/features/inspect/dataset/media-preview/sidebar-items/sidebar-items.component.tsx",
+      "category_1_1_0": "OUTRO",
+      "expected_category": "CODE",
+      "mechanism": "M1",
+      "rule_1_1_0": "default OUTRO",
+      "rule_1_2_0": "CODE: \\.(py|r|scala|java|kt|cpp|c|h|hpp|hh|hxx|cc|cxx|cu|rs|ts|tsx|js|jsx|mjs|cjs|sh|bash)$",
+      "category_1_2_0": "CODE"
+    },
+    {
+      "unit_id": "02f7dae6e0b9596a1aee64b793895dbcdc2124b1d5bce17fb59b620e45c7b1b7",
+      "repository_id": "ultralytics/ultralytics",
+      "file_path": "docker/Dockerfile-nvidia-cuda",
+      "category_1_1_0": "OUTRO",
+      "expected_category": "ENV",
+      "mechanism": "M2",
+      "rule_1_1_0": "default OUTRO",
+      "rule_1_2_0": "ENV: (^|/)Dockerfile[^/]*$",
+      "category_1_2_0": "ENV"
+    },
+    {
+      "unit_id": "0292ed62e379808fdf0a329c7a7796cb5ac5d52a2d31a744a3cb7b90e24daf76",
+      "repository_id": "open-edge-platform/anomalib",
+      "file_path": "notebooks/500_use_cases/501_dobot/cubes_config.yaml",
+      "category_1_1_0": "OUTRO",
+      "expected_category": "CONFIG",
+      "mechanism": "M2",
+      "rule_1_1_0": "default OUTRO",
+      "rule_1_2_0": "CONFIG: (^|/)[^/.][^/]*[_-](config|params)\\.(ya?ml|json|toml)$",
+      "category_1_2_0": "CONFIG"
+    },
+    {
+      "unit_id": "0415714807cf9839d106c22cfe88b8d8362d36e1925568b778c134e5863e7e50",
+      "repository_id": "ultralytics/ultralytics",
+      "file_path": "ultralytics/models/v8/yolov8-pose-p6.yaml",
+      "category_1_1_0": "OUTRO",
+      "expected_category": "CONFIG",
+      "mechanism": "M6",
+      "rule_1_1_0": "default OUTRO",
+      "rule_1_2_0": "CONFIG: (^|/)(models?|datasets?)/.*\\.ya?ml$",
+      "category_1_2_0": "CONFIG"
+    },
+    {
+      "unit_id": "02d46e744321c4e3618b1218c038f76a30c353242e7cb52094d4f52272527d39",
+      "repository_id": "open-edge-platform/anomalib",
+      "file_path": "application/binary/tauri/package-lock.json",
+      "category_1_1_0": "OUTRO",
+      "expected_category": "ENV",
+      "mechanism": "M3",
+      "rule_1_1_0": "default OUTRO",
+      "rule_1_2_0": "ENV: (^|/)package(-lock)?\\.json$",
+      "category_1_2_0": "ENV"
+    },
+    {
+      "unit_id": "045dbe21cacc5b424155ecffe909e540623529cb2f50010675e416df66f38a6a",
+      "repository_id": "ultralytics/ultralytics",
+      "file_path": "examples/cpp/common/yolo_show.hpp",
+      "category_1_1_0": "OUTRO",
+      "expected_category": "CODE",
+      "mechanism": "M1",
+      "rule_1_1_0": "default OUTRO",
+      "rule_1_2_0": "CODE: \\.(py|r|scala|java|kt|cpp|c|h|hpp|hh|hxx|cc|cxx|cu|rs|ts|tsx|js|jsx|mjs|cjs|sh|bash)$",
+      "category_1_2_0": "CODE"
+    },
+    {
+      "unit_id": "02ffe08689150d5adf0057fbe3824b4436deaa1214dd4f811399bf345397dbfd",
+      "repository_id": "open-edge-platform/anomalib",
+      "file_path": "examples/cli/04_advanced/custom_components.sh",
+      "category_1_1_0": "OUTRO",
+      "expected_category": "CODE",
+      "mechanism": "M1",
+      "rule_1_1_0": "default OUTRO",
+      "rule_1_2_0": "CODE: \\.(py|r|scala|java|kt|cpp|c|h|hpp|hh|hxx|cc|cxx|cu|rs|ts|tsx|js|jsx|mjs|cjs|sh|bash)$",
+      "category_1_2_0": "CODE"
+    },
+    {
+      "unit_id": "04f00833d063a900dfef967f76f0be39326d9b572a11e75dc297dcf503a0e5d0",
+      "repository_id": "ultralytics/ultralytics",
+      "file_path": "ultralytics/models/v5/yolov5s6u.yaml",
+      "category_1_1_0": "OUTRO",
+      "expected_category": "CONFIG",
+      "mechanism": "M6",
+      "rule_1_1_0": "default OUTRO",
+      "rule_1_2_0": "CONFIG: (^|/)(models?|datasets?)/.*\\.ya?ml$",
+      "category_1_2_0": "CONFIG"
+    },
+    {
+      "unit_id": "03a9ce31f2ffdf3a1b05ff344b9bd633bfeef9fff8ab4dfa41b5088903e76705",
+      "repository_id": "open-edge-platform/anomalib",
+      "file_path": "application/ui/src/features/inspect/dataset/media-preview/hooks/util.tsx",
+      "category_1_1_0": "OUTRO",
+      "expected_category": "CODE",
+      "mechanism": "M1",
+      "rule_1_1_0": "default OUTRO",
+      "rule_1_2_0": "CODE: \\.(py|r|scala|java|kt|cpp|c|h|hpp|hh|hxx|cc|cxx|cu|rs|ts|tsx|js|jsx|mjs|cjs|sh|bash)$",
+      "category_1_2_0": "CODE"
+    },
+    {
+      "unit_id": "088c247835a33e09d41f276376fe85faa33315bc16b504ad7e3ad8b4adba1a0c",
+      "repository_id": "ultralytics/ultralytics",
+      "file_path": "ultralytics/yolo/data/datasets/xView.yaml",
+      "category_1_1_0": "OUTRO",
+      "expected_category": "CONFIG",
+      "mechanism": "M6",
+      "rule_1_1_0": "default OUTRO",
+      "rule_1_2_0": "CONFIG: (^|/)(models?|datasets?)/.*\\.ya?ml$",
+      "category_1_2_0": "CONFIG"
+    }
+  ],
+  "taxonomy_1_2_0_calibration": {
+    "units": 180,
+    "agreement_with_human_labels": 180,
+    "note": "Concordância de calibração não é avaliação: as 180 unidades informaram as regras."
+  },
+  "universe_1_1_0_inventory": {
+    "units": 7631,
+    "by_category": {
+      "1.1.0": {
+        "CI": 106,
+        "CODE": 1716,
+        "CONFIG": 320,
+        "DATA_RAW": 34,
+        "DOC": 2031,
+        "ENV": 25,
+        "NOTEBOOK": 163,
+        "OUTRO": 2669,
+        "TEST": 567
+      },
+      "1.2.0": {
+        "CI": 106,
+        "CODE": 2005,
+        "CONFIG": 424,
+        "DATA_RAW": 40,
+        "DOC": 2018,
+        "ENV": 57,
+        "NOTEBOOK": 163,
+        "OUTRO": 2251,
+        "TEST": 567
+      }
+    },
+    "transitions": [
+      {
+        "from": "OUTRO",
+        "to": "CODE",
+        "count": 284
+      },
+      {
+        "from": "OUTRO",
+        "to": "CONFIG",
+        "count": 104
+      },
+      {
+        "from": "OUTRO",
+        "to": "ENV",
+        "count": 29
+      },
+      {
+        "from": "DOC",
+        "to": "CODE",
+        "count": 8
+      },
+      {
+        "from": "DOC",
+        "to": "DATA_RAW",
+        "count": 5
+      },
+      {
+        "from": "OUTRO",
+        "to": "DATA_RAW",
+        "count": 4
+      },
+      {
+        "from": "CODE",
+        "to": "ENV",
+        "count": 3
+      },
+      {
+        "from": "DATA_RAW",
+        "to": "OUTRO",
+        "count": 3
+      }
+    ],
+    "changed_units": 440,
+    "fresh_units_1_2_0": {
+      "CI": 86,
+      "CODE": 1982,
+      "CONFIG": 399,
+      "DATA_RAW": 22,
+      "DOC": 1999,
+      "ENV": 34,
+      "NOTEBOOK": 143,
+      "OUTRO": 2239,
+      "TEST": 547
+    }
+  }
+}

@@ -1,0 +1,1546 @@
+{
+  "context": "Consolidação solicitada pelo pesquisador em 11/09/2026 na conversa de implementação.",
+  "received": {
+    "original_location": "data/interim/reviews/reprocessamento_20260909T144632500174Z_af5a0048_study_index/taxonomia_revisada.csv",
+    "saved_at_local": "2026-09-11T13:45:27-03:00",
+    "sha256": "754151228167445d45e4b42568fd9c25a128fc85b46ad17bc00136919a476692",
+    "preserved_copy": "data/interim/reviews/fechamento_taxonomia_dm026_20260911/recebido/taxonomia_revisada_recebida_20260911.csv"
+  },
+  "output": {
+    "path": "data/interim/reviews/fechamento_taxonomia_dm026_20260911/taxonomia_revisada.csv",
+    "sha256": "9a0fff859dd062e015436ee086b06d43d513903a3bd95524e617919810557a1a"
+  },
+  "origin_restored": {
+    "path": "data/interim/reviews/reprocessamento_20260909T144632500174Z_af5a0048_study_index/taxonomia_revisada.csv",
+    "from": "data/interim/reviews/reprocessamento_20260909T144632500174Z_af5a0048_study_index/originais_preservados/taxonomia_revisada.csv",
+    "sha256": "ec4823b48b326bc593aa69f026bb8ed50b3a2da311f7b156b991f07f8f63809e"
+  },
+  "unchanged": [
+    "12 campos de identidade",
+    "expected_category",
+    "reviewer",
+    "texto da justificativa"
+  ],
+  "transformations": [
+    {
+      "field": "cabeçalho",
+      "rule": "nome `role_change_review` restaurado a partir da amostra original"
+    },
+    {
+      "field": "justification",
+      "rule": "fragmentos das colunas 16 em diante unidos com vírgula, sem perda",
+      "rows": 37,
+      "rows_beyond_last_column": 14
+    },
+    {
+      "field": "reviewed_at_utc",
+      "rule": "instantes reconstruídos, não registrados: distribuição uniforme, na ordem do arquivo, pelos minutos das janelas declaradas de cada dia; precisão de minuto",
+      "researcher_declaration": "O pesquisador declarou em 11/09/2026 que não salvou os horários da revisão e que as sessões ocorreram entre 12h e 13h e entre 19h e 21h (UTC-03:00) em todos os dias.",
+      "windows_local_utc_minus_3": {
+        "2026-09-09": [
+          [
+            12,
+            0,
+            13,
+            0
+          ],
+          [
+            19,
+            0,
+            21,
+            0
+          ]
+        ],
+        "2026-09-10": [
+          [
+            12,
+            0,
+            13,
+            0
+          ],
+          [
+            19,
+            0,
+            21,
+            0
+          ]
+        ],
+        "2026-09-11": [
+          [
+            12,
+            0,
+            13,
+            0
+          ]
+        ]
+      },
+      "restriction_2026_09_11": "somente 12h-13h: o arquivo recebido foi salvo às 13:45:27 -03:00 e a janela noturna de 11/09 ainda não havia ocorrido",
+      "inferred_day_rows": 18,
+      "inferred_day_basis": "18 linhas sem data; datas registradas são monotônicas na ordem do arquivo e as linhas sem data sucedem a última linha de 11/09; o arquivo foi salvo em 11/09",
+      "rows_per_day": {
+        "2026-09-09": 81,
+        "2026-09-10": 80,
+        "2026-09-11": 19
+      }
+    },
+    {
+      "field": "role_change_review",
+      "rule": "mantido vazio; exigido nas 180 unidades (todas com mais de uma observação)"
+    }
+  ],
+  "created_at_utc": "2026-09-11T19:32:21.819562+00:00",
+  "rows": [
+    {
+      "line": 2,
+      "unit_id": "00665505a69df02951e496c0408a49941973fc1b5fa79eff366e7a67a793b2b1",
+      "received_reviewed_at": "20260909",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-09T15:01:00+00:00",
+      "justification_pieces": 2
+    },
+    {
+      "line": 3,
+      "unit_id": "095e054717ebc2d112cdc9fcaebd2bb31b79db273ea103cee0ae2dbd533dde3f",
+      "received_reviewed_at": "20260909",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-09T15:03:00+00:00",
+      "justification_pieces": 2
+    },
+    {
+      "line": 4,
+      "unit_id": "02427a8f634d7c2b9b8af05b846798442bbc1eff4d3a71a5230fba1625607044",
+      "received_reviewed_at": "20260909",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-09T15:05:00+00:00",
+      "justification_pieces": 2
+    },
+    {
+      "line": 5,
+      "unit_id": "00784b8b765978b5e7b1efb108f38ab9b90e2cad79bb1b758f3908e686c28894",
+      "received_reviewed_at": "20260909",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-09T15:07:00+00:00",
+      "justification_pieces": 2
+    },
+    {
+      "line": 6,
+      "unit_id": "25e41d1478f815fb1343380a7baea77e449b0a056699e933a41ffbe65436c2d1",
+      "received_reviewed_at": "20260909",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-09T15:10:00+00:00",
+      "justification_pieces": 2
+    },
+    {
+      "line": 7,
+      "unit_id": "02681ddfec9774f912c30e69f9a43c9a4e47a75ba5cc46149c2a68fdd1e82013",
+      "received_reviewed_at": "20260909",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-09T15:12:00+00:00",
+      "justification_pieces": 2
+    },
+    {
+      "line": 8,
+      "unit_id": "0082840296097501f8d098e095dfc0bed8ffc0666c6b19f2c656d79a37b08e72",
+      "received_reviewed_at": "20260909",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-09T15:14:00+00:00",
+      "justification_pieces": 2
+    },
+    {
+      "line": 9,
+      "unit_id": "44c57169bf92db844bdb32ffb06321edbc36c74de6449c5267c867d389e1fbe2",
+      "received_reviewed_at": "20260909",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-09T15:16:00+00:00",
+      "justification_pieces": 2
+    },
+    {
+      "line": 10,
+      "unit_id": "0361814c3b45ba4dd7645f997e0e46e136932c1f18788c18aa2de99f4569be00",
+      "received_reviewed_at": "20260909",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-09T15:18:00+00:00",
+      "justification_pieces": 2
+    },
+    {
+      "line": 11,
+      "unit_id": "022095e838cf6a203fe1fef4932daf95ddf04bdd61133c9d56bc12ff6d581508",
+      "received_reviewed_at": "20260909",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-09T15:21:00+00:00",
+      "justification_pieces": 2
+    },
+    {
+      "line": 12,
+      "unit_id": "520a3a5297828565bc3f57ae75f9f21bc974c52c8329d5e39c39e2e20bb33014",
+      "received_reviewed_at": "20260909",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-09T15:23:00+00:00",
+      "justification_pieces": 2
+    },
+    {
+      "line": 13,
+      "unit_id": "044428082cb19eb77e3e5090563d96e2e077f08de111dcd97f6807ab98ea0f4e",
+      "received_reviewed_at": "20260909",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-09T15:25:00+00:00",
+      "justification_pieces": 2
+    },
+    {
+      "line": 14,
+      "unit_id": "0257d4aeda5891c65a50fb19c9ceb72c18e77e7f9558e21fcc2966a407392c0c",
+      "received_reviewed_at": "20260909",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-09T15:27:00+00:00",
+      "justification_pieces": 2
+    },
+    {
+      "line": 15,
+      "unit_id": "52fcdcdf41bd915dd9645f6e80af1d4d4f2c8837f789e4f4d17f60f6749c3069",
+      "received_reviewed_at": "20260909",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-09T15:30:00+00:00",
+      "justification_pieces": 2
+    },
+    {
+      "line": 16,
+      "unit_id": "054111bf9b510be603c0f4b9b998ae342c148d7088b08fe84441793c73773fa8",
+      "received_reviewed_at": "20260909",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-09T15:32:00+00:00",
+      "justification_pieces": 2
+    },
+    {
+      "line": 17,
+      "unit_id": "0435507860e2d73a3171ca64020cd6911aeccabeb3108b9591a1f20048105a50",
+      "received_reviewed_at": "20260909",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-09T15:34:00+00:00",
+      "justification_pieces": 2
+    },
+    {
+      "line": 18,
+      "unit_id": "6a6dcf48f7ae57ba71947f3261f96efda347f6a704e46bc19ef3fdc57686acd5",
+      "received_reviewed_at": "20260909",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-09T15:36:00+00:00",
+      "justification_pieces": 2
+    },
+    {
+      "line": 19,
+      "unit_id": "06bc8165eb42d1021bccd485bd18eafabf390afc246927171da61a8a0cf8a62c",
+      "received_reviewed_at": "20260909",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-09T15:38:00+00:00",
+      "justification_pieces": 2
+    },
+    {
+      "line": 20,
+      "unit_id": "04acaf1134b19f03501e52c3c585d17c632daff4b96b00e7315590cfd169927c",
+      "received_reviewed_at": "20260909",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-09T15:41:00+00:00",
+      "justification_pieces": 2
+    },
+    {
+      "line": 21,
+      "unit_id": "71aa5543a88a43915a051bc674a4fda235478bf2795a32332dc14cba6a67d198",
+      "received_reviewed_at": "20260909",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-09T15:43:00+00:00",
+      "justification_pieces": 2
+    },
+    {
+      "line": 22,
+      "unit_id": "11c4f863ec4bd6a4c095a20e861541b503f95dcd045c7765d2df6c71b52dfa7d",
+      "received_reviewed_at": "20260909",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-09T15:45:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 23,
+      "unit_id": "44fa961078a280e96aba93f92a435d6300e6c49040a5fde1b223a54741b88554",
+      "received_reviewed_at": "20260909",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-09T15:47:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 24,
+      "unit_id": "308ebf09f0207f24e5e90183811e51d44ac747b69221ade61fdf75fd137270f6",
+      "received_reviewed_at": "20260909",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-09T15:50:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 25,
+      "unit_id": "301734cba74c9646be05b60946150067cfd29cff05d9a8bd4594047b365066af",
+      "received_reviewed_at": "20260909",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-09T15:52:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 26,
+      "unit_id": "754de59310b4ceadf07c7d22116978d0700b8f2c5a8a72de0001645b5fb9dbbe",
+      "received_reviewed_at": "20260909",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-09T15:54:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 27,
+      "unit_id": "3ed5c5789d15b5e28271d7960985c2d9e73efffeed3e77c7b1a1286b308d1da3",
+      "received_reviewed_at": "20260909",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-09T15:56:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 28,
+      "unit_id": "65e3b1df5c83b7845008004439df1d9c4a7f07aa37f53396ccebefa50ea3b5e1",
+      "received_reviewed_at": "20260909",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-09T15:58:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 29,
+      "unit_id": "7d2c71088101f6318094aeaf52d6ea39fc03b1ec58df306cd676649a19a0e330",
+      "received_reviewed_at": "20260909",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-09T22:01:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 30,
+      "unit_id": "41de434796325d2aeaf0a9dab75ee5f803dcbee8de1ce99044fa4edf1ee77d71",
+      "received_reviewed_at": "20260909",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-09T22:03:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 31,
+      "unit_id": "69059ce8dbdef454fd0ff0754094f2819629ba377c8a941b49d3394a1170f1fa",
+      "received_reviewed_at": "20260909",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-09T22:05:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 32,
+      "unit_id": "a0d1847851e43758e383158d27ea7e28426678fbd6a9de6bf6da26ec756ececf",
+      "received_reviewed_at": "20260909",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-09T22:07:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 33,
+      "unit_id": "507b8cc91c924ab5d0a6b57b52f6c1d87234b5f7d28f6bd639479da5c7b80716",
+      "received_reviewed_at": "20260909",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-09T22:10:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 34,
+      "unit_id": "6fca3a9ccfeb86d0b1004fc69f305a51ddccb39cfcf197b8b41380125325d095",
+      "received_reviewed_at": "20260909",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-09T22:12:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 35,
+      "unit_id": "a142cf4ef7fd225b65bcada0de984e4b67f58b216dfa8f23c99561af3f9164f1",
+      "received_reviewed_at": "20260909",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-09T22:14:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 36,
+      "unit_id": "6eb2394b2d7558a610057a34b67172ba95ec4f476791465039c76ae5c7c68302",
+      "received_reviewed_at": "20260909",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-09T22:16:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 37,
+      "unit_id": "756806944f43c98c43d3724f3ebde9bcee8ef0277c7a9a9c12c9b1daac9c4bdd",
+      "received_reviewed_at": "20260909",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-09T22:18:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 38,
+      "unit_id": "e4585ce2d1c9ecfcf242ff2a1988ab0b2071b8b3aad9ad1ec7ed8c2babedd24a",
+      "received_reviewed_at": "20260909",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-09T22:21:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 39,
+      "unit_id": "9fd09bbbbd44769e1fd2666d8601839a6f3664de1b99acbbcc7c3e4b41e00164",
+      "received_reviewed_at": "20260909",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-09T22:23:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 40,
+      "unit_id": "903acb5d1e64293993720a99c2883d49b5a9837d1b66dd9474a10e092b30d788",
+      "received_reviewed_at": "20260909",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-09T22:25:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 41,
+      "unit_id": "a0efeb4f58d95ced79b21e33048fc5453e8fe2936adf596d5e28262713a79d01",
+      "received_reviewed_at": "20260909",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-09T22:27:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 42,
+      "unit_id": "02b3f6141670aebb8543f3890b7618547b1c39149d6511ff06074af71617efc4",
+      "received_reviewed_at": "20260909",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-09T22:30:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 43,
+      "unit_id": "119c7f13ae25d79fa2919784e2ef2b1ce1f658ee2a07e07f462d89ebe5c71544",
+      "received_reviewed_at": "20260909",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-09T22:32:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 44,
+      "unit_id": "0e00a1fc0222f3e2391fd16528b2e28dca5c71b504fe0bf745da92e4df9d712a",
+      "received_reviewed_at": "20260909",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-09T22:34:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 45,
+      "unit_id": "0d662df316392f264b8ab945b5fa7abaa863adfca85c3307036e0902f89d1700",
+      "received_reviewed_at": "20260909",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-09T22:36:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 46,
+      "unit_id": "16854b9e364c8a180e78584f2e6ce6e30fe33fede167beda34b0585c0d8b4913",
+      "received_reviewed_at": "20260909",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-09T22:38:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 47,
+      "unit_id": "123d8023d141b7a466f7f51d8487913ad46426314500fb103e940b577383e173",
+      "received_reviewed_at": "20260909",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-09T22:41:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 48,
+      "unit_id": "1386ba517a3e8444e20e7913fe154e61233927efb50ffe3a9b6843c4642353e5",
+      "received_reviewed_at": "20260909",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-09T22:43:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 49,
+      "unit_id": "2194978dc60711468088bf2d92f584739d0afe6e987ceba2266b9e1e8d3491ac",
+      "received_reviewed_at": "20260909",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-09T22:45:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 50,
+      "unit_id": "1c610f28457c88ee2174ef229f18e7076b630ec832f5e74c602ecf97000d4c46",
+      "received_reviewed_at": "20260909",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-09T22:47:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 51,
+      "unit_id": "17347c9e3ef2fa195df9836c2f16e9b6d9c10a8e173ad36c3fe22238e06e9dba",
+      "received_reviewed_at": "20260909",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-09T22:50:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 52,
+      "unit_id": "337828de599160f5d6ef2e2473c2cdcc22e9ece97492142b1d708c56338c5ff8",
+      "received_reviewed_at": "20260909",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-09T22:52:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 53,
+      "unit_id": "2bf507c887db113c5b2a0c4f05dd3019efa635a9597988f46552cba5b5f0b205",
+      "received_reviewed_at": "20260909",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-09T22:54:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 54,
+      "unit_id": "189e0a047665d687f5cb6f2a739e29932e315ea1fee3be3b2c7a2f755344e895",
+      "received_reviewed_at": "20260909",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-09T22:56:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 55,
+      "unit_id": "3b11900491bfeb69f8e3b1465c78a0b7e8b4ae59ddc7fe62258a5def9fd49426",
+      "received_reviewed_at": "20260909",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-09T22:58:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 56,
+      "unit_id": "4455aedbb2149f8a74e617b59cb92162ae3a108047016af8ff5778c61b501106",
+      "received_reviewed_at": "20260909",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-09T23:01:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 57,
+      "unit_id": "1907f92898206dffdd87d317c5ea11e97e6a68739b77247f77a882994537b20c",
+      "received_reviewed_at": "20260909",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-09T23:03:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 58,
+      "unit_id": "3c7847e7496dcd3acc0033e65ce9f414cbb2bf30a0b8dad7df6816faa9343768",
+      "received_reviewed_at": "20260909",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-09T23:05:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 59,
+      "unit_id": "4d5633d5215a5c629f90f3d584d48c04d274337747b9d3791968de0ed46794dd",
+      "received_reviewed_at": "20260909",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-09T23:07:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 60,
+      "unit_id": "206844195b6f84b9201226e3105cd05b20ac0540ae5986f592f05e3b8e4894ae",
+      "received_reviewed_at": "20260909",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-09T23:10:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 61,
+      "unit_id": "4939a32ed0b4c8572582698293d06a20789fbc26c61b7b675706502358ad67e9",
+      "received_reviewed_at": "20260909",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-09T23:12:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 62,
+      "unit_id": "011045f242696296398041f90cc02376c8e7022fbf18eca053b0450e12262de8",
+      "received_reviewed_at": "20260909",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-09T23:14:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 63,
+      "unit_id": "0012b1af5956ec5a7fa4a05558331a1d9c9298f006c44077719f94948f27a2e7",
+      "received_reviewed_at": "20260909",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-09T23:16:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 64,
+      "unit_id": "115a59b0db59c6bfdd40f20e72d9088325ce971fbadffc957241247a57aec3ff",
+      "received_reviewed_at": "20260909",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-09T23:18:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 65,
+      "unit_id": "02428c0b7c9d2c3d6cf9cac97ae2dd255663bc2c5550d6be99c7bf9100cf9f86",
+      "received_reviewed_at": "20260909",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-09T23:21:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 66,
+      "unit_id": "02936b294af92dd916c8469f9e96a332072bbc99441224dcc32c2d4cde6dd9e3",
+      "received_reviewed_at": "20260909",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-09T23:23:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 67,
+      "unit_id": "1f4d02c541b13125f21918969d7f3b0b7a8756f42f9701b6ed1b26e281ba2247",
+      "received_reviewed_at": "20260909",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-09T23:25:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 68,
+      "unit_id": "03af198f7e1c7a6740e4f5aea6262c0884c668e8cde9e356db8cf125648a9508",
+      "received_reviewed_at": "20260909",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-09T23:27:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 69,
+      "unit_id": "03adb20490f0227ece43702c8efd6c388f8dda32c4867e2f8c794201b1f76416",
+      "received_reviewed_at": "20260909",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-09T23:30:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 70,
+      "unit_id": "20cf80b8e8d7790a9ee097f4aef9c9a5a4132c5df7625f29d6b69756a3a28156",
+      "received_reviewed_at": "20260909",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-09T23:32:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 71,
+      "unit_id": "04e988ab88061315c961ef8e4771111eb888fc1700b45c9506f7b353872efa6c",
+      "received_reviewed_at": "20260909",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-09T23:34:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 72,
+      "unit_id": "0489fe9c8b7406f185e1c12be15715dec42482b7353dafdc902628f9f0f760d6",
+      "received_reviewed_at": "20260909",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-09T23:36:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 73,
+      "unit_id": "2658b664e28eb506337f53f6337bfd5c0887d1f643dfc81371f128d451b867f1",
+      "received_reviewed_at": "20260909",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-09T23:38:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 74,
+      "unit_id": "07a578edabae3d08185ecd3c0e6791b18d3f69418a63cc675dd11b7551ca0d90",
+      "received_reviewed_at": "20260909",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-09T23:41:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 75,
+      "unit_id": "06a652efe45cd83d62f0d3a2852a3e8b0245d9c59912c6d74c23dfdca5b343ff",
+      "received_reviewed_at": "20260909",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-09T23:43:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 76,
+      "unit_id": "3100b05ab9bb3d547a52acd5bfcd7078f0a21f4e7ad9be3875289dab8163f2c7",
+      "received_reviewed_at": "20260909",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-09T23:45:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 77,
+      "unit_id": "084070f99e25b0af8bafad9d75884bde0f1d8e4fefba04ecc177ba9ef3425512",
+      "received_reviewed_at": "20260909",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-09T23:47:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 78,
+      "unit_id": "071a7084c61f9af836f0cc9bdf4c3adfd8dd2884d2ccc8be297a550db05d1df7",
+      "received_reviewed_at": "20260909",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-09T23:50:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 79,
+      "unit_id": "32e7179c57a7c8018bdad3cd7b6254724515cc7cf0f58b447ca61a6398a56cbb",
+      "received_reviewed_at": "20260909",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-09T23:52:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 80,
+      "unit_id": "08717219a9c136011f19753832e46482aba9e178f0c2e48b376541fc8c581f2d",
+      "received_reviewed_at": "20260909",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-09T23:54:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 81,
+      "unit_id": "083206603be8d93fa33eb625b4660b990db2d66c7068aa6382ef2f127a1db56a",
+      "received_reviewed_at": "20260909",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-09T23:56:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 82,
+      "unit_id": "019c1b202ea201223be028a9d27424079392131bfce0bd1ae58a975847a86685",
+      "received_reviewed_at": "20260909",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-09T23:58:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 83,
+      "unit_id": "02267a27b4329d4934b9e5be692064283d9960bc556c86ad81e92cd8c4d5d85c",
+      "received_reviewed_at": "20260910",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-10T15:01:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 84,
+      "unit_id": "09ca4b9c99d98440c4d9a2b53794771819abac965b42d6050ce31b2dca325584",
+      "received_reviewed_at": "20260910",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-10T15:03:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 85,
+      "unit_id": "03388324b1c1b45602def5f212f763a61bc7c688f9f7e519dfb628c81115920d",
+      "received_reviewed_at": "20260910",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-10T15:05:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 86,
+      "unit_id": "040bd97f14345c1f937d58e68e348781aeb4034d11b62674c533ae5bb84c5307",
+      "received_reviewed_at": "20260910",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-10T15:07:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 87,
+      "unit_id": "285882efbce8ff3960d1529110c9ca9a58e2cfb590fdcd593605171a66f8b23c",
+      "received_reviewed_at": "20260910",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-10T15:10:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 88,
+      "unit_id": "08a13ca72308121b54c6e85442f29590202c55e5637703fa47d35bc76705f680",
+      "received_reviewed_at": "20260910",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-10T15:12:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 89,
+      "unit_id": "06b9281019db6cbd67c92f84ad80751ec448249a881cfb4c19ae57257ecc1421",
+      "received_reviewed_at": "20260910",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-10T15:14:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 90,
+      "unit_id": "401e270366d1e1ea50084f6a2fc2651754e47758fad039ac3270a232be206276",
+      "received_reviewed_at": "20260910",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-10T15:16:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 91,
+      "unit_id": "1108306d1050973fe48c3e493d19bc2072a7d59450f9af4549c18b44564c48bb",
+      "received_reviewed_at": "20260910",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-10T15:19:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 92,
+      "unit_id": "09f7bf0da1b34c9c29b45dd2ec7294c4d66c110e1e2c97bd7ea85fa701a9d70f",
+      "received_reviewed_at": "20260910",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-10T15:21:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 93,
+      "unit_id": "6c5186a6ff1e8817662d640c54a6c5463449c963e1005447d48b0e594643f88e",
+      "received_reviewed_at": "20260910",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-10T15:23:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 94,
+      "unit_id": "11fca6056e62917c207a93934624fa066a787e2ca7e1d43d2ea2fce750518adc",
+      "received_reviewed_at": "20260910",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-10T15:25:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 95,
+      "unit_id": "1008a7ac98d49f21f70f77fefacb4ceb6d01448e81e2b060527c2da7e2ab1eab",
+      "received_reviewed_at": "20260910",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-10T15:28:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 96,
+      "unit_id": "934b56872d60a07e45bca21267aa846236e2ebe0b1abed3fb9a02a34b6f59eb6",
+      "received_reviewed_at": "20260910",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-10T15:30:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 97,
+      "unit_id": "15a6d06c7cd7d500354dd939f1623d650a2b50930d688fbe886b374159ead94b",
+      "received_reviewed_at": "20260910",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-10T15:32:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 98,
+      "unit_id": "107d071888c56299939c3004e6fa9472e45ad33d00dda491f6021cd56c149053",
+      "received_reviewed_at": "20260910",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-10T15:34:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 99,
+      "unit_id": "bb8180b5014d8f1a31b4f74d2ac339978fa9450a5cc4a5204d5990b887f6de75",
+      "received_reviewed_at": "20260910",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-10T15:37:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 100,
+      "unit_id": "19158c3d583b08ec36551bea18ef74f877a6a776a8302c6f1344adc29aadc208",
+      "received_reviewed_at": "20260910",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-10T15:39:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 101,
+      "unit_id": "18baaf36213094c977f0aa2d5209a325a35b99806f2f413341d896f4f8936a65",
+      "received_reviewed_at": "20260910",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-10T15:41:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 102,
+      "unit_id": "00469f4c1d4817332071365fc3ef9004b534c9fc9e6ce8e730b2e1823f1a05b3",
+      "received_reviewed_at": "20260910",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-10T15:43:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 103,
+      "unit_id": "0023480f7c5f71724dbb807da2753fae42f611164021476df78831852121fdde",
+      "received_reviewed_at": "20260910",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-10T15:46:00+00:00",
+      "justification_pieces": 2
+    },
+    {
+      "line": 104,
+      "unit_id": "0065164d1da9ed57dda502422ed9f89d90128e1412012fda68cfc21c3982cecb",
+      "received_reviewed_at": "20260910",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-10T15:48:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 105,
+      "unit_id": "008ef139b549d73a71e01bf378d520581ab1a15c5d2e4de8d6dd3b6fae6ae95d",
+      "received_reviewed_at": "20260910",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-10T15:50:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 106,
+      "unit_id": "012fa0b3c8aa0a84b7c99ca5574c0eeb71ff0f243afce8464cca780cc9789225",
+      "received_reviewed_at": "20260910",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-10T15:52:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 107,
+      "unit_id": "01fc820d98388801404396c981af74f295ae92f382a04fe5c7373a668e95c049",
+      "received_reviewed_at": "20260910",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-10T15:55:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 108,
+      "unit_id": "0099673c1b275d6314c9b5e2c69207e86ad29318454af8376dda622933f1f3bb",
+      "received_reviewed_at": "20260910",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-10T15:57:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 109,
+      "unit_id": "01f15bb9e7bc2ebdbdbfd43217f75e71c022d1ee5514515d5bc9d00d750ff628",
+      "received_reviewed_at": "20260910",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-10T15:59:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 110,
+      "unit_id": "021f5f7cb1a6a9b7cdd0d79428ff26bf04aad9724560ee69904434421bea65a7",
+      "received_reviewed_at": "20260910",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-10T22:01:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 111,
+      "unit_id": "00c298db7ee283aefdf45d1acf7470df0ff532199b7ef22d50c3d9be9780d71a",
+      "received_reviewed_at": "20260910",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-10T22:04:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 112,
+      "unit_id": "03c8959fc810b231497bbea44f8ca6752278405f1afb63a323a43439c6106bcd",
+      "received_reviewed_at": "20260910",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-10T22:06:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 113,
+      "unit_id": "0236e75eddd02b620cd795898d2253653ca7360f9af45ea5b3c43ab128618f1b",
+      "received_reviewed_at": "20260910",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-10T22:08:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 114,
+      "unit_id": "00c681b81e77500ef2fa5a7eab57f664003eea6e091b8f0f555b8f1188f0c831",
+      "received_reviewed_at": "20260910",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-10T22:10:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 115,
+      "unit_id": "051d3f2c893c6d379db2be77b4c527b1ac742b3946b0c39ace9639eeb129b029",
+      "received_reviewed_at": "20260910",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-10T22:13:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 116,
+      "unit_id": "02a0ffd23b33733d9912128971dad7e3e7bf3d88ec301cb6333e96f74da0672d",
+      "received_reviewed_at": "20260910",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-10T22:15:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 117,
+      "unit_id": "00d5c287935322288988c80f640eb9adb933b37df33438a76c35b6553a586173",
+      "received_reviewed_at": "20260910",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-10T22:17:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 118,
+      "unit_id": "0849f7065a0848dc25ee5557f1408e64a64dd915f2b9642738a67848ecd6ebb8",
+      "received_reviewed_at": "20260910",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-10T22:19:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 119,
+      "unit_id": "031f79b5fd862ac5af368982b8623eab5d6948bb082d5647434c8192ebd3f27d",
+      "received_reviewed_at": "20260910",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-10T22:22:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 120,
+      "unit_id": "0127acf3ac32c6df897345626856091f83fc64f3ab17727ead00d9ff5c60ac3e",
+      "received_reviewed_at": "20260910",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-10T22:24:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 121,
+      "unit_id": "0c154de6b3943e1942f2d66dc4bfdf034cf03635fb0d17a2f57e675368adbdef",
+      "received_reviewed_at": "20260910",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-10T22:26:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 122,
+      "unit_id": "00128c53a1003dd6dce00396a854c458391d5b99e07b177eba630f786d861c27",
+      "received_reviewed_at": "20260910",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-10T22:28:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 123,
+      "unit_id": "001be4d5194d5ef5befca13e7c0280256dcc00f2bd5d2007291671606db8446b",
+      "received_reviewed_at": "20260910",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-10T22:31:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 124,
+      "unit_id": "0033081a2c09b5738206c74bd1f8c190b11e438a4cec3faaa4f611035f265de8",
+      "received_reviewed_at": "20260910",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-10T22:33:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 125,
+      "unit_id": "01800a33523219367a6b105b6e2fe44d825788c5714adf260371795ac590d73d",
+      "received_reviewed_at": "20260910",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-10T22:35:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 126,
+      "unit_id": "008a6fe742ab9a1034a79dfc36152da4093e62bdb1282a9af1db84777dffdefc",
+      "received_reviewed_at": "20260910",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-10T22:37:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 127,
+      "unit_id": "00c576dcf4c9ad9c17fb6a833c27ddae8c32a69b10c2b8d75cb7abb043f8556c",
+      "received_reviewed_at": "20260910",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-10T22:40:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 128,
+      "unit_id": "01cf388653c7f6e04b76516783a269f9e88c193aa3c87883f27ada654e77e4be",
+      "received_reviewed_at": "20260910",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-10T22:42:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 129,
+      "unit_id": "0598e419928893022b92304a7809f97ce6163bcaf570a3b158c597a0402a71c9",
+      "received_reviewed_at": "20260910",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-10T22:44:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 130,
+      "unit_id": "010782b26525949773318265bcd05f82b3f236ec191477222c2767ffea2dc193",
+      "received_reviewed_at": "20260910",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-10T22:46:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 131,
+      "unit_id": "01e24e8553e18677006b06f15ce6def67c9dc8f6e68316693c2622f90320e2ac",
+      "received_reviewed_at": "20260910",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-10T22:49:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 132,
+      "unit_id": "07217db53589684be4fd06324b06def5a8576366143250fc44df63cdbac0d910",
+      "received_reviewed_at": "20260910",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-10T22:51:00+00:00",
+      "justification_pieces": 3
+    },
+    {
+      "line": 133,
+      "unit_id": "011287fd703f438028ef5841c604a3dc4475f0ae53b3378b6696740989255ceb",
+      "received_reviewed_at": "20260910",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-10T22:53:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 134,
+      "unit_id": "01e781c482245ab044867c384657fcd9679c52b55220a150d940fe73c7e1d90b",
+      "received_reviewed_at": "20260910",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-10T22:55:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 135,
+      "unit_id": "07d131f2c327f1b75f355a9eb6d74e684414f2c58f6ff63d44b77374469b0ab1",
+      "received_reviewed_at": "20260910",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-10T22:58:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 136,
+      "unit_id": "0119cab7ad807219caba59771e043fdb187656ea3f8114c2a158f6fdc7130433",
+      "received_reviewed_at": "20260910",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-10T23:00:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 137,
+      "unit_id": "035b0914d5cf8497b8a9d6780fb705e08b2bbdb1ea6e6f48d792c3f36b9c9c6a",
+      "received_reviewed_at": "20260910",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-10T23:02:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 138,
+      "unit_id": "0b57ebc3d9a9bd0653cb4629c59b0e06811622672858956ed2c9905cd9d7054a",
+      "received_reviewed_at": "20260910",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-10T23:04:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 139,
+      "unit_id": "0125053fbabd6eb9175bc3f18db5aa8984911337df7361adde21bc4986bf55b7",
+      "received_reviewed_at": "20260910",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-10T23:07:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 140,
+      "unit_id": "03cebac4d239ae3a4e54a458cfaae4cc4cce53750abdb246d6b7bef7f4b06b80",
+      "received_reviewed_at": "20260910",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-10T23:09:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 141,
+      "unit_id": "0c5d113087dee429d8dddbf783f8143c264f1435773b367339e09bad7d36744c",
+      "received_reviewed_at": "20260910",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-10T23:11:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 142,
+      "unit_id": "9d4d3d55955279f42c3454357a8fbd201ca6f5ca13e787032bacf97731fadca6",
+      "received_reviewed_at": "20260910",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-10T23:13:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 143,
+      "unit_id": "2435cbfd57047f6d29bdff7ff9af86d264f04516f98f997c4cdfa394d07d0293",
+      "received_reviewed_at": "20260910",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-10T23:16:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 144,
+      "unit_id": "04efb0c707014c208c54713d9f383cf7ab8f54830159554f1da784a8240c5ebc",
+      "received_reviewed_at": "20260910",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-10T23:18:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 145,
+      "unit_id": "e9648de458198538061d575e0ee765bfd0a960e0ac13704a95b52d83647331c9",
+      "received_reviewed_at": "20260910",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-10T23:20:00+00:00",
+      "justification_pieces": 2
+    },
+    {
+      "line": 146,
+      "unit_id": "2577f585b678ee7aa551ea953369aa0e010195bf888757ebd75c5a23bc423697",
+      "received_reviewed_at": "20260910",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-10T23:22:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 147,
+      "unit_id": "dff591224637734b1b7c3f14362ee97c39cbc6fa4bd26d0fb2c0118e57d81b0b",
+      "received_reviewed_at": "20260910",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-10T23:25:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 148,
+      "unit_id": "ee371d76d9cfe66a58f6feb7944d43d28fde33fac3bfa882a171f49fccb21825",
+      "received_reviewed_at": "20260910",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-10T23:27:00+00:00",
+      "justification_pieces": 2
+    },
+    {
+      "line": 149,
+      "unit_id": "275a2c55444950cd2865a1d90ccc6b077b610ba7062ae60379f5313a9473de45",
+      "received_reviewed_at": "20260910",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-10T23:29:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 150,
+      "unit_id": "29f423c782eb6878af15f6727b13a532e04e657f14a9dcb55af7737ec019c065",
+      "received_reviewed_at": "20260910",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-10T23:31:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 151,
+      "unit_id": "2f9bf94e07ef00e77ffe8a5de5bd2c0a5f4d21ad26621771ce61c7f4e2b0dfc6",
+      "received_reviewed_at": "20260910",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-10T23:34:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 152,
+      "unit_id": "32e85d1f1074b8edc9e988a048776f34b82b21a5533947b80edb6ff5cfae8e69",
+      "received_reviewed_at": "20260910",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-10T23:36:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 153,
+      "unit_id": "49e40173576dc2b6333918a98ffa521485c266d118673cee19dfde72503c5ba2",
+      "received_reviewed_at": "20260910",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-10T23:38:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 154,
+      "unit_id": "50a1a8238a34250eea796340de19e5d373011ebac9968530f23fd33795f15874",
+      "received_reviewed_at": "20260910",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-10T23:40:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 155,
+      "unit_id": "535cdb29afedc18df614de79e9c4873a9bfb4abcf9796cdbbf38b308054fbd4e",
+      "received_reviewed_at": "20260910",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-10T23:43:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 156,
+      "unit_id": "5b4fac877afe3a4ae7a59c91248da517ed457168cc20190cbe53aa72dd1850ef",
+      "received_reviewed_at": "20260910",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-10T23:45:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 157,
+      "unit_id": "5de6e04ad4e560323f4ef54dcf756f7bc8d3d8d9f5c8845a299ae8ad677ecb55",
+      "received_reviewed_at": "20260910",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-10T23:47:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 158,
+      "unit_id": "60c6b00a179484fca12a474b80ebcd7e0763ddabcc03486a2d284422dae0413e",
+      "received_reviewed_at": "20260910",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-10T23:49:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 159,
+      "unit_id": "6296ad11293a3d10a7a1fe0ef0f282ef363e6c1f0742a31e21eab496c0013fc9",
+      "received_reviewed_at": "20260910",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-10T23:52:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 160,
+      "unit_id": "67d63355ce62a50d2ba249ec8e43f5ea1624e2307e0054a413f117af143ae2ff",
+      "received_reviewed_at": "20260910",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-10T23:54:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 161,
+      "unit_id": "94998f0c129d187e57770dd66f6f85c18eb63bd877793bbebe55cf3f322234e2",
+      "received_reviewed_at": "20260910",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-10T23:56:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 162,
+      "unit_id": "00b7788f2ddd51fbbaee6b00895b494b78ed99743d1781bf7331e2624d0aa569",
+      "received_reviewed_at": "20260910",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-10T23:58:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 163,
+      "unit_id": "000791faf692d946158d10ea9cbc94e6717dfbd46a13d597c60522d787613cbb",
+      "received_reviewed_at": "20260911",
+      "day_basis": "registrada",
+      "reviewed_at_utc": "2026-09-11T15:01:00+00:00",
+      "justification_pieces": 4
+    },
+    {
+      "line": 164,
+      "unit_id": "026684da0cdcc8da6bb31ec74176e5cc9976ed53028b09a54f4759a14857898d",
+      "received_reviewed_at": "",
+      "day_basis": "inferida",
+      "reviewed_at_utc": "2026-09-11T15:04:00+00:00",
+      "justification_pieces": 3
+    },
+    {
+      "line": 165,
+      "unit_id": "0278c7bd0b4850bc144c96b7f024d8fc3ad8ff1605bc559177ce86a32ae7af83",
+      "received_reviewed_at": "",
+      "day_basis": "inferida",
+      "reviewed_at_utc": "2026-09-11T15:07:00+00:00",
+      "justification_pieces": 4
+    },
+    {
+      "line": 166,
+      "unit_id": "001962016a159f3b06b39686c36637679f2f4c6057d6dfe506b8d5227da2f067",
+      "received_reviewed_at": "",
+      "day_basis": "inferida",
+      "reviewed_at_utc": "2026-09-11T15:11:00+00:00",
+      "justification_pieces": 4
+    },
+    {
+      "line": 167,
+      "unit_id": "02f7dae6e0b9596a1aee64b793895dbcdc2124b1d5bce17fb59b620e45c7b1b7",
+      "received_reviewed_at": "",
+      "day_basis": "inferida",
+      "reviewed_at_utc": "2026-09-11T15:14:00+00:00",
+      "justification_pieces": 3
+    },
+    {
+      "line": 168,
+      "unit_id": "0292ed62e379808fdf0a329c7a7796cb5ac5d52a2d31a744a3cb7b90e24daf76",
+      "received_reviewed_at": "",
+      "day_basis": "inferida",
+      "reviewed_at_utc": "2026-09-11T15:17:00+00:00",
+      "justification_pieces": 5
+    },
+    {
+      "line": 169,
+      "unit_id": "0037100487aa26e2deb28c7204283eb325d2a04921932b20948de646049b13c6",
+      "received_reviewed_at": "",
+      "day_basis": "inferida",
+      "reviewed_at_utc": "2026-09-11T15:20:00+00:00",
+      "justification_pieces": 4
+    },
+    {
+      "line": 170,
+      "unit_id": "0415714807cf9839d106c22cfe88b8d8362d36e1925568b778c134e5863e7e50",
+      "received_reviewed_at": "",
+      "day_basis": "inferida",
+      "reviewed_at_utc": "2026-09-11T15:23:00+00:00",
+      "justification_pieces": 3
+    },
+    {
+      "line": 171,
+      "unit_id": "02d46e744321c4e3618b1218c038f76a30c353242e7cb52094d4f52272527d39",
+      "received_reviewed_at": "",
+      "day_basis": "inferida",
+      "reviewed_at_utc": "2026-09-11T15:26:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 172,
+      "unit_id": "003718feb2bd6df127f8375dc2399d178d60bfc107565534ddad0e4b05160c70",
+      "received_reviewed_at": "",
+      "day_basis": "inferida",
+      "reviewed_at_utc": "2026-09-11T15:30:00+00:00",
+      "justification_pieces": 4
+    },
+    {
+      "line": 173,
+      "unit_id": "045dbe21cacc5b424155ecffe909e540623529cb2f50010675e416df66f38a6a",
+      "received_reviewed_at": "",
+      "day_basis": "inferida",
+      "reviewed_at_utc": "2026-09-11T15:33:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 174,
+      "unit_id": "02ffe08689150d5adf0057fbe3824b4436deaa1214dd4f811399bf345397dbfd",
+      "received_reviewed_at": "",
+      "day_basis": "inferida",
+      "reviewed_at_utc": "2026-09-11T15:36:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 175,
+      "unit_id": "00460f6d033f93373b02b9289b7d0d680d5892152bb35240b26da0aa08aa27dd",
+      "received_reviewed_at": "",
+      "day_basis": "inferida",
+      "reviewed_at_utc": "2026-09-11T15:39:00+00:00",
+      "justification_pieces": 4
+    },
+    {
+      "line": 176,
+      "unit_id": "04f00833d063a900dfef967f76f0be39326d9b572a11e75dc297dcf503a0e5d0",
+      "received_reviewed_at": "",
+      "day_basis": "inferida",
+      "reviewed_at_utc": "2026-09-11T15:42:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 177,
+      "unit_id": "03a9ce31f2ffdf3a1b05ff344b9bd633bfeef9fff8ab4dfa41b5088903e76705",
+      "received_reviewed_at": "",
+      "day_basis": "inferida",
+      "reviewed_at_utc": "2026-09-11T15:45:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 178,
+      "unit_id": "0082bed7766b451991617a748b52ebf91b5bf1a7647084958c39ae4140a95e1c",
+      "received_reviewed_at": "",
+      "day_basis": "inferida",
+      "reviewed_at_utc": "2026-09-11T15:48:00+00:00",
+      "justification_pieces": 4
+    },
+    {
+      "line": 179,
+      "unit_id": "088c247835a33e09d41f276376fe85faa33315bc16b504ad7e3ad8b4adba1a0c",
+      "received_reviewed_at": "",
+      "day_basis": "inferida",
+      "reviewed_at_utc": "2026-09-11T15:52:00+00:00",
+      "justification_pieces": 3
+    },
+    {
+      "line": 180,
+      "unit_id": "041aa8ed425c07ac047a2e8d11f7e819c38de9966c1065a505d96f16d688f1c7",
+      "received_reviewed_at": "",
+      "day_basis": "inferida",
+      "reviewed_at_utc": "2026-09-11T15:55:00+00:00",
+      "justification_pieces": 1
+    },
+    {
+      "line": 181,
+      "unit_id": "0090b1f3acf6ac18a6467a0ecd97f0cfef59bcf8045d3b6841a2779b8ed89076",
+      "received_reviewed_at": "",
+      "day_basis": "inferida",
+      "reviewed_at_utc": "2026-09-11T15:58:00+00:00",
+      "justification_pieces": 4
+    }
+  ],
+  "role_change_aid": {
+    "created_at_utc": "2026-09-11T19:50:50.256434+00:00",
+    "sample": "data/interim/reviews/fechamento_taxonomia_dm026_20260911/taxonomia_revisada.csv",
+    "sample_sha256": "9a0fff859dd062e015436ee086b06d43d513903a3bd95524e617919810557a1a",
+    "study_index": "data/interim/runs/20260911T193457396587Z_f6fa8256_study_index/study_index.json",
+    "units": 180,
+    "human_fields_filled": 0,
+    "files": {
+      "historico_papeis.csv": "401a3e5072f59755c70110a2005542f7deca93b3df87414c774435c450e93c6d",
+      "historico_papeis.html": "6175b79b63591006b05bfbe0e3cb0fa175ae1a51fd3be97eff3d6661a15d64ae"
+    }
+  }
+}

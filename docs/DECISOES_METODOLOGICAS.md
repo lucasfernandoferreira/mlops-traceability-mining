@@ -3,7 +3,8 @@
 O estudo examina mecanismos públicos de rastreabilidade em três projetos de
 aprendizado de máquina que integram MLflow. A análise combina medidas do histórico
 Git com a leitura dos artefatos e dos eventos de mudança. O protocolo vigente é
-2.1.0, definido em `config/config.yaml`, com taxonomia 1.1.0.
+2.1.0, definido em `config/config.yaml`. A taxonomia vigente é a 1.2.0 (DM-027),
+ainda pendente de avaliação; a 1.1.0 foi reprovada na validação humana.
 
 ## Delineamento e unidade de análise
 
@@ -118,6 +119,31 @@ A concordância mínima é 95%, acompanhada de matriz de confusão e resultados 
 categoria e caso. Como a amostra é estratificada, sua concordância não estima
 automaticamente a precisão em todos os arquivos do estudo.
 
+### DM-027 — taxonomia 1.2.0 após a validação da 1.1.0
+
+A revisão humana das 180 unidades, feita pelo pesquisador entre 09 e 11/09/2026,
+concordou com a classificação automática da taxonomia 1.1.0 em 164 casos (91,1%),
+abaixo do limiar de 95%. OUTRO concentrou 11 das 16 divergências; DATA_RAW teve
+17/20, e CODE e DOC, 19/20. As divergências seguem seis mecanismos das regras:
+extensões de código ausentes, variantes de nome, manifestos de outros ecossistemas,
+imagens de interface, formatos de dados sob `docs/` e configurações de modelo e
+dataset no layout histórico do Ultralytics. A reprovação permanece como resultado.
+
+Em 11/09/2026, na conversa de implementação, o pesquisador solicitou a versão 1.2.0.
+As mudanças se limitam a esses mecanismos; o universo de caminhos, sem rótulos
+humanos, serviu apenas para conferir efeitos colaterais das regras. Código-fonte de
+interface segue a definição de CODE aplicada pelo revisor e passa a compor a
+dimensão C. A 1.2.0 reproduz os 180 rótulos, o que caracteriza calibração, não
+avaliação. Essas unidades passam a integrar `calibration_units`; todas as categorias
+têm ao menos 20 unidades nunca revisadas, e a regra de amostragem não foi alterada.
+
+A taxonomia integra o instrumento vinculado a cada run. A mudança exige nova cadeia
+a partir do congelamento (fases 3 a 8) e nova revisão humana da amostra de avaliação.
+Protocolo 2.1.0, fórmulas, filtros, limiar, cotas e plano de análise 1.0.0 foram
+mantidos. A decisão não constitui aprovação acadêmica. O
+[dossiê DM-027](DM027_TAXONOMIA_1_2_0.md) registra a consolidação da revisão,
+o diagnóstico, as regras e o impacto medido em prévia.
+
 ## Análise quantitativa
 
 O plano de análise 1.0.0 foi registrado em 07/09/2026, após o piloto exploratório do
@@ -206,8 +232,10 @@ entre commits e seleção qualitativa integrada. As fórmulas principais e a tax
 1.1.0 foram mantidas.
 
 Os registros DM-001 a DM-025 foram reunidos neste texto. A DM-026, variante A,
-foi acrescentada em 11/09/2026 com a origem da decisão e seu caráter retrospectivo. As versões anteriores estão
-no histórico Git e nos arquivos preservados, inclusive as regras substituídas.
+foi acrescentada em 11/09/2026 com a origem da decisão e seu caráter retrospectivo.
+A DM-027, também de 11/09/2026, versiona a taxonomia para 1.2.0 após a reprovação
+da 1.1.0. As versões anteriores estão no histórico Git e nos arquivos preservados,
+inclusive as regras substituídas.
 A exigência antiga de 20 exemplos em todas as categorias foi ajustada para censo ou
 ausência no universo.
 O critério de contribuidores passou a impedir o aceite da amostra, sem impedir
