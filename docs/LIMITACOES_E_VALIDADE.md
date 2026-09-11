@@ -89,3 +89,24 @@ do instrumento. Exemplos textuais e arquivos de terceiros exigem revisão antes 
 publicação. Autores são tratados transitoriamente para filtros e contagens; suas
 identidades e as credenciais de acesso não integram as tabelas analíticas. A
 [política de dados](../data/DECISOES_DADOS.md) descreve a preservação dos materiais.
+
+## Esclarecimentos da revisão DM-026 — 11/09/2026
+
+No Anomalib, a cadeia automática de imagens descrita na ficha anterior foi corrigida:
+o Engine removeu o callback que chamava `add_image`. O método permanece disponível,
+mas não compõe a ligação automática demonstrada. Parâmetros e métricas dependem do
+logger herdado do Lightning 2.6.5, inspecionado como fonte externa e não executado.
+A escolha DM-026 A é posterior à inspeção do caso e está registrada como tal.
+
+O marco `first_component_introduction` do Ultralytics corresponde à primeira adição
+no caminho configurado, que ocorreu numa renomeação em julho de 2023; o arquivo
+já existia em outro caminho em março de 2023. O marco não representa adoção inicial.
+Q1 também abrange os chamadores configurados e pode incluir eventos anteriores ao
+componente; a interpretação precisa distinguir contexto de integração MLflow.
+Não foi alterada a regra de seleção nem criada uma nova fórmula nesta revisão.
+
+No PyMC, configurações representadas em objetos Python entram como CODE, enquanto
+CONFIG cobre apenas os caminhos reconhecidos pela taxonomia. As métricas C/P e de
+magnitude não medem toda a prática de configuração dos modelos. Ambiguidades
+levantadas no relatório recebido são insumos de revisão, não rótulos humanos
+concluídos nem prova de que a concordância estará abaixo do limiar.

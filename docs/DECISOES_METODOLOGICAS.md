@@ -44,6 +44,34 @@ e `insufficient_evidence` indicam a natureza da evidência e não formam uma esc
 numérica. O critério proposto é `functional_integration_observed`. Uma exigência
 acadêmica de execução comprovada demandaria reavaliar as fontes e os casos.
 
+### DM-026 — operações herdadas de frameworks (variante A)
+
+Em 11/09/2026, o pesquisador escolheu expressamente a variante A na conversa de
+implementação. A decisão foi motivada pela divergência na ficha do Anomalib, após
+conhecer os casos atuais. É uma clarificação retrospectiva do critério de integração;
+a mesma regra será aplicada aos casos e a qualquer avaliação futura das reservas.
+Não representa pré-registro da seleção original nem aprovação acadêmica do recorte.
+
+Uma operação herdada é evidência estrutural de integração quando o código do caso,
+no SHA congelado, conecta a entrada ao componente do framework e aciona a interface
+pública de registro; a versão da dependência é identificada no lockfile desse SHA;
+e a implementação externa correspondente é inspecionada, preservada e citada com
+revisão, hashes e trechos. Uma declaração de dependência isolada não satisfaz o critério.
+As condições de habilitação e de propagação dos registros devem ser explicitadas.
+
+Operações apenas disponíveis na API, sem ligação demonstrada no fluxo descrito,
+permanecem fora dessa cadeia. No Anomalib, a ficha passa a descrever a injeção de
+logger no Trainer e as operações herdadas de parâmetros e métricas. O Engine não
+registra mais o callback que chamava `add_image`; esse método permanece disponível
+para chamada explícita. A cadeia principal usa os modelos; o esclarecimento da vinculação dinâmica do
+`Evaluator` (V1) está no dossiê e não implica teste de execução.
+
+O [dossiê DM-026](DM026_E_FECHAMENTO_TAXONOMIA.md) registra as fontes técnicas e o
+impacto. A evidência permanece `structural`, sem execução de treinamento, certificação
+de uso histórico ou promoção de proxy a causalidade. Protocolo de execução 2.1.0,
+fórmulas, filtros, taxonomia 1.1.0 e plano 1.0.0 permanecem preservados; a revisão da
+ficha exige novo índice e novos derivados qualitativos, com proveniência própria.
+
 As reservas seguem a ordem registrada antes das métricas: Anomalib, Axolotl e
 RF-DETR. A substituição depende de inelegibilidade, indisponibilidade ou custo
 previamente delimitado, com motivo e data. Não há teto de custo definido como
@@ -177,7 +205,8 @@ quantidade dos casos, maturidade e integração, força das evidências, depend�
 entre commits e seleção qualitativa integrada. As fórmulas principais e a taxonomia
 1.1.0 foram mantidas.
 
-Os registros DM-001 a DM-025 foram reunidos neste texto. As versões anteriores estão
+Os registros DM-001 a DM-025 foram reunidos neste texto. A DM-026, variante A,
+foi acrescentada em 11/09/2026 com a origem da decisão e seu caráter retrospectivo. As versões anteriores estão
 no histórico Git e nos arquivos preservados, inclusive as regras substituídas.
 A exigência antiga de 20 exemplos em todas as categorias foi ajustada para censo ou
 ausência no universo.

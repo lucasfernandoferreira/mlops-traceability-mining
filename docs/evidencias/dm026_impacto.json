@@ -1,0 +1,85 @@
+{
+  "scope": "unregistered_preview",
+  "scientific_result_accepted": false,
+  "source_index": "data/interim/runs/20260909T144632500174Z_af5a0048_study_index/study_index.json",
+  "source_index_sha256": "74b3822ae8f166fc4ab4e875235fba530e0fdcc1de547f3c44515e646e7edce1",
+  "specification": "docs/evidencias/runs_dm026.json",
+  "specification_sha256": "8ecbc73ede02cb653e0cb2b2443df864766bad5304694c740bf49569ca87e87d",
+  "reused_mining_and_metrics_runs": true,
+  "identical_files": {
+    "amostra_validacao_taxonomia.csv": "ec4823b48b326bc593aa69f026bb8ed50b3a2da311f7b156b991f07f8f63809e",
+    "taxonomy_inventory.json": "a9acc17a9543a68dd5087a745152ae7e6386fb58ce7be14d155af0c089eec239",
+    "pr_map_template.json": "052411d044e3994cdc2842ae2e1a47aece7530061dddd1fa16196b25bf2348f0"
+  },
+  "selection": [
+    {
+      "repository_id": "ultralytics/ultralytics",
+      "selected_before": 15,
+      "selected_after": 15,
+      "identical_rows": true,
+      "removed": [],
+      "added": []
+    },
+    {
+      "repository_id": "pymc-labs/pymc-marketing",
+      "selected_before": 15,
+      "selected_after": 15,
+      "identical_rows": true,
+      "removed": [],
+      "added": []
+    },
+    {
+      "repository_id": "open-edge-platform/anomalib",
+      "selected_before": 15,
+      "selected_after": 15,
+      "identical_rows": false,
+      "removed": [],
+      "added": []
+    }
+  ],
+  "preview_files": {
+    "data/interim/verification/incremento_06/preview_index/academic_review_template.json": "5a54515dbdca21ac6ef40e0230652044fc395fe1c7277fc334da004baa6fec12",
+    "data/interim/verification/incremento_06/preview_index/amostra_validacao_taxonomia.csv": "ec4823b48b326bc593aa69f026bb8ed50b3a2da311f7b156b991f07f8f63809e",
+    "data/interim/verification/incremento_06/preview_index/case_review_template.json": "c0e44275cbf31dff41dc03c4b551b52f976828a4314cd5c67efa3a93a6225f34",
+    "data/interim/verification/incremento_06/preview_index/pr_map_template.json": "052411d044e3994cdc2842ae2e1a47aece7530061dddd1fa16196b25bf2348f0",
+    "data/interim/verification/incremento_06/preview_index/study_index.json": "18bc3c784bc21f3edaf78282c4c1647d763a425c988bcd1a80979df5897c24f9",
+    "data/interim/verification/incremento_06/preview_index/taxonomy_inventory.json": "a9acc17a9543a68dd5087a745152ae7e6386fb58ce7be14d155af0c089eec239",
+    "data/interim/verification/incremento_06/preview_qualitative/cobertura_qualitativa.json": "1bcada07aaf8e27e93efc7098d0a706a8bfa03dc4d0c5b11433ed7c1b1946b98",
+    "data/interim/verification/incremento_06/preview_qualitative/codificacao_qualitativa.csv": "3394fb809cd8cf54c1f1e3460eb4058bd780efb975fa4509b274cd2e2bdb9db9",
+    "data/interim/verification/incremento_06/preview_qualitative/eventos_candidatos.csv": "3a7a89b3259d84c50c31a217e84b4e48a16aaa7b7bbde5b98dcc0f71060208fa",
+    "data/interim/verification/incremento_06/preview_qualitative/eventos_selecionados.csv": "f0449862f0c8cff5a13459d5b02a85c5ca58c8776c7d0836663a2a018afa4209"
+  },
+  "next_step": "Generate registered study index, qualitative selection and report after commit with clean worktree.",
+  "selected_row_differences": [
+    {
+      "event_id": "https://github.com/open-edge-platform/anomalib/pull/2498",
+      "fields": {
+        "group_position": {
+          "before": "30",
+          "after": "29"
+        }
+      }
+    },
+    {
+      "event_id": "https://github.com/open-edge-platform/anomalib/pull/3560",
+      "fields": {
+        "group_position": {
+          "before": "45",
+          "after": "43"
+        }
+      }
+    }
+  ],
+  "Q1_candidates": {
+    "before": {
+      "ultralytics/ultralytics": 251,
+      "pymc-labs/pymc-marketing": 146,
+      "open-edge-platform/anomalib": 46
+    },
+    "after": {
+      "ultralytics/ultralytics": 251,
+      "pymc-labs/pymc-marketing": 146,
+      "open-edge-platform/anomalib": 44
+    }
+  }
+}

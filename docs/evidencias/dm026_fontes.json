@@ -1,0 +1,308 @@
+{
+  "decision_id": "DM-026",
+  "variant": "A",
+  "decision_date": "2026-09-11",
+  "decision_origin": "Explicit user instruction in this conversation; not academic approval or a taxonomy label",
+  "recorded_at_utc": "2026-09-11T15:29:00.670067+00:00",
+  "scientific_result_accepted": false,
+  "evidence_kind": "structural",
+  "dependencies_executed": false,
+  "external_manifest_path": "data/interim/documentation/dm026_lightning_2.6.5_be98784a/source_manifest_complete.json",
+  "external_manifest_sha256": "7ab599bef9c896a6df536e0d6d7535011b6613b3578aa673b9ac7f9cdc92f52c",
+  "external_source": {
+    "repository_id": "Lightning-AI/pytorch-lightning",
+    "tag": "2.6.5",
+    "commit_sha": "be98784a1a03581b7051a355ae1084fd352d7cea",
+    "evidence_kind": "structural",
+    "executed": false,
+    "tag_resolution": "be98784a1a03581b7051a355ae1084fd352d7cea\trefs/tags/2.6.5\n",
+    "files": [
+      {
+        "path": "src/lightning/pytorch/loggers/mlflow.py",
+        "url": "https://raw.githubusercontent.com/Lightning-AI/pytorch-lightning/be98784a1a03581b7051a355ae1084fd352d7cea/src/lightning/pytorch/loggers/mlflow.py",
+        "http_status": 200,
+        "sha256": "a392d8c0e551e23edb52a4f8a04b7f57c08660728c5b5af94a8bb54106d89df8",
+        "bytes": 14924,
+        "retrieved_at_utc": "2026-09-11T15:21:48.115166+00:00"
+      },
+      {
+        "path": "src/lightning/pytorch/loggers/utilities.py",
+        "url": "https://raw.githubusercontent.com/Lightning-AI/pytorch-lightning/be98784a1a03581b7051a355ae1084fd352d7cea/src/lightning/pytorch/loggers/utilities.py",
+        "http_status": 200,
+        "sha256": "b3f5b502cb6756a92ab8a5079eb0fe9510b9be167bd097775a1913ab61de9168",
+        "bytes": 4266,
+        "retrieved_at_utc": "2026-09-11T15:21:47.837469+00:00"
+      },
+      {
+        "path": "src/lightning/pytorch/trainer/connectors/logger_connector/logger_connector.py",
+        "url": "https://raw.githubusercontent.com/Lightning-AI/pytorch-lightning/be98784a1a03581b7051a355ae1084fd352d7cea/src/lightning/pytorch/trainer/connectors/logger_connector/logger_connector.py",
+        "http_status": 200,
+        "sha256": "5011375abd51a92adc92e91375ecccf93a922dc01b46822f4561242830dd856f",
+        "bytes": 10924,
+        "retrieved_at_utc": "2026-09-11T15:21:47.968540+00:00"
+      },
+      {
+        "path": "src/lightning/pytorch/core/module.py",
+        "url": "https://raw.githubusercontent.com/Lightning-AI/pytorch-lightning/be98784a1a03581b7051a355ae1084fd352d7cea/src/lightning/pytorch/core/module.py",
+        "http_status": 200,
+        "sha256": "832385198953a2a2d9a2b363b075ad98437e96bce8a672bd59d971c05f08d2b3",
+        "bytes": 80061,
+        "retrieved_at_utc": "2026-09-11T15:21:48.393273+00:00"
+      },
+      {
+        "path": "src/lightning/pytorch/trainer/trainer.py",
+        "url": "https://raw.githubusercontent.com/Lightning-AI/pytorch-lightning/be98784a1a03581b7051a355ae1084fd352d7cea/src/lightning/pytorch/trainer/trainer.py",
+        "http_status": 200,
+        "sha256": "d32f923b6ecea0179189ae2318cd2063f540ed3be20418617618f403f8a705c0",
+        "bytes": 79058,
+        "retrieved_at_utc": "2026-09-11T15:21:48.254231+00:00"
+      },
+      {
+        "path": "src/lightning/pytorch/trainer/connectors/logger_connector/result.py",
+        "url": "https://raw.githubusercontent.com/Lightning-AI/pytorch-lightning/be98784a1a03581b7051a355ae1084fd352d7cea/src/lightning/pytorch/trainer/connectors/logger_connector/result.py",
+        "http_status": 200,
+        "sha256": "3286aba7341a262d710789f4ec43d7fbf31bcf73886ded14bee350389e78bfb9",
+        "bytes": 20363,
+        "retrieved_at_utc": "2026-09-11T15:21:48.423293+00:00"
+      },
+      {
+        "path": "LICENSE",
+        "url": "https://raw.githubusercontent.com/Lightning-AI/pytorch-lightning/be98784a1a03581b7051a355ae1084fd352d7cea/LICENSE",
+        "http_status": 200,
+        "sha256": "a41e2fae9915ae56028f8dbd0bf27995f1907613cbcd2d81a61b010ad34e9fe9",
+        "bytes": 11349,
+        "retrieved_at_utc": "2026-09-11T15:21:48.420168+00:00"
+      },
+      {
+        "path": "src/lightning/pytorch/core/mixins/hparams_mixin.py",
+        "url": "https://raw.githubusercontent.com/Lightning-AI/pytorch-lightning/be98784a1a03581b7051a355ae1084fd352d7cea/src/lightning/pytorch/core/mixins/hparams_mixin.py",
+        "http_status": 200,
+        "sha256": "2b48e2300ecb1e4aa18b8ccb16d5c1c427475e3432314ebdccaf6a7952429013",
+        "bytes": 7381,
+        "retrieved_at_utc": "2026-09-11T15:27:37.827267+00:00"
+      },
+      {
+        "path": "src/lightning/pytorch/trainer/connectors/callback_connector.py",
+        "url": "https://raw.githubusercontent.com/Lightning-AI/pytorch-lightning/be98784a1a03581b7051a355ae1084fd352d7cea/src/lightning/pytorch/trainer/connectors/callback_connector.py",
+        "http_status": 200,
+        "sha256": "94e35e808bfce0bbe788d4b05fecab164ff964aa8cfbfd26cb67e3a0aa09b26d",
+        "bytes": 13074,
+        "retrieved_at_utc": "2026-09-11T15:27:38.127837+00:00"
+      }
+    ],
+    "previous_manifest_sha256": "57ad98d85ff87c3a1ca8ae48a155876a5be7b0c5cf64bb4ea6ff2f184cf45f2f"
+  },
+  "case_sources": [
+    {
+      "repository_id": "open-edge-platform/anomalib",
+      "revision": "0b7fdb9dde453f6474ac93f77188f4224d442999",
+      "path": "src/anomalib/engine/engine.py",
+      "blob_sha": "c9290f4cd365203feba42824ec13e98ee7bc351f",
+      "sha256": "d16958ee0da1502777cc5319ea4732dffd42a40cd8d7dfb1e49e7354de098fc1",
+      "preserved_path": "data/interim/verification/incremento_06/anomalib_sources/src/anomalib/engine/engine.py",
+      "url": "https://github.com/open-edge-platform/anomalib/blob/0b7fdb9dde453f6474ac93f77188f4224d442999/src/anomalib/engine/engine.py"
+    },
+    {
+      "repository_id": "open-edge-platform/anomalib",
+      "revision": "0b7fdb9dde453f6474ac93f77188f4224d442999",
+      "path": "src/anomalib/loggers/mlflow.py",
+      "blob_sha": "4dac91cb88c9b1ff12f04bd4a7c61b4ca127bd6c",
+      "sha256": "47e62b83a2fea2b4c6c8bd06d5c4f38acb9bbc76d8225e385d40cda8fe283a64",
+      "preserved_path": "data/interim/verification/incremento_06/anomalib_sources/src/anomalib/loggers/mlflow.py",
+      "url": "https://github.com/open-edge-platform/anomalib/blob/0b7fdb9dde453f6474ac93f77188f4224d442999/src/anomalib/loggers/mlflow.py"
+    },
+    {
+      "repository_id": "open-edge-platform/anomalib",
+      "revision": "0b7fdb9dde453f6474ac93f77188f4224d442999",
+      "path": "src/anomalib/models/components/base/anomalib_module.py",
+      "blob_sha": "dc7070ff54bb578796985b88739275f873af046a",
+      "sha256": "7ddd461324a1fb926aac22a5bbfcf8220c137c6c3533faf93f707d45a60d7a7f",
+      "preserved_path": "data/interim/verification/incremento_06/anomalib_sources/src/anomalib/models/components/base/anomalib_module.py",
+      "url": "https://github.com/open-edge-platform/anomalib/blob/0b7fdb9dde453f6474ac93f77188f4224d442999/src/anomalib/models/components/base/anomalib_module.py"
+    },
+    {
+      "repository_id": "open-edge-platform/anomalib",
+      "revision": "0b7fdb9dde453f6474ac93f77188f4224d442999",
+      "path": "src/anomalib/models/image/cflow/lightning_model.py",
+      "blob_sha": "ccf85e5b293273f851d78e4e3394c459db349b15",
+      "sha256": "1089129014776ad08e5b38f18ccc45ad98e76069fb3b3519f2d5d56d7672bc73",
+      "preserved_path": "data/interim/verification/incremento_06/anomalib_sources/src/anomalib/models/image/cflow/lightning_model.py",
+      "url": "https://github.com/open-edge-platform/anomalib/blob/0b7fdb9dde453f6474ac93f77188f4224d442999/src/anomalib/models/image/cflow/lightning_model.py"
+    },
+    {
+      "repository_id": "open-edge-platform/anomalib",
+      "revision": "0b7fdb9dde453f6474ac93f77188f4224d442999",
+      "path": "src/anomalib/metrics/evaluator.py",
+      "blob_sha": "5b24ce6a714991dfc464c5e7a216e02bac14f9c1",
+      "sha256": "261c3930716465911a9872a13c8d5fcb9679ae9e23d1250888e0ad3be88e745d",
+      "preserved_path": "data/interim/verification/incremento_06/anomalib_sources/src/anomalib/metrics/evaluator.py",
+      "url": "https://github.com/open-edge-platform/anomalib/blob/0b7fdb9dde453f6474ac93f77188f4224d442999/src/anomalib/metrics/evaluator.py"
+    },
+    {
+      "repository_id": "open-edge-platform/anomalib",
+      "revision": "0b7fdb9dde453f6474ac93f77188f4224d442999",
+      "path": "uv.lock",
+      "blob_sha": "6ed144bd7119326d0ebbc7074eba260cc81f108a",
+      "sha256": "6c4f86c52acc5ba515abcd567477b435b5b81d4700bcf3a2da4b4a0108734a0f",
+      "preserved_path": "data/interim/verification/incremento_06/anomalib_sources/uv.lock",
+      "url": "https://github.com/open-edge-platform/anomalib/blob/0b7fdb9dde453f6474ac93f77188f4224d442999/uv.lock"
+    },
+    {
+      "repository_id": "open-edge-platform/anomalib",
+      "revision": "0b7fdb9dde453f6474ac93f77188f4224d442999",
+      "path": "src/anomalib/callbacks/visualizer.py",
+      "blob_sha": "f14756fa88538d86516ac3a19e3ec9ce02e85eff",
+      "sha256": "76f0852cd071c62648e249c154b431092969f46f70592e48522964a37e73a078",
+      "preserved_path": "data/interim/verification/incremento_06/anomalib_sources/src/anomalib/callbacks/visualizer.py",
+      "url": "https://github.com/open-edge-platform/anomalib/blob/0b7fdb9dde453f6474ac93f77188f4224d442999/src/anomalib/callbacks/visualizer.py"
+    }
+  ],
+  "witnesses": [
+    {
+      "evidence_id": "AN-ENGINE",
+      "meaning": "O logger fornecido é preservado nos argumentos do Trainer.",
+      "path": "data/interim/verification/incremento_06/anomalib_sources/src/anomalib/engine/engine.py",
+      "sha256": "d16958ee0da1502777cc5319ea4732dffd42a40cd8d7dfb1e49e7354de098fc1",
+      "line": 168,
+      "excerpt_sha256": "72b3ea037f1e364b1f5ace3ab4a1273fcc236472f1a49cd7172cdd40c276e0d4",
+      "resolution": "PASS",
+      "source_url": "https://github.com/open-edge-platform/anomalib/blob/0b7fdb9dde453f6474ac93f77188f4224d442999/src/anomalib/engine/engine.py#L168"
+    },
+    {
+      "evidence_id": "AN-TRAINER",
+      "meaning": "Engine instancia Trainer com os argumentos preservados.",
+      "path": "data/interim/verification/incremento_06/anomalib_sources/src/anomalib/engine/engine.py",
+      "sha256": "d16958ee0da1502777cc5319ea4732dffd42a40cd8d7dfb1e49e7354de098fc1",
+      "line": 310,
+      "excerpt_sha256": "56ac00749d13a052605774c17c60d935aad42765f44e75859f5b2d7a8396ff6c",
+      "resolution": "PASS",
+      "source_url": "https://github.com/open-edge-platform/anomalib/blob/0b7fdb9dde453f6474ac93f77188f4224d442999/src/anomalib/engine/engine.py#L310"
+    },
+    {
+      "evidence_id": "AN-INHERIT",
+      "meaning": "Componente especializa o logger do Lightning.",
+      "path": "data/interim/verification/incremento_06/anomalib_sources/src/anomalib/loggers/mlflow.py",
+      "sha256": "47e62b83a2fea2b4c6c8bd06d5c4f38acb9bbc76d8225e385d40cda8fe283a64",
+      "line": 50,
+      "excerpt_sha256": "b10e4d6fb1626af668fc684aeaec5eeaba23bbf0d3c5e9c476044b2684a026f0",
+      "resolution": "PASS",
+      "source_url": "https://github.com/open-edge-platform/anomalib/blob/0b7fdb9dde453f6474ac93f77188f4224d442999/src/anomalib/loggers/mlflow.py#L50"
+    },
+    {
+      "evidence_id": "AN-HPARAM",
+      "meaning": "Modelo fornece hiperparâmetros à interface do framework.",
+      "path": "data/interim/verification/incremento_06/anomalib_sources/src/anomalib/models/components/base/anomalib_module.py",
+      "sha256": "7ddd461324a1fb926aac22a5bbfcf8220c137c6c3533faf93f707d45a60d7a7f",
+      "line": 132,
+      "excerpt_sha256": "1e9f9e1fa351db18d8a3854023a1dcd1af59b686aaa649b26d5bf33322eb440f",
+      "resolution": "PASS",
+      "source_url": "https://github.com/open-edge-platform/anomalib/blob/0b7fdb9dde453f6474ac93f77188f4224d442999/src/anomalib/models/components/base/anomalib_module.py#L132"
+    },
+    {
+      "evidence_id": "AN-METRIC",
+      "meaning": "Exemplo de modelo envia métrica com logger habilitado.",
+      "path": "data/interim/verification/incremento_06/anomalib_sources/src/anomalib/models/image/cflow/lightning_model.py",
+      "sha256": "1089129014776ad08e5b38f18ccc45ad98e76069fb3b3519f2d5d56d7672bc73",
+      "line": 214,
+      "excerpt_sha256": "e45d84b85bce1f95d0d5fce0d3c437572368bdf0931e84146428f5ed43330af1",
+      "resolution": "PASS",
+      "source_url": "https://github.com/open-edge-platform/anomalib/blob/0b7fdb9dde453f6474ac93f77188f4224d442999/src/anomalib/models/image/cflow/lightning_model.py#L214"
+    },
+    {
+      "evidence_id": "LT-PARAM",
+      "meaning": "Logger encaminha parâmetros ao cliente MLflow.",
+      "path": "data/interim/documentation/dm026_lightning_2.6.5_be98784a/src/lightning/pytorch/loggers/mlflow.py",
+      "sha256": "a392d8c0e551e23edb52a4f8a04b7f57c08660728c5b5af94a8bb54106d89df8",
+      "line": 243,
+      "excerpt_sha256": "defaa43123c2f7f3967aabf2298d6dcae904b637c644fa76f3992a646ca5bdcc",
+      "resolution": "PASS",
+      "source_url": "https://github.com/Lightning-AI/pytorch-lightning/blob/be98784a1a03581b7051a355ae1084fd352d7cea/src/lightning/pytorch/loggers/mlflow.py#L243"
+    },
+    {
+      "evidence_id": "LT-METRIC",
+      "meaning": "Logger encaminha métricas ao cliente MLflow.",
+      "path": "data/interim/documentation/dm026_lightning_2.6.5_be98784a/src/lightning/pytorch/loggers/mlflow.py",
+      "sha256": "a392d8c0e551e23edb52a4f8a04b7f57c08660728c5b5af94a8bb54106d89df8",
+      "line": 271,
+      "excerpt_sha256": "284f4d24ac5986a2972d48b0973f6580679eed5ee141aa9e60da0c439ce73523",
+      "resolution": "PASS",
+      "source_url": "https://github.com/Lightning-AI/pytorch-lightning/blob/be98784a1a03581b7051a355ae1084fd352d7cea/src/lightning/pytorch/loggers/mlflow.py#L271"
+    },
+    {
+      "evidence_id": "LT-HPARAM",
+      "meaning": "Framework distribui os hiperparâmetros aos loggers habilitados.",
+      "path": "data/interim/documentation/dm026_lightning_2.6.5_be98784a/src/lightning/pytorch/loggers/utilities.py",
+      "sha256": "b3f5b502cb6756a92ab8a5079eb0fe9510b9be167bd097775a1913ab61de9168",
+      "line": 100,
+      "excerpt_sha256": "810e4a585a6d20ed3b949e1d3b9c776ea3555f481aabed04c7f4bdf9af6f3e8d",
+      "resolution": "PASS",
+      "source_url": "https://github.com/Lightning-AI/pytorch-lightning/blob/be98784a1a03581b7051a355ae1084fd352d7cea/src/lightning/pytorch/loggers/utilities.py#L100"
+    },
+    {
+      "evidence_id": "LT-DISPATCH",
+      "meaning": "Conector envia as métricas aos loggers.",
+      "path": "data/interim/documentation/dm026_lightning_2.6.5_be98784a/src/lightning/pytorch/trainer/connectors/logger_connector/logger_connector.py",
+      "sha256": "5011375abd51a92adc92e91375ecccf93a922dc01b46822f4561242830dd856f",
+      "line": 127,
+      "excerpt_sha256": "6da5cee263e0f8f11d381564cc646f6aaf7a18977b78ebc69c37375c5d3d32c0",
+      "resolution": "PASS",
+      "source_url": "https://github.com/Lightning-AI/pytorch-lightning/blob/be98784a1a03581b7051a355ae1084fd352d7cea/src/lightning/pytorch/trainer/connectors/logger_connector/logger_connector.py#L127"
+    },
+    {
+      "evidence_id": "LT-START",
+      "meaning": "Envio inicial de hiperparâmetros depende da habilitação no Trainer.",
+      "path": "data/interim/documentation/dm026_lightning_2.6.5_be98784a/src/lightning/pytorch/trainer/trainer.py",
+      "sha256": "d32f923b6ecea0179189ae2318cd2063f540ed3be20418617618f403f8a705c0",
+      "line": 1061,
+      "excerpt_sha256": "58ba8fafac5f049501a26af86ed0a1287ebe211675cae7f91202abe522b3fdfb",
+      "resolution": "PASS",
+      "source_url": "https://github.com/Lightning-AI/pytorch-lightning/blob/be98784a1a03581b7051a355ae1084fd352d7cea/src/lightning/pytorch/trainer/trainer.py#L1061"
+    },
+    {
+      "evidence_id": "LT-DEFAULT",
+      "meaning": "save_hyperparameters habilita registro por padrão.",
+      "path": "data/interim/documentation/dm026_lightning_2.6.5_be98784a/src/lightning/pytorch/core/mixins/hparams_mixin.py",
+      "sha256": "2b48e2300ecb1e4aa18b8ccb16d5c1c427475e3432314ebdccaf6a7952429013",
+      "line": 56,
+      "excerpt_sha256": "92639e9cd77a0c5e2e133f541085b1dd71987591a41c4285a1f2ccae82921b97",
+      "resolution": "PASS",
+      "source_url": "https://github.com/Lightning-AI/pytorch-lightning/blob/be98784a1a03581b7051a355ae1084fd352d7cea/src/lightning/pytorch/core/mixins/hparams_mixin.py#L56"
+    },
+    {
+      "evidence_id": "LT-CALLBACK-LOG",
+      "meaning": "Esclarecimento V1: Trainer vincula dinamicamente log aos callbacks.",
+      "path": "data/interim/documentation/dm026_lightning_2.6.5_be98784a/src/lightning/pytorch/trainer/connectors/callback_connector.py",
+      "sha256": "94e35e808bfce0bbe788d4b05fecab164ff964aa8cfbfd26cb67e3a0aa09b26d",
+      "line": 169,
+      "excerpt_sha256": "46c2de3ad40a5279dcb75eeeadeb6974c1b734414ec5e2a4c7c64b893e1f2926",
+      "resolution": "PASS",
+      "source_url": "https://github.com/Lightning-AI/pytorch-lightning/blob/be98784a1a03581b7051a355ae1084fd352d7cea/src/lightning/pytorch/trainer/connectors/callback_connector.py#L169"
+    },
+    {
+      "evidence_id": "LT-CALLBACK-SETUP",
+      "meaning": "Trainer realiza a vinculação após anexar callbacks do modelo.",
+      "path": "data/interim/documentation/dm026_lightning_2.6.5_be98784a/src/lightning/pytorch/trainer/trainer.py",
+      "sha256": "d32f923b6ecea0179189ae2318cd2063f540ed3be20418617618f403f8a705c0",
+      "line": 1025,
+      "excerpt_sha256": "01a66bf73db3fdcb3f2a022749e7de3db5531c34387db100d402a40675ae8df4",
+      "resolution": "PASS",
+      "source_url": "https://github.com/Lightning-AI/pytorch-lightning/blob/be98784a1a03581b7051a355ae1084fd352d7cea/src/lightning/pytorch/trainer/trainer.py#L1025"
+    },
+    {
+      "evidence_id": "AN-CALLBACKS",
+      "meaning": "Modelo oferece os componentes Callback, incluindo Evaluator quando configurado.",
+      "path": "data/interim/verification/incremento_06/anomalib_sources/src/anomalib/models/components/base/anomalib_module.py",
+      "sha256": "7ddd461324a1fb926aac22a5bbfcf8220c137c6c3533faf93f707d45a60d7a7f",
+      "line": 169,
+      "excerpt_sha256": "27d6dd71c30cfbc031963c8b4b50efacfe4dec1ec4a21cefc2fc01047a91e0a1",
+      "resolution": "PASS",
+      "source_url": "https://github.com/open-edge-platform/anomalib/blob/0b7fdb9dde453f6474ac93f77188f4224d442999/src/anomalib/models/components/base/anomalib_module.py#L169"
+    }
+  ],
+  "limitations": [
+    "Static source reading and byte resolution do not certify execution by users.",
+    "The primary chain uses the model interface, not the old visualization callback.",
+    "V1 dynamic callback.log binding is explained structurally; Evaluator correctness and runtime behavior were not tested.",
+    "Case decisions, taxonomy labels, academic alignment and G00-G15 acceptance remain separate."
+  ]
+}

@@ -38,7 +38,7 @@ repositories:
   maintenance_url: https://github.com/pymc-labs/pymc-marketing/commits/fabba92c96aa6a4ec6d42fb3241a8ed725995d0a/
   active_contributors_status: observed_pass
   active_identity_count: 40
-  maturity_source_run_id: 20260908T003901796039Z_43a2dae0_phase4_mine_commits
+  maturity_source_run_id: 20260909T144237582697Z_af5a0048_phase4_mine_commits
 - repository_id: open-edge-platform/anomalib
   repository_url: https://github.com/open-edge-platform/anomalib
   head_commit_sha: 0b7fdb9dde453f6474ac93f77188f4224d442999
