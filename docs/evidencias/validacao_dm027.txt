@@ -1,0 +1,111 @@
+.venv/bin/python -m ruff check .
+All checks passed!
+.venv/bin/python -m ruff format --check .
+85 files already formatted
+.venv/bin/python -m mypy
+Success: no issues found in 71 source files
+.venv/bin/python -m pytest
+============================= test session starts ==============================
+platform linux -- Python 3.12.13, pytest-9.1.1, pluggy-1.6.0
+rootdir: /mnt/c/Users/lucca/development/projects/tcc/tcc_mba/mlops-traceability-mining
+configfile: pyproject.toml
+testpaths: tests
+plugins: cov-7.1.0
+collected 283 items
+
+tests/test_config.py .....                                               [  1%]
+tests/test_github_search.py ......                                       [  3%]
+tests/test_manifest.py ...                                               [  4%]
+tests/test_observability.py ......                                       [  7%]
+tests/test_pilot_metrics.py ..................                           [ 13%]
+tests/test_pilot_pipeline.py .....                                       [ 15%]
+tests/test_pr_mapping.py ...............                                 [ 20%]
+tests/test_run_storage.py ...                                            [ 21%]
+tests/test_sample_screen.py ............                                 [ 25%]
+tests/test_sample_screen_gateway.py .........                            [ 28%]
+tests/test_screen_sample_script.py .......                               [ 31%]
+tests/test_search_candidates_script.py ...                               [ 32%]
+tests/test_study_contracts.py .........                                  [ 35%]
+tests/test_study_pipeline.py ....                                        [ 37%]
+tests/test_synthetic_repo.py ...                                         [ 38%]
+tests/test_taxonomy.py ................................................. [ 55%]
+........                                                                 [ 58%]
+tests/verification/test_contracts.py ............                        [ 62%]
+tests/verification/test_finalization.py .............                    [ 67%]
+tests/verification/test_oracles.py ................                      [ 72%]
+tests/verification/test_reviews.py ...........                           [ 76%]
+tests/verification/test_runner.py .                                      [ 77%]
+tests/verification/test_selection_oracle.py ............................ [ 86%]
+..............                                                           [ 91%]
+tests/verification/test_source_oracles.py .......................        [100%]
+
+================================ tests coverage ================================
+_______________ coverage: platform linux, python 3.12.13-final-0 _______________
+
+Name                                                   Stmts   Miss  Cover   Missing
+------------------------------------------------------------------------------------
+src/mlops_traceability/__init__.py                         1      0   100%
+src/mlops_traceability/config.py                         122      5    96%   87, 90, 93, 170, 176
+src/mlops_traceability/config_diff.py                     50      1    98%   58
+src/mlops_traceability/descriptive_analysis.py            59      1    98%   41
+src/mlops_traceability/github_search.py                  168     12    93%   110-113, 120-122, 158-161, 183, 190, 208
+src/mlops_traceability/manifest.py                        93      3    97%   101, 119, 149
+src/mlops_traceability/metrics_gqm.py                     24      0   100%
+src/mlops_traceability/mining.py                         126      4    97%   61, 124, 130, 152
+src/mlops_traceability/observability.py                  113      4    96%   27, 164, 176, 182
+src/mlops_traceability/pilot.py                          231     16    93%   119, 125, 127, 130-132, 134, 220, 227, 249, 255, 277, 287, 350-352, 359
+src/mlops_traceability/pr_mapping.py                      28      0   100%
+src/mlops_traceability/qualitative_selection.py           73      0   100%
+src/mlops_traceability/run_storage.py                    123     10    92%   79, 86, 95, 97, 104, 108, 110, 132, 200, 219
+src/mlops_traceability/sample_screen.py                  513     67    87%   113, 119, 131, 185, 198, 250-251, 311-312, 317-323, 344, 357-358, 388, 395-396, 404-409, 441, 495-505, 530-537, 554, 562, 576-579, 638, 642, 652-654, 708, 818, 820, 822, 826, 921-922, 979, 995, 999, 1041-1048
+src/mlops_traceability/study.py                          374     36    90%   49, 175, 185, 271, 498-522, 814, 824, 832, 847, 866, 871, 873, 946-956, 965
+src/mlops_traceability/taxonomy.py                        62      0   100%
+src/mlops_traceability/validation/__init__.py              1      0   100%
+src/mlops_traceability/validation/synthetic_repo.py       34      0   100%
+src/mlops_traceability/validation/taxonomy_review.py     109      1    99%   180
+src/mlops_traceability/verification/__init__.py            0      0   100%
+src/mlops_traceability/verification/contracts.py          53      0   100%
+src/mlops_traceability/verification/descriptive.py        61      0   100%
+src/mlops_traceability/verification/evidence.py           51      0   100%
+src/mlops_traceability/verification/finalization.py      142      7    95%   41, 44, 57, 91, 114, 200, 202
+src/mlops_traceability/verification/git_oracle.py        142     10    93%   55, 60, 94, 99, 139, 194-201, 237
+src/mlops_traceability/verification/oracles.py            73      0   100%
+src/mlops_traceability/verification/pr_sources.py        113      7    94%   125, 128, 143, 145, 150, 181, 191
+src/mlops_traceability/verification/qualitative.py        62      3    95%   62, 113, 115
+src/mlops_traceability/verification/reviews.py           172      3    98%   181, 198, 233
+src/mlops_traceability/verification/runner.py            234     12    95%   104, 107, 115, 193, 196, 260, 279, 288, 312, 319, 342, 345
+src/mlops_traceability/verification/selection.py          67      1    99%   98
+src/mlops_traceability/verification/semantics.py          52      1    98%   62
+src/mlops_traceability/verification/tables.py             43      0   100%
+------------------------------------------------------------------------------------
+TOTAL                                                   3569    204    94%
+Required test coverage of 90% reached. Total coverage: 94.28%
+======================= 283 passed in 127.90s (0:02:07) ========================
+.venv/bin/python scripts/00_smoke.py --allow-dirty
+[2026-09-11T20:08:57.095618Z] phase0_smoke | Fase 0 iniciada | log_path=/mnt/c/Users/lucca/development/projects/tcc/tcc_mba/mlops-traceability-mining/tmp/logs/20260911T200856648724Z_f6fa8256_phase0_smoke.jsonl
+[2026-09-11T20:08:57.125087Z] phase0_smoke | Configuração validada
+[2026-09-11T20:08:57.143350Z] phase0_smoke | Taxonomia validada
+[2026-09-11T20:08:57.289085Z] phase0_smoke | Repositório sintético validado | tracked_files=6
+[2026-09-11T20:08:57.337136Z] phase0_smoke | Fase 0 finalizada | status=SUCCESS
+Fase 0 validada com sucesso.
+Manifesto: /mnt/c/Users/lucca/development/projects/tcc/tcc_mba/mlops-traceability-mining/tmp/manifests/20260911T200856648724Z_f6fa8256_phase0_smoke.json
+Categorias encontradas: {<Category.OUTRO: 'OUTRO'>: 1, <Category.DATA_META: 'DATA_META'>: 1, <Category.DOC: 'DOC'>: 1, <Category.CONFIG: 'CONFIG'>: 1, <Category.CODE: 'CODE'>: 2}
+exit=0
+--- contraprova do oráculo (data/interim/verification/incremento_07/crosscheck_1_2_0.py)
+inventory units: 7631 oracle mismatches: 0
+ultralytics/ultralytics | change rows: 31710 oracle mismatches: 0 | C∩P/C recomputed: 249 / 3272 | metrics.csv: 249 / 3272
+pymc-labs/pymc-marketing | change rows: 8506 oracle mismatches: 0 | C∩P/C recomputed: 14 / 879 | metrics.csv: 14 / 879
+open-edge-platform/anomalib | change rows: 10260 oracle mismatches: 0 | C∩P/C recomputed: 115 / 668 | metrics.csv: 115 / 668
+crosscheck OK
+--- hashes das evidências e insumos
+00793d9ffc0fc82e350944283c5975cc55ee4b140781edd43c77c2443509be16  config/file_taxonomy.yaml
+cd27b7f97abe6c4fca5f7f47c6f59617335326fe4ac3854bf53593c197b2d4ef  config/config.yaml
+f4c1eb6d42185b1c817c6b115f50eed0790a1935ef7231d0253bd6684eb57ef2  docs/evidencias/taxonomia_calibracao_1_2_0.csv
+ff64e12fbd3a9385eb46dfd6f06ff3e732593889135e39cd598e8045e0468718  docs/evidencias/taxonomia_1_1_0_diagnostico.json
+8ed05fff15bfff7cc6013281862c58d8feb04d820f044f1b0a02a6025abbd36f  docs/evidencias/taxonomia_1_1_0_consolidacao.json
+6f05335d95882e092a3d26bd108f2f3f5e9165d6c48ff46ce0cbb80e37a8e0c1  docs/evidencias/dm027_impacto.json
+912d116f9c3d7019c176bee7e30e966f61571e5c9bc7d53bc4bf76ed12c3a767  docs/evidencias/dm027_execucoes.json
+9a0fff859dd062e015436ee086b06d43d513903a3bd95524e617919810557a1a  data/interim/reviews/fechamento_taxonomia_dm026_20260911/taxonomia_revisada.csv
+754151228167445d45e4b42568fd9c25a128fc85b46ad17bc00136919a476692  data/interim/reviews/fechamento_taxonomia_dm026_20260911/recebido/taxonomia_revisada_recebida_20260911.csv
+ec4823b48b326bc593aa69f026bb8ed50b3a2da311f7b156b991f07f8f63809e  data/interim/reviews/reprocessamento_20260909T144632500174Z_af5a0048_study_index/taxonomia_revisada.csv
+5ccdb6a61c4a0cdf0683ccad48a9e45b56a693d3344b2b71ead9ac2ce54f4b22  data/interim/reviews/avaliacao_taxonomia_1_2_0_20260911/taxonomia_revisada.csv

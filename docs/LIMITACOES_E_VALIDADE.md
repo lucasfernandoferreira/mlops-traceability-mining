@@ -110,3 +110,23 @@ CONFIG cobre apenas os caminhos reconhecidos pela taxonomia. As métricas C/P e 
 magnitude não medem toda a prática de configuração dos modelos. Ambiguidades
 levantadas no relatório recebido são insumos de revisão, não rótulos humanos
 concluídos nem prova de que a concordância estará abaixo do limiar.
+
+## Revisão da taxonomia DM-027 — 11/09/2026
+
+A taxonomia 1.2.0 foi definida depois de conhecida a reprovação da 1.1.0, o que
+introduz um grau de liberdade do pesquisador. Para limitá-lo, as regras novas se
+restringem aos mecanismos das 16 divergências; o universo de caminhos foi usado sem
+rótulos, apenas para conferir efeitos colaterais; a avaliação usa unidades nunca
+revisadas; e as duas versões são reportadas. O revisor da nova amostra é o mesmo que
+calibrou as regras e conhece seus critérios. A concordância com um único revisor não
+mede confiabilidade entre avaliadores.
+
+A mudança altera medidas do estudo, não só a validação: caminhos antes em OUTRO
+passam a CODE, CONFIG e ENV, com efeito sobre coalteração e magnitude CONFIG. Os
+valores anteriores ficam preservados nos runs da 1.1.0 e são comparados no dossiê.
+
+Os instantes da revisão de 09 a 11/09 não foram registrados. `reviewed_at_utc` foi
+reconstruído dentro das janelas declaradas pelo pesquisador (12h–13h e 19h–21h,
+UTC−03:00), distribuído na ordem do arquivo com precisão de minuto; 18 datas ausentes
+foram inferidas como 11/09. Esses valores indicam a sessão provável, não o momento
+exato de cada julgamento.

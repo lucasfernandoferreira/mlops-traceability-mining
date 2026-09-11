@@ -1,11 +1,14 @@
+import csv
 from pathlib import Path
 
 import pytest
 from pydantic import ValidationError
 
+from mlops_traceability.config import load_config
 from mlops_traceability.taxonomy import Category, load_taxonomy
 
 TAXONOMY_PATH = Path("config/file_taxonomy.yaml")
+CALIBRATION_PATH = Path("docs/evidencias/taxonomia_calibracao_1_2_0.csv")
 
 
 @pytest.mark.parametrize(
@@ -43,6 +46,66 @@ def test_classify_representative_paths(
     taxonomy = load_taxonomy(TAXONOMY_PATH)
 
     assert taxonomy.classify(file_path) == expected_category
+
+
+def test_taxonomy_version_is_1_2_0() -> None:
+    assert load_taxonomy(TAXONOMY_PATH).config.version == "1.2.0"
+
+
+# DM-027: each 1.1.0 divergence mechanism plus a guard against its nearest false positive.
+@pytest.mark.parametrize(
+    ("file_path", "expected_category"),
+    [
+        ("examples/cpp/common/yolo_show.hpp", Category.CODE),
+        ("examples/cli/04_advanced/custom_components.sh", Category.CODE),
+        ("application/ui/src/features/inspect/dataset/media-preview/hooks/util.tsx", Category.CODE),
+        ("application/ui/src/features/inspect/models-list/model-list.module.scss", Category.OUTRO),
+        ("locales/es/LC_MESSAGES/api/generated/pymc_marketing.mmm.causal.TBFPC.po", Category.OUTRO),
+        ("docker/Dockerfile-nvidia-cuda", Category.ENV),
+        ("application/docker/docker-compose.cuda.yaml", Category.ENV),
+        ("scripts/docker/environment-dev.yml", Category.ENV),
+        ("application/binary/tauri/package-lock.json", Category.ENV),
+        ("setup.py", Category.ENV),
+        ("application/backend/src/core/logging/setup.py", Category.CODE),
+        ("notebooks/500_use_cases/501_dobot/cubes_config.yaml", Category.CONFIG),
+        (".pre-commit-config.yaml", Category.OUTRO),
+        ("application/ui/tsconfig.json", Category.OUTRO),
+        ("ultralytics/models/v3/yolov3-tiny.yaml", Category.CONFIG),
+        ("ultralytics/yolo/data/datasets/xView.yaml", Category.CONFIG),
+        (".github/ISSUE_TEMPLATE/bug-report.yml", Category.OUTRO),
+        ("docs/source/notebooks/mmm/multidimensional_model.nc", Category.DATA_RAW),
+        ("docs/images/architecture.png", Category.DOC),
+        ("application/ui/src/assets/background.png", Category.OUTRO),
+        ("application/binary/tauri/src-tauri/icons/icon.png", Category.OUTRO),
+        ("ultralytics/assets/bus.jpg", Category.DATA_RAW),
+    ],
+)
+def test_taxonomy_1_2_0_divergence_rules(file_path: str, expected_category: Category) -> None:
+    assert load_taxonomy(TAXONOMY_PATH).classify(file_path) == expected_category
+
+
+def calibration_rows() -> list[dict[str, str]]:
+    with CALIBRATION_PATH.open(encoding="utf-8", newline="") as stream:
+        return list(csv.DictReader(stream))
+
+
+def test_taxonomy_reproduces_human_calibration_labels() -> None:
+    taxonomy = load_taxonomy(TAXONOMY_PATH)
+    rows = calibration_rows()
+
+    assert len(rows) == 180
+    assert sum(r["category_1_1_0"] == r["expected_category"] for r in rows) == 164
+    mismatches = [r for r in rows if taxonomy.classify(r["file_path"]) != r["expected_category"]]
+    assert mismatches == []
+
+
+def test_reviewed_units_are_calibration_units() -> None:
+    configured = load_config("config/config.yaml").taxonomy_validation.calibration_units
+    reviewed = {f"{r['repository_id']}:{r['file_path']}" for r in calibration_rows()}
+
+    assert len(configured) == len(set(configured))
+    assert reviewed <= set(configured)
+    assert set(configured) - reviewed == {"ultralytics/ultralytics:ultralytics/cfg/default.yaml"}
 
 
 def test_first_matching_rule_has_precedence() -> None:

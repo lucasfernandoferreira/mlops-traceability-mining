@@ -1,0 +1,382 @@
+{
+  "created_at_utc": "2026-09-11T19:58:50.308157+00:00",
+  "scope": "unregistered_preview",
+  "scientific_result_accepted": false,
+  "note": "Runs 1.2.0 com alterações locais (sem commit). A cadeia recomeça no congelamento porque verified_run vincula config.yaml e file_taxonomy.yaml a cada run de origem.",
+  "baseline_1_1_0": {
+    "study_index": "20260911T193457396587Z_f6fa8256_study_index",
+    "qualitative": "20260911T193614523990Z_f6fa8256_phase7_select_qualitative",
+    "report": "20260911T193626964902Z_f6fa8256_phase8_report"
+  },
+  "preview_1_2_0": {
+    "index": "20260911T195802960132Z_f6fa8256_study_index",
+    "qualitative": "20260911T195815415781Z_f6fa8256_phase7_select_qualitative",
+    "report": "20260911T195827873517Z_f6fa8256_phase8_report"
+  },
+  "cases": [
+    {
+      "repository_id": "ultralytics/ultralytics",
+      "runs_1_1_0": {
+        "freeze": "20260908T003443752785Z_43a2dae0_phase3_clone_repos",
+        "mine": "20260908T003451162760Z_43a2dae0_phase4_mine_commits",
+        "metrics": "20260908T003846750404Z_43a2dae0_phase5_compute_metrics"
+      },
+      "runs_1_2_0_preview": {
+        "freeze": "20260911T194850458668Z_f6fa8256_phase3_clone_repos",
+        "mine": "20260911T194858053032Z_f6fa8256_phase4_mine_commits",
+        "metrics": "20260911T195304981656Z_f6fa8256_phase5_compute_metrics"
+      },
+      "commits_identical": true,
+      "change_rows_identical_except_classification": true,
+      "change_rows": 31710,
+      "change_rows_reclassified": 990,
+      "reclassification": [
+        {
+          "from": "OUTRO",
+          "to": "ENV",
+          "count": 419
+        },
+        {
+          "from": "OUTRO",
+          "to": "CONFIG",
+          "count": 325
+        },
+        {
+          "from": "OUTRO",
+          "to": "CODE",
+          "count": 97
+        },
+        {
+          "from": "DOC",
+          "to": "CODE",
+          "count": 87
+        },
+        {
+          "from": "CODE",
+          "to": "ENV",
+          "count": 62
+        }
+      ],
+      "semantic_errors_1_2_0": 0,
+      "commit_flags": {
+        "C": {
+          "gained": 60,
+          "lost": 8
+        },
+        "P": {
+          "gained": 23,
+          "lost": 0
+        }
+      },
+      "metrics": {
+        "1.1.0": {
+          "code_config_cochange": {
+            "value": "0.06956521739130435",
+            "status": "observed",
+            "numerator": "224",
+            "denominator": "3220",
+            "taxonomy_version": "1.1.0"
+          },
+          "config_magnitude": {
+            "value": "29.47826086956522",
+            "status": "observed",
+            "numerator": "8136",
+            "denominator": "276",
+            "taxonomy_version": "1.1.0"
+          }
+        },
+        "1.2.0": {
+          "code_config_cochange": {
+            "value": "0.0761002444987775",
+            "status": "observed",
+            "numerator": "249",
+            "denominator": "3272",
+            "taxonomy_version": "1.2.0"
+          },
+          "config_magnitude": {
+            "value": "69.3076923076923",
+            "status": "observed",
+            "numerator": "20723",
+            "denominator": "299",
+            "taxonomy_version": "1.2.0"
+          }
+        }
+      }
+    },
+    {
+      "repository_id": "pymc-labs/pymc-marketing",
+      "runs_1_1_0": {
+        "freeze": "20260908T003854721749Z_43a2dae0_phase3_clone_repos",
+        "mine": "20260909T144237582697Z_af5a0048_phase4_mine_commits",
+        "metrics": "20260909T144621249616Z_af5a0048_phase5_compute_metrics"
+      },
+      "runs_1_2_0_preview": {
+        "freeze": "20260911T195313133445Z_f6fa8256_phase3_clone_repos",
+        "mine": "20260911T195320634477Z_f6fa8256_phase4_mine_commits",
+        "metrics": "20260911T195543718186Z_f6fa8256_phase5_compute_metrics"
+      },
+      "commits_identical": true,
+      "change_rows_identical_except_classification": true,
+      "change_rows": 8506,
+      "change_rows_reclassified": 45,
+      "reclassification": [
+        {
+          "from": "DOC",
+          "to": "DATA_RAW",
+          "count": 15
+        },
+        {
+          "from": "OUTRO",
+          "to": "ENV",
+          "count": 9
+        },
+        {
+          "from": "OUTRO",
+          "to": "CODE",
+          "count": 9
+        },
+        {
+          "from": "OUTRO",
+          "to": "DATA_RAW",
+          "count": 6
+        },
+        {
+          "from": "CODE",
+          "to": "ENV",
+          "count": 5
+        },
+        {
+          "from": "DOC",
+          "to": "CODE",
+          "count": 1
+        }
+      ],
+      "semantic_errors_1_2_0": 0,
+      "commit_flags": {
+        "C": {
+          "gained": 5,
+          "lost": 2
+        },
+        "P": {
+          "gained": 0,
+          "lost": 0
+        }
+      },
+      "metrics": {
+        "1.1.0": {
+          "code_config_cochange": {
+            "value": "0.01598173515981735",
+            "status": "observed",
+            "numerator": "14",
+            "denominator": "876",
+            "taxonomy_version": "1.1.0"
+          },
+          "config_magnitude": {
+            "value": "29.3125",
+            "status": "observed",
+            "numerator": "469",
+            "denominator": "16",
+            "taxonomy_version": "1.1.0"
+          }
+        },
+        "1.2.0": {
+          "code_config_cochange": {
+            "value": "0.015927189988623434",
+            "status": "observed",
+            "numerator": "14",
+            "denominator": "879",
+            "taxonomy_version": "1.2.0"
+          },
+          "config_magnitude": {
+            "value": "29.3125",
+            "status": "observed",
+            "numerator": "469",
+            "denominator": "16",
+            "taxonomy_version": "1.2.0"
+          }
+        }
+      }
+    },
+    {
+      "repository_id": "open-edge-platform/anomalib",
+      "runs_1_1_0": {
+        "freeze": "20260908T004129552279Z_43a2dae0_phase3_clone_repos",
+        "mine": "20260908T004136623679Z_43a2dae0_phase4_mine_commits",
+        "metrics": "20260908T004255518258Z_43a2dae0_phase5_compute_metrics"
+      },
+      "runs_1_2_0_preview": {
+        "freeze": "20260911T195551690441Z_f6fa8256_phase3_clone_repos",
+        "mine": "20260911T195559169406Z_f6fa8256_phase4_mine_commits",
+        "metrics": "20260911T195717660460Z_f6fa8256_phase5_compute_metrics"
+      },
+      "commits_identical": true,
+      "change_rows_identical_except_classification": true,
+      "change_rows": 10260,
+      "change_rows_reclassified": 541,
+      "reclassification": [
+        {
+          "from": "OUTRO",
+          "to": "CODE",
+          "count": 441
+        },
+        {
+          "from": "OUTRO",
+          "to": "ENV",
+          "count": 51
+        },
+        {
+          "from": "CODE",
+          "to": "ENV",
+          "count": 26
+        },
+        {
+          "from": "OUTRO",
+          "to": "CONFIG",
+          "count": 16
+        },
+        {
+          "from": "DATA_RAW",
+          "to": "OUTRO",
+          "count": 4
+        },
+        {
+          "from": "DOC",
+          "to": "CODE",
+          "count": 3
+        }
+      ],
+      "semantic_errors_1_2_0": 0,
+      "commit_flags": {
+        "C": {
+          "gained": 8,
+          "lost": 8
+        },
+        "P": {
+          "gained": 9,
+          "lost": 0
+        }
+      },
+      "metrics": {
+        "1.1.0": {
+          "code_config_cochange": {
+            "value": "0.16167664670658682",
+            "status": "observed",
+            "numerator": "108",
+            "denominator": "668",
+            "taxonomy_version": "1.1.0"
+          },
+          "config_magnitude": {
+            "value": "91.45378151260505",
+            "status": "observed",
+            "numerator": "10883",
+            "denominator": "119",
+            "taxonomy_version": "1.1.0"
+          }
+        },
+        "1.2.0": {
+          "code_config_cochange": {
+            "value": "0.1721556886227545",
+            "status": "observed",
+            "numerator": "115",
+            "denominator": "668",
+            "taxonomy_version": "1.2.0"
+          },
+          "config_magnitude": {
+            "value": "87.921875",
+            "status": "observed",
+            "numerator": "11254",
+            "denominator": "128",
+            "taxonomy_version": "1.2.0"
+          }
+        }
+      }
+    }
+  ],
+  "inventory": {
+    "units_1_1_0": 7631,
+    "units_1_2_0": 7631,
+    "identical_except_classification": true,
+    "by_category_1_2_0": {
+      "CI": 106,
+      "CODE": 2005,
+      "CONFIG": 424,
+      "DATA_RAW": 40,
+      "DOC": 2018,
+      "ENV": 57,
+      "NOTEBOOK": 163,
+      "OUTRO": 2251,
+      "TEST": 567
+    },
+    "calibration_units_flagged": 181
+  },
+  "evaluation_sample_1_2_0": {
+    "units": 180,
+    "by_category": {
+      "CI": 20,
+      "CODE": 20,
+      "CONFIG": 20,
+      "DATA_RAW": 20,
+      "DOC": 20,
+      "ENV": 20,
+      "NOTEBOOK": 20,
+      "OUTRO": 20,
+      "TEST": 20
+    },
+    "calibration_overlap": 0,
+    "sha256": "5ccdb6a61c4a0cdf0683ccad48a9e45b56a693d3344b2b71ead9ac2ce54f4b22"
+  },
+  "pr_map_template_identical": true,
+  "qualitative_selection": [
+    {
+      "repository_id": "ultralytics/ultralytics",
+      "selected_1_1_0": 15,
+      "selected_1_2_0": 15,
+      "kept": 10,
+      "removed": [
+        "https://github.com/ultralytics/ultralytics/pull/1347",
+        "https://github.com/ultralytics/ultralytics/pull/13672",
+        "https://github.com/ultralytics/ultralytics/pull/21893",
+        "https://github.com/ultralytics/ultralytics/pull/22892",
+        "https://github.com/ultralytics/ultralytics/pull/24718"
+      ],
+      "added": [
+        "https://github.com/ultralytics/ultralytics/pull/1034",
+        "https://github.com/ultralytics/ultralytics/pull/18868",
+        "https://github.com/ultralytics/ultralytics/pull/207",
+        "https://github.com/ultralytics/ultralytics/pull/712",
+        "https://github.com/ultralytics/ultralytics/pull/8571"
+      ]
+    },
+    {
+      "repository_id": "pymc-labs/pymc-marketing",
+      "selected_1_1_0": 15,
+      "selected_1_2_0": 15,
+      "kept": 15,
+      "removed": [],
+      "added": []
+    },
+    {
+      "repository_id": "open-edge-platform/anomalib",
+      "selected_1_1_0": 15,
+      "selected_1_2_0": 15,
+      "kept": 12,
+      "removed": [
+        "https://github.com/open-edge-platform/anomalib/pull/238",
+        "https://github.com/open-edge-platform/anomalib/pull/2465",
+        "https://github.com/open-edge-platform/anomalib/pull/640"
+      ],
+      "added": [
+        "https://github.com/open-edge-platform/anomalib/pull/1773",
+        "https://github.com/open-edge-platform/anomalib/pull/241",
+        "https://github.com/open-edge-platform/anomalib/pull/633"
+      ]
+    }
+  ],
+  "preview_files": {
+    "data/interim/runs/20260911T195802960132Z_f6fa8256_study_index/study_index.json": "2989ece3b1766609cc99f188f18d5921672cf4cbe8e535d3821d8f7acebbfe9b",
+    "data/interim/runs/20260911T195802960132Z_f6fa8256_study_index/taxonomy_inventory.json": "cdd9e508235e31628834059996b50d91e045e80cd1baea730e5ef7b31b1d629b",
+    "data/interim/runs/20260911T195802960132Z_f6fa8256_study_index/amostra_validacao_taxonomia.csv": "5ccdb6a61c4a0cdf0683ccad48a9e45b56a693d3344b2b71ead9ac2ce54f4b22",
+    "data/interim/runs/20260911T195815415781Z_f6fa8256_phase7_select_qualitative/eventos_selecionados.csv": "3a70665056a07534d9adc4112972ef6de35cdf0e80318b69bdc4e9483971eab7",
+    "data/interim/verification/incremento_07/runs_dm027_previa.json": "a66f90a7789400c37b2afb4089b436b519fa065211560ad87e07e5fed47da4c2"
+  }
+}

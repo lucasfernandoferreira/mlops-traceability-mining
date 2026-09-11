@@ -8,8 +8,9 @@ artefatos públicos dos projetos.
 O protocolo atual é o **2.1.0**. A amostra piloto reúne Ultralytics, PyMC Marketing e
 Anomalib. O Composer foi substituído na proposta após falhar no critério de atividade.
 A seleção definitiva, a validação da taxonomia e a interpretação qualitativa ainda
-precisam de revisão do pesquisador. O andamento e as evidências estão no
-[registro dos casos](docs/INSPECAO_MANUAL_AMOSTRA.md).
+precisam de revisão do pesquisador. A taxonomia 1.1.0 foi reprovada na revisão
+humana (91,1%); a 1.2.0 aguarda avaliação, conforme o [dossiê DM-027](docs/DM027_TAXONOMIA_1_2_0.md).
+O andamento e as evidências estão no [registro dos casos](docs/INSPECAO_MANUAL_AMOSTRA.md).
 
 ## Documentação
 
@@ -17,6 +18,7 @@ precisam de revisão do pesquisador. O andamento e as evidências estão no
 |---|---|
 | [Verificação e evidências](docs/CRITERIOS_ACEITE_E_EVIDENCIAS.md) | Baseline preservado, importação de revisões, matriz de critérios e contraprovas. |
 | [Método](docs/DECISOES_METODOLOGICAS.md) | Delineamento, seleção, validação, plano de análise e temas qualitativos. |
+| [Taxonomia 1.2.0](docs/DM027_TAXONOMIA_1_2_0.md) | Revisão da 1.1.0, diagnóstico das divergências, regras novas e impacto. |
 | [Casos e resultados](docs/INSPECAO_MANUAL_AMOSTRA.md) | Fontes, justificativas da amostra, execuções e pendências. |
 | [Métricas](docs/GQM_MAPA_METRICAS.md) | Perguntas, fórmulas, denominadores e interpretação. |
 | [Dicionário de dados](docs/DICIONARIO_DADOS.md) | Configuração, tabelas, manifestos e arquivos de revisão. |
@@ -115,9 +117,10 @@ O índice fica em `data/interim/runs/<run_id>/study_index.json`. O mesmo diretó
 contém o inventário, a amostra da taxonomia e os modelos de revisão dos casos,
 alinhamento acadêmico e mapa commit–PR. Preserve os originais e preencha cópias.
 
-Na amostra da taxonomia, o pesquisador informa `expected_category`, `reviewer` e
-`reviewed_at_utc`. Caminhos com mais de uma observação histórica também exigem
-`role_change_review`. A amostra contém até 20 caminhos por categoria; grupos com
+Na amostra da taxonomia, o pesquisador informa `expected_category`, `reviewer`,
+`reviewed_at_utc` (ISO 8601 com `+00:00`) e `justification`. Caminhos com mais de uma
+observação histórica também exigem `role_change_review`. Unidades listadas em
+`calibration_units` só entram na amostra quando faltam unidades novas. A amostra contém até 20 caminhos por categoria; grupos com
 menos de 20 são avaliados integralmente. A concordância mínima é 95%.
 
 ```bash

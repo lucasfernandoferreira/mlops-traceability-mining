@@ -1,0 +1,184 @@
+{
+  "created_at_utc": "2026-09-11T20:01:57.984757+00:00",
+  "registered_1_1_0": {
+    "note": "Runs científicos com worktree limpo no commit f6fa825 (índice DM-026, taxonomia 1.1.0).",
+    "study_index": {
+      "run_id": "20260911T193457396587Z_f6fa8256_study_index",
+      "status": "SUCCESS",
+      "dirty_worktree": false,
+      "scientific_eligible": true,
+      "code_commit_sha": "f6fa825694474b2d7db7d045dbfd7a0671d3681a",
+      "taxonomy_sha256": "ed2e489ee8fb3dae0c8f94906ee17d3f52a39618ca5769bbabd2be49cd3e1d57",
+      "manifest_sha256": "7f8328f2b41c436c8a839535be234b38ee0aaa7cfc1fa80a9f47a095b1cd32b3"
+    },
+    "phase6_validate_taxonomy": {
+      "run_id": "20260911T193603470335Z_f6fa8256_phase6_validate_taxonomy",
+      "status": "SUCCESS",
+      "dirty_worktree": false,
+      "scientific_eligible": true,
+      "code_commit_sha": "f6fa825694474b2d7db7d045dbfd7a0671d3681a",
+      "taxonomy_sha256": "ed2e489ee8fb3dae0c8f94906ee17d3f52a39618ca5769bbabd2be49cd3e1d57",
+      "manifest_sha256": "2a13c0d6ae96658c6d5b390264a532abc55a3a35681e8e6320caafb7976e2ee2"
+    },
+    "phase7_select_qualitative": {
+      "run_id": "20260911T193614523990Z_f6fa8256_phase7_select_qualitative",
+      "status": "SUCCESS",
+      "dirty_worktree": false,
+      "scientific_eligible": true,
+      "code_commit_sha": "f6fa825694474b2d7db7d045dbfd7a0671d3681a",
+      "taxonomy_sha256": "ed2e489ee8fb3dae0c8f94906ee17d3f52a39618ca5769bbabd2be49cd3e1d57",
+      "manifest_sha256": "81b260aa04b0767a4e04e08e401cd39375556ee6415490095c5a3840c36e4e89"
+    },
+    "phase8_report": {
+      "run_id": "20260911T193626964902Z_f6fa8256_phase8_report",
+      "status": "SUCCESS",
+      "dirty_worktree": false,
+      "scientific_eligible": true,
+      "code_commit_sha": "f6fa825694474b2d7db7d045dbfd7a0671d3681a",
+      "taxonomy_sha256": "ed2e489ee8fb3dae0c8f94906ee17d3f52a39618ca5769bbabd2be49cd3e1d57",
+      "manifest_sha256": "bc7fe4d15a44a76807095bc33d2b917416d3eb65e8cdf3225d2a3c1c4fe393a7"
+    },
+    "identical_to_09_09_index": [
+      "amostra_validacao_taxonomia.csv",
+      "taxonomy_inventory.json",
+      "pr_map_template.json"
+    ],
+    "phase7_identical_to_dm026_preview": [
+      "eventos_selecionados.csv",
+      "eventos_candidatos.csv",
+      "codificacao_qualitativa.csv"
+    ]
+  },
+  "failed_attempt": {
+    "run_id": "20260911T194739659983Z_f6fa8256_phase4_mine_commits",
+    "reason": "Source instrument mismatch: config/config.yaml; a cadeia 1.2.0 foi refeita a partir da fase 3."
+  },
+  "preview_1_2_0": {
+    "note": "Runs de desenvolvimento (ALLOW_DIRTY=1) sobre alterações locais; não autorizam aceite.",
+    "cases": [
+      {
+        "repository_id": "ultralytics/ultralytics",
+        "freeze": {
+          "run_id": "20260911T194850458668Z_f6fa8256_phase3_clone_repos",
+          "status": "SUCCESS",
+          "dirty_worktree": true,
+          "scientific_eligible": false,
+          "code_commit_sha": "f6fa825694474b2d7db7d045dbfd7a0671d3681a",
+          "taxonomy_sha256": "00793d9ffc0fc82e350944283c5975cc55ee4b140781edd43c77c2443509be16",
+          "manifest_sha256": "4908040bc6a179c2f0d2dbc0d41d85f5b4b876d9809f2582546c4bcc645cf91b"
+        },
+        "mine": {
+          "run_id": "20260911T194858053032Z_f6fa8256_phase4_mine_commits",
+          "status": "SUCCESS",
+          "dirty_worktree": true,
+          "scientific_eligible": false,
+          "code_commit_sha": "f6fa825694474b2d7db7d045dbfd7a0671d3681a",
+          "taxonomy_sha256": "00793d9ffc0fc82e350944283c5975cc55ee4b140781edd43c77c2443509be16",
+          "manifest_sha256": "e04a9c8836fd7b21599ee162c6abc384a2e278653f3b61c99c3d94d2fc5f8fe2"
+        },
+        "metrics": {
+          "run_id": "20260911T195304981656Z_f6fa8256_phase5_compute_metrics",
+          "status": "SUCCESS",
+          "dirty_worktree": true,
+          "scientific_eligible": false,
+          "code_commit_sha": "f6fa825694474b2d7db7d045dbfd7a0671d3681a",
+          "taxonomy_sha256": "00793d9ffc0fc82e350944283c5975cc55ee4b140781edd43c77c2443509be16",
+          "manifest_sha256": "209e0c50ccce6f051045b5a82d491be271ba8c83da726d97ab302aaf72b763e3"
+        }
+      },
+      {
+        "repository_id": "pymc-labs/pymc-marketing",
+        "freeze": {
+          "run_id": "20260911T195313133445Z_f6fa8256_phase3_clone_repos",
+          "status": "SUCCESS",
+          "dirty_worktree": true,
+          "scientific_eligible": false,
+          "code_commit_sha": "f6fa825694474b2d7db7d045dbfd7a0671d3681a",
+          "taxonomy_sha256": "00793d9ffc0fc82e350944283c5975cc55ee4b140781edd43c77c2443509be16",
+          "manifest_sha256": "3f5f2306ad55844e7fd704eab8c7c0ada7a78c0e1f097d5eda31f71abfc5736b"
+        },
+        "mine": {
+          "run_id": "20260911T195320634477Z_f6fa8256_phase4_mine_commits",
+          "status": "SUCCESS",
+          "dirty_worktree": true,
+          "scientific_eligible": false,
+          "code_commit_sha": "f6fa825694474b2d7db7d045dbfd7a0671d3681a",
+          "taxonomy_sha256": "00793d9ffc0fc82e350944283c5975cc55ee4b140781edd43c77c2443509be16",
+          "manifest_sha256": "7422ca6b535550254e196d06adf772363073d57ce1f9f4bd87988f04dbe5b912"
+        },
+        "metrics": {
+          "run_id": "20260911T195543718186Z_f6fa8256_phase5_compute_metrics",
+          "status": "SUCCESS",
+          "dirty_worktree": true,
+          "scientific_eligible": false,
+          "code_commit_sha": "f6fa825694474b2d7db7d045dbfd7a0671d3681a",
+          "taxonomy_sha256": "00793d9ffc0fc82e350944283c5975cc55ee4b140781edd43c77c2443509be16",
+          "manifest_sha256": "8b1a059e498ee0253155bc447f7c3a9b02af00a5c0360d1ebf540163c4b7d920"
+        }
+      },
+      {
+        "repository_id": "open-edge-platform/anomalib",
+        "freeze": {
+          "run_id": "20260911T195551690441Z_f6fa8256_phase3_clone_repos",
+          "status": "SUCCESS",
+          "dirty_worktree": true,
+          "scientific_eligible": false,
+          "code_commit_sha": "f6fa825694474b2d7db7d045dbfd7a0671d3681a",
+          "taxonomy_sha256": "00793d9ffc0fc82e350944283c5975cc55ee4b140781edd43c77c2443509be16",
+          "manifest_sha256": "883632fb7b9e488c497b5e96e1dfd5f866df231b1310a90dad9ce65baf4e6b0e"
+        },
+        "mine": {
+          "run_id": "20260911T195559169406Z_f6fa8256_phase4_mine_commits",
+          "status": "SUCCESS",
+          "dirty_worktree": true,
+          "scientific_eligible": false,
+          "code_commit_sha": "f6fa825694474b2d7db7d045dbfd7a0671d3681a",
+          "taxonomy_sha256": "00793d9ffc0fc82e350944283c5975cc55ee4b140781edd43c77c2443509be16",
+          "manifest_sha256": "0a6a2b1794c93d437542fb39e5cf814680bbff5a71cb4cbe34a7ed9f3cdc7416"
+        },
+        "metrics": {
+          "run_id": "20260911T195717660460Z_f6fa8256_phase5_compute_metrics",
+          "status": "SUCCESS",
+          "dirty_worktree": true,
+          "scientific_eligible": false,
+          "code_commit_sha": "f6fa825694474b2d7db7d045dbfd7a0671d3681a",
+          "taxonomy_sha256": "00793d9ffc0fc82e350944283c5975cc55ee4b140781edd43c77c2443509be16",
+          "manifest_sha256": "2d41f107ee14dc77259eadda4e8b7d0462a5342d335c8bab644251b861469ee0"
+        }
+      }
+    ],
+    "study_index": {
+      "run_id": "20260911T195802960132Z_f6fa8256_study_index",
+      "status": "SUCCESS",
+      "dirty_worktree": true,
+      "scientific_eligible": false,
+      "code_commit_sha": "f6fa825694474b2d7db7d045dbfd7a0671d3681a",
+      "taxonomy_sha256": "00793d9ffc0fc82e350944283c5975cc55ee4b140781edd43c77c2443509be16",
+      "manifest_sha256": "01c49b70a94b815d62cf1b6cc81dd111b99da4da1d512e0922ed269e610d1c50"
+    },
+    "phase7_select_qualitative": {
+      "run_id": "20260911T195815415781Z_f6fa8256_phase7_select_qualitative",
+      "status": "SUCCESS",
+      "dirty_worktree": true,
+      "scientific_eligible": false,
+      "code_commit_sha": "f6fa825694474b2d7db7d045dbfd7a0671d3681a",
+      "taxonomy_sha256": "00793d9ffc0fc82e350944283c5975cc55ee4b140781edd43c77c2443509be16",
+      "manifest_sha256": "c2dbbdedac7a23a8c213530b03e45173d07d0d6de22d82cb09cddc9bbe186aec"
+    },
+    "phase8_report": {
+      "run_id": "20260911T195827873517Z_f6fa8256_phase8_report",
+      "status": "SUCCESS",
+      "dirty_worktree": true,
+      "scientific_eligible": false,
+      "code_commit_sha": "f6fa825694474b2d7db7d045dbfd7a0671d3681a",
+      "taxonomy_sha256": "00793d9ffc0fc82e350944283c5975cc55ee4b140781edd43c77c2443509be16",
+      "manifest_sha256": "b152b0237a23f559e123e748b96fc56b9484296f628cbd5c67acbaf4e66d678a"
+    },
+    "runs_file": {
+      "path": "data/interim/verification/incremento_07/runs_dm027_previa.json",
+      "sha256": "a66f90a7789400c37b2afb4089b436b519fa065211560ad87e07e5fed47da4c2"
+    },
+    "evaluation_workspace": "data/interim/reviews/avaliacao_taxonomia_1_2_0_20260911",
+    "evaluation_origin_sha256": "655958d27e3186f95070ecaa7fae9b382f1494437cd34134f5934a1f4e1efbe1"
+  }
+}

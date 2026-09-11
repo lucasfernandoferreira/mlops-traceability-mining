@@ -176,6 +176,30 @@ O [registro da rodada](evidencias/rodada_atual.json) reúne os identificadores, 
 contagens e recibos. A verificação `make check` passou com 140 testes e 93,07% de
 cobertura; o log está em [validacao_atual.txt](evidencias/validacao_atual.txt).
 
+## Validação da taxonomia: 11/09/2026 UTC
+
+O índice DM-026 foi registrado com worktree limpo no commit `f6fa825`, em
+`20260911T193457396587Z_f6fa8256_study_index`. Inventário, amostra e template de PRs
+ficaram idênticos aos de 09/09, e a seleção qualitativa repetiu a prévia DM-026.
+A revisão humana das 180 unidades concordou com a taxonomia 1.1.0 em 164 (91,1%),
+abaixo do limiar de 95%. A fase 6 registrou recusa; `role_change_review` ainda está
+pendente, por isso o recibo não exibe a concordância.
+
+A taxonomia 1.2.0 (DM-027) foi medida em prévia com alterações locais. Commits e
+mudanças ficaram idênticos; só a classificação mudou. Os valores abaixo são
+preliminares e não substituem runs registrados.
+
+| Caso | Coalteração 1.1.0 | Coalteração 1.2.0 | Magnitude 1.1.0 | Magnitude 1.2.0 |
+|---|---:|---:|---:|---:|
+| ultralytics/ultralytics | 6,96% (224/3.220) | 7,61% (249/3.272) | 29,48 | 69,31 |
+| pymc-labs/pymc-marketing | 1,60% (14/876) | 1,59% (14/879) | 29,31 | 29,31 |
+| open-edge-platform/anomalib | 16,17% (108/668) | 17,22% (115/668) | 91,45 | 87,92 |
+
+Oito dos 45 eventos qualitativos mudam: cinco no Ultralytics e três no Anomalib.
+A nova amostra de avaliação tem 180 unidades sem sobreposição com a calibração.
+Consolidação, diagnóstico, regras, impacto e próximos passos estão no
+[dossiê DM-027](DM027_TAXONOMIA_1_2_0.md).
+
 ## Revisão e continuidade
 
 O [guia de revisão](../data/interim/reviews/trio_20260908T003438Z/revisao.html) reúne as prévias dos
