@@ -1,0 +1,169 @@
+[
+  {
+    "repository_id": "ultralytics/ultralytics",
+    "repository_url": "https://github.com/ultralytics/ultralytics",
+    "head_commit_sha": "fa34184a5080c81fff453670394e13303ac781b2",
+    "domain": "Visão computacional",
+    "research_questions_supported": "C/P, magnitude CONFIG e instrumentação de parâmetros/métricas/artefatos",
+    "expected_contrast": "Integração por callbacks do treinamento",
+    "integration_entrypoint": "ultralytics/engine/trainer.py",
+    "integration_component": "ultralytics/utils/callbacks/mlflow.py",
+    "integration_paths": [
+      "ultralytics/engine/trainer.py",
+      "ultralytics/utils/callbacks/base.py",
+      "ultralytics/utils/callbacks/mlflow.py"
+    ],
+    "operation": "log_params; log_metrics; log_artifact",
+    "enablement": "add_integration_callbacks registra callbacks; SETTINGS.mlflow verdadeiro, pacote disponível e guards de execução/teste.",
+    "evidence_scope": "BaseTrainer registra os callbacks e dispara eventos; callback envia trainer.args, métricas e pesos. Não comprova execução pública.",
+    "test_path": "tests/test_integrations.py",
+    "integration_evidence_status": "functional_integration_observed",
+    "evidence_type": "structural",
+    "case_boundary": "canonical repository and reachable history at selected SHA",
+    "selection_rationale": "Piloto: callbacks concentrados de parâmetros, métricas e artefatos.",
+    "reachable_commit_count": 4974,
+    "active_after": "2025-09-01T00:00:00+00:00",
+    "active_identity_count": 175,
+    "stars_at_collection": 61103,
+    "collection_timestamp": "2026-08-31T03:07:44.308341Z",
+    "evidence_sha": "fa34184a5080c81fff453670394e13303ac781b2",
+    "evidence_url": "https://github.com/ultralytics/ultralytics/blob/fa34184a5080c81fff453670394e13303ac781b2/ultralytics/utils/callbacks/mlflow.py",
+    "availability_reason": "Fontes locais recuperáveis no SHA congelado; alcance estrutural descrito na ficha.",
+    "decision": "accepted",
+    "decision_reason": "Inclusão tecnicamente sustentada pelo histórico congelado, atividade e estrelas da coleta original. BaseTrainer registra callbacks via add_integration_callbacks, e o componente mlflow envia argumentos, métricas e artefatos sob SETTINGS e guards. No evento 620f3eb2181c1b686c9bdd2ee805dee483d4f116, o caminho é renomeado de ultralytics/yolo/utils/callbacks/mlflow.py; o marco selecionado não é adoção inicial. Integração estrutural, sem alegação de uso público em execução.",
+    "reviewer": "assistant:codex-dm027-fechamento",
+    "reviewed_at_utc": "2026-09-13T22:14:44Z",
+    "source_run_ids": {
+      "freeze": {
+        "run_id": "20260911T203554301729Z_1ce60b65_phase3_clone_repos",
+        "manifest_sha256": "df995555555535fc58e8062630361c92e3eca4af40cab4a524eea0aed3990852"
+      },
+      "mine": {
+        "run_id": "20260911T203602450968Z_1ce60b65_phase4_mine_commits",
+        "manifest_sha256": "fc26366c161a7c01a875bde561a260c261790a857d201b453a11b7cb3b040505"
+      },
+      "metrics": {
+        "run_id": "20260911T204006043225Z_1ce60b65_phase5_compute_metrics",
+        "manifest_sha256": "155d40cb1dd232cd4fb316fa6a3138c2c5781194fa072d0683156e86a4d336b4"
+      }
+    },
+    "protocol_version": "2.1.0",
+    "preparation_by": "assistant:codex-dm027-fechamento",
+    "drafted_by": "assistant:codex-dm027-fechamento",
+    "review_mode": "ai_drafted_pending_confirmation",
+    "confirmed_by": null,
+    "confirmed_at_utc": null,
+    "timestamp_source": "observed"
+  },
+  {
+    "repository_id": "pymc-labs/pymc-marketing",
+    "repository_url": "https://github.com/pymc-labs/pymc-marketing",
+    "head_commit_sha": "fabba92c96aa6a4ec6d42fb3241a8ed725995d0a",
+    "domain": "Modelagem probabilística de marketing",
+    "research_questions_supported": "C/P, magnitude CONFIG e contexto do modelo/dados na instrumentação",
+    "expected_contrast": "Autologging de modelos, configuração, dados e inferência",
+    "integration_entrypoint": "pymc_marketing/model_builder.py",
+    "integration_component": "pymc_marketing/mlflow.py",
+    "integration_paths": [
+      "pymc_marketing/model_builder.py",
+      "pymc_marketing/mmm/mmm.py",
+      "pymc_marketing/mlflow.py"
+    ],
+    "operation": "log_params; log_input; log_inference_data",
+    "enablement": "autolog envolve pm.sample; log_mmm habilita wrapper de MMM.fit, registrando configuração antes e inferência depois.",
+    "evidence_scope": "Wrappers conectados às operações de amostragem/fit. Testes documentam chamadas; exemplos não foram executados nesta coleta.",
+    "test_path": "tests/test_mlflow.py",
+    "integration_evidence_status": "functional_integration_observed",
+    "evidence_type": "structural",
+    "case_boundary": "canonical repository and reachable history at selected SHA",
+    "selection_rationale": "Contraste de domínio, configuração e dados.",
+    "reachable_commit_count": 1506,
+    "active_after": "2025-09-01T00:00:00+00:00",
+    "active_identity_count": 40,
+    "stars_at_collection": 1250,
+    "collection_timestamp": "2026-08-31T03:07:44.308341Z",
+    "evidence_sha": "fabba92c96aa6a4ec6d42fb3241a8ed725995d0a",
+    "evidence_url": "https://github.com/pymc-labs/pymc-marketing/blob/fabba92c96aa6a4ec6d42fb3241a8ed725995d0a/pymc_marketing/mlflow.py",
+    "availability_reason": "Fontes locais recuperáveis no SHA congelado; alcance estrutural descrito na ficha.",
+    "decision": "accepted",
+    "decision_reason": "Inclusão tecnicamente sustentada pelo histórico congelado e diversidade do domínio. pymc_marketing/mlflow.py conecta autolog à amostragem e ao fit e registra informações do modelo, parâmetros e inferência. ModelBuilder recebe model_config e sampler_config como objetos Python: a taxonomia os conta em CODE, portanto CONFIG não cobre integralmente a configuração operacional. Evidência de wrappers e testes, sem medir proveniência de runs públicos.",
+    "reviewer": "assistant:codex-dm027-fechamento",
+    "reviewed_at_utc": "2026-09-13T22:14:44Z",
+    "source_run_ids": {
+      "freeze": {
+        "run_id": "20260911T204014738738Z_1ce60b65_phase3_clone_repos",
+        "manifest_sha256": "305bfc5287539811c744469e69987787c95a85fb7fd1762b52aadea2d940d40c"
+      },
+      "mine": {
+        "run_id": "20260911T204022656855Z_1ce60b65_phase4_mine_commits",
+        "manifest_sha256": "bd1b3e5e7dca6bc6cd05269b2ead09819fe8e2d582c16c6ee821cde2af5921d6"
+      },
+      "metrics": {
+        "run_id": "20260911T204247182335Z_1ce60b65_phase5_compute_metrics",
+        "manifest_sha256": "0659da54e7fed0cb181061a4cc02fd1e7bf5f087f9525a7bc659b7334135ffb7"
+      }
+    },
+    "protocol_version": "2.1.0",
+    "preparation_by": "assistant:codex-dm027-fechamento",
+    "drafted_by": "assistant:codex-dm027-fechamento",
+    "review_mode": "ai_drafted_pending_confirmation",
+    "confirmed_by": null,
+    "confirmed_at_utc": null,
+    "timestamp_source": "observed"
+  },
+  {
+    "repository_id": "open-edge-platform/anomalib",
+    "repository_url": "https://github.com/open-edge-platform/anomalib",
+    "head_commit_sha": "0b7fdb9dde453f6474ac93f77188f4224d442999",
+    "domain": "Detecção de anomalias em visão computacional",
+    "research_questions_supported": "C/P, magnitude CONFIG e integração estrutural por injeção de logger, com operações herdadas do Lightning",
+    "expected_contrast": "Ativação por injeção do logger pelo usuário num framework de treinamento (Lightning); componente MLflow como adaptador fino com operações herdadas",
+    "integration_entrypoint": "src/anomalib/engine/engine.py",
+    "integration_component": "src/anomalib/loggers/mlflow.py",
+    "integration_paths": [
+      "src/anomalib/engine/engine.py",
+      "src/anomalib/loggers/mlflow.py"
+    ],
+    "operation": "log_hyperparams; log_metrics (herdadas do Lightning 2.6.5 via MlflowClient.log_batch); checkpoints condicionados a log_model; add_image disponível para chamada explícita, fora da ligação automática demonstrada",
+    "enablement": "Extra loggers; usuário fornece AnomalibMLFlowLogger ao Engine; logger=None resulta em logger=False; log_model=False por padrão; registro sujeito às condições do Trainer e do modelo",
+    "evidence_scope": "Engine recebe o logger e o repassa ao Trainer (engine.py:155-174, 305-332). O AnomalibModule salva hiperparâmetros; modelos LightningModule chamam self.log. As operações log_hyperparams/log_metrics são herdadas do Lightning 2.6.5, commit be98784a1a03581b7051a355ae1084fd352d7cea, inspecionado e preservado em docs/evidencias/dm026_fontes.json. Evidência estrutural conforme DM-026 A; sem execução de dependências ou comprovação de uso por terceiros. O Engine deixou de registrar _VisualizationCallback na v2.0.0; add_image permanece API disponível e não compõe a ligação automática demonstrada.",
+    "example_path": "examples/api/04_advanced/loggers.py",
+    "integration_evidence_status": "functional_integration_observed",
+    "evidence_type": "structural",
+    "case_boundary": "canonical repository and reachable history at selected SHA",
+    "selection_rationale": "Primeira reserva previamente ordenada; substituição técnica do Composer por inelegibilidade de contribuidores, antes de observar métricas da reserva. Contraste por delegação ao Lightning e registro de imagens.",
+    "reachable_commit_count": 1134,
+    "active_after": "2025-09-01T00:00:00+00:00",
+    "active_identity_count": 39,
+    "stars_at_collection": 6099,
+    "collection_timestamp": "2026-08-31T03:07:44.308341Z",
+    "evidence_sha": "0b7fdb9dde453f6474ac93f77188f4224d442999",
+    "evidence_url": "https://github.com/open-edge-platform/anomalib/blob/0b7fdb9dde453f6474ac93f77188f4224d442999/src/anomalib/loggers/mlflow.py",
+    "availability_reason": "Fontes locais recuperáveis no SHA congelado; alcance estrutural descrito na ficha.",
+    "decision": "accepted",
+    "decision_reason": "Inclusão tecnicamente sustentada como reserva ordenada do protocolo após inelegibilidade do Composer, preservando a decisão anterior às métricas. O Engine repassa logger ao Trainer e converte ausência em desativação. AnomalibMLFlowLogger herda operações do Lightning; a fonte externa preservada da DM-026 identifica a implementação examinada. Checkpoints dependem de log_model; add_image é API disponível sem ligação automática demonstrada no congelamento. Não há comprovação de uso por terceiros.",
+    "reviewer": "assistant:codex-dm027-fechamento",
+    "reviewed_at_utc": "2026-09-13T22:14:44Z",
+    "source_run_ids": {
+      "freeze": {
+        "run_id": "20260911T204255662629Z_1ce60b65_phase3_clone_repos",
+        "manifest_sha256": "01fbad2aeff5076fc89e0ed4143442a59311b8cc9f0f9c4e0bee77380b18f472"
+      },
+      "mine": {
+        "run_id": "20260911T204303427403Z_1ce60b65_phase4_mine_commits",
+        "manifest_sha256": "ff15da0fee4414bbb0df785dd9dbc8d3bd09fcc6eedb0dc54a68e9ffc3620289"
+      },
+      "metrics": {
+        "run_id": "20260911T204423270513Z_1ce60b65_phase5_compute_metrics",
+        "manifest_sha256": "9eb76800e956846f3374209b595d9e67c706c70910e0fa103c46f89adb8dbcd9"
+      }
+    },
+    "protocol_version": "2.1.0",
+    "preparation_by": "assistant:codex-dm027-fechamento",
+    "drafted_by": "assistant:codex-dm027-fechamento",
+    "review_mode": "ai_drafted_pending_confirmation",
+    "confirmed_by": null,
+    "confirmed_at_utc": null,
+    "timestamp_source": "observed"
+  }
+]
