@@ -19,6 +19,7 @@ from mlops_traceability.run_storage import portable_path, verified_run
 from mlops_traceability.study import load_index
 from mlops_traceability.validation.taxonomy_review import evaluate_review, read_csv, valid_utc
 from mlops_traceability.verification.oracles import taxonomy_tally
+from mlops_traceability.verification.provenance import assess_provenance
 
 REVIEW_FILES = (
     "taxonomia_revisada.csv",
@@ -204,6 +205,8 @@ def evaluate_import(
     )
     rows = read_csv(directory / "taxonomia_revisada.csv")
     problems = [f"taxonomy:{reason}" for reason in taxonomy["blocking_reasons"]]
+    for name in REVIEW_FILES:
+        problems.extend(f"{name}:{error}" for error in assess_provenance(directory, name)["errors"])
     problems += record_issues(
         rows,
         (
@@ -305,12 +308,17 @@ def import_reviews(
     code = 2
     try:
         # Preserve every available input before validating any of them, including refusals.
-        for name in (*REVIEW_FILES, "origens.json", "temas_emergentes.json"):
+        for name in (
+            *REVIEW_FILES,
+            "origens.json",
+            "temas_emergentes.json",
+            "review_provenance.json",
+        ):
             source = review_dir / name
             if source.is_file():
                 shutil.copyfile(source, preserved / name)
                 receipt["review_file_hashes"][name] = sha256_file(preserved / name)
-            elif name != "temas_emergentes.json":
+            elif name not in {"temas_emergentes.json", "review_provenance.json"}:
                 receipt["blocking_reasons"].append(f"missing_input:{name}")
         receipt["verification_code_sha"] = subprocess.check_output(
             ["git", "-C", str(root), "rev-parse", "HEAD"],

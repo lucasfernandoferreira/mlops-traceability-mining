@@ -188,6 +188,30 @@ def test_full_derived_pipeline_blank_review_and_tampering(
             role_change_review="synthetic role checked",
         )
     write_csv(reviewed, rows)
+    sidecar = reviewed.parent / "review_provenance.json"
+    sidecar.write_text(
+        json.dumps(
+            {
+                "file_hashes": {reviewed.name: sha256_file(reviewed)},
+                "records": [
+                    {
+                        "file": reviewed.name,
+                        "record_id": row["unit_id"],
+                        "drafted_by": "assistant:synthetic",
+                        "review_mode": "ai_drafted_pending_confirmation",
+                    }
+                    for row in rows
+                ],
+            }
+        )
+    )
+    assert run_study("phase6_validate_taxonomy", common + ["--sample", str(reviewed)], project) == 1
+    rejected = latest_study(project, "phase6_validate_taxonomy")
+    draft = json.loads((rejected / "taxonomy_validation.json").read_text())
+    assert "ai_review_requires_confirmation" in draft["blocking_reasons"]
+    assert draft["agreement"] == 1.0
+    assert (rejected / "review_provenance.json").is_file()
+    sidecar.unlink()
     assert (
         run_study(
             "phase6_validate_taxonomy",

@@ -3,11 +3,37 @@
 from __future__ import annotations
 
 import json
+import shutil
 from pathlib import Path
 from typing import Any
 
 from mlops_traceability.manifest import sha256_file
 from mlops_traceability.validation.taxonomy_review import valid_utc
+
+
+def copy_provenance(source: Path, destination: Path) -> None:
+    """Carry authorship through input renaming, retaining the declared byte digest."""
+    origin = source.parent / "review_provenance.json"
+    if not origin.exists():
+        return
+    data = json.loads(origin.read_text())
+    target = destination.parent / "review_provenance.json"
+    merged = (
+        json.loads(target.read_text()) if target.exists() else {"records": [], "file_hashes": {}}
+    )
+    if destination.name in merged["file_hashes"]:
+        raise ValueError("Duplicate provenance destination")
+    merged["file_hashes"][destination.name] = data["file_hashes"].get(source.name)
+    for record in data["records"]:
+        if record["file"] == source.name:
+            copied = {**record, "file": destination.name}
+            if record.get("review_mode") == "human_recorded":
+                original = source.parent / record["source_record"]
+                local = destination.parent / ("human_source_" + record["source_sha256"])
+                shutil.copyfile(original, local)
+                copied["source_record"] = local.name
+            merged["records"].append(copied)
+    target.write_text(json.dumps(merged, ensure_ascii=False, indent=2) + "\n")
 
 
 def assess_provenance(directory: Path, filename: str) -> dict[str, Any]:
