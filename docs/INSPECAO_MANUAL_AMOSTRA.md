@@ -1,5 +1,12 @@
 # Casos e andamento da pesquisa
 
+## Estado consolidado da rodada
+
+A cadeia registrada está identificada em [rodada de referência](evidencias/rodada_referencia_1_2_0.md). Mineração, métricas, índice, seleção e relatório já foram executados. As passagens abaixo sobre prévia e registro futuro são históricas. O fechamento e a autoria das novas análises estão em `RELATORIO_FECHAMENTO_DM027.md`.
+
+[HISTÓRICO — rodada anterior]
+
+
 A amostra piloto reúne Ultralytics, PyMC Marketing e Anomalib. Os três apresentam
 integração funcional observável com MLflow e passaram na contagem técnica de
 atividade. A decisão definitiva sobre os casos, a revisão da taxonomia e o
