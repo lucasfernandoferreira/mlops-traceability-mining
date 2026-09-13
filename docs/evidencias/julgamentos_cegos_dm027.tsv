@@ -1,0 +1,180 @@
+1	CONFIG	model.class_path aponta para Draem e init_args define beta e sspcab_lambda; trainer configura EarlyStopping e pixel_AUROC.
+2	CONFIG	A declaração MMM fornece channel_columns, GeometricAdstock, MichaelisMentenSaturation e sampler_config; especifica construção e ajuste do modelo.
+3	CONFIG	YOLOv9s é descrito por nc, backbone GELAN e head com Concat; são parâmetros declarativos de arquitetura.
+4	CONFIG	ReverseDistillation recebe wide_resnet50_2, layers e anomaly_map_mode; o mesmo YAML configura AUROC e o Trainer.
+5	CONFIG	O MMM hierárquico declara dims market, Scaling e priors da saturação; o papel é parametrizar o modelo multidimensional.
+6	CONFIG	YOLOv5n6u define depth_multiple, width_multiple e listas de módulos Conv/C3; o conteúdo controla a arquitetura.
+7	CONFIG	Stfpm usa resnet18 e layers, com AUROC e EarlyStopping; o arquivo é entrada declarativa do treinamento.
+8	CONFIG	MMM com eventos declara canais, scaling e priors Beta de adstock; os valores definem a especificação do modelo.
+9	CONFIG	YOLOv8s-seg define escalas, backbone C2f e head de segmentação; a finalidade é construir a rede.
+10	CONFIG	MVTecAD2 é selecionado por class_path com root, categoria sheet_metal e tamanhos de lote; configura o datamodule.
+11	CONFIG	MMM é instanciado por class/kwargs com adstock, saturação e opções de amostragem; não contém observações tabulares.
+12	CONFIG	YOLOv8-seg-p6 define escalas n/s/m/l/x e saídas de múltiplas resoluções; é configuração arquitetural.
+13	CONFIG	Patchcore declara backbone, layers, coreset_sampling_ratio e num_neighbors; controla os hiperparâmetros do algoritmo.
+14	CONFIG	O exemplo MMM declara control_columns event_1/event_2, dimensão geo e sazonalidade; especifica os componentes a construir.
+15	CONFIG	YOLO26-pose contém kpt_shape, end2end, reg_max e escalas; configura estimativa de pontos-chave.
+16	CONFIG	O caminho histórico de Stfpm contém class_path, resnet18, AUROC e EarlyStopping; mantém o papel de configuração de treino.
+17	OUTRO	blank_issues_enabled e contact_links configuram a abertura de issues e canais comunitários; não parametrizam pipeline de ML, ambiente ou execução de CI.
+18	CONFIG	O YAML histórico yolov8n define nc, multiplicadores e backbone/head; mudanças do nome do modelo nos comentários não alteram a função arquitetural.
+19	CONFIG	BTech recebe root, categoria, split modes e batch sizes; configura ingestão e separação de dados, sem armazenar as imagens.
+20	CONFIG	MMM hierárquico aninhado define target kpi_registrations, market, Scaling e prior Beta; é especificação declarativa para construção.
+21	ENV	O manifesto studio-ui declara engines Node/npm, scripts de build e dependências; descreve o ambiente e empacotamento da aplicação.
+22	ENV	O environment-dev declara canais conda-forge/nodefaults e dependência pymc-marketing; define um ambiente de desenvolvimento.
+23	ENV	Cargo.toml declara package YOLO-ONNXRuntime-Rust e dependências anyhow, clap, tracing e usls; configura construção e dependências Rust.
+24	ENV	FROM nvidia/cuda:10.2-devel-ubuntu18.04 e apt-get definem a imagem e bibliotecas; sua localização em .ci não transforma a receita em workflow.
+25	OUTRO	O blob contém apenas a seção flake8 com max-line-length e extend-ignore; configura lint, sem metadados de pacote ou dependências.
+26	ENV	A receita CPU parte de Ubuntu e instala bibliotecas de sistema/Python para deployment; sua função é construir o ambiente.
+27	ENV	lockfileVersion e packages resolvem dependências de studio-ui; o JSON fixa a árvore de instalação npm.
+28	ENV	FROM ultralytics e instalação de actions-runner constroem a imagem do executor; é receita de ambiente utilizado pela CI.
+29	ENV	uv.lock contém requires-python, marcadores de plataforma e resolução de pacotes; o blob expandido fixa dependências, embora haja ponteiro LFS histórico.
+30	ENV	FROM python:3.10-slim-bookworm e instalação de bibliotecas para inferência compõem ambiente Python de deployment.
+31	ENV	Cargo.lock registra package, version, source e checksum; preserva resolução de dependências Rust da aplicação Tauri.
+32	ENV	setup chama empacotamento de ultralytics, extrai __version__ e lê requirements; o papel dominante é instalação/distribuição.
+33	ENV	O script setup carrega a versão de anomalib para montar o pacote; as funções auxiliares servem ao empacotamento da raiz.
+34	ENV	A receita parte de continuumio/miniconda3 e instala pacotes conda para Ultralytics; define a imagem de ambiente.
+35	ENV	FROM nvidia/cuda:11.4.0-devel-ubuntu20.04 e apt-get montam o ambiente CUDA/Python; é construção de contêiner.
+36	ENV	A imagem python-export instala gnupg, Java e extras export; concentra requisitos para conversão de modelos.
+37	ENV	A lista fixa pillow, torch, torchvision e pytorch-lightning, além de outras bibliotecas; especifica dependências de execução.
+38	ENV	FROM latest-python, instalação de jupyterlab e ENTRYPOINT jupyter configuram ambiente interativo em contêiner.
+39	ENV	myst-parser, nbsphinx e sphinx são dependências para construir a documentação; a função do arquivo é instalar ferramentas.
+40	ENV	A imagem export instala onnxruntime e outros conversores e prepara formatos; é ambiente de exportação, mesmo contendo comandos de teste de instalação.
+41	CI	AGENTS.md Maintenance Agent declara gatilho agendado, concurrency e jobs activation; é automação executada pelo GitHub Actions.
+42	CI	Plan responde a issues com plan_needed, define job ubuntu e permissões; coordena automação do fluxo de desenvolvimento.
+43	CI	Ultralytics Actions reage a issues e pull_requests e invoca a action de formatação; define automação de integração.
+44	CI	Upload Python Package reage a releases, executa build e twine upload; implementa entrega do pacote.
+45	CI	Validate Lockfile dispara em mudanças de pyproject/uv.lock e executa uv lock --check; é uma validação automatizada de PR.
+46	CI	Mirror Repository usa push de main e job mirror condicionado ao ator; automatiza sincronização do repositório.
+47	CI	Reusable PR Title Check usa workflow_call e job validate-pr-title; valida convenções de títulos no fluxo de PR.
+48	CI	Install Conda Env agenda execução e usa setup-micromamba com environment.yml; testa a instalação em Actions.
+49	CI	Merge main into PRs define job Merge com checkout e automação de atualização; coordena manutenção dos PRs.
+50	CI	Copilot Setup Steps define job reconhecido pelo agente, gatilhos e harden-runner; automatiza preparação de execução em Actions.
+51	CI	Triage responde à abertura de issues e instala CLI para triagem; é workflow de manutenção do projeto.
+52	CI	Check Broken links agenda execução e instala lychee; implementa verificação periódica de links na integração.
+53	CI	Reusable Version Check expõe workflow_call e outputs do job validate; automatiza validação de versões e pré-releases.
+54	CI	Claude Code Planning dispara em issues rotuladas plan_needed e configura job plan; é automação de planejamento em Actions.
+55	CI	Publish Docker Images declara gatilhos push e inputs Dockerfile; orquestra construção/publicação de imagens.
+56	CI	DCO trata merge_group, permissões e job condicionado ao ator; executa controle de contribuição no fluxo de integração.
+57	CI	Pull Request Labeler usa pull_request_target, actions/labeler e sincronização de labels; automatiza organização de PRs.
+58	CI	Close stale issues agenda actions/stale e permissões de issues/PRs; configura manutenção automática de tickets.
+59	CI	Documentation Sync usa execução agendada, executor self-hosted e job docs-sync; automatiza sincronização documental.
+60	CI	PyPI define build de sdist/wheel, teste de instalação e gatilhos de release; compõe integração e distribuição Python.
+61	TEST	Fixtures MVTecDataModule e TestMVTecDataModule preparam dados e verificam batch size; implementam testes do datamodule.
+62	TEST	Fixtures de InferenceData e fechamento de figuras fornecem dados sintéticos para testar SensitivityPlots; não são análise empírica de marketing.
+63	TEST	pytest_addoption e pytest_collection_modifyitems controlam execução de testes lentos; o módulo é infraestrutura de teste.
+64	TEST	TestAnomalyDINOModel verifica encoder, memory_bank e ValueError de configuração inválida; contém asserções unitárias.
+65	TEST	O YAML coloca calibration deliberadamente sob model, assinalado como incorreto; é fixture negativa do builder.
+66	TEST	test_similarity cria embeddings e verifica tamanhos e consultas SQL do Explorer; exercita comportamento por asserções.
+67	TEST	O módulo importa flatten_sweep_params e get_run_config para testes de configuração de benchmarking; sua finalidade declarada e contexto são teste.
+68	TEST	Fixtures geram dados por country e canais C1/C2 para exercitar utilitários PyTensor; usa simulação controlada no teste.
+69	TEST	test_model instancia YOLO e executa um treino curto com configuração dummy; é harness histórico de teste de modelo.
+70	TEST	TestPredictionData armazena previsões simuladas em EnsemblePredictions por tile_index; verifica armazenamento de inferência em mosaicos.
+71	TEST	cv_results_idata constrói folds e posterior sintético para MMMCVPlotSuite; fornece cenários de validação do código de gráficos.
+72	TEST	O teste exige TypeError para compile como dicionário inválido; registra regressão de validação da CLI antes do DistributedSampler.
+73	TEST	TestCosineSimilarity compara tensores com valores esperados via torch.allclose; testa utilitários WinCLIP.
+74	TEST	pytest.mark.parametrize exercita YearlyFourier, MonthlyFourier e WeeklyFourier e verifica dims dos priors; são testes de componentes.
+75	TEST	Colors e rotinas de visualização estão no harness tests/data/dataloader/yolopose.py; atuam como suporte à inspeção de batches de teste, não API produtiva.
+76	TEST	test_transforms_and_image_size_cannot_be_none exige ValueError do PreProcessor; valida combinações inválidas de transformação.
+77	TEST	TestModifiedBetaGeoModel prepara dados e confronta implementação com ModifiedBetaGeoFitter; é teste comparativo de CLV.
+78	TEST	A paleta Colors e rotinas de visualização integram tests/data/dataloader/yolodetection.py; o papel é auxiliar o harness de dataloader.
+79	TEST	fxt_job_repository usa MagicMock e AsyncMock para métodos de JobRepository; simula persistência nos testes de serviço.
+80	TEST	test_import_pymc e test_dummy verificam importação e estrutura mínima de testes; não implementam modelo de negócio.
+81	NOTEBOOK	O documento mistura explicação de Folder/FolderDataset com células de uso de datasets e máscaras; é tutorial executável Jupyter.
+82	NOTEBOOK	Pareto/NBD Model combina narrativa BTYD e código de inferência e comparação com lifetimes; é notebook de demonstração.
+83	NOTEBOOK	VOC Exploration Example contém narrativa e células para exploração de imagens; a localização em docs não elimina o formato executável Jupyter.
+84	NOTEBOOK	AUPIMO explica a métrica e inclui células de demonstração; o blob representativo contém notebook integral, apesar de versão histórica em LFS.
+85	NOTEBOOK	Who Earned the Credit apresenta desagregação de contribuição MMM em campanhas em células narrativas e de código; é notebook de desenvolvimento.
+86	NOTEBOOK	AUPIMO em notebooks/700_metrics combina definição e demonstração em células Jupyter; não é somente documentação Markdown.
+87	NOTEBOOK	Funnel-Aware MMM usa dados sintéticos e MuEffect em uma exposição executável; o papel é notebook de modelagem e mediação.
+88	NOTEBOOK	O tutorial de MLflow contém células %pip e demonstra uso do logger; é notebook instrutivo, sem comprovar execução real nesta pesquisa.
+89	NOTEBOOK	Model deployment demonstra save/load e model_config em células de tutorial; é notebook de implantação de modelos.
+90	NOTEBOOK	O conteúdo LFS recuperado e conferido pelo SHA-256 contém células Tabular/TabularDataset, construção de samples e máscaras; é notebook executável de dados customizados.
+91	NOTEBOOK	Time-Slice-Cross-Validation and Parameter Stability combina discussão e células de avaliação temporal de MMM; é notebook analítico.
+92	NOTEBOOK	O material NNCF contém células Path.cwd e preparação de diretório para compressão OpenVINO; é procedimento interativo em notebook.
+93	NOTEBOOK	MMM with time-varying media baseline integra explicações de adstock/saturação e código de modelagem; é notebook demonstrativo.
+94	NOTEBOOK	Simulation of production line with defects descreve Dobot e treinamento de anomalias em células; é notebook de caso de uso.
+95	NOTEBOOK	Case Study: Unobserved Confounders, ROAS and Lift Tests apresenta calibração e código de modelos; é notebook de estudo metodológico.
+96	NOTEBOOK	O objeto LFS recuperado demonstra TabularDataset em células e ajusta dataset_root ao novo diretório; permanece tutorial Jupyter de dados customizados.
+97	NOTEBOOK	Splitting MMM Channel Impact Across Campaigns combina explicação de contribuição de canais e código; é notebook de desagregação.
+98	NOTEBOOK	AUPIMO Score of a Random Model explora baseline aleatório em células explicativas e computacionais; é notebook de análise de métrica.
+99	NOTEBOOK	Custom Geo-Hierarchical MMM with Splines demonstra adstock, splines e sazonalidade em código PyMC; é tutorial executável.
+100	NOTEBOOK	Train a Model via API apresenta preparação de dados e uso de FastFlow em células; o blob representativo é notebook, com migração histórica para LFS.
+101	CODE	AUROC é uma classe Python de métrica baseada em TorchMetrics que calcula área sob ROC; docstrings acompanham implementação executável.
+102	CODE	O módulo define MMM e suas operações de ajuste/predição; exemplos e configuração em objetos Python integram uma implementação produtiva.
+103	CODE	PoseTrainer herda DetectionTrainer, altera task para pose e constrói PoseModel; contém lógica de treinamento.
+104	CODE	O inicializador exporta loggers e get_logger; organiza acesso e seleção de implementações Python, não registra resultados de runs.
+105	CODE	SensitivityPlots implementa analysis, uplift e marginal para resultados de sensibilidade; é módulo de visualização executável.
+106	CODE	is_ascii e check_imgsz executam validações de strings e dimensões; são utilitários chamados pela aplicação.
+107	CODE	KDEClassifier herda nn.Module e implementa classificação por densidade e escala de embeddings; contém algoritmo executável.
+108	CODE	CLVModel encapsula pm.Model, pm.sample e fit_result; fornece implementação base de inferência.
+109	CODE	A classe C++ Inference carrega módulos MNN e processa imagens; implementa inferência no exemplo compilável.
+110	CODE	O inicializador exporta SingleXPUStrategy para Lightning; sua função é compor a API Python de estratégias.
+111	CODE	O módulo implementa utilitários MLflow e autolog com patch de pymc.sample/MMM.fit; contém chamadas e controle de execução.
+112	CODE	GitRepo descobre .git e lê metadados de branches/commits; implementa acesso programático ao repositório.
+113	CODE	DownloadInfo e DownloadProgressBar organizam downloads e conferência de hashes; são utilitários executáveis de dados.
+114	CODE	validation_method marca métodos e ValidateTargetColumn lança ValueError quando falta target; é validação produtiva de entradas.
+115	CODE	O inicializador exporta YOLO, RTDETR e SAM; compõe a interface importável de modelos Python.
+116	CODE	A CLI click define init_db e invoca MigrationManager.initialize_database; executa operações administrativas do backend.
+117	CODE	BetaGeoBetaBinomModel implementa modelo probabilístico CLV e construção de priors; as definições Python são código produtivo.
+118	CODE	ExplorerDataset herda YOLODataset e implementa load_image com cache NumPy; executa lógica de exploração de dados.
+119	CODE	AnomalyMapGenerator herda nn.Module e usa GaussianBlur2d para mapas PatchCore; contém computação de inferência.
+120	CODE	O arquivo importa basic e gamma_gamma de pymmmc.clv.models; mesmo sem funções próprias, compõe o namespace do pacote Python.
+121	DOC	O README explica Reverse Distillation, redes E/OCBE/D e arquitetura; é documentação descritiva da implementação.
+122	DOC	Why Bayesian apresenta argumentação sobre incerteza, dados ruidosos e priors; é texto explicativo para usuários.
+123	DOC	O guia DGX Spark contém frontmatter e instruções de deployment YOLO; documenta uso em hardware, sem executar o procedimento.
+124	DOC	Vector E: Error Log Injection descreve cenário de ameaça e aplicabilidade a agentes; é referência textual, tratada como dado desta análise.
+125	DOC	O SKILL.md de make-plan descreve um procedimento para agentes em linguagem natural; é instrução documental, não código executável da pesquisa.
+126	DOC	AzureML quickstart oferece narrativa e links de preparação de jobs/modelos; é guia de uso.
+127	DOC	O índice Data usa cartões e links para componentes de dados; organiza navegação da documentação.
+128	DOC	codebase-pattern-finder descreve responsabilidades e ferramentas de um agente em Markdown; documenta uma função de assistência.
+129	DOC	A página HailoBackend usa diretivas de referência para uma classe Python; seu papel é publicação da API.
+130	DOC	Anomalib Documentation apresenta funcionalidades e navegação da biblioteca; é página inicial documental.
+131	DOC	CLAUDE.md contém instruções de ambiente e fluxo para colaboradores; é orientação textual e não foi executada por esta análise.
+132	DOC	A página tal referencia TaskAlignedAssigner e utilitários por diretivas; documenta a API de atribuição de tarefas.
+133	DOC	Image Models apresenta cartões CFA/C-Flow/CS-Flow; é índice descritivo de modelos.
+134	DOC	A imagem inspecionada mostra a escada causal de associação, intervenção e contrafactuais; em _static sustenta explicação conceitual, não dataset de treino.
+135	DOC	matching.md publica merge_matches, linear_assignment e outras funções por diretivas; é referência de API de tracking.
+136	DOC	Kolektor Data usa automodule e members para publicar documentação do datamodule; é texto de referência.
+137	DOC	O SKILL.md de mmm-modeling descreve fluxo de MMM, adstock e diagnósticos; constitui instrução textual para uso da biblioteca.
+138	DOC	Model Deployment Options compara formatos e plataformas em narrativa Markdown; é guia de implantação.
+139	DOC	Pipeline Base Class descreve a classe e usa automodule; publica documentação da API de pipelines.
+140	DOC	linear.md descreve gestão de tickets por agente em linguagem natural; constitui instrução documental externa, sem autoridade nesta tarefa.
+141	DATA_RAW	O contêiner NetCDF/HDF5 contém channel_contribution e dimensões chain/draw/channel/date; armazena resultados numéricos posteriores.
+142	DATA_RAW	O NetCDF contém posterior, sample_stats, observed_data e fit_data do DelayedSaturatedMMM; é artefato numérico serializado, não descrição de proveniência DVC.
+143	DATA_RAW	O modelo NetCDF sob models contém o mesmo payload numérico do budget_optimizer; a localização não transforma o arquivo binário em configuração.
+144	DATA_RAW	A tabela mock_cgp_data contém semanas, despesas por canal e targets numéricos; fornece observações de exemplo.
+145	DATA_RAW	A tabela de campanhas registra date, active, spend, impressions, reach e clicks; contém medidas por campanha/dia.
+146	DATA_RAW	O CSV y armazena uma série numérica de resposta; a renomeação histórica do cabeçalho para kpi_registrations mantém o papel de dados.
+147	DATA_RAW	O CSV de entrada MMM contém date, social, search, trend e y; armazena observações e covariáveis.
+148	DATA_RAW	O CSV apresenta contribuições numéricas por campanha e data para ground truth; é conjunto de resultados de simulação.
+149	DATA_RAW	O NetCDF preserva model_type Pareto/NBD e model_config serializado junto ao modelo; é artefato de dados/modelo, embora esteja em docs.
+150	DATA_RAW	funnel_data contém target_var, impressões, indicadores de eventos e trend por data; é tabela de observações.
+151	DATA_RAW	O CSV em notebooks contém semanas e gastos Google/DV360/Facebook e targets; é dado de demonstração usado pela documentação.
+152	DATA_RAW	O NetCDF contém grupos posterior/prior/predictive e dados observados; armazena um ajuste serializado usado no exemplo MMM.
+153	DATA_RAW	clv_quickstart contém frequency, recency, T e monetary_value; representa observações agregadas de clientes.
+154	DATA_RAW	X.csv contém date, market e channel_1/channel_2; armazena a matriz de entradas do modelo.
+155	DATA_RAW	shopify_orders_schema.csv inclui linhas de pedidos com valores e estruturas monetárias; apesar do nome schema, contém dados de exemplo concretos.
+156	DATA_RAW	cdnow_transactions contém clientes, datas, cds_bought e spent; representa transações tabulares.
+157	DATA_RAW	marketing_mix.csv contém Date, canais TikTok/Facebook/Google Ads e Sales; é tabela numérica de exemplo, mesmo sob docs.
+158	DATA_RAW	O NetCDF contém saturation_beta, adstock_alpha e saturation_lam com coordenadas; armazena valores verdadeiros da simulação.
+159	DATA_RAW	ad_report_schema.csv contém campanhas, clicks, impressions, spend e conversions; o corpo são registros de exemplo, não apenas esquema.
+160	DATA_RAW	choice_wide_heating registra alternativas de aquecimento, custos e características domiciliares; constitui observações para modelagem de escolha.
+161	OUTRO	.gitignore contém padrões datasets, results, caches e exceções; controla arquivos ignorados pelo Git, sem definir ambiente ou pipeline de ML.
+162	OUTRO	O catálogo gettext de HSGPKwargs.parse_obj contém pares msgid/msgstr e cabeçalho de localização; é recurso de tradução da API, fora das categorias textuais normativas.
+163	ENV	CMakeLists define padrão C++, TRITON_CLIENT_DIR e diretórios Protobuf/gRPC; configura construção e dependências do exemplo Triton.
+164	OUTRO	O SVG pytorch descreve paths de um ícone em ui/assets/icons; é recurso visual de interface, não dado de treinamento.
+165	OUTRO	O arquivo gettext de HillSaturationSigmoid.apply contém catálogo de localização; não implementa a função nem parametriza o modelo.
+166	ENV	CMakeLists define projeto yolo_libtorch, padrão C++ e find_package(OpenCV); descreve o ambiente de compilação e ligação.
+167	CI	A action Trivy descreve execução composta de security scanning com setup/cache e etapas de análise; compõe automação de CI apesar de ficar fora de workflows.
+168	OUTRO	O catálogo gettext de FourierBase.sample_prior armazena mensagens de tradução; não amostra priors nem contém execução Python.
+169	OUTRO	O formulário Question define labels, body e checkboxes para issues; configura interação comunitária, fora do pipeline de ML.
+170	OUTRO	O SVG link-expired descreve paths e opacidades de ilustração da interface; é recurso visual, sem observações de dataset.
+171	OUTRO	O gettext de MMM.sample_prior_predictive contém mensagens localizáveis; não é a implementação nem uma saída de amostragem.
+172	OUTRO	mkdocs.yml define site_name, metadados, navegação e plugins do site; configura publicação documental, não o pipeline de ML definido por CONFIG.
+173	OUTRO	O SVG three-dots-circle contém um path de ícone de menu; é recurso de interface.
+174	OUTRO	O catálogo de WeibullType.isspace é um recurso gettext de documentação gerada; não implementa nem configura a transformação Weibull.
+175	ENV	CMakeLists define yolo_mnn, OpenCV e caminhos MNN_INCLUDE_DIR/MNN_LIB_DIR; especifica construção e ligação do exemplo.
+176	OUTRO	O SVG ros desenha quadrados e paths para representar um ícone; é ativo visual da interface.
+177	OUTRO	O gettext de GammaGammaModel.build_model contém mensagens para tradução de referência; não executa a construção probabilística.
+178	ENV	CMakeLists usa find_package(OpenCV/OpenVINO), add_executable e target_link_libraries; define dependências e montagem do binário.
+179	OUTRO	O SCSS define overflow, flex e transform-origin dos wrappers de zoom; é folha de apresentação da interface, sem lógica executável de modelo.
+180	OUTRO	O catálogo gettext de TestResult.get contém mensagens traduzíveis da API; não é teste nem implementação do método.

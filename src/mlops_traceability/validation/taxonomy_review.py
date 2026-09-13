@@ -243,7 +243,13 @@ def evaluate_review(
             }
         )
     matrix = Counter((r["expected_category"], r["category"]) for r in reviewed)
+    # Local import avoids a cycle: provenance reuses the timestamp contract.
+    from mlops_traceability.verification.provenance import assess_provenance
+
+    provenance = assess_provenance(path.parent, path.name)
+    problems.extend(provenance["errors"])
     return {
+        "review_provenance": provenance,
         "accepted": not problems,
         "blocking_reasons": sorted(set(problems)),
         "sample_count": len(rows),
