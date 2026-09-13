@@ -101,3 +101,9 @@ como candidatos sintáticos. Esses tipos não são somados em um escore de matur
 Cada medida registra caso, SHA, período, unidade, numerador, denominador, exclusões,
 versões do instrumento e execução. O estado observado informa que o cálculo foi
 feito; a validação da taxonomia consta em outro campo.
+
+## Objetivo operacional do fechamento DM-027
+
+Caracterizar mudanças conjuntas de código e configuração e examinar os mecanismos de integração MLflow documentados nos projetos públicos selecionados, delimitando o alcance e as lacunas das evidências de rastreabilidade.
+
+PO1 liga-se a `code_config_cochange`; PO2 a `config_magnitude` e suas distribuições; PO3 às fichas, eventos e aos quatro indicadores `static_mlflow_*`. As demais métricas permanecem associadas às perguntas GQM originais sem resposta. O [parecer técnico](ALINHAMENTO_DM027.md) fundamenta essa delimitação e identifica autoria de IA sujeita à confirmação, sem atribuição de aprovação institucional.

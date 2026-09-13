@@ -1,0 +1,38 @@
+{
+  "status": "accepted",
+  "reviewer": "assistant:codex-dm027-fechamento",
+  "reviewed_at_utc": "2026-09-13T17:53:48Z",
+  "evidence": "docs/ALINHAMENTO_DM027.md#decisão-fundamentada",
+  "operational_objective": "Caracterizar mudanças conjuntas de código e configuração e examinar os mecanismos de integração MLflow documentados nos projetos públicos selecionados, delimitando o alcance e as lacunas das evidências de rastreabilidade.",
+  "unanswered_questions": [
+    "cace_index",
+    "data_code_cochange",
+    "data_code_ratio_original",
+    "env_versioning_rate",
+    "experiment_redundancy",
+    "provenance_coverage"
+  ],
+  "mlflow_scope_resolved": true,
+  "metric_mapping_resolved": true,
+  "scope_evidence": "docs/ALINHAMENTO_DM027.md#resolução-do-escopo-mlflow",
+  "mapping_evidence": "docs/ALINHAMENTO_DM027.md#resolução-do-mapeamento-de-métricas",
+  "objetivo_operacional": "Caracterizar mudanças conjuntas de código e configuração e examinar os mecanismos de integração MLflow documentados nos projetos públicos selecionados, delimitando o alcance e as lacunas das evidências de rastreabilidade.",
+  "perguntas_nao_respondidas": [
+    "cace_index",
+    "data_code_cochange",
+    "data_code_ratio_original",
+    "env_versioning_rate",
+    "experiment_redundancy",
+    "provenance_coverage"
+  ],
+  "responsavel": "assistant:codex-dm027-fechamento",
+  "data_utc": "2026-09-13T17:53:48Z",
+  "evidencia_da_decisao": "docs/ALINHAMENTO_DM027.md",
+  "decision_scope": "recomendação técnica de IA; não comprova aprovação institucional",
+  "drafted_by": "assistant:codex-dm027-fechamento",
+  "review_mode": "ai_drafted_pending_confirmation",
+  "confirmed_by": null,
+  "confirmed_at_utc": null,
+  "timestamp_source": "observed",
+  "drafted_at_utc": "2026-09-13T17:53:48Z"
+}
