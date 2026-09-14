@@ -313,12 +313,21 @@ def import_reviews(
             "origens.json",
             "temas_emergentes.json",
             "review_provenance.json",
+            "claims_catalog.json",
+            "closure_inputs.json",
+            "manuscript_review.json",
         ):
             source = review_dir / name
             if source.is_file():
                 shutil.copyfile(source, preserved / name)
                 receipt["review_file_hashes"][name] = sha256_file(preserved / name)
-            elif name not in {"temas_emergentes.json", "review_provenance.json"}:
+            elif name not in {
+                "temas_emergentes.json",
+                "review_provenance.json",
+                "claims_catalog.json",
+                "closure_inputs.json",
+                "manuscript_review.json",
+            }:
                 receipt["blocking_reasons"].append(f"missing_input:{name}")
         receipt["verification_code_sha"] = subprocess.check_output(
             ["git", "-C", str(root), "rev-parse", "HEAD"],

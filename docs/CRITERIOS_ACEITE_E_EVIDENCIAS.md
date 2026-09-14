@@ -1,13 +1,15 @@
 # Critérios de aceite e evidências — primeiro incremento
 
-O estado empírico mais recente está no
-[incremento 5](INTEGRACAO_FINALIZADOR_INCREMENTO_05.md), com a integração do
-recibo empírico ao finalizador e a separação entre candidato e aceite final.
-O aceite agregado permanece bloqueado.
-Esta matriz inicial e seus resultados históricos continuam preservados abaixo.
+O fechamento DM-027 incorpora os controles G00, G02, G04, G11 e G12 ao runner
+empírico, com política **1.4.0**. A restauração e o aceite final estão especificados
+em [G14](G14_RESTAURACAO_ISOLADA.md); o texto conferido está no
+[manuscrito](MANUSCRITO_DM027.md), com catálogo e parecer em `docs/evidencias`.
+Os resultados executados são discriminados no relatório local
+`RELATORIO_FECHAMENTO_DM027.md`. Rascunhos de IA completos continuam sujeitos
+à confirmação explícita; implementação de um critério não equivale à aprovação.
 
 Este documento preserva o primeiro incremento, com política **1.0.0**.
-A política atual **1.3.0** está descrita no incremento 5. A introdução do comando
+A política histórica **1.3.0** está descrita no incremento 5. A introdução do comando
 `verify-study` está no [incremento empírico 2](VERIFICACAO_EMPIRICA_INCREMENTO_02.md).
 
 A política de verificação é separada do protocolo científico **2.1.0**,

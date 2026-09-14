@@ -20,3 +20,31 @@ O run `20260913T180404708895Z_815dd4d7_phase6_validate_taxonomy` revelou perda d
 Foram lidos e preservados os diffs e mensagens dos eventos selecionados, além de componentes, chamadores e testes dos casos nos SHAs congelados. Os julgamentos estão em `data/interim/fechamento_dm027/revisoes/`, com fontes integrais em `fontes_eventos/` e `fontes_casos/`. `eventos_julgamentos.tsv` contém a redação específica anterior à montagem do CSV; o gerador confere a existência de cada trecho no arquivo do diff e registra linha e hash. Os temas emergentes distinguem evolução da implementação e persistência local de tracking remoto. A primeira redação do CSV ficou preservada em `bloco4_primeira_redacao/`; foi corrigido o identificador da métrica para o nome real `config_magnitude` antes da validação. Nenhuma identidade ou classificação da taxonomia foi alterada.
 
 O novo recibo da fase 6, `20260913T220943004870Z_609c01ed_phase6_validate_taxonomy`, mantém a concordância e recusa o aceite pelo motivo `ai_review_requires_confirmation`; a passagem do sidecar está corrigida. O recibo anterior permanece como contraprova, sem autorização de aceite.
+
+
+## Fechamento dos controles e manuscrito
+
+O runner empírico foi estendido com preservação G00, catálogo G02, execução de
+contraprovas G04, distinção entre identidade e pertinência G11 e alinhamento G12.
+O módulo `verification.release` implementa restauração em diretório separado,
+confronto dos resultados, conferência G15 e recibo final condicionado às provas e
+à confirmação explícita. `tools/confirmar_revisao.py` prepara esse ato único sem
+atribuir ao pesquisador os julgamentos redigidos pela IA.
+
+O manuscrito e seu catálogo foram produzidos por `catalogo_manuscrito.py`, mantido
+no diretório local de fechamento. `completar_preservacao.py` acrescenta o inventário
+dos dossiês e registra os temas emergentes no sidecar de autoria, preservando uma
+cópia anterior das revisões. Os números e hashes resultantes estão nos logs desses
+comandos. Não se reaproveita aceite de recibos anteriores.
+
+Os testes novos exercitam recusa de fonte/número adulterados, confirmação sintética
+em diretório temporário, preservação de rascunhos, recusa de pacote de ensaio como
+candidato, cópias independentes e comparação exata/tolerante. Os comandos de teste e
+suas saídas são registrados por `data/interim/fechamento_dm027/registrar_comando.py`
+em `comandos/`, com horário UTC, código de saída e SHA-256 da saída.
+
+O relatório final local, o arquivo de pendências técnicas e a confirmação real são
+ignorados pelo Git para que sua geração não altere o worktree do instrumento examinado.
+Código, procedimento, manuscrito e catálogo ficam versionados. A confirmação real
+só será criada pelo comando executado pelo pesquisador; os testes utilizam identidades
+explicitamente fictícias e diretórios temporários.

@@ -155,7 +155,7 @@ def verify_study(
         "limitations": [
             "Git, regex, PyYAML and JSON serialization are shared dependencies.",
             "Static MLflow call counts are not recalculated by this increment.",
-            "G00-G13 remain incomplete; G14-G15 and final acceptance are outside this receipt.",
+            "G14-G15 and final researcher confirmation are outside this empirical receipt.",
             "Record validation does not authenticate reviewers or academic approval.",
         ],
     }
@@ -465,6 +465,24 @@ def verify_study(
             message = f"qualitative_input:{type(error).__name__}:{error}"
             receipt["processing_errors"].append(message)
             criterion("G10", "Independent PR and event selection", [message], proofs)
+        if scope == "empirical":
+            from mlops_traceability.verification.closure import run_closure_checks
+
+            checks = run_closure_checks(
+                root,
+                index_path,
+                output / "reviews/original_reviews",
+                output,
+                policy,
+                receipt["verification_code_sha"],
+                bound,
+            )
+            for key, (method, differences, evidence) in checks.items():
+                criterion(key, method, differences, evidence)
+            receipt["test_results_hashes"] = {
+                p.relative_to(output).as_posix(): sha256_file(p)
+                for p in (output / "closure").glob("fixtures.*")
+            }
         receipt["proof_hashes"] = {
             path.relative_to(output).as_posix(): sha256_file(path)
             for path in output.rglob("*")
