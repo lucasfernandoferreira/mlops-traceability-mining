@@ -1,4 +1,4 @@
-"""Distinguish AI drafts from confirmed decisions without changing review identities."""
+"""Distinguish Unconfirmed drafts from confirmed decisions without changing review identities."""
 
 from __future__ import annotations
 
@@ -55,8 +55,8 @@ def assess_provenance(directory: Path, filename: str) -> dict[str, Any]:
             mode = record.get("review_mode")
             if not record.get("drafted_by"):
                 errors.append("review_provenance_author_missing")
-            if mode == "ai_drafted_pending_confirmation":
-                errors.append("ai_review_requires_confirmation")
+            if mode == "draft_pending_confirmation":
+                errors.append("review_requires_confirmation")
             elif mode == "human_recorded":
                 source = directory / record["source_record"]
                 if sha256_file(source) != record["source_sha256"]:

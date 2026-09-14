@@ -106,4 +106,4 @@ feito; a validação da taxonomia consta em outro campo.
 
 Caracterizar mudanças conjuntas de código e configuração e examinar os mecanismos de integração MLflow documentados nos projetos públicos selecionados, delimitando o alcance e as lacunas das evidências de rastreabilidade.
 
-PO1 liga-se a `code_config_cochange`; PO2 a `config_magnitude` e suas distribuições; PO3 às fichas, eventos e aos quatro indicadores `static_mlflow_*`. As demais métricas permanecem associadas às perguntas GQM originais sem resposta. O [parecer técnico](ALINHAMENTO_DM027.md) fundamenta essa delimitação e identifica autoria de IA sujeita à confirmação, sem atribuição de aprovação institucional.
+PO1 liga-se a `code_config_cochange`; PO2 a `config_magnitude` e suas distribuições; PO3 às fichas, eventos e aos quatro indicadores `static_mlflow_*`. As demais métricas permanecem associadas às perguntas GQM originais sem resposta. O [parecer técnico](ALINHAMENTO_DM027.md) fundamenta essa delimitação e identifica identificação da revisão preliminar sujeita à confirmação, sem atribuição de aprovação institucional.

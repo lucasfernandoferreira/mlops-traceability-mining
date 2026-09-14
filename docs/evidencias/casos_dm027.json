@@ -31,7 +31,7 @@
     "availability_reason": "Fontes locais recuperáveis no SHA congelado; alcance estrutural descrito na ficha.",
     "decision": "accepted",
     "decision_reason": "Inclusão tecnicamente sustentada pelo histórico congelado, atividade e estrelas da coleta original. BaseTrainer registra callbacks via add_integration_callbacks, e o componente mlflow envia argumentos, métricas e artefatos sob SETTINGS e guards. No evento 620f3eb2181c1b686c9bdd2ee805dee483d4f116, o caminho é renomeado de ultralytics/yolo/utils/callbacks/mlflow.py; o marco selecionado não é adoção inicial. Integração estrutural, sem alegação de uso público em execução.",
-    "reviewer": "assistant:codex-dm027-fechamento",
+    "reviewer": "draft:dm027",
     "reviewed_at_utc": "2026-09-13T22:14:44Z",
     "source_run_ids": {
       "freeze": {
@@ -48,9 +48,9 @@
       }
     },
     "protocol_version": "2.1.0",
-    "preparation_by": "assistant:codex-dm027-fechamento",
-    "drafted_by": "assistant:codex-dm027-fechamento",
-    "review_mode": "ai_drafted_pending_confirmation",
+    "preparation_by": "draft:dm027",
+    "drafted_by": "draft:dm027",
+    "review_mode": "draft_pending_confirmation",
     "confirmed_by": null,
     "confirmed_at_utc": null,
     "timestamp_source": "observed"
@@ -87,7 +87,7 @@
     "availability_reason": "Fontes locais recuperáveis no SHA congelado; alcance estrutural descrito na ficha.",
     "decision": "accepted",
     "decision_reason": "Inclusão tecnicamente sustentada pelo histórico congelado e diversidade do domínio. pymc_marketing/mlflow.py conecta autolog à amostragem e ao fit e registra informações do modelo, parâmetros e inferência. ModelBuilder recebe model_config e sampler_config como objetos Python: a taxonomia os conta em CODE, portanto CONFIG não cobre integralmente a configuração operacional. Evidência de wrappers e testes, sem medir proveniência de runs públicos.",
-    "reviewer": "assistant:codex-dm027-fechamento",
+    "reviewer": "draft:dm027",
     "reviewed_at_utc": "2026-09-13T22:14:44Z",
     "source_run_ids": {
       "freeze": {
@@ -104,9 +104,9 @@
       }
     },
     "protocol_version": "2.1.0",
-    "preparation_by": "assistant:codex-dm027-fechamento",
-    "drafted_by": "assistant:codex-dm027-fechamento",
-    "review_mode": "ai_drafted_pending_confirmation",
+    "preparation_by": "draft:dm027",
+    "drafted_by": "draft:dm027",
+    "review_mode": "draft_pending_confirmation",
     "confirmed_by": null,
     "confirmed_at_utc": null,
     "timestamp_source": "observed"
@@ -142,7 +142,7 @@
     "availability_reason": "Fontes locais recuperáveis no SHA congelado; alcance estrutural descrito na ficha.",
     "decision": "accepted",
     "decision_reason": "Inclusão tecnicamente sustentada como reserva ordenada do protocolo após inelegibilidade do Composer, preservando a decisão anterior às métricas. O Engine repassa logger ao Trainer e converte ausência em desativação. AnomalibMLFlowLogger herda operações do Lightning; a fonte externa preservada da DM-026 identifica a implementação examinada. Checkpoints dependem de log_model; add_image é API disponível sem ligação automática demonstrada no congelamento. Não há comprovação de uso por terceiros.",
-    "reviewer": "assistant:codex-dm027-fechamento",
+    "reviewer": "draft:dm027",
     "reviewed_at_utc": "2026-09-13T22:14:44Z",
     "source_run_ids": {
       "freeze": {
@@ -159,9 +159,9 @@
       }
     },
     "protocol_version": "2.1.0",
-    "preparation_by": "assistant:codex-dm027-fechamento",
-    "drafted_by": "assistant:codex-dm027-fechamento",
-    "review_mode": "ai_drafted_pending_confirmation",
+    "preparation_by": "draft:dm027",
+    "drafted_by": "draft:dm027",
+    "review_mode": "draft_pending_confirmation",
     "confirmed_by": null,
     "confirmed_at_utc": null,
     "timestamp_source": "observed"

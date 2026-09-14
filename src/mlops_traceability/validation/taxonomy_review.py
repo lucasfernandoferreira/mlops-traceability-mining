@@ -249,9 +249,9 @@ def evaluate_review(
     provenance = assess_provenance(path.parent, path.name)
     problems.extend(provenance["errors"])
     if provenance["mode"] == "legacy_unspecified" and any(
-        row.get("reviewer", "").startswith("assistant:") for row in rows
+        ":" in row.get("reviewer", "") for row in rows
     ):
-        problems.append("assistant_provenance_missing")
+        problems.append("review_provenance_missing")
     return {
         "review_provenance": provenance,
         "accepted": not problems,

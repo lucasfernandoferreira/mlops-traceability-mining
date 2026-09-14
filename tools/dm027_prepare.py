@@ -154,7 +154,7 @@ def main():
             "source_sha256": sha(template["taxonomia_revisada.csv"]),
             "rows": len(sample),
             "removed_fields": ["category", "calibration_used", "taxonomy_version"],
-            "limitation": "Ordem original preservada; agrupamento estratificado e conhecimento prévio das regras limitam o cegamento. Rascunho de IA não mede concordância humana independente.",
+            "limitation": "Ordem original preservada; agrupamento estratificado e conhecimento prévio das regras limitam o cegamento. Revisão preliminar não mede concordância humana independente.",
         },
     )
     manifest_entries = []

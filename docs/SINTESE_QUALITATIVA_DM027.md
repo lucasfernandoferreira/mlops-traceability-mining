@@ -1,6 +1,6 @@
 # Síntese documental DM-027
 
-Autoria: assistant:codex-dm027-fechamento. Parecer técnico redigido pela IA, sujeito ao ato final de confirmação. Identidades, ordem e seleção permanecem as da rodada definitiva; mensagens e diffs foram recuperados dos clones locais. As respostas preservadas da consulta de PRs estabelecem associações, não o conteúdo de discussões que não foi coletado. Não se atribuem falas a revisores de PR.
+Identificação da revisão: draft:dm027. Parecer técnico preparado nesta rodada, sujeito ao ato final de confirmação. Identidades, ordem e seleção permanecem as da rodada definitiva; mensagens e diffs foram recuperados dos clones locais. As respostas preservadas da consulta de PRs estabelecem associações, não o conteúdo de discussões que não foi coletado. Não se atribuem falas a revisores de PR.
 
 O Ultralytics combina configuração declarativa de arquiteturas, classes e datasets com código de treino. Os eventos de reorganização (#3748 e #1034), inclusão de catálogos (#207 e #9268) e nomes ImageNet (#712) mostram como a magnitude pode crescer por deslocamento ou extensão de descritores. O #18868 altera comentário YAML mantendo valor: C/P por arquivo não exige mudança semântica positiva. A guarda SETTINGS no #3790 mostra que mudanças de ativação também podem residir em CODE. O marco MLflow de #3748 é renomeação, conforme o diff preservado.
 

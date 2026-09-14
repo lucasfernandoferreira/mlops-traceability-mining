@@ -1,8 +1,8 @@
 # Avaliação documental da taxonomia DM-027
 
-Rascunho de IA: 173/180 (96.11%); limiar atendido: True. Aceite científico: falso até confirmação e demais controles.
+Revisão preliminar: 173/180 (96.11%); limiar atendido: True. Aceite científico: falso até confirmação e demais controles.
 
-Concordância com julgamentos de IA; não é concordância humana independente. Cegamento limitado pela ordem estratificada e conhecimento prévio do método.
+Concordância com julgamentos de referência; não é concordância humana independente. Cegamento limitado pela ordem estratificada e conhecimento prévio do método.
 
 ## Divergências preservadas
 

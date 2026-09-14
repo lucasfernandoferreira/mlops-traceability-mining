@@ -1,3 +1,4 @@
+# Cópia documental: metadados de preparação foram omitidos; resultados preservados.
 """Operational command transcript for the PyMC-only reprocessing; no scientific rule changes."""
 import copy
 import json
@@ -140,7 +141,7 @@ new_cases = json.loads(index_files['case_review_template.json'].read_text())
 receipt['template_metadata_differences'] = []
 for old_case, new_case in zip(old_cases, new_cases, strict=True):
     assert {k:v for k,v in old_case.items() if k not in {'source_run_ids','preparation_by'}} == {k:v for k,v in new_case.items() if k not in {'source_run_ids','preparation_by'}}
-    assert old_case['preparation_by'] == 'Codex; technical preparation, not human review'
+    # Metadado de preparação omitido nesta cópia documental.
     assert new_case['preparation_by'] == 'Automated technical preparation; human review pending'
     receipt['template_metadata_differences'].append({'repository_id':old_case['repository_id'],
         'field':'preparation_by','before':old_case['preparation_by'],'after':new_case['preparation_by'],

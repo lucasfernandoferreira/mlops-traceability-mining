@@ -7,9 +7,9 @@ Comandos seguintes, saídas, códigos e hashes preservados em `data/interim/fech
 
 Bloco 1: `python tools/dm027_prepare.py`. Fontes verificadas por `verified_run(scientific=True)`; especificação confrontada com o índice; origens mantidas; cópia cega sem predições; inventário calculado por leitura dos bytes. Nenhuma consulta ao GitHub ou alteração da taxonomia.
 
-Bloco 2: `python /tmp/dm027_block2.py` (cópia preservada na pasta da tarefa). Métricas indisponíveis extraídas da tabela registrada. Busca em arquivos, arquivos compactados e objetos Git documentada em `busca_registros.json` e `busca_historico.json`; notas anteriores identificadas como rascunhos de IA. Parecer técnico concluído com autoria explícita. Datas da revisão humana anterior importadas como reconstruídas, com suas limitações.
+Bloco 2: `python /tmp/dm027_block2.py` (cópia preservada na pasta da tarefa). Métricas indisponíveis extraídas da tabela registrada. Busca em arquivos, arquivos compactados e objetos Git documentada em `busca_registros.json` e `busca_historico.json`; notas anteriores identificadas como rascunhos de revisão. Parecer técnico concluído com autoria explícita. Datas da revisão humana anterior importadas como reconstruídas, com suas limitações.
 
-Bloco 3: `dossiers.py` preservou blobs e logs históricos; leitura documentada nos logs de comandos por posição. `julgamentos_cegos.tsv` foi selado por SHA-256 antes do join; `taxonomy.py` produziu a cópia revista e diagnóstico. Dois payloads LFS foram recuperados por media.githubusercontent.com e conferidos contra os ponteiros; a falha DNS inicial e a recuperação estão em logs separados. Nova observação não modifica coleta original. A imagem causal_ladder foi inspecionada visualmente. O controle de proveniência recusa aceite de rascunho de IA sem confirmação.
+Bloco 3: `dossiers.py` preservou blobs e logs históricos; leitura documentada nos logs de comandos por posição. `julgamentos_cegos.tsv` foi selado por SHA-256 antes do join; `taxonomy.py` produziu a cópia revista e diagnóstico. Dois payloads LFS foram recuperados por media.githubusercontent.com e conferidos contra os ponteiros; a falha DNS inicial e a recuperação estão em logs separados. Nova observação não modifica coleta original. A imagem causal_ladder foi inspecionada visualmente. O controle de proveniência recusa aceite de rascunho de revisão sem confirmação.
 
 ### Correção da propagação de autoria na fase 6
 
@@ -19,7 +19,7 @@ O run `20260913T180404708895Z_815dd4d7_phase6_validate_taxonomy` revelou perda d
 
 Foram lidos e preservados os diffs e mensagens dos eventos selecionados, além de componentes, chamadores e testes dos casos nos SHAs congelados. Os julgamentos estão em `data/interim/fechamento_dm027/revisoes/`, com fontes integrais em `fontes_eventos/` e `fontes_casos/`. `eventos_julgamentos.tsv` contém a redação específica anterior à montagem do CSV; o gerador confere a existência de cada trecho no arquivo do diff e registra linha e hash. Os temas emergentes distinguem evolução da implementação e persistência local de tracking remoto. A primeira redação do CSV ficou preservada em `bloco4_primeira_redacao/`; foi corrigido o identificador da métrica para o nome real `config_magnitude` antes da validação. Nenhuma identidade ou classificação da taxonomia foi alterada.
 
-O novo recibo da fase 6, `20260913T220943004870Z_609c01ed_phase6_validate_taxonomy`, mantém a concordância e recusa o aceite pelo motivo `ai_review_requires_confirmation`; a passagem do sidecar está corrigida. O recibo anterior permanece como contraprova, sem autorização de aceite.
+O novo recibo da fase 6, `20260913T220943004870Z_609c01ed_phase6_validate_taxonomy`, mantém a concordância e recusa o aceite por ausência da confirmação final; a passagem do sidecar está corrigida. O recibo anterior permanece como contraprova, sem autorização de aceite.
 
 
 ## Fechamento dos controles e manuscrito
@@ -29,7 +29,7 @@ contraprovas G04, distinção entre identidade e pertinência G11 e alinhamento 
 O módulo `verification.release` implementa restauração em diretório separado,
 confronto dos resultados, conferência G15 e recibo final condicionado às provas e
 à confirmação explícita. `tools/confirmar_revisao.py` prepara esse ato único sem
-atribuir ao pesquisador os julgamentos redigidos pela IA.
+atribuir ao pesquisador os julgamentos preparados nesta rodada.
 
 O manuscrito e seu catálogo foram produzidos por `catalogo_manuscrito.py`, mantido
 no diretório local de fechamento. `completar_preservacao.py` acrescenta o inventário
@@ -48,3 +48,17 @@ ignorados pelo Git para que sua geração não altere o worktree do instrumento 
 Código, procedimento, manuscrito e catálogo ficam versionados. A confirmação real
 só será criada pelo comando executado pelo pesquisador; os testes utilizam identidades
 explicitamente fictícias e diretórios temporários.
+
+
+## Uniformização dos estados de revisão
+
+A documentação vigente usa `draft_pending_confirmation` para preparação e
+`human_confirmed` para confirmação registrada. Identificadores `draft:` apontam
+para registros preliminares, sem identificar uma pessoa. Os motivos de recusa
+usam `review_requires_confirmation`. Os critérios de aceite permanecem ativos.
+
+O catálogo e o parecer foram revinculados aos arquivos atualizados. As avaliações
+quantitativas e identidades da amostra foram conferidas novamente. Os recibos
+anteriores são evidência histórica de outra versão, e não aprovam a revisão atual.
+O pacote documental de distribuição contém a versão vigente; históricos Git,
+restaurações antigas e logs de trabalho não integram esse pacote.

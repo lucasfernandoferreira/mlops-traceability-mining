@@ -28,12 +28,13 @@
       },
       "limitation": "reachable eligible history; ; não mede maturidade nem causalidade.",
       "relevance": "O registro preservado define medida, unidade e denominador no SHA congelado. Contagens estáticas identificam sintaxe no escopo do scanner, não execução. Métricas indisponíveis permanecem perguntas abertas.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "ultralytics:config_magnitude",
@@ -60,12 +61,13 @@
       },
       "limitation": "reachable eligible history; ; não mede maturidade nem causalidade.",
       "relevance": "O registro preservado define medida, unidade e denominador no SHA congelado. Contagens estáticas identificam sintaxe no escopo do scanner, não execução. Métricas indisponíveis permanecem perguntas abertas.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "ultralytics:data_code_ratio_original",
@@ -92,12 +94,13 @@
       },
       "limitation": "reachable eligible history; Dimensão D não validada para dados MLflow; DATA_META detecta DVC.; não mede maturidade nem causalidade.",
       "relevance": "O registro preservado define medida, unidade e denominador no SHA congelado. Contagens estáticas identificam sintaxe no escopo do scanner, não execução. Métricas indisponíveis permanecem perguntas abertas.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "ultralytics:data_code_cochange",
@@ -124,12 +127,13 @@
       },
       "limitation": "reachable eligible history; Dimensão D não validada para dados MLflow; DATA_META detecta DVC.; não mede maturidade nem causalidade.",
       "relevance": "O registro preservado define medida, unidade e denominador no SHA congelado. Contagens estáticas identificam sintaxe no escopo do scanner, não execução. Métricas indisponíveis permanecem perguntas abertas.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "ultralytics:cace_index",
@@ -156,12 +160,13 @@
       },
       "limitation": "reachable eligible history; Dimensão D não validada para dados MLflow; DATA_META detecta DVC.; não mede maturidade nem causalidade.",
       "relevance": "O registro preservado define medida, unidade e denominador no SHA congelado. Contagens estáticas identificam sintaxe no escopo do scanner, não execução. Métricas indisponíveis permanecem perguntas abertas.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "ultralytics:provenance_coverage",
@@ -188,12 +193,13 @@
       },
       "limitation": "public runtime sources not collected; No runs/registry source ingested; tree scan is not a runtime census.; não mede maturidade nem causalidade.",
       "relevance": "O registro preservado define medida, unidade e denominador no SHA congelado. Contagens estáticas identificam sintaxe no escopo do scanner, não execução. Métricas indisponíveis permanecem perguntas abertas.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "ultralytics:env_versioning_rate",
@@ -220,12 +226,13 @@
       },
       "limitation": "public runtime sources not collected; No runs/registry source ingested; tree scan is not a runtime census.; não mede maturidade nem causalidade.",
       "relevance": "O registro preservado define medida, unidade e denominador no SHA congelado. Contagens estáticas identificam sintaxe no escopo do scanner, não execução. Métricas indisponíveis permanecem perguntas abertas.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "ultralytics:experiment_redundancy",
@@ -252,12 +259,13 @@
       },
       "limitation": "public runtime sources not collected; No runs/registry source ingested; tree scan is not a runtime census.; não mede maturidade nem causalidade.",
       "relevance": "O registro preservado define medida, unidade e denominador no SHA congelado. Contagens estáticas identificam sintaxe no escopo do scanner, não execução. Métricas indisponíveis permanecem perguntas abertas.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "ultralytics:static_mlflow_param_calls",
@@ -284,12 +292,13 @@
       },
       "limitation": "Python tree at selected SHA; Candidatos sintáticos em CODE no SHA; sem inferência de execução, wrappers ou alias reatribuído.; não mede maturidade nem causalidade.",
       "relevance": "O registro preservado define medida, unidade e denominador no SHA congelado. Contagens estáticas identificam sintaxe no escopo do scanner, não execução. Métricas indisponíveis permanecem perguntas abertas.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "ultralytics:static_mlflow_metric_calls",
@@ -316,12 +325,13 @@
       },
       "limitation": "Python tree at selected SHA; Candidatos sintáticos em CODE no SHA; sem inferência de execução, wrappers ou alias reatribuído.; não mede maturidade nem causalidade.",
       "relevance": "O registro preservado define medida, unidade e denominador no SHA congelado. Contagens estáticas identificam sintaxe no escopo do scanner, não execução. Métricas indisponíveis permanecem perguntas abertas.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "ultralytics:static_mlflow_artifact_calls",
@@ -348,12 +358,13 @@
       },
       "limitation": "Python tree at selected SHA; Candidatos sintáticos em CODE no SHA; sem inferência de execução, wrappers ou alias reatribuído.; não mede maturidade nem causalidade.",
       "relevance": "O registro preservado define medida, unidade e denominador no SHA congelado. Contagens estáticas identificam sintaxe no escopo do scanner, não execução. Métricas indisponíveis permanecem perguntas abertas.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "ultralytics:static_mlflow_model_calls",
@@ -380,12 +391,13 @@
       },
       "limitation": "Python tree at selected SHA; Candidatos sintáticos em CODE no SHA; sem inferência de execução, wrappers ou alias reatribuído.; não mede maturidade nem causalidade.",
       "relevance": "O registro preservado define medida, unidade e denominador no SHA congelado. Contagens estáticas identificam sintaxe no escopo do scanner, não execução. Métricas indisponíveis permanecem perguntas abertas.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "pymc-marketing:code_config_cochange",
@@ -412,12 +424,13 @@
       },
       "limitation": "reachable eligible history; ; não mede maturidade nem causalidade.",
       "relevance": "O registro preservado define medida, unidade e denominador no SHA congelado. Contagens estáticas identificam sintaxe no escopo do scanner, não execução. Métricas indisponíveis permanecem perguntas abertas.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "pymc-marketing:config_magnitude",
@@ -444,12 +457,13 @@
       },
       "limitation": "reachable eligible history; ; não mede maturidade nem causalidade.",
       "relevance": "O registro preservado define medida, unidade e denominador no SHA congelado. Contagens estáticas identificam sintaxe no escopo do scanner, não execução. Métricas indisponíveis permanecem perguntas abertas.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "pymc-marketing:data_code_ratio_original",
@@ -476,12 +490,13 @@
       },
       "limitation": "reachable eligible history; Dimensão D não validada para dados MLflow; DATA_META detecta DVC.; não mede maturidade nem causalidade.",
       "relevance": "O registro preservado define medida, unidade e denominador no SHA congelado. Contagens estáticas identificam sintaxe no escopo do scanner, não execução. Métricas indisponíveis permanecem perguntas abertas.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "pymc-marketing:data_code_cochange",
@@ -508,12 +523,13 @@
       },
       "limitation": "reachable eligible history; Dimensão D não validada para dados MLflow; DATA_META detecta DVC.; não mede maturidade nem causalidade.",
       "relevance": "O registro preservado define medida, unidade e denominador no SHA congelado. Contagens estáticas identificam sintaxe no escopo do scanner, não execução. Métricas indisponíveis permanecem perguntas abertas.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "pymc-marketing:cace_index",
@@ -540,12 +556,13 @@
       },
       "limitation": "reachable eligible history; Dimensão D não validada para dados MLflow; DATA_META detecta DVC.; não mede maturidade nem causalidade.",
       "relevance": "O registro preservado define medida, unidade e denominador no SHA congelado. Contagens estáticas identificam sintaxe no escopo do scanner, não execução. Métricas indisponíveis permanecem perguntas abertas.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "pymc-marketing:provenance_coverage",
@@ -572,12 +589,13 @@
       },
       "limitation": "public runtime sources not collected; No runs/registry source ingested; tree scan is not a runtime census.; não mede maturidade nem causalidade.",
       "relevance": "O registro preservado define medida, unidade e denominador no SHA congelado. Contagens estáticas identificam sintaxe no escopo do scanner, não execução. Métricas indisponíveis permanecem perguntas abertas.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "pymc-marketing:env_versioning_rate",
@@ -604,12 +622,13 @@
       },
       "limitation": "public runtime sources not collected; No runs/registry source ingested; tree scan is not a runtime census.; não mede maturidade nem causalidade.",
       "relevance": "O registro preservado define medida, unidade e denominador no SHA congelado. Contagens estáticas identificam sintaxe no escopo do scanner, não execução. Métricas indisponíveis permanecem perguntas abertas.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "pymc-marketing:experiment_redundancy",
@@ -636,12 +655,13 @@
       },
       "limitation": "public runtime sources not collected; No runs/registry source ingested; tree scan is not a runtime census.; não mede maturidade nem causalidade.",
       "relevance": "O registro preservado define medida, unidade e denominador no SHA congelado. Contagens estáticas identificam sintaxe no escopo do scanner, não execução. Métricas indisponíveis permanecem perguntas abertas.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "pymc-marketing:static_mlflow_param_calls",
@@ -668,12 +688,13 @@
       },
       "limitation": "Python tree at selected SHA; Candidatos sintáticos em CODE no SHA; sem inferência de execução, wrappers ou alias reatribuído.; não mede maturidade nem causalidade.",
       "relevance": "O registro preservado define medida, unidade e denominador no SHA congelado. Contagens estáticas identificam sintaxe no escopo do scanner, não execução. Métricas indisponíveis permanecem perguntas abertas.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "pymc-marketing:static_mlflow_metric_calls",
@@ -700,12 +721,13 @@
       },
       "limitation": "Python tree at selected SHA; Candidatos sintáticos em CODE no SHA; sem inferência de execução, wrappers ou alias reatribuído.; não mede maturidade nem causalidade.",
       "relevance": "O registro preservado define medida, unidade e denominador no SHA congelado. Contagens estáticas identificam sintaxe no escopo do scanner, não execução. Métricas indisponíveis permanecem perguntas abertas.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "pymc-marketing:static_mlflow_artifact_calls",
@@ -732,12 +754,13 @@
       },
       "limitation": "Python tree at selected SHA; Candidatos sintáticos em CODE no SHA; sem inferência de execução, wrappers ou alias reatribuído.; não mede maturidade nem causalidade.",
       "relevance": "O registro preservado define medida, unidade e denominador no SHA congelado. Contagens estáticas identificam sintaxe no escopo do scanner, não execução. Métricas indisponíveis permanecem perguntas abertas.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "pymc-marketing:static_mlflow_model_calls",
@@ -764,12 +787,13 @@
       },
       "limitation": "Python tree at selected SHA; Candidatos sintáticos em CODE no SHA; sem inferência de execução, wrappers ou alias reatribuído.; não mede maturidade nem causalidade.",
       "relevance": "O registro preservado define medida, unidade e denominador no SHA congelado. Contagens estáticas identificam sintaxe no escopo do scanner, não execução. Métricas indisponíveis permanecem perguntas abertas.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "anomalib:code_config_cochange",
@@ -796,12 +820,13 @@
       },
       "limitation": "reachable eligible history; ; não mede maturidade nem causalidade.",
       "relevance": "O registro preservado define medida, unidade e denominador no SHA congelado. Contagens estáticas identificam sintaxe no escopo do scanner, não execução. Métricas indisponíveis permanecem perguntas abertas.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "anomalib:config_magnitude",
@@ -828,12 +853,13 @@
       },
       "limitation": "reachable eligible history; ; não mede maturidade nem causalidade.",
       "relevance": "O registro preservado define medida, unidade e denominador no SHA congelado. Contagens estáticas identificam sintaxe no escopo do scanner, não execução. Métricas indisponíveis permanecem perguntas abertas.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "anomalib:data_code_ratio_original",
@@ -860,12 +886,13 @@
       },
       "limitation": "reachable eligible history; Dimensão D não validada para dados MLflow; DATA_META detecta DVC.; não mede maturidade nem causalidade.",
       "relevance": "O registro preservado define medida, unidade e denominador no SHA congelado. Contagens estáticas identificam sintaxe no escopo do scanner, não execução. Métricas indisponíveis permanecem perguntas abertas.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "anomalib:data_code_cochange",
@@ -892,12 +919,13 @@
       },
       "limitation": "reachable eligible history; Dimensão D não validada para dados MLflow; DATA_META detecta DVC.; não mede maturidade nem causalidade.",
       "relevance": "O registro preservado define medida, unidade e denominador no SHA congelado. Contagens estáticas identificam sintaxe no escopo do scanner, não execução. Métricas indisponíveis permanecem perguntas abertas.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "anomalib:cace_index",
@@ -924,12 +952,13 @@
       },
       "limitation": "reachable eligible history; Dimensão D não validada para dados MLflow; DATA_META detecta DVC.; não mede maturidade nem causalidade.",
       "relevance": "O registro preservado define medida, unidade e denominador no SHA congelado. Contagens estáticas identificam sintaxe no escopo do scanner, não execução. Métricas indisponíveis permanecem perguntas abertas.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "anomalib:provenance_coverage",
@@ -956,12 +985,13 @@
       },
       "limitation": "public runtime sources not collected; No runs/registry source ingested; tree scan is not a runtime census.; não mede maturidade nem causalidade.",
       "relevance": "O registro preservado define medida, unidade e denominador no SHA congelado. Contagens estáticas identificam sintaxe no escopo do scanner, não execução. Métricas indisponíveis permanecem perguntas abertas.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "anomalib:env_versioning_rate",
@@ -988,12 +1018,13 @@
       },
       "limitation": "public runtime sources not collected; No runs/registry source ingested; tree scan is not a runtime census.; não mede maturidade nem causalidade.",
       "relevance": "O registro preservado define medida, unidade e denominador no SHA congelado. Contagens estáticas identificam sintaxe no escopo do scanner, não execução. Métricas indisponíveis permanecem perguntas abertas.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "anomalib:experiment_redundancy",
@@ -1020,12 +1051,13 @@
       },
       "limitation": "public runtime sources not collected; No runs/registry source ingested; tree scan is not a runtime census.; não mede maturidade nem causalidade.",
       "relevance": "O registro preservado define medida, unidade e denominador no SHA congelado. Contagens estáticas identificam sintaxe no escopo do scanner, não execução. Métricas indisponíveis permanecem perguntas abertas.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "anomalib:static_mlflow_param_calls",
@@ -1052,12 +1084,13 @@
       },
       "limitation": "Python tree at selected SHA; Candidatos sintáticos em CODE no SHA; sem inferência de execução, wrappers ou alias reatribuído.; não mede maturidade nem causalidade.",
       "relevance": "O registro preservado define medida, unidade e denominador no SHA congelado. Contagens estáticas identificam sintaxe no escopo do scanner, não execução. Métricas indisponíveis permanecem perguntas abertas.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "anomalib:static_mlflow_metric_calls",
@@ -1084,12 +1117,13 @@
       },
       "limitation": "Python tree at selected SHA; Candidatos sintáticos em CODE no SHA; sem inferência de execução, wrappers ou alias reatribuído.; não mede maturidade nem causalidade.",
       "relevance": "O registro preservado define medida, unidade e denominador no SHA congelado. Contagens estáticas identificam sintaxe no escopo do scanner, não execução. Métricas indisponíveis permanecem perguntas abertas.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "anomalib:static_mlflow_artifact_calls",
@@ -1116,12 +1150,13 @@
       },
       "limitation": "Python tree at selected SHA; Candidatos sintáticos em CODE no SHA; sem inferência de execução, wrappers ou alias reatribuído.; não mede maturidade nem causalidade.",
       "relevance": "O registro preservado define medida, unidade e denominador no SHA congelado. Contagens estáticas identificam sintaxe no escopo do scanner, não execução. Métricas indisponíveis permanecem perguntas abertas.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "anomalib:static_mlflow_model_calls",
@@ -1148,24 +1183,25 @@
       },
       "limitation": "Python tree at selected SHA; Candidatos sintáticos em CODE no SHA; sem inferência de execução, wrappers ou alias reatribuído.; não mede maturidade nem causalidade.",
       "relevance": "O registro preservado define medida, unidade e denominador no SHA congelado. Contagens estáticas identificam sintaxe no escopo do scanner, não execução. Métricas indisponíveis permanecem perguntas abertas.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "taxonomia",
-      "statement": "A avaliação da taxonomia obteve 173/180 concordâncias (96.11%), com 7 divergências. O limiar global é 95%. O resultado é de julgamento redigido pela IA sob mascaramento das predições individuais; não é concordância humana independente.",
-      "allowed_conclusion": "A avaliação da taxonomia obteve 173/180 concordâncias (96.11%), com 7 divergências. O limiar global é 95%. O resultado é de julgamento redigido pela IA sob mascaramento das predições individuais; não é concordância humana independente.",
+      "statement": "A avaliação da taxonomia obteve 173/180 concordâncias (96.11%), com 7 divergências. O limiar global é 95%. O resultado é de julgamento preparado nesta rodada sob mascaramento das predições individuais; não é concordância humana independente.",
+      "allowed_conclusion": "A avaliação da taxonomia obteve 173/180 concordâncias (96.11%), com 7 divergências. O limiar global é 95%. O resultado é de julgamento preparado nesta rodada sob mascaramento das predições individuais; não é concordância humana independente.",
       "status": "sustentada_no_escopo",
       "sources": [
         {
           "evidence_id": "taxonomia",
           "kind": "file",
-          "path": "data/interim/runs/20260913T220943004870Z_609c01ed_phase6_validate_taxonomy/taxonomy_validation.json",
-          "sha256": "a45747f1f07c48ea1f2a6be50e6076b8be1970a43f88266233727d2ac2210c9c"
+          "path": "docs/evidencias/taxonomy_validation_dm027.json",
+          "sha256": "a1f28e10764e80e700b6ba351fb0b87097ed6c8d33cef037a3e7dcf76f3f11a2"
         },
         {
           "evidence_id": "cegos",
@@ -1182,12 +1218,13 @@
       },
       "limitation": "Ordem estratificada conservada; conhecimento prévio do método; confirmação posterior não cria avaliador independente.",
       "relevance": "A matriz permite calcular o limiar global. A autoria explícita impede equiparar o resultado à validação independente por especialista humano.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "categoria:CI",
@@ -1217,12 +1254,13 @@
       },
       "limitation": "Limiar global; categorias raras não sustentam conclusão autônoma de desempenho.",
       "relevance": "A ausência de DATA_META é mantida sem concordância artificial.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "categoria:CODE",
@@ -1252,12 +1290,13 @@
       },
       "limitation": "Limiar global; categorias raras não sustentam conclusão autônoma de desempenho.",
       "relevance": "A ausência de DATA_META é mantida sem concordância artificial.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "categoria:CONFIG",
@@ -1287,12 +1326,13 @@
       },
       "limitation": "Limiar global; categorias raras não sustentam conclusão autônoma de desempenho.",
       "relevance": "A ausência de DATA_META é mantida sem concordância artificial.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "categoria:DATA_META",
@@ -1322,13 +1362,14 @@
       },
       "limitation": "Limiar global; categorias raras não sustentam conclusão autônoma de desempenho.",
       "relevance": "A ausência de DATA_META é mantida sem concordância artificial.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
       "revised_at_utc": "2026-09-14T13:03:41Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "categoria:DATA_RAW",
@@ -1358,12 +1399,13 @@
       },
       "limitation": "Limiar global; categorias raras não sustentam conclusão autônoma de desempenho.",
       "relevance": "A ausência de DATA_META é mantida sem concordância artificial.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "categoria:DOC",
@@ -1393,12 +1435,13 @@
       },
       "limitation": "Limiar global; categorias raras não sustentam conclusão autônoma de desempenho.",
       "relevance": "A ausência de DATA_META é mantida sem concordância artificial.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "categoria:ENV",
@@ -1428,12 +1471,13 @@
       },
       "limitation": "Limiar global; categorias raras não sustentam conclusão autônoma de desempenho.",
       "relevance": "A ausência de DATA_META é mantida sem concordância artificial.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "categoria:NOTEBOOK",
@@ -1463,12 +1507,13 @@
       },
       "limitation": "Limiar global; categorias raras não sustentam conclusão autônoma de desempenho.",
       "relevance": "A ausência de DATA_META é mantida sem concordância artificial.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "categoria:OUTRO",
@@ -1498,12 +1543,13 @@
       },
       "limitation": "Limiar global; categorias raras não sustentam conclusão autônoma de desempenho.",
       "relevance": "A ausência de DATA_META é mantida sem concordância artificial.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "categoria:TEST",
@@ -1533,12 +1579,13 @@
       },
       "limitation": "Limiar global; categorias raras não sustentam conclusão autônoma de desempenho.",
       "relevance": "A ausência de DATA_META é mantida sem concordância artificial.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "avaliacao:open-edge-platform/anomalib",
@@ -1564,12 +1611,13 @@
       },
       "limitation": "Amostra estratificada por categoria, sem ponderação para prevalência no universo.",
       "relevance": "A desagregação revela limites ocultados pelo agregado.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "avaliacao:pymc-labs/pymc-marketing",
@@ -1595,12 +1643,13 @@
       },
       "limitation": "Amostra estratificada por categoria, sem ponderação para prevalência no universo.",
       "relevance": "A desagregação revela limites ocultados pelo agregado.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "avaliacao:ultralytics/ultralytics",
@@ -1626,12 +1675,13 @@
       },
       "limitation": "Amostra estratificada por categoria, sem ponderação para prevalência no universo.",
       "relevance": "A desagregação revela limites ocultados pelo agregado.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "desenho",
@@ -1664,12 +1714,13 @@
       },
       "limitation": "Sem amostragem probabilística de projetos ou eventos.",
       "relevance": "A contagem descreve o corpus; não estima prevalência.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "caso:ultralytics/ultralytics",
@@ -1681,7 +1732,7 @@
           "evidence_id": "caso:ultralytics/ultralytics",
           "kind": "file",
           "path": "docs/evidencias/casos_dm027.json",
-          "sha256": "ca67095b0957f2596029a3fe9759a8cc739b097010fda5fb276a359aa5539078"
+          "sha256": "742ff45ab334c9599798ad8c9435ed1ebcc81fd18eb9d846d952fc947c8ca5fa"
         }
       ],
       "method": "Leitura de componentes e chamadores no congelamento; log Git para atividade e coleta original para estrelas.",
@@ -1692,12 +1743,13 @@
       },
       "limitation": "BaseTrainer registra os callbacks e dispara eventos; callback envia trainer.args, métricas e pesos. Não comprova execução pública.",
       "relevance": "Inclusão tecnicamente sustentada pelo histórico congelado, atividade e estrelas da coleta original. BaseTrainer registra callbacks via add_integration_callbacks, e o componente mlflow envia argumentos, métricas e artefatos sob SETTINGS e guards. No evento 620f3eb2181c1b686c9bdd2ee805dee483d4f116, o caminho é renomeado de ultralytics/yolo/utils/callbacks/mlflow.py; o marco selecionado não é adoção inicial. Integração estrutural, sem alegação de uso público em execução.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "caso:pymc-labs/pymc-marketing",
@@ -1709,7 +1761,7 @@
           "evidence_id": "caso:pymc-labs/pymc-marketing",
           "kind": "file",
           "path": "docs/evidencias/casos_dm027.json",
-          "sha256": "ca67095b0957f2596029a3fe9759a8cc739b097010fda5fb276a359aa5539078"
+          "sha256": "742ff45ab334c9599798ad8c9435ed1ebcc81fd18eb9d846d952fc947c8ca5fa"
         }
       ],
       "method": "Leitura de componentes e chamadores no congelamento; log Git para atividade e coleta original para estrelas.",
@@ -1720,12 +1772,13 @@
       },
       "limitation": "Wrappers conectados às operações de amostragem/fit. Testes documentam chamadas; exemplos não foram executados nesta coleta.",
       "relevance": "Inclusão tecnicamente sustentada pelo histórico congelado e diversidade do domínio. pymc_marketing/mlflow.py conecta autolog à amostragem e ao fit e registra informações do modelo, parâmetros e inferência. ModelBuilder recebe model_config e sampler_config como objetos Python: a taxonomia os conta em CODE, portanto CONFIG não cobre integralmente a configuração operacional. Evidência de wrappers e testes, sem medir proveniência de runs públicos.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "caso:open-edge-platform/anomalib",
@@ -1737,7 +1790,7 @@
           "evidence_id": "caso:open-edge-platform/anomalib",
           "kind": "file",
           "path": "docs/evidencias/casos_dm027.json",
-          "sha256": "ca67095b0957f2596029a3fe9759a8cc739b097010fda5fb276a359aa5539078"
+          "sha256": "742ff45ab334c9599798ad8c9435ed1ebcc81fd18eb9d846d952fc947c8ca5fa"
         }
       ],
       "method": "Leitura de componentes e chamadores no congelamento; log Git para atividade e coleta original para estrelas.",
@@ -1748,12 +1801,13 @@
       },
       "limitation": "Engine recebe o logger e o repassa ao Trainer (engine.py:155-174, 305-332). O AnomalibModule salva hiperparâmetros; modelos LightningModule chamam self.log. As operações log_hyperparams/log_metrics são herdadas do Lightning 2.6.5, commit be98784a1a03581b7051a355ae1084fd352d7cea, inspecionado e preservado em docs/evidencias/dm026_fontes.json. Evidência estrutural conforme DM-026 A; sem execução de dependências ou comprovação de uso por terceiros. O Engine deixou de registrar _VisualizationCallback na v2.0.0; add_image permanece API disponível e não compõe a ligação automática demonstrada.",
       "relevance": "Inclusão tecnicamente sustentada como reserva ordenada do protocolo após inelegibilidade do Composer, preservando a decisão anterior às métricas. O Engine repassa logger ao Trainer e converte ausência em desativação. AnomalibMLFlowLogger herda operações do Lightning; a fonte externa preservada da DM-026 identifica a implementação examinada. Checkpoints dependem de log_model; add_image é API disponível sem ligação automática demonstrada no congelamento. Não há comprovação de uso por terceiros.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "evento-1",
@@ -1787,12 +1841,13 @@
       },
       "limitation": "Conclusão documental sobre ultralytics/utils/callbacks/mlflow.py no SHA indicado. O próprio diff identifica renomeação e conserva o callback, contrariando uma leitura de introdução funcional. A seleção intencional de eventos não autoriza estimar a prevalência dos temas no projeto inteiro.",
       "relevance": "No diff de ultralytics/utils/callbacks/mlflow.py, o trecho `rename from ultralytics/yolo/utils/callbacks/mlflow.py` fundamenta a interpretação: A reorganização do pacote desloca callbacks e descritores de datasets; o marco de caminho selecionado não é adoção inicial de MLflow. Os temas designam esse mecanismo documentado, sem assumir execução.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "evento-2",
@@ -1826,12 +1881,13 @@
       },
       "limitation": "Conclusão documental sobre ultralytics/utils/callbacks/mlflow.py no SHA indicado. A presença da guarda permite desabilitar o envio; modificar integração não implica alteração de arquivo CONFIG. A seleção intencional de eventos não autoriza estimar a prevalência dos temas no projeto inteiro.",
       "relevance": "No diff de ultralytics/utils/callbacks/mlflow.py, o trecho `assert SETTINGS['mlflow'] is True` fundamenta a interpretação: A ativação do callback passa a depender da preferência persistida pelo SettingsManager, expressa em Python. Os temas designam esse mecanismo documentado, sem assumir execução.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "evento-3",
@@ -1865,12 +1921,13 @@
       },
       "limitation": "Conclusão documental sobre ultralytics/cfg/default.yaml no SHA indicado. Os YAMLs de arquitetura e a alteração de copy_paste_mode explicam coalteração sem demonstrar mudança do callback MLflow. A seleção intencional de eventos não autoriza estimar a prevalência dos temas no projeto inteiro.",
       "relevance": "No diff de ultralytics/cfg/default.yaml, o trecho `copy_paste_mode` fundamenta a interpretação: O lançamento YOLO11 combina arquiteturas declarativas com implementação e opção de aumento de dados; Q1 também captura evolução geral do trainer. Os temas designam esse mecanismo documentado, sem assumir execução.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "evento-4",
@@ -1904,12 +1961,13 @@
       },
       "limitation": "Conclusão documental sobre ultralytics/engine/trainer.py no SHA indicado. O diff está restrito à estratégia do otimizador e não altera chamadas de tracking. A seleção intencional de eventos não autoriza estimar a prevalência dos temas no projeto inteiro.",
       "relevance": "No diff de ultralytics/engine/trainer.py, o trecho `AdamW` fundamenta a interpretação: A escolha automática entre MuSGD e AdamW muda dentro do trainer; parâmetros operacionais podem mudar em CODE sem CONFIG. Os temas designam esse mecanismo documentado, sem assumir execução.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "evento-5",
@@ -1943,12 +2001,13 @@
       },
       "limitation": "Conclusão documental sobre ultralytics/utils/callbacks/base.py no SHA indicado. A mudança em mlflow.py é textual; o evento Q1 não demonstra nova operação MLflow. A seleção intencional de eventos não autoriza estimar a prevalência dos temas no projeto inteiro.",
       "relevance": "No diff de ultralytics/utils/callbacks/base.py, o trecho `neptune_cb` fundamenta a interpretação: A manutenção remove Neptune da lista de callbacks e atualiza Ray Tune; no arquivo MLflow remove apenas uma instrução operacional da docstring. Os temas designam esse mecanismo documentado, sem assumir execução.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "evento-6",
@@ -1982,12 +2041,13 @@
       },
       "limitation": "Conclusão documental sobre ultralytics/yolo/engine/trainer.py no SHA indicado. Salvar YAML localmente não estabelece identidade de run num servidor MLflow nem vínculo verificável com dados externos. A seleção intencional de eventos não autoriza estimar a prevalência dos temas no projeto inteiro.",
       "relevance": "No diff de ultralytics/yolo/engine/trainer.py, o trecho `utils.save_yaml` fundamenta a interpretação: A introdução do trainer e defaults aproxima opções de treino e persistência de train.yaml no diretório do experimento. Os temas designam esse mecanismo documentado, sem assumir execução.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "evento-7",
@@ -2021,12 +2081,13 @@
       },
       "limitation": "Conclusão documental sobre ultralytics/datasets/ImageNet.yaml no SHA indicado. A similaridade registrada na renomeação mostra que magnitude alta pode refletir deslocamento e não alteração equivalente de hiperparâmetros. A seleção intencional de eventos não autoriza estimar a prevalência dos temas no projeto inteiro.",
       "relevance": "No diff de ultralytics/datasets/ImageNet.yaml, o trecho `rename from ultralytics/yolo/data/datasets/ImageNet.yaml` fundamenta a interpretação: A mudança para novos caminhos de datasets ocorre junto à exportação TensorFlow; remoções e adições de descritores elevam a magnitude por caminho. Os temas designam esse mecanismo documentado, sem assumir execução.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "evento-8",
@@ -2060,12 +2121,13 @@
       },
       "limitation": "Conclusão documental sobre ultralytics/cfg/models/v9/yolov9c.yaml no SHA indicado. A topologia declarada não é prova de treinamento ou de melhoria de desempenho; não há vínculo de execução neste diff. A seleção intencional de eventos não autoriza estimar a prevalência dos temas no projeto inteiro.",
       "relevance": "No diff de ultralytics/cfg/models/v9/yolov9c.yaml, o trecho `RepNCSPELAN4` fundamenta a interpretação: Os descritores YOLOv9 nomeiam blocos também introduzidos no código, documentando dependência entre arquitetura declarada e implementação. Os temas designam esse mecanismo documentado, sem assumir execução.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "evento-9",
@@ -2099,12 +2161,13 @@
       },
       "limitation": "Conclusão documental sobre ultralytics/cfg/default.yaml no SHA indicado. A edição é de comentário no YAML; coalteração por arquivo e magnitude semântica zero são compatíveis. A seleção intencional de eventos não autoriza estimar a prevalência dos temas no projeto inteiro.",
       "relevance": "No diff de ultralytics/cfg/default.yaml, o trecho `visualize: False` fundamenta a interpretação: A opção visualize conserva seu valor no YAML, mas passa a orientar visualização de acertos e erros no validador. Os temas designam esse mecanismo documentado, sem assumir execução.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "evento-10",
@@ -2138,12 +2201,13 @@
       },
       "limitation": "Conclusão documental sobre ultralytics/cfg/default.yaml no SHA indicado. Os testes condicionam o resultado ao ambiente; a configuração versionada não determina sozinha o formato de memória efetivo. A seleção intencional de eventos não autoriza estimar a prevalência dos temas no projeto inteiro.",
       "relevance": "No diff de ultralytics/cfg/default.yaml, o trecho `channels_last:` fundamenta a interpretação: A opção channels_last passa de falsa para escolha automática, ligada à detecção de CPU, sistema operacional e backend. Os temas designam esse mecanismo documentado, sem assumir execução.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "evento-11",
@@ -2177,12 +2241,13 @@
       },
       "limitation": "Conclusão documental sobre ultralytics/yolo/data/datasets/ImageNet.yaml no SHA indicado. Nomes e caminhos de datasets não são hashes do conteúdo usado em cada execução e não validam a dimensão D. A seleção intencional de eventos não autoriza estimar a prevalência dos temas no projeto inteiro.",
       "relevance": "No diff de ultralytics/yolo/data/datasets/ImageNet.yaml, o trecho `+names:` fundamenta a interpretação: A inclusão de descritores de datasets e catálogos de classes aumenta a magnitude CONFIG e oferece referências de entrada para o código. Os temas designam esse mecanismo documentado, sem assumir execução.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "evento-12",
@@ -2216,12 +2281,13 @@
       },
       "limitation": "Conclusão documental sobre ultralytics/cfg/datasets/lvis.yaml no SHA indicado. A lista extensa de classes pesa na magnitude; sua extensão não mede esforço de implementação nem cobertura de proveniência. A seleção intencional de eventos não autoriza estimar a prevalência dos temas no projeto inteiro.",
       "relevance": "No diff de ultralytics/cfg/datasets/lvis.yaml, o trecho `+minival:` fundamenta a interpretação: O suporte a YOLO-World inclui descritor LVIS e reorganiza get_dataset, ligando preparação de dados e configuração. Os temas designam esse mecanismo documentado, sem assumir execução.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "evento-13",
@@ -2255,12 +2321,13 @@
       },
       "limitation": "Conclusão documental sobre ultralytics/yolo/engine/trainer.py no SHA indicado. O grande mapa de classes e a correção de retomada coexistem; atribuir toda a magnitude a rastreabilidade de checkpoints seria indevido. A seleção intencional de eventos não autoriza estimar a prevalência dos temas no projeto inteiro.",
       "relevance": "No diff de ultralytics/yolo/engine/trainer.py, o trecho `attempt_load_weights(last).args` fundamenta a interpretação: A retomada passa a recuperar argumentos do checkpoint, enquanto o YAML ImageNet recebe um mapa de nomes legíveis. Os temas designam esse mecanismo documentado, sem assumir execução.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "evento-14",
@@ -2294,12 +2361,13 @@
       },
       "limitation": "Conclusão documental sobre ultralytics/cfg/datasets/open-images-v7.yaml no SHA indicado. Os links e nomes no descritor não comprovam execução nem recuperação de uma versão imutável das imagens. A seleção intencional de eventos não autoriza estimar a prevalência dos temas no projeto inteiro.",
       "relevance": "No diff de ultralytics/cfg/datasets/open-images-v7.yaml, o trecho `+names:` fundamenta a interpretação: O suporte a Open Images incorpora catálogo de classes e lógica de preparação do dataset, ampliando o conteúdo declarativo. Os temas designam esse mecanismo documentado, sem assumir execução.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "evento-15",
@@ -2333,12 +2401,13 @@
       },
       "limitation": "Conclusão documental sobre ultralytics/engine/trainer.py no SHA indicado. Mudanças de comentários no default.yaml coexistem com descritores novos; o total não é medida exclusiva de hiperparâmetros de treino. A seleção intencional de eventos não autoriza estimar a prevalência dos temas no projeto inteiro.",
       "relevance": "No diff de ultralytics/engine/trainer.py, o trecho `\"semantic\"` fundamenta a interpretação: A extensão para segmentação semântica combina novos datasets, arquitetura e tratamento específico no trainer. Os temas designam esse mecanismo documentado, sem assumir execução.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "evento-16",
@@ -2372,12 +2441,13 @@
       },
       "limitation": "Conclusão documental sobre pymc_marketing/mlflow.py no SHA indicado. Os testes e exemplos são evidência de código; a associação PR preservada não encontrou um PR, portanto não atribuo discussão inexistente ao evento. A seleção intencional de eventos não autoriza estimar a prevalência dos temas no projeto inteiro.",
       "relevance": "No diff de pymc_marketing/mlflow.py, o trecho `+def autolog(` fundamenta a interpretação: O módulo MLflow introduz wrappers de amostragem e MMM.fit e utilitários de registro; a mensagem curta sobre BLAS não descreve toda a alteração. Os temas designam esse mecanismo documentado, sem assumir execução.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "evento-17",
@@ -2411,12 +2481,13 @@
       },
       "limitation": "Conclusão documental sobre pymc_marketing/model_builder.py no SHA indicado. Ser parte dos caminhos Q1 não significa que esta incorporação introduziu MLflow; model_config e sampler_config são objetos Python. A seleção intencional de eventos não autoriza estimar a prevalência dos temas no projeto inteiro.",
       "relevance": "No diff de pymc_marketing/model_builder.py, o trecho `model_config: Optional[Dict]` fundamenta a interpretação: A incorporação de ModelBuilder internaliza contratos de configuração e amostragem antes do componente MLflow selecionado. Os temas designam esse mecanismo documentado, sem assumir execução.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "evento-18",
@@ -2450,12 +2521,13 @@
       },
       "limitation": "Conclusão documental sobre pymc_marketing/mlflow.py no SHA indicado. O diff não demonstra que uma execução tenha falhado ou completado; a vantagem em falhas é uma possibilidade do ordenamento, não observação de run. A seleção intencional de eventos não autoriza estimar a prevalência dos temas no projeto inteiro.",
       "relevance": "No diff de pymc_marketing/mlflow.py, o trecho `attrs = self.create_idata_attrs()` fundamenta a interpretação: O autolog passa a registrar atributos e nomes das transformações antes de executar fit, preservando contexto mesmo antes da etapa demorada terminar. Os temas designam esse mecanismo documentado, sem assumir execução.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "evento-19",
@@ -2489,12 +2561,13 @@
       },
       "limitation": "Conclusão documental sobre pymc_marketing/mmm/mmm.py no SHA indicado. A mudança visível acrescenta aviso, sem mostrar reconfiguração do tracking ou migração efetiva dos usuários. A seleção intencional de eventos não autoriza estimar a prevalência dos temas no projeto inteiro.",
       "relevance": "No diff de pymc_marketing/mmm/mmm.py, o trecho `FutureWarning` fundamenta a interpretação: O aviso de depreciação orienta migração para MMM multidimensional; a evolução da API pode afetar quais chamadores se conectam ao autolog. Os temas designam esse mecanismo documentado, sem assumir execução.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "evento-20",
@@ -2528,12 +2601,13 @@
       },
       "limitation": "Conclusão documental sobre pymc_marketing/mmm/mmm.py no SHA indicado. Serialização e testes não demonstram que todos esses atributos chegaram a um run MLflow; CONFIG não cobre essas alterações Python. A seleção intencional de eventos não autoriza estimar a prevalência dos temas no projeto inteiro.",
       "relevance": "No diff de pymc_marketing/mmm/mmm.py, o trecho `serialization.serialize_model_config(self.model_config)` fundamenta a interpretação: A serialização de model_config passa a lidar com objetos de prior e decomposição, tornando explícito o desafio de persistir configuração expressa em código. Os temas designam esse mecanismo documentado, sem assumir execução.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "evento-21",
@@ -2567,12 +2641,13 @@
       },
       "limitation": "Conclusão documental sobre streamlit/mmm-explainer/config.toml no SHA indicado. As opções visuais do TOML contribuem para C/P sem representar hiperparâmetros de um modelo treinado. A seleção intencional de eventos não autoriza estimar a prevalência dos temas no projeto inteiro.",
       "relevance": "No diff de streamlit/mmm-explainer/config.toml, o trecho `primaryColor` fundamenta a interpretação: A aplicação Streamlit combina código executável de explicação de priors com configuração visual; a DM-027 inclui a interface em CODE. Os temas designam esse mecanismo documentado, sem assumir execução.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "evento-22",
@@ -2606,12 +2681,13 @@
       },
       "limitation": "Conclusão documental sobre data/config_files/multi_dimensional_example_model.yml no SHA indicado. A magnitude usa o conteúdo normalizado pelo parser do instrumento; não equivale à simples contagem visual das linhas modificadas. A seleção intencional de eventos não autoriza estimar a prevalência dos temas no projeto inteiro.",
       "relevance": "No diff de data/config_files/multi_dimensional_example_model.yml, o trecho `-      nuts_sampler:` fundamenta a interpretação: A atualização de exemplo muda opções do sampler junto à depreciação da otimização antiga de orçamento e a dados simulados. Os temas designam esse mecanismo documentado, sem assumir execução.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "evento-23",
@@ -2645,12 +2721,13 @@
       },
       "limitation": "Conclusão documental sobre pymc_marketing/mmm/builders/yaml.py no SHA indicado. As recusas por estrutura inválida são contratos no código; não constituem incidentes de tracking observados em execução. A seleção intencional de eventos não autoriza estimar a prevalência dos temas no projeto inteiro.",
       "relevance": "No diff de pymc_marketing/mmm/builders/yaml.py, o trecho `_apply_and_validate_calibration_steps` fundamenta a interpretação: O builder passa a validar e resolver etapas de calibração declaradas em YAML, conectando explicitamente o documento de configuração a métodos do modelo. Os temas designam esse mecanismo documentado, sem assumir execução.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "evento-24",
@@ -2684,12 +2761,13 @@
       },
       "limitation": "Conclusão documental sobre data/config_files/cost_per_unit_example.yml no SHA indicado. O título do commit menciona notebook; o diff deve prevalecer sobre a mensagem para identificar o que foi efetivamente acrescentado. A seleção intencional de eventos não autoriza estimar a prevalência dos temas no projeto inteiro.",
       "relevance": "No diff de data/config_files/cost_per_unit_example.yml, o trecho `original_scale_vars:` fundamenta a interpretação: O exemplo de custo por unidade materializa classe, canais, sampler e variáveis em escala original em YAML para construção do modelo. Os temas designam esse mecanismo documentado, sem assumir execução.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "evento-25",
@@ -2723,12 +2801,13 @@
       },
       "limitation": "Conclusão documental sobre pymc_marketing/mmm/builders/yaml.py no SHA indicado. A validação de alvo duplicado e de coluna de data limita os formatos aceitos; isso não valida a dimensão D do estudo nem a proveniência de runs. A seleção intencional de eventos não autoriza estimar a prevalência dos temas no projeto inteiro.",
       "relevance": "No diff de pymc_marketing/mmm/builders/yaml.py, o trecho `_validate_extra_vars` fundamenta a interpretação: A construção de modelos de funil passa a preservar extra_vars e aceitar Dataset, aproximando esquema declarativo e estrutura de dados. Os temas designam esse mecanismo documentado, sem assumir execução.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "evento-26",
@@ -2762,12 +2841,13 @@
       },
       "limitation": "Conclusão documental sobre pymc_marketing/mmm/builders/yaml.py no SHA indicado. A maior exposição de CONFIG pode decorrer dessa opção arquitetural; não autoriza comparar maturidade organizacional pela taxa C/P. A seleção intencional de eventos não autoriza estimar a prevalência dos temas no projeto inteiro.",
       "relevance": "No diff de pymc_marketing/mmm/builders/yaml.py, o trecho `build_mmm_from_yaml` fundamenta a interpretação: A introdução do builder YAML torna explícita uma alternativa aos objetos Python, com descritores, factories e entradas tabulares preservadas no repositório. Os temas designam esse mecanismo documentado, sem assumir execução.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "evento-27",
@@ -2801,12 +2881,13 @@
       },
       "limitation": "Conclusão documental sobre data/config_files/basic_model.yml no SHA indicado. A mensagem de correção de typo resume um diff que inclui conteúdo novo; magnitude não representa apenas renomear o alvo. A seleção intencional de eventos não autoriza estimar a prevalência dos temas no projeto inteiro.",
       "relevance": "No diff de data/config_files/basic_model.yml, o trecho `+    target_column: \"y\"` fundamenta a interpretação: A correção alinha o nome do alvo com os dados de exemplo e inclui outro descritor; a renomeação de arquivo também afeta a magnitude. Os temas designam esse mecanismo documentado, sem assumir execução.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "evento-28",
@@ -2840,12 +2921,13 @@
       },
       "limitation": "Conclusão documental sobre pymc_marketing/mmm/plotting/cv.py no SHA indicado. O exemplo é excluído da varredura genérica de YAMLs nos testes; sua presença não demonstra validação integral de todas as combinações declaradas. A seleção intencional de eventos não autoriza estimar a prevalência dos temas no projeto inteiro.",
       "relevance": "No diff de pymc_marketing/mmm/plotting/cv.py, o trecho `MMMCVPlotSuite` fundamenta a interpretação: A migração das visualizações de validação temporal inclui configuração geográfica de exemplo e uma dependência de visualização. Os temas designam esse mecanismo documentado, sem assumir execução.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "evento-29",
@@ -2879,12 +2961,13 @@
       },
       "limitation": "Conclusão documental sobre .gitattributes no SHA indicado. O ponteiro LFS e as dependências são referências; o diff sozinho não comprova recuperação de cada payload nem ambiente por run. A seleção intencional de eventos não autoriza estimar a prevalência dos temas no projeto inteiro.",
       "relevance": "No diff de .gitattributes, o trecho `filter=lfs` fundamenta a interpretação: A atualização de orçamento multidimensional combina configuração, ambiente e declaração de armazenamento LFS para inferência NetCDF. Os temas designam esse mecanismo documentado, sem assumir execução.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "evento-30",
@@ -2918,12 +3001,13 @@
       },
       "limitation": "Conclusão documental sobre pymc_marketing/mmm/builders/yaml.py no SHA indicado. As fixtures de erro demonstram casos previstos no código; não medem incidência desses erros entre usuários. A seleção intencional de eventos não autoriza estimar a prevalência dos temas no projeto inteiro.",
       "relevance": "No diff de pymc_marketing/mmm/builders/yaml.py, o trecho `_validate_config_structure` fundamenta a interpretação: A validação estrutural passa a recusar seções YAML indevidamente aninhadas e alerta sobre chaves desconhecidas, reduzindo descarte silencioso de opções. Os temas designam esse mecanismo documentado, sem assumir execução.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "evento-31",
@@ -2957,12 +3041,13 @@
       },
       "limitation": "Conclusão documental sobre src/anomalib/loggers/mlflow.py no SHA indicado. A herança e o notebook não comprovam uso público do serviço; disponibilidade de add_image não garante chamada automática no SHA congelado. A seleção intencional de eventos não autoriza estimar a prevalência dos temas no projeto inteiro.",
       "relevance": "No diff de src/anomalib/loggers/mlflow.py, o trecho `class AnomalibMLFlowLogger(ImageLoggerBase, MLFlowLogger):` fundamenta a interpretação: O adaptador MLflow herda operações do Lightning e oferece interface de imagem, acompanhado de exemplo de logger injetável. Os temas designam esse mecanismo documentado, sem assumir execução.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "evento-32",
@@ -2996,12 +3081,13 @@
       },
       "limitation": "Conclusão documental sobre src/anomalib/models/ai_vad/config.yaml no SHA indicado. A mensagem agregada contém várias mudanças históricas; o diff de primeira revisão é a base, sem atribuir cada remoção a MLflow. A seleção intencional de eventos não autoriza estimar a prevalência dos temas no projeto inteiro.",
       "relevance": "No diff de src/anomalib/models/ai_vad/config.yaml, o trecho `deleted file mode` fundamenta a interpretação: A transição de arquitetura remove configurações antigas e introduz Engine; essa reorganização contribui para um evento de magnitude elevada. Os temas designam esse mecanismo documentado, sem assumir execução.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "evento-33",
@@ -3035,12 +3121,13 @@
       },
       "limitation": "Conclusão documental sobre src/anomalib/engine/engine.py no SHA indicado. Não há alteração do componente MLflow: pertencer a Q1 pelo caminho do Engine não implica mudança de tracking. A seleção intencional de eventos não autoriza estimar a prevalência dos temas no projeto inteiro.",
       "relevance": "No diff de src/anomalib/engine/engine.py, o trecho `+        export_type: ExportType | str,` fundamenta a interpretação: A manutenção da exportação ajusta tipo aceito, ajuda de CLI e exemplos de checkpoint no Engine. Os temas designam esse mecanismo documentado, sem assumir execução.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "evento-34",
@@ -3074,12 +3161,13 @@
       },
       "limitation": "Conclusão documental sobre src/anomalib/models/components/base/export_mixin.py no SHA indicado. Nome de arquivo não é identificador imutável de versão nem evidência de registro automático em MLflow. A seleção intencional de eventos não autoriza estimar a prevalência dos temas no projeto inteiro.",
       "relevance": "No diff de src/anomalib/models/components/base/export_mixin.py, o trecho `model_file_name + \".onnx\"` fundamenta a interpretação: O nome do modelo exportado passa a ser configurável e propagado pelo Engine para os formatos de saída. Os temas designam esse mecanismo documentado, sem assumir execução.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "evento-35",
@@ -3113,12 +3201,13 @@
       },
       "limitation": "Conclusão documental sobre src/anomalib/engine/engine.py no SHA indicado. Trata-se de callback de progresso; nenhuma operação MLflow é acrescentada por essa linha. A seleção intencional de eventos não autoriza estimar a prevalência dos temas no projeto inteiro.",
       "relevance": "No diff de src/anomalib/engine/engine.py, o trecho `MaxStepsProgressCallback` fundamenta a interpretação: O Engine passa a registrar callback que corrige a visualização de progresso para treino por passos, dentro de uma entrega com novos modelos. Os temas designam esse mecanismo documentado, sem assumir execução.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "evento-36",
@@ -3152,12 +3241,13 @@
       },
       "limitation": "Conclusão documental sobre anomalib/models/dfkde/config.yaml no SHA indicado. O descritor inicial desabilita logger; a existência de configuração não prova registro de experimento. A seleção intencional de eventos não autoriza estimar a prevalência dos temas no projeto inteiro.",
       "relevance": "No diff de anomalib/models/dfkde/config.yaml, o trecho `+  logger: false` fundamenta a interpretação: A árvore inicial já reúne opções de dados, modelos e Trainer, evidenciando uma base declarativa anterior ao logger MLflow. Os temas designam esse mecanismo documentado, sem assumir execução.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "evento-37",
@@ -3191,12 +3281,13 @@
       },
       "limitation": "Conclusão documental sobre anomalib/models/dfm/config.yaml no SHA indicado. Logging de console e logger de experimento são contratos distintos; o diff não deve ser interpretado como adoção MLflow. A seleção intencional de eventos não autoriza estimar a prevalência dos temas no projeto inteiro.",
       "relevance": "No diff de anomalib/models/dfm/config.yaml, o trecho `@@ -79,7 +79,6 @@ trainer:` fundamenta a interpretação: A padronização do console logger ocorre junto à remoção de linhas vazias em YAML; isso exemplifica C/P com magnitude semântica nula. Os temas designam esse mecanismo documentado, sem assumir execução.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "evento-38",
@@ -3230,12 +3321,13 @@
       },
       "limitation": "Conclusão documental sobre anomalib/models/patchcore/config.yaml no SHA indicado. As alterações de estilo em outros módulos não são novas funcionalidades e a alegação de desempenho não foi reproduzida com benchmark. A seleção intencional de eventos não autoriza estimar a prevalência dos temas no projeto inteiro.",
       "relevance": "No diff de anomalib/models/patchcore/config.yaml, o trecho `+  test_batch_size: 32` fundamenta a interpretação: A otimização do cálculo PatchCore acompanha aumento do batch de teste, ligando parâmetro declarativo e tratamento de vizinhos no código. Os temas designam esse mecanismo documentado, sem assumir execução.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "evento-39",
@@ -3269,12 +3361,13 @@
       },
       "limitation": "Conclusão documental sobre src/anomalib/engine/engine.py no SHA indicado. A assinatura aceita ausência de logger; diretório versionado por convenção não comprova proveniência completa nem ativação MLflow. A seleção intencional de eventos não autoriza estimar a prevalência dos temas no projeto inteiro.",
       "relevance": "No diff de src/anomalib/engine/engine.py, o trecho `logger: Logger | Iterable[Logger] | bool | None = None` fundamenta a interpretação: O Engine recebe logger como argumento e centraliza criação de diretório versionado, preparando a injeção de integração e organização de saídas. Os temas designam esse mecanismo documentado, sem assumir execução.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "evento-40",
@@ -3308,12 +3401,13 @@
       },
       "limitation": "Conclusão documental sobre src/anomalib/data/datamodules/depth/adam_3d.py no SHA indicado. As mudanças de release coexistem no mesmo evento; não atribuo a magnitude CONFIG exclusivamente à resolução de diretórios. A seleção intencional de eventos não autoriza estimar a prevalência dos temas no projeto inteiro.",
       "relevance": "No diff de src/anomalib/data/datamodules/depth/adam_3d.py, o trecho `resolve_dataset_root` fundamenta a interpretação: A entrega reúne novos dados/modelos e migra resolução de diretórios de datasets, compondo uma atualização ampla da biblioteca. Os temas designam esse mecanismo documentado, sem assumir execução.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "evento-41",
@@ -3347,12 +3441,13 @@
       },
       "limitation": "Conclusão documental sobre src/anomalib/models/cfa/config.yaml no SHA indicado. A similaridade integral nas renomeações contraria a interpretação de que todas as chaves contadas mudaram de significado. A seleção intencional de eventos não autoriza estimar a prevalência dos temas no projeto inteiro.",
       "relevance": "No diff de src/anomalib/models/cfa/config.yaml, o trecho `rename from anomalib/models/cfa/config.yaml` fundamenta a interpretação: A adoção do layout src desloca configurações e código sem alterar o conteúdo de vários YAMLs; a regra A/D amplia a magnitude medida. Os temas designam esse mecanismo documentado, sem assumir execução.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "evento-42",
@@ -3386,12 +3481,13 @@
       },
       "limitation": "Conclusão documental sobre configs/model/cfa.yaml no SHA indicado. A mensagem anuncia retorno quando a CLI estiver pronta; remoção não demonstra abandono de configuração nem redução da rastreabilidade em uso. A seleção intencional de eventos não autoriza estimar a prevalência dos temas no projeto inteiro.",
       "relevance": "No diff de configs/model/cfa.yaml, o trecho `deleted file mode` fundamenta a interpretação: A retirada temporária de configurações da CLI na release reduz a superfície declarativa, mas ainda contribui positivamente à magnitude de mudanças. Os temas designam esse mecanismo documentado, sem assumir execução.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "evento-43",
@@ -3425,12 +3521,13 @@
       },
       "limitation": "Conclusão documental sobre configs/model/cflow.yaml no SHA indicado. Declarar callbacks e classes não comprova que o treino foi executado ou que algum logger remoto recebeu os resultados. A seleção intencional de eventos não autoriza estimar a prevalência dos temas no projeto inteiro.",
       "relevance": "No diff de configs/model/cflow.yaml, o trecho `+  class_path: anomalib.models.Cflow` fundamenta a interpretação: A nova CLI usa class_path e init_args para ligar classes de dados e modelos às configurações e callbacks. Os temas designam esse mecanismo documentado, sem assumir execução.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "evento-44",
@@ -3464,12 +3561,13 @@
       },
       "limitation": "Conclusão documental sobre src/anomalib/configs/data/avenue.yaml no SHA indicado. As renomeações preservam conteúdo; o evento seguinte move novamente esses descritores, sem evidenciar mudança equivalente de parâmetros. A seleção intencional de eventos não autoriza estimar a prevalência dos temas no projeto inteiro.",
       "relevance": "No diff de src/anomalib/configs/data/avenue.yaml, o trecho `rename from src/configs/data/avenue.yaml` fundamenta a interpretação: As configurações são movidas para dentro do pacote e o empacotamento é ajustado; a magnitude reflete A/D em caminhos diferentes. Os temas designam esse mecanismo documentado, sem assumir execução.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "evento-45",
@@ -3503,12 +3601,13 @@
       },
       "limitation": "Conclusão documental sobre configs/data/avenue.yaml no SHA indicado. Este evento pertence a Q3 e não a Q2; mudanças em configuração e teste não asseguram presença de CODE elegível. A seleção intencional de eventos não autoriza estimar a prevalência dos temas no projeto inteiro.",
       "relevance": "No diff de configs/data/avenue.yaml, o trecho `rename from src/anomalib/configs/data/avenue.yaml` fundamenta a interpretação: As configurações retornam à raiz e deixam o pacote, revertendo a localização anterior; o movimento constitui evento próprio de magnitude elevada. Os temas designam esse mecanismo documentado, sem assumir execução.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "alinhamento",
@@ -3520,7 +3619,7 @@
           "evidence_id": "alinhamento",
           "kind": "file",
           "path": "docs/ALINHAMENTO_DM027.md",
-          "sha256": "6b69097c9864e225b2b8614bdfc32239319d2a2acfe901e55fe35d8e0b68e9eb"
+          "sha256": "6c45cdeedff172ea43f167ed729cfda2533b7d89e5eedb0efd01f25f8babcb9c"
         }
       ],
       "method": "Parecer técnico sobre objetivo, perguntas, método e alcance documental.",
@@ -3536,12 +3635,13 @@
       },
       "limitation": "Não representa aprovação da orientadora ou instituição; recorte descritivo técnico sujeito à confirmação.",
       "relevance": "Coalteração, magnitude e mecanismos documentados respondem ao objetivo operacional limitado; proveniência de modelos e ambientes por run permanece aberta.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     },
     {
       "claim_id": "calibracao",
@@ -3553,7 +3653,7 @@
           "evidence_id": "separacao",
           "kind": "file",
           "path": "docs/evidencias/avaliacao_taxonomia_dm027.json",
-          "sha256": "427d3d94d7dea83e3d528903f1223631e971ab178f2daacff592e4b9f239f2ff"
+          "sha256": "813b2de08f848209c21e25f43dcdddbb592cd48122ccdc4b51ed5d0761ddbb68"
         },
         {
           "evidence_id": "datas",
@@ -3569,12 +3669,13 @@
       },
       "limitation": "As datas históricas são estimativas com intervalo e fonte; não são carimbos observados.",
       "relevance": "Preservar a separação evita usar as correções da regra como sua própria avaliação.",
-      "drafted_by": "assistant:codex-dm027-fechamento",
-      "review_mode": "ai_drafted_pending_confirmation",
+      "drafted_by": "draft:dm027",
+      "review_mode": "draft_pending_confirmation",
       "confirmed_by": null,
       "confirmed_at_utc": null,
       "reviewed_at_utc": "2026-09-13T22:21:52Z",
-      "timestamp_source": "observed"
+      "timestamp_source": "observed",
+      "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
     }
   ]
 }

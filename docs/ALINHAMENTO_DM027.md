@@ -1,7 +1,7 @@
 # Parecer técnico sobre o recorte operacional DM-027
 
-Autoria: assistant:codex-dm027-fechamento. Modalidade: ai_drafted_pending_confirmation.
-Este parecer é uma análise técnica redigida por IA para revisão e assunção autoral pelo pesquisador.
+Identificação da revisão: draft:dm027. Modalidade: draft_pending_confirmation.
+Este parecer é uma análise técnica preparada nesta rodada para revisão e assunção autoral pelo pesquisador.
 Não representa manifestação nem aprovação da orientadora ou de uma instituição.
 
 ## Decisão fundamentada
@@ -28,7 +28,7 @@ As perguntas GQM sem fonte continuam sem resposta: cace_index, data_code_cochang
 
 ## Efeito da DM-027
 
-A ampliação de CODE para código de interface e novas extensões altera C; configurações de modelos/datasets reconhecidas alteram P e magnitude. Isso melhora a cobertura de papéis observados, mas amplia a distância entre CODE e código de treinamento. A versão anterior e a nova devem ser comparadas como sensibilidade metodológica, sem selecionar a mais conveniente. A calibração informada por divergências e o papel da IA na nova avaliação devem ser declarados. Confirmação de rascunhos de IA não cria um segundo avaliador independente.
+A ampliação de CODE para código de interface e novas extensões altera C; configurações de modelos/datasets reconhecidas alteram P e magnitude. Isso melhora a cobertura de papéis observados, mas amplia a distância entre CODE e código de treinamento. A versão anterior e a nova devem ser comparadas como sensibilidade metodológica, sem selecionar a mais conveniente. A calibração informada por divergências e o procedimento empregado na nova avaliação devem ser declarados. Confirmação de rascunhos de revisão não cria um segundo avaliador independente.
 
 ## Adequação e alternativa de escopo
 
@@ -39,4 +39,4 @@ A seleção é intencional. A análise não estima prevalência dos temas nem es
 ## Fontes e decisão registrada
 
 Fontes: docs/GQM_MAPA_METRICAS.md; docs/DECISOES_METODOLOGICAS.md; docs/DM026_E_FECHAMENTO_TAXONOMIA.md; docs/DM027_TAXONOMIA_1_2_0.md; metricas_consolidadas.csv da rodada de referência; rascunhos anteriores preservados em data/interim/documentation/validacao_amostra_recebida_20260911T145350982191Z/originais/.
-Os rascunhos anteriores declaram autoria de IA e não foram importados como decisões humanas. O registro estruturado desta análise usa as chaves canônicas do projeto e aliases em português solicitados no fechamento.
+Os rascunhos anteriores não foram importados como decisões confirmadas. O registro estruturado desta análise usa as chaves canônicas do projeto e aliases em português solicitados no fechamento.

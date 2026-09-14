@@ -1,11 +1,11 @@
 # Critérios de aceite e evidências — primeiro incremento
 
 O fechamento DM-027 incorpora os controles G00, G02, G04, G11 e G12 ao runner
-empírico, com política **1.4.0**. A restauração e o aceite final estão especificados
+empírico, com política **1.4.1**. A restauração e o aceite final estão especificados
 em [G14](G14_RESTAURACAO_ISOLADA.md); o texto conferido está no
 [manuscrito](MANUSCRITO_DM027.md), com catálogo e parecer em `docs/evidencias`.
 Os resultados executados são discriminados no relatório local
-`RELATORIO_FECHAMENTO_DM027.md`. Rascunhos de IA completos continuam sujeitos
+`RELATORIO_FECHAMENTO_DM027.md`. Rascunhos de revisão completos continuam sujeitos
 à confirmação explícita; implementação de um critério não equivale à aprovação.
 
 Este documento preserva o primeiro incremento, com política **1.0.0**.

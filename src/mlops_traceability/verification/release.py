@@ -129,7 +129,7 @@ def confirm_reviews(
     root: Path, review_dir: Path, lock_path: Path, name: str, assume_review: bool
 ) -> Path:
     """Only an explicit researcher CLI invocation records human confirmation."""
-    if not assume_review or not name.strip() or name.strip().lower().startswith("assistant:"):
+    if not assume_review or not name.strip() or ":" in name:
         raise ValueError("Explicit researcher name and --assumo-revisao are required")
     lock = json.loads(lock_path.read_text())
     check_hashes(root, lock["file_hashes"])
@@ -157,7 +157,7 @@ def confirm_reviews(
     def promote(value: Any) -> Any:
         if isinstance(value, dict):
             result = {k: promote(v) for k, v in value.items()}
-            if result.get("review_mode") == "ai_drafted_pending_confirmation":
+            if result.get("review_mode") == "draft_pending_confirmation":
                 result.update(
                     review_mode="human_confirmed", confirmed_by=name.strip(), confirmed_at_utc=at
                 )
@@ -193,7 +193,7 @@ def confirm_reviews(
             confirmed_at_utc=at,
             declaration=(
                 "Revisei o conteúdo listado e assumo os julgamentos e seus limites como "
-                "pesquisador, preservando a autoria da redação assistida por IA."
+                "pesquisador, preservando a autoria da redação preliminar."
             ),
             lock_sha256=sha256_file(lock_path),
             code_sha=head,
@@ -448,7 +448,7 @@ def final_receipt(
         check_hashes(root, confirmation_data["confirmed_file_hashes"])
         if (
             not confirmation_data["responsavel"].strip()
-            or confirmation_data["responsavel"].lower().startswith("assistant:")
+            or ":" in confirmation_data["responsavel"]
             or not valid_utc(confirmation_data["confirmed_at_utc"])
             or confirmation_data["code_sha"] != measured["verification_code_sha"]
             or confirmation_data["confirmed_review_dir"] != reviews.relative_to(root).as_posix()

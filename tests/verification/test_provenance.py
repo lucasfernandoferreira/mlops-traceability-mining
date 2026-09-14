@@ -1,4 +1,4 @@
-"""AI authorship cannot silently become scientific human acceptance."""
+"""Draft provenance cannot silently become scientific human acceptance."""
 
 from __future__ import annotations
 
@@ -16,15 +16,15 @@ def test_draft_and_confirmation_bind_bytes(tmp_path: Path) -> None:
     record = {
         "file": review.name,
         "record_id": "u",
-        "drafted_by": "assistant:synthetic",
-        "review_mode": "ai_drafted_pending_confirmation",
+        "drafted_by": "draft:synthetic",
+        "review_mode": "draft_pending_confirmation",
         "confirmed_by": None,
         "confirmed_at_utc": None,
     }
     sidecar = tmp_path / "review_provenance.json"
     data = {"records": [record], "file_hashes": {review.name: sha256_file(review)}}
     sidecar.write_text(json.dumps(data))
-    assert "ai_review_requires_confirmation" in assess_provenance(tmp_path, review.name)["errors"]
+    assert "review_requires_confirmation" in assess_provenance(tmp_path, review.name)["errors"]
     record.update(review_mode="human_confirmed", confirmed_by="Synthetic confirmer")
     sidecar.write_text(json.dumps(data))
     assert "human_confirmation_incomplete" in assess_provenance(tmp_path, review.name)["errors"]

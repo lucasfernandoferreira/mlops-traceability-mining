@@ -4077,8 +4077,8 @@
     },
     {
       "path": "data/interim/fechamento_dm027/protocolo_cego.json",
-      "size": 524,
-      "sha256": "ecc1c3d596081fe9d33dc07677e0f46b7b0bad47f1845771670927d725b5459a",
+      "size": 529,
+      "sha256": "2af797f97fda73fbc0483012724ceb08fe4d9af918b442471c8616d3cc3c4410",
       "recovery": "Cópia preservada no pacote de revisão e no inventário vinculado ao recibo; fonte Git histórica ou nova observação LFS explicitada nos dossiês."
     },
     {

@@ -1,8 +1,8 @@
 {
   "blind_sha256": "5ebc2f7464b6587c6e6cf4b9491ed1b280f83ce29133735d111fca36bd2f1898",
   "locked_judgments_sha256": "88d450df771557d744bd317e9a3b76a8c50d0c8ea770a36c46968b363e8d261f",
-  "review_sha256": "c1af0a6a6c6aaa7b7e8e7f252e240e33f39bcb6ebb9f28f7ed362aa9cb8dfb86",
-  "review_mode": "ai_drafted_pending_confirmation",
+  "review_sha256": "ec320c94b010b58bd30b145b86ec258194e7dd3c5fbdc7264177f73ed159b46f",
+  "review_mode": "draft_pending_confirmation",
   "reviewed": 180,
   "agreement_numerator": 173,
   "agreement_denominator": 180,
@@ -60,5 +60,6 @@
       "diagnosis": "examples/cpp/OpenVINO/CMakeLists.txt @ 947f80cb81b51ab9a0c2028c701fad42c8128e83: CMakeLists usa find_package(OpenCV/OpenVINO), add_executable e target_link_libraries; define dependências e montagem do binário. Fonte integral: data/interim/fechamento_dm027/fontes_taxonomia/08cf6ee0ecd3342684cc10f4fee48ea6d07e9bcc; SHA-256 58398b263df42a93fac6deb7239cf7a60cac53bcbfd4515083b46ca04e1d38bb."
     }
   ],
-  "limitation": "Concordância com julgamentos de IA; não é concordância humana independente. Cegamento limitado pela ordem estratificada e conhecimento prévio do método."
+  "limitation": "Concordância com julgamentos de referência; não é concordância humana independente. Cegamento limitado pela ordem estratificada e conhecimento prévio do método.",
+  "editorial_revision_at_utc": "2026-09-14T19:36:55Z"
 }

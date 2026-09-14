@@ -1,6 +1,6 @@
 # Mudanças de código e configuração e mecanismos MLflow em projetos públicos
 
-Versão documental produzida em 2026-09-13T22:21:52Z. Autoria técnica: assistant:codex-dm027-fechamento; revisão autoral mediante confirmação registrada.
+Versão documental produzida em 2026-09-13T22:21:52Z. Identificação da revisão: draft:dm027; revisão autoral mediante confirmação registrada.
 
 ## Resumo
 
@@ -22,7 +22,7 @@ A coalteração usa como denominador os commits elegíveis com CODE e como numer
 
 As unidades da avaliação anterior foram reservadas à calibração; não se reaproveitaram seus rótulos como avaliações da nova amostra. [afirmação:calibracao]
 
-A avaliação atual mascarou predições por unidade antes da emissão dos rótulos. O mascaramento é limitado pela conservação da ordem estratificada e pelo conhecimento anterior do método. As interpretações foram redigidas por IA e devem ser assumidas pelo pesquisador por um ato final explícito; esse ato não transforma a classificação em replicação independente.
+A avaliação atual mascarou predições por unidade antes da emissão dos rótulos. O mascaramento é limitado pela conservação da ordem estratificada e pelo conhecimento anterior do método. As interpretações foram preparadas nesta rodada e devem ser assumidas pelo pesquisador por um ato final explícito; esse ato não transforma a classificação em replicação independente.
 
 ## Casos e resultados quantitativos
 
@@ -106,7 +106,7 @@ Inclusão tecnicamente sustentada como reserva ordenada do protocolo após inele
 
 ## Avaliação da taxonomia
 
-A avaliação da taxonomia obteve 173/180 concordâncias (96.11%), com 7 divergências. O limiar global é 95%. O resultado é de julgamento redigido pela IA sob mascaramento das predições individuais; não é concordância humana independente. [afirmação:taxonomia]
+A avaliação da taxonomia obteve 173/180 concordâncias (96.11%), com 7 divergências. O limiar global é 95%. O resultado é de julgamento preparado nesta rodada sob mascaramento das predições individuais; não é concordância humana independente. [afirmação:taxonomia]
 
 Categoria CI: universo 106, avaliações 20, status sampled_category, concordância 1.0. [afirmação:categoria:CI]
 
@@ -281,7 +281,7 @@ Conclusão documental sobre configs/data/avenue.yaml no SHA indicado. Este event
 
 A seleção intencional de eventos não autoriza estimar a prevalência dos temas no projeto inteiro. Commits não são observações independentes e a atividade histórica não certifica práticas organizacionais. CONFIG não representa toda configuração em Python e inclui opções de interface. Renomeações tratadas como remoção/adição e mapas de classes podem dominar a magnitude. O limiar da taxonomia é global e não demonstra igual qualidade em categorias raras; DATA_META permanece ausente. Não foram executados modelos dos casos nem dependências de treino.
 
-Fontes estáticas demonstram capacidade e condições de integração. A ausência de chamadas diretas no adaptador Anomalib não significa ausência de operações herdadas. Disponibilidade de imagem/exportação não prova envio automático a MLflow. As datas reconstruídas das revisões históricas são identificadas como estimativas por sessão, com intervalo e evidência no sidecar; a confirmação nova registra a hora real. Registros redigidos por IA não substituem avaliações independentes nem aprovação institucional. Conteúdo de discussões de PR não coletadas não fundamenta interpretações.
+Fontes estáticas demonstram capacidade e condições de integração. A ausência de chamadas diretas no adaptador Anomalib não significa ausência de operações herdadas. Disponibilidade de imagem/exportação não prova envio automático a MLflow. As datas reconstruídas das revisões históricas são identificadas como estimativas por sessão, com intervalo e evidência no sidecar; a confirmação nova registra a hora real. Registros preparados nesta rodada não substituem avaliações independentes nem aprovação institucional. Conteúdo de discussões de PR não coletadas não fundamenta interpretações.
 
 ## Conclusão
 

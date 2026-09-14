@@ -35,8 +35,8 @@ def setup_review(root: Path) -> tuple[Path, Path]:
     root.joinpath("text.md").write_text("Observed 1 of 2. [afirmação:ratio]\n")
     reviews = root / "reviews"
     metadata = dict(
-        drafted_by="assistant:synthetic-test",
-        review_mode="ai_drafted_pending_confirmation",
+        drafted_by="draft:synthetic-test",
+        review_mode="draft_pending_confirmation",
         confirmed_by=None,
         confirmed_at_utc=None,
     )
@@ -105,7 +105,7 @@ def test_confirmation_preserves_original_and_updates_manuscript_binding(tmp_path
     reviews, lock = setup_review(tmp_path)
     original = {p.name: p.read_bytes() for p in reviews.iterdir()}
     assert release.manuscript_check(tmp_path, reviews)["status"] == "FAIL"
-    for name, assume in [("Synthetic reviewer", False), ("assistant:fake", True), ("", True)]:
+    for name, assume in [("Synthetic reviewer", False), ("draft:fake", True), ("", True)]:
         with pytest.raises(ValueError, match="Explicit"):
             release.confirm_reviews(tmp_path, reviews, lock, name, assume)
     confirmed = release.confirm_reviews(tmp_path, reviews, lock, "Synthetic test reviewer", True)
@@ -116,7 +116,7 @@ def test_confirmation_preserves_original_and_updates_manuscript_binding(tmp_path
     record = json.loads((tmp_path / "docs/evidencias/confirmacao_pesquisador.json").read_text())
     assert record["responsavel"] == "Synthetic test reviewer"
     data = json.loads((confirmed / "claims_catalog.json").read_text())["claims"][0]
-    assert data["drafted_by"] == "assistant:synthetic-test"
+    assert data["drafted_by"] == "draft:synthetic-test"
     assert data["review_mode"] == "human_confirmed" and data["confirmed_at_utc"]
     assert (
         release.confirm_reviews(tmp_path, reviews, lock, "Synthetic test reviewer", True)
@@ -189,7 +189,7 @@ def test_review_package_cannot_be_promoted_to_acceptance(
     )
     assert result["scientific_result_accepted"] is False
     assert "package_is_not_scientific_candidate" in result["blocking_reasons"]
-    assert "ai_review_requires_confirmation" in result["blocking_reasons"]
+    assert "review_requires_confirmation" in result["blocking_reasons"]
     assert any(x.startswith("researcher_confirmation:") for x in result["blocking_reasons"])
 
 
