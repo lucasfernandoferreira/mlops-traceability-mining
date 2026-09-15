@@ -1,0 +1,19 @@
+{
+  "source": "data/interim/reviews/avaliacao_taxonomia_1_2_0_20260911/origem_taxonomia.json",
+  "source_sha256": "655958d27e3186f95070ecaa7fae9b382f1494437cd34134f5934a1f4e1efbe1",
+  "index": "data/interim/runs/20260911T204432183508Z_1ce60b65_study_index/study_index.json",
+  "index_sha256": "e384710b8857a3849e61ae765372171eabebf2dd2210b12b3646f0f3fec4180a",
+  "comparison": {
+    "sample_sha256": {
+      "previous": "5ccdb6a61c4a0cdf0683ccad48a9e45b56a693d3344b2b71ead9ac2ce54f4b22",
+      "registered": "5ccdb6a61c4a0cdf0683ccad48a9e45b56a693d3344b2b71ead9ac2ce54f4b22",
+      "equal": true
+    },
+    "inventory_sha256": {
+      "previous": "cdd9e508235e31628834059996b50d91e045e80cd1baea730e5ef7b31b1d629b",
+      "registered": "cdd9e508235e31628834059996b50d91e045e80cd1baea730e5ef7b31b1d629b",
+      "equal": true
+    }
+  },
+  "original_preserved": true
+}

@@ -1,5 +1,12 @@
 # DM-027: validação da taxonomia 1.1.0 e versão 1.2.0
 
+## Estado consolidado da rodada
+
+A cadeia registrada está identificada em [rodada de referência](evidencias/rodada_referencia_1_2_0.md). Mineração, métricas, índice, seleção e relatório já foram executados. As passagens abaixo sobre prévia e registro futuro são históricas. O fechamento e a autoria das novas análises estão em `RELATORIO_FECHAMENTO_DM027.md`.
+
+[HISTÓRICO — rodada anterior]
+
+
 A revisão humana das 180 unidades da taxonomia 1.1.0 foi recebida em 11/09/2026.
 Na mesma data, na conversa de implementação, o pesquisador solicitou a consolidação
 da revisão e a versão 1.2.0. Este dossiê registra o que foi recebido, o resultado da

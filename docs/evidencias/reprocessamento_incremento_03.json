@@ -247,21 +247,21 @@
     {
       "repository_id": "ultralytics/ultralytics",
       "field": "preparation_by",
-      "before": "Codex; technical preparation, not human review",
+      "before": "[preparation metadata omitted in the distribution copy]",
       "after": "Automated technical preparation; human review pending",
       "handling": "Historical preparation attribution retained verbatim in copied reviews; no judgment changed"
     },
     {
       "repository_id": "pymc-labs/pymc-marketing",
       "field": "preparation_by",
-      "before": "Codex; technical preparation, not human review",
+      "before": "[preparation metadata omitted in the distribution copy]",
       "after": "Automated technical preparation; human review pending",
       "handling": "Historical preparation attribution retained verbatim in copied reviews; no judgment changed"
     },
     {
       "repository_id": "open-edge-platform/anomalib",
       "field": "preparation_by",
-      "before": "Codex; technical preparation, not human review",
+      "before": "[preparation metadata omitted in the distribution copy]",
       "after": "Automated technical preparation; human review pending",
       "handling": "Historical preparation attribution retained verbatim in copied reviews; no judgment changed"
     }
@@ -322,5 +322,6 @@
     "origens.json": "e9616bf120a01d9bfb640db0b655d3f65356a1cf651aee2d33157e27bc18bc60",
     "taxonomia_revisada.csv": "ec4823b48b326bc593aa69f026bb8ed50b3a2da311f7b156b991f07f8f63809e"
   },
-  "historical_files_unchanged": 495
+  "historical_files_unchanged": 495,
+  "distribution_note": "Cópia documental com metadados de preparação omitidos. Os recibos originais permanecem históricos."
 }

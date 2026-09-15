@@ -1,0 +1,15 @@
+# Síntese documental DM-027
+
+Identificação da revisão: draft:dm027. Parecer técnico preparado nesta rodada, sujeito ao ato final de confirmação. Identidades, ordem e seleção permanecem as da rodada definitiva; mensagens e diffs foram recuperados dos clones locais. As respostas preservadas da consulta de PRs estabelecem associações, não o conteúdo de discussões que não foi coletado. Não se atribuem falas a revisores de PR.
+
+O Ultralytics combina configuração declarativa de arquiteturas, classes e datasets com código de treino. Os eventos de reorganização (#3748 e #1034), inclusão de catálogos (#207 e #9268) e nomes ImageNet (#712) mostram como a magnitude pode crescer por deslocamento ou extensão de descritores. O #18868 altera comentário YAML mantendo valor: C/P por arquivo não exige mudança semântica positiva. A guarda SETTINGS no #3790 mostra que mudanças de ativação também podem residir em CODE. O marco MLflow de #3748 é renomeação, conforme o diff preservado.
+
+No PyMC, ModelBuilder e a serialização de model_config (#339 e #2833) demonstram configuração em Python. Os builders YAML (#1669, #1979, #2409 e #2885) tornam parte do contrato declarativa e validam sua ligação a classes, métodos e dados. O evento Streamlit 5577e19633488614bfc1ae5c574e8af871d5b7df combina interface CODE e tema visual CONFIG: a DM-027 amplia explicitamente o que se entende por código. O #1393 antecipa registro de contexto ao fit demorado; isso sustenta uma interpretação sobre ordenamento, sem comprovar ocorrência de falha ou execução pública.
+
+No Anomalib, #921 e os movimentos #1786/#1789 evidenciam magnitude por remoção/adição dos mesmos conteúdos em caminhos diferentes. O #241 conserva valores YAML ao mudar apenas espaços enquanto padroniza logging de console. O logger MLflow é um adaptador dependente da injeção no Engine e das operações herdadas do Lightning. Mudanças no Engine, como #2058 e #3560, podem pertencer a Q1 e tratar de ajuda de exportação ou progresso, sem modificar MLflow. Exportar arquivo com nome configurável (#2498) não equivale a registrar versão imutável de modelo.
+
+Esses contrastes explicam por que as medidas são descritivas da organização dos repositórios. Não estabelecem hierarquia de maturidade, causalidade, esforço ou rastreabilidade ponta a ponta. Contagens quantitativas completas serão ligadas ao catálogo de afirmações no fechamento; cada evento já aponta para seu valor preservado de magnitude e grupo de seleção.
+
+A seleção intencional de eventos não autoriza estimar a prevalência dos temas no projeto inteiro.
+
+Cada justificativa e contraprova individual está em codificacao_revisada.csv. O índice de fontes `docs/evidencias/fontes_codificacao_dm027.json` registra caminho, SHA-256 e trecho com linha exata. Os temas adicionais implementation_evolution e local_artifact_persistence estão definidos e datados em temas_emergentes.json; não foram rotulados como falhas de integração eventos que apenas mostram evolução de API, console ou persistência local.

@@ -760,6 +760,9 @@ def run_study(stage: StageName, argv: list[str] | None = None, root: Path | None
             if path:
                 copied = directory / f"input_{name}{path.suffix}"
                 shutil.copyfile(path, copied)
+                from mlops_traceability.verification.provenance import copy_provenance
+
+                copy_provenance(path, copied)
                 setattr(args, name, copied)
         if stage == "study_index":
             index = create_index(

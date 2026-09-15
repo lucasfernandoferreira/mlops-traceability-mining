@@ -253,3 +253,9 @@ cadeia de execuções com código commitado, fontes identificadas e hashes confe
 Cada etapa tem seu próprio estado; sucesso de processamento não certifica o estudo.
 Revisões e finalizações recusadas são preservadas com seus motivos para permitir
 retomada sem alterar os registros anteriores.
+
+## Reconstrução de carimbos temporais de revisão
+
+O fechamento preserva os julgamentos humanos identificados e importa as estimativas temporais já documentadas na DM-027, com intervalo de sessão, fonte e precisão em `docs/evidencias/timestamps_reconstruidos.json`. A precisão de minuto do campo legado não corresponde à precisão da evidência. Não se usa a criação da rodada definitiva como limite inferior de revisões de rodadas anteriores. Datas de commits e metadados de arquivo são âncoras de registro, não prova isolada da hora do julgamento.
+
+Novos julgamentos de referência recebem o instante real de produção, autoria `draft:dm027` e modalidade `draft_pending_confirmation`. A confirmação registra outro instante e outro agente; não substitui nem retrodata a produção. Metadados por registro ficam em sidecars para preservar os campos imutáveis e as tabelas originais. Ausência de um julgamento de papel histórico não é ausência de data: um parecer novo sobre esse papel conserva identificação da revisão preliminar.

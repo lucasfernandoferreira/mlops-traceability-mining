@@ -1,0 +1,213 @@
+{
+  "review_provenance": {
+    "mode": "explicit_provenance",
+    "errors": [
+      "review_requires_confirmation"
+    ],
+    "records": 180
+  },
+  "accepted": false,
+  "blocking_reasons": [
+    "review_requires_confirmation"
+  ],
+  "sample_count": 180,
+  "reviewed_count": 180,
+  "agreement": 0.9611111111111111,
+  "minimum_agreement": 0.95,
+  "coverage": [
+    {
+      "category": "CI",
+      "universe_count": 106,
+      "reviewed_count": 20,
+      "required_count": 20,
+      "status": "sampled_category",
+      "agreement": 1.0,
+      "calibration_overlap": 0
+    },
+    {
+      "category": "CODE",
+      "universe_count": 2005,
+      "reviewed_count": 20,
+      "required_count": 20,
+      "status": "sampled_category",
+      "agreement": 1.0,
+      "calibration_overlap": 0
+    },
+    {
+      "category": "CONFIG",
+      "universe_count": 424,
+      "reviewed_count": 20,
+      "required_count": 20,
+      "status": "sampled_category",
+      "agreement": 0.95,
+      "calibration_overlap": 0
+    },
+    {
+      "category": "DATA_META",
+      "universe_count": 0,
+      "reviewed_count": 0,
+      "required_count": 0,
+      "status": "absent_in_validated_universe",
+      "agreement": null,
+      "calibration_overlap": 0
+    },
+    {
+      "category": "DATA_RAW",
+      "universe_count": 40,
+      "reviewed_count": 20,
+      "required_count": 20,
+      "status": "sampled_category",
+      "agreement": 1.0,
+      "calibration_overlap": 0
+    },
+    {
+      "category": "DOC",
+      "universe_count": 2018,
+      "reviewed_count": 20,
+      "required_count": 20,
+      "status": "sampled_category",
+      "agreement": 1.0,
+      "calibration_overlap": 0
+    },
+    {
+      "category": "ENV",
+      "universe_count": 57,
+      "reviewed_count": 20,
+      "required_count": 20,
+      "status": "sampled_category",
+      "agreement": 0.95,
+      "calibration_overlap": 0
+    },
+    {
+      "category": "NOTEBOOK",
+      "universe_count": 163,
+      "reviewed_count": 20,
+      "required_count": 20,
+      "status": "sampled_category",
+      "agreement": 1.0,
+      "calibration_overlap": 0
+    },
+    {
+      "category": "OUTRO",
+      "universe_count": 2251,
+      "reviewed_count": 20,
+      "required_count": 20,
+      "status": "sampled_category",
+      "agreement": 0.75,
+      "calibration_overlap": 0
+    },
+    {
+      "category": "TEST",
+      "universe_count": 567,
+      "reviewed_count": 20,
+      "required_count": 20,
+      "status": "sampled_category",
+      "agreement": 1.0,
+      "calibration_overlap": 0
+    }
+  ],
+  "by_case": [
+    {
+      "repository_id": "open-edge-platform/anomalib",
+      "reviewed_count": 61,
+      "agreement": 0.9836065573770492
+    },
+    {
+      "repository_id": "pymc-labs/pymc-marketing",
+      "reviewed_count": 73,
+      "agreement": 0.9726027397260274
+    },
+    {
+      "repository_id": "ultralytics/ultralytics",
+      "reviewed_count": 46,
+      "agreement": 0.9130434782608695
+    }
+  ],
+  "confusion_matrix": [
+    {
+      "expected_category": "CI",
+      "predicted_category": "CI",
+      "count": 20
+    },
+    {
+      "expected_category": "CI",
+      "predicted_category": "OUTRO",
+      "count": 1
+    },
+    {
+      "expected_category": "CODE",
+      "predicted_category": "CODE",
+      "count": 20
+    },
+    {
+      "expected_category": "CONFIG",
+      "predicted_category": "CONFIG",
+      "count": 19
+    },
+    {
+      "expected_category": "DATA_RAW",
+      "predicted_category": "DATA_RAW",
+      "count": 20
+    },
+    {
+      "expected_category": "DOC",
+      "predicted_category": "DOC",
+      "count": 20
+    },
+    {
+      "expected_category": "ENV",
+      "predicted_category": "ENV",
+      "count": 19
+    },
+    {
+      "expected_category": "ENV",
+      "predicted_category": "OUTRO",
+      "count": 4
+    },
+    {
+      "expected_category": "NOTEBOOK",
+      "predicted_category": "NOTEBOOK",
+      "count": 20
+    },
+    {
+      "expected_category": "OUTRO",
+      "predicted_category": "CONFIG",
+      "count": 1
+    },
+    {
+      "expected_category": "OUTRO",
+      "predicted_category": "ENV",
+      "count": 1
+    },
+    {
+      "expected_category": "OUTRO",
+      "predicted_category": "OUTRO",
+      "count": 15
+    },
+    {
+      "expected_category": "TEST",
+      "predicted_category": "TEST",
+      "count": 20
+    }
+  ],
+  "cases": [
+    {
+      "repository_id": "ultralytics/ultralytics",
+      "head_commit_sha": "fa34184a5080c81fff453670394e13303ac781b2"
+    },
+    {
+      "repository_id": "pymc-labs/pymc-marketing",
+      "head_commit_sha": "fabba92c96aa6a4ec6d42fb3241a8ed725995d0a"
+    },
+    {
+      "repository_id": "open-edge-platform/anomalib",
+      "head_commit_sha": "0b7fdb9dde453f6474ac93f77188f4224d442999"
+    }
+  ],
+  "taxonomy_version": "1.2.0",
+  "input_hashes": {
+    "reviewed": "ec320c94b010b58bd30b145b86ec258194e7dd3c5fbdc7264177f73ed159b46f",
+    "original": "5ccdb6a61c4a0cdf0683ccad48a9e45b56a693d3344b2b71ead9ac2ce54f4b22",
+    "inventory": "cdd9e508235e31628834059996b50d91e045e80cd1baea730e5ef7b31b1d629b"
+  }
+}

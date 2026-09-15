@@ -87,8 +87,8 @@ e correspondência das unidades, sem repetir a revisão.
 
 A prévia HTML mostra até 150 linhas; o blob integral é preservado. A classificação
 automática aparece recolhida e não constitui julgamento humano. Avaliar conteúdo,
-contexto e versões históricas relevantes. Os exemplos de ambiguidade recebidos
-com auxílio de IA não constituem outro codificador ou rótulos independentes.
+contexto e versões históricas relevantes. Os exemplos preliminares de ambiguidade
+não constituem outro codificador ou rótulos independentes.
 
 O limiar continua 95%. Uma reprovação exige diagnosticar as divergências. Eventual
 alteração da taxonomia exige versionamento, recálculo e separação entre calibração

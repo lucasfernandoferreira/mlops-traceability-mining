@@ -42,3 +42,8 @@ tmp/
 # Sistema operacional
 .DS_Store
 Thumbs.db
+
+# Recibos locais gerados pelo fechamento e ato explícito do pesquisador
+docs/evidencias/confirmacao_pesquisador.json
+/RELATORIO_FECHAMENTO_DM027.md
+/PENDENCIAS_TECNICAS.md
