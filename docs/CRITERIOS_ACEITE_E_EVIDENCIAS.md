@@ -4,9 +4,13 @@ O fechamento DM-027 incorpora os controles G00, G02, G04, G11 e G12 ao runner
 empírico, com política **1.4.1**. A restauração e o aceite final estão especificados
 em [G14](G14_RESTAURACAO_ISOLADA.md); o texto conferido está no
 [manuscrito](MANUSCRITO_DM027.md), com catálogo e parecer em `docs/evidencias`.
-Os resultados executados são discriminados no relatório local
-`RELATORIO_FECHAMENTO_DM027.md`. Rascunhos de revisão completos continuam sujeitos
-à confirmação explícita; implementação de um critério não equivale à aprovação.
+O [estado final DM-027](ESTADO_FINAL_DM027.md) e o
+[manifesto de entrega](evidencias/manifesto_final_dm027.json) registram a execução
+aceita em 15/09/2026, com confirmação do pesquisador e G00–G15 PASS.
+O relatório local `RELATORIO_FECHAMENTO_DM027.md`, datado de 14/09/2026,
+é o registro de pré-confirmação, preservado sem promoção retroativa.
+
+## Histórico dos incrementos
 
 Este documento preserva o primeiro incremento, com política **1.0.0**.
 A política histórica **1.3.0** está descrita no incremento 5. A introdução do comando

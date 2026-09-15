@@ -5,21 +5,42 @@ em projetos de aprendizado de máquina. O estudo acompanha mudanças de código 
 configuração no histórico Git e examina como a integração com MLflow aparece nos
 artefatos públicos dos projetos.
 
-O protocolo atual é o **2.1.0**. A amostra piloto reúne Ultralytics, PyMC Marketing e
-Anomalib. O Composer foi substituído na proposta após falhar no critério de atividade.
-A seleção definitiva, a validação da taxonomia e a interpretação qualitativa ainda
-precisam de revisão do pesquisador. A taxonomia 1.1.0 foi reprovada na revisão
-humana (91,1%); a 1.2.0 aguarda avaliação, conforme o [dossiê DM-027](docs/DM027_TAXONOMIA_1_2_0.md).
-O andamento e as evidências estão no [registro dos casos](docs/INSPECAO_MANUAL_AMOSTRA.md).
+## Estado do estudo
+
+O recorte operacional **DM-027 foi concluído em 15/09/2026**, sob o protocolo
+**2.1.0**, e está tecnicamente congelado para redação acadêmica. A taxonomia
+**1.2.0 foi avaliada em 180 unidades**, com **173/180 concordâncias (96,11%)**,
+acima do limiar de 95%. A revisão do pesquisador foi confirmada.
+
+Os três casos definitivos são **Ultralytics, PyMC Marketing e Anomalib**.
+**G00–G15 foram aprovados**, com restauração isolada sem divergências e
+[recibo final](docs/evidencias/recibo_final_dm027.json) com
+`scientific_result_accepted: true`. O fechamento foi integrado pelo PR #17,
+merge `7318222096720b0f2c74bb0c1859beaed89591da`.
+
+Comece pelo [estado final canônico](docs/ESTADO_FINAL_DM027.md), que reúne SHAs,
+resultados, limites e evidências, e pelo
+[manifesto de entrega](docs/evidencias/manifesto_final_dm027.json).
+A próxima etapa é a transposição para o manuscrito final do TCC e a revisão da
+orientadora; o aceite técnico não representa aprovação acadêmica institucional.
+
+`config/amostra_final.yaml` preserva o **estado histórico da seleção**, inclusive
+`pilot` e `pending`. Os incrementos documentam a construção do estudo. Esses
+registros não substituem o **estado final do DM-027**; suas datas e bytes foram
+preservados. O [índice de evidências](docs/evidencias/README.md) explica também
+os rascunhos, as cópias confirmadas e os arquivos locais necessários à restauração.
+
+> Alterações futuras no instrumento, taxonomia, casos, métricas ou fontes devem constituir uma nova rodada científica e não podem ser incorporadas retroativamente ao DM-027.
 
 ## Documentação
 
 | Documento | Conteúdo |
 |---|---|
+| [Estado final DM-027](docs/ESTADO_FINAL_DM027.md) | Fechamento, resultados disponíveis, limites e próximos passos. |
 | [Verificação e evidências](docs/CRITERIOS_ACEITE_E_EVIDENCIAS.md) | Baseline preservado, importação de revisões, matriz de critérios e contraprovas. |
 | [Método](docs/DECISOES_METODOLOGICAS.md) | Delineamento, seleção, validação, plano de análise e temas qualitativos. |
 | [Taxonomia 1.2.0](docs/DM027_TAXONOMIA_1_2_0.md) | Revisão da 1.1.0, diagnóstico das divergências, regras novas e impacto. |
-| [Casos e resultados](docs/INSPECAO_MANUAL_AMOSTRA.md) | Fontes, justificativas da amostra, execuções e pendências. |
+| [Casos e resultados](docs/INSPECAO_MANUAL_AMOSTRA.md) | Fontes, justificativas e histórico da seleção e execução. |
 | [Métricas](docs/GQM_MAPA_METRICAS.md) | Perguntas, fórmulas, denominadores e interpretação. |
 | [Dicionário de dados](docs/DICIONARIO_DADOS.md) | Configuração, tabelas, manifestos e arquivos de revisão. |
 | [Limitações](docs/LIMITACOES_E_VALIDADE.md) | Alcance das conclusões e ameaças à validade. |
@@ -42,6 +63,10 @@ públicos. Os comandos de coleta carregam `.env` e `.env.local`. Esses arquivos 
 locais e ignorados pelo Git.
 
 ## Execução do estudo
+
+Os comandos abaixo documentam o instrumento. Coleta, triagem ou novas fontes
+exigem outra rodada; não são etapas pendentes do DM-027. Para recuperar o fechamento,
+siga as dependências e os limites em [Restauração](docs/ESTADO_FINAL_DM027.md#restauração-e-acesso-ao-acervo).
 
 As execuções que compõem a cadeia científica precisam usar código e configuração
 commitados, com worktree limpo. Comece pelas verificações do projeto:
@@ -169,9 +194,12 @@ declara PASS completo em G00–G13. Mantém todos os controles de revisão anter
 Somente com esses controles atendidos produz integração qualitativa, rascunho de
 Resultados e Discussão e `reproduction.zip`, identificado como **candidato**, sem clones.
 O recibo `study_acceptance.json` fica fora desse ZIP e registra seu checksum.
-`scientific_result_accepted` permanece falso e a saída permanece 1 enquanto G14
-(restauração isolada) e G15 (manuscrito) não estiverem implementados e comprovados.
-A implementação e as provas estão no [incremento 5](docs/INTEGRACAO_FINALIZADOR_INCREMENTO_05.md).
+Esse recibo intermediário conserva `scientific_result_accepted: false` antes de
+G14/G15. A etapa posterior de [restauração e aceite final](docs/G14_RESTAURACAO_ISOLADA.md)
+foi implementada e executada no fechamento: o estado agregado aceito está em
+`recibo_final.json`, cuja [cópia versionada](docs/evidencias/recibo_final_dm027.json)
+preserva os bytes originais. O [incremento 5](docs/INTEGRACAO_FINALIZADOR_INCREMENTO_05.md)
+registra uma etapa anterior da implementação.
 
 ## Acompanhamento e retomada
 

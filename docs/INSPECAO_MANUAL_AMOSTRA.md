@@ -2,7 +2,12 @@
 
 ## Estado consolidado da rodada
 
-A cadeia registrada está identificada em [rodada de referência](evidencias/rodada_referencia_1_2_0.md). Mineração, métricas, índice, seleção e relatório já foram executados. As passagens abaixo sobre prévia e registro futuro são históricas. O fechamento e a autoria das novas análises estão em `RELATORIO_FECHAMENTO_DM027.md`.
+O [estado final DM-027](ESTADO_FINAL_DM027.md) registra o fechamento aceito em
+15/09/2026: três casos definitivos, taxonomia 1.2.0 avaliada com 173/180
+concordâncias (96,11%), 45 eventos, revisão confirmada e G00–G15 aprovados.
+A [rodada de referência](evidencias/rodada_referencia_1_2_0.md) identifica as
+fontes e os runs. As seções históricas abaixo preservam o que era conhecido em
+cada etapa; prévias e pendências nelas não descrevem o estado corrente.
 
 [HISTÓRICO — rodada anterior]
 

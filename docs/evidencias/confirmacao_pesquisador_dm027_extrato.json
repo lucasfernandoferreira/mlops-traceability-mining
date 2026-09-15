@@ -1,0 +1,16 @@
+{
+  "document_type": "documentary_excerpt_not_a_replacement_confirmation",
+  "source": {
+    "path": "docs/evidencias/confirmacao_pesquisador.json",
+    "storage": "local_ignored",
+    "sha256": "c2fcf81f33f9ae960eb7ead949a5c3bd02bea69fcc51e0e366b24c02aff1e0ae",
+    "hash_source": "recibo_final_dm027.json#/researcher_confirmation_sha256"
+  },
+  "responsavel": "Lucas Fernando Alves Ferreira",
+  "confirmed_at_utc": "2026-09-15T12:00:08Z",
+  "declaration": "Revisei o conteúdo listado e assumo os julgamentos e seus limites como pesquisador, preservando a autoria da redação preliminar.",
+  "lock_sha256": "f07ac025797e2c044aaaa58f352cd1381edd5d3c6cf8f91e1f9d3b5b470c0abb",
+  "code_sha": "16d24cc77c5df7baec6090144acb54bf7c40f588",
+  "confirmed_review_dir": "data/interim/fechamento_dm027/confirmadas_20260915T120008855301Z",
+  "note": "Transcrição de campos da confirmação existente; não é nova confirmação. Mapas integrais de hashes permanecem na fonte local."
+}
