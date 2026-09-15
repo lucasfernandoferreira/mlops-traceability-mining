@@ -1,0 +1,375 @@
+{
+  "schema_version": "1.0.0",
+  "document_type": "documentary_delivery_index",
+  "path_base": "repository_root",
+  "study": "DM-027",
+  "closed_on": "2026-09-15",
+  "closure_commit_sha": "7318222096720b0f2c74bb0c1859beaed89591da",
+  "closure_pull_request": "https://github.com/lucasfernandoferreira/mlops-traceability-mining/pull/17",
+  "instrument_commit_sha": "16d24cc77c5df7baec6090144acb54bf7c40f588",
+  "protocol": {
+    "id": "TCC-MLOPS-TRACE-2026",
+    "version": "2.1.0",
+    "path": "config/config.yaml"
+  },
+  "taxonomy": {
+    "version": "1.2.0",
+    "path": "config/file_taxonomy.yaml"
+  },
+  "verification_policy_version": "1.4.1",
+  "responsible": "Lucas Fernando Alves Ferreira",
+  "cases": [
+    {
+      "repository_id": "ultralytics/ultralytics",
+      "head_commit_sha": "fa34184a5080c81fff453670394e13303ac781b2"
+    },
+    {
+      "repository_id": "pymc-labs/pymc-marketing",
+      "head_commit_sha": "fabba92c96aa6a4ec6d42fb3241a8ed725995d0a"
+    },
+    {
+      "repository_id": "open-edge-platform/anomalib",
+      "head_commit_sha": "0b7fdb9dde453f6474ac93f77188f4224d442999"
+    }
+  ],
+  "run_index": "docs/evidencias/runs_dm027.json",
+  "artifacts": {
+    "final_receipt": {
+      "path": "docs/evidencias/recibo_final_dm027.json",
+      "storage": "git",
+      "sha256": "b188957b9acc84d933162594bd9ace260d3fe2eca6721b1892868cd0e4680d42",
+      "hash_source": "data/interim/fechamento_dm027/fechamento_confirmado_20260915T120020515444Z/resumo_validacao.md",
+      "original_path": "data/interim/fechamento_dm027/fechamento_confirmado_20260915T120020515444Z/recibo_final.json"
+    },
+    "researcher_confirmation": {
+      "path": "docs/evidencias/confirmacao_pesquisador.json",
+      "storage": "local_ignored",
+      "sha256": "c2fcf81f33f9ae960eb7ead949a5c3bd02bea69fcc51e0e366b24c02aff1e0ae",
+      "hash_source": "recibo_final_dm027.json#/researcher_confirmation_sha256"
+    },
+    "confirmation_excerpt": {
+      "path": "docs/evidencias/confirmacao_pesquisador_dm027_extrato.json",
+      "storage": "git"
+    },
+    "study_index": {
+      "path": "data/interim/runs/20260911T204432183508Z_1ce60b65_study_index/study_index.json",
+      "storage": "local_ignored",
+      "sha256": "e384710b8857a3849e61ae765372171eabebf2dd2210b12b3646f0f3fec4180a",
+      "hash_source": "recibo_final_dm027.json#/study_index_sha256"
+    },
+    "empirical_receipt": {
+      "path": "data/interim/fechamento_dm027/fechamento_confirmado_20260915T120020515444Z/empirical/verification_receipt.json",
+      "storage": "local_ignored",
+      "sha256": "d7cefd836003f4e80534bb731cf8cee9195ca5ff995bd2ffe56d106b4b259e15",
+      "hash_source": "recibo_final_dm027.json#/empirical_receipt_sha256"
+    },
+    "verification_report": {
+      "path": "data/interim/fechamento_dm027/fechamento_confirmado_20260915T120020515444Z/empirical/verification_report.md",
+      "storage": "local_ignored"
+    },
+    "candidate_package": {
+      "path": "data/interim/runs/20260915T120916508658Z_16d24cc7_phase9_finalize_study/reproduction.zip",
+      "storage": "local_ignored",
+      "sha256": "d58a5bd05f1c7bf22d86fd2436ef07a0dc92bf64181fe53cf8db2dc59f328e44",
+      "hash_source": "recibo_final_dm027.json#/package_sha256"
+    },
+    "candidate_receipt": {
+      "path": "data/interim/runs/20260915T120916508658Z_16d24cc7_phase9_finalize_study/study_acceptance.json",
+      "storage": "local_ignored",
+      "note": "Recibo intermediário: G14/G15 ainda NOT_RUN; não substitui recibo final."
+    },
+    "restoration_report": {
+      "path": "data/interim/fechamento_dm027/fechamento_confirmado_20260915T120020515444Z/restoration/restoration_report.json",
+      "storage": "local_ignored",
+      "sha256": "a6df0b51a5ce1e3f872bda437e05dc4194fa8395ca9d65a2934d9d30cd23e6e6",
+      "hash_source": "recibo_final_dm027.json#/restoration_report_sha256"
+    },
+    "manuscript": {
+      "path": "docs/MANUSCRITO_DM027.md",
+      "storage": "git",
+      "sha256": "c751587518f98481f43d65959c77897afaa4d19a60b97b33ae4663995b1f3f16",
+      "hash_source": "recibo_final_dm027.json#/manuscript/manuscript_sha256"
+    },
+    "confirmed_claims_catalog": {
+      "path": "data/interim/fechamento_dm027/confirmadas_20260915T120008855301Z/claims_catalog.json",
+      "storage": "local_ignored",
+      "sha256": "8093a959184b7b2d04541f474cda06f1c7f65c03c343a9ddf53d39f32417236a",
+      "hash_source": "docs/evidencias/confirmacao_pesquisador.json#/confirmed_file_hashes"
+    },
+    "confirmed_academic_alignment": {
+      "path": "data/interim/fechamento_dm027/confirmadas_20260915T120008855301Z/alinhamento_academico.json",
+      "storage": "local_ignored",
+      "sha256": "bccaba8a7df393fe2b4da2aceffd656b2fc22412f215f0e76c19e956eab0db7d",
+      "hash_source": "docs/evidencias/confirmacao_pesquisador.json#/confirmed_file_hashes"
+    },
+    "confirmed_case_reviews": {
+      "path": "data/interim/fechamento_dm027/confirmadas_20260915T120008855301Z/casos_revisados.json",
+      "storage": "local_ignored",
+      "sha256": "3bc9d0a6a41e89c1c34711e8d127deeeff129aee58a1e46ad978928a524e5dde",
+      "hash_source": "docs/evidencias/confirmacao_pesquisador.json#/confirmed_file_hashes"
+    },
+    "confirmed_qualitative_coding": {
+      "path": "data/interim/fechamento_dm027/confirmadas_20260915T120008855301Z/codificacao_revisada.csv",
+      "storage": "local_ignored",
+      "sha256": "77a3a803e16f56ddb3beaf4a74543bc2762266c05fb059e2a10d43f7c62997cf",
+      "hash_source": "docs/evidencias/confirmacao_pesquisador.json#/confirmed_file_hashes"
+    },
+    "confirmed_manuscript_review": {
+      "path": "data/interim/fechamento_dm027/confirmadas_20260915T120008855301Z/manuscript_review.json",
+      "storage": "local_ignored",
+      "sha256": "b1326d0b8b2f4b1e2b845616b1de1bc8e22ba543c33ecd1059daf2d2e4f4c33d",
+      "hash_source": "docs/evidencias/confirmacao_pesquisador.json#/confirmed_file_hashes"
+    },
+    "confirmed_taxonomy_review": {
+      "path": "data/interim/fechamento_dm027/confirmadas_20260915T120008855301Z/taxonomia_revisada.csv",
+      "storage": "local_ignored",
+      "sha256": "ec320c94b010b58bd30b145b86ec258194e7dd3c5fbdc7264177f73ed159b46f",
+      "hash_source": "docs/evidencias/confirmacao_pesquisador.json#/confirmed_file_hashes"
+    },
+    "qualitative_synthesis": {
+      "path": "docs/SINTESE_QUALITATIVA_DM027.md",
+      "storage": "git",
+      "sha256": "3fd5625dc6c35a7bc90c0a7eb2c9a64cd3095386eab5efbb4ef3ec24e91fefb8",
+      "hash_source": "docs/evidencias/confirmacao_pesquisador.json#/confirmed_file_hashes"
+    },
+    "academic_opinion": {
+      "path": "docs/ALINHAMENTO_DM027.md",
+      "storage": "git",
+      "sha256": "6c45cdeedff172ea43f167ed729cfda2533b7d89e5eedb0efd01f25f8babcb9c",
+      "hash_source": "docs/evidencias/confirmacao_pesquisador.json#/confirmed_file_hashes"
+    },
+    "draft_claims_catalog": {
+      "path": "docs/evidencias/catalogo_afirmacoes_dm027.json",
+      "storage": "git",
+      "sha256": "b5c489ab9de2ffab6e43e578811a6e29ed600156300cdc0fbbf6ba920c687112",
+      "hash_source": "docs/evidencias/confirmacao_pesquisador.json#/confirmed_file_hashes"
+    },
+    "preservation_inventory": {
+      "path": "docs/evidencias/inventario_insumos.json",
+      "storage": "git",
+      "sha256": "e5b376345d2646824f8fb92a66075d3f18deae4c47e1c681f2e3c9f8ede656d5",
+      "hash_source": "docs/evidencias/confirmacao_pesquisador.json#/confirmed_file_hashes"
+    },
+    "closure_inventory": {
+      "path": "docs/evidencias/inventario_fechamento_dm027.json",
+      "storage": "git",
+      "sha256": "2a167733d7bcb5e1057e3ff1b25d4cd5ddeef57853775ef6bbbd604e7905e28a",
+      "hash_source": "docs/evidencias/confirmacao_pesquisador.json#/confirmed_file_hashes"
+    },
+    "taxonomy_validation": {
+      "path": "data/interim/runs/20260915T120009665828Z_16d24cc7_phase6_validate_taxonomy/taxonomy_validation.json",
+      "storage": "local_ignored"
+    },
+    "qualitative_selection": {
+      "path": "data/interim/runs/20260911T204444532841Z_1ce60b65_phase7_select_qualitative/eventos_selecionados.csv",
+      "storage": "local_ignored",
+      "sha256": "3a70665056a07534d9adc4112972ef6de35cdf0e80318b69bdc4e9483971eab7",
+      "hash_source": "docs/evidencias/confirmacao_pesquisador.json#/confirmed_file_hashes"
+    },
+    "quantitative_results": {
+      "path": "data/interim/runs/20260911T204458152055Z_1ce60b65_phase8_report/metricas_consolidadas.csv",
+      "storage": "local_ignored",
+      "sha256": "122a4fa74a925772a9f172e807af8395f19b070f659bdbf398e3c1f46dabb715",
+      "hash_source": "docs/evidencias/confirmacao_pesquisador.json#/confirmed_file_hashes"
+    },
+    "monthly_series": {
+      "path": "data/interim/runs/20260911T204458152055Z_1ce60b65_phase8_report/serie_mensal.csv",
+      "storage": "local_ignored",
+      "sha256": "b23bf4192b0946e0a38a0f4d716c005743722deb29441b4207baef63b8d8a710",
+      "hash_source": "docs/evidencias/confirmacao_pesquisador.json#/confirmed_file_hashes"
+    },
+    "magnitude_distribution": {
+      "path": "data/interim/runs/20260911T204458152055Z_1ce60b65_phase8_report/distribuicao_configuracao.csv",
+      "storage": "local_ignored",
+      "sha256": "b59e93b3d3615bc89c1fc3b727846cad691f64c3b06abd9e68dbdef34da25f54",
+      "hash_source": "docs/evidencias/confirmacao_pesquisador.json#/confirmed_file_hashes"
+    },
+    "sensitivity": {
+      "path": "data/interim/runs/20260911T204458152055Z_1ce60b65_phase8_report/sensibilidade_configuracao.csv",
+      "storage": "local_ignored",
+      "sha256": "ff14df13acdfcf4cad1bb74488acf05bffb7f2b74aba1cd77b2edabede412c5f",
+      "hash_source": "docs/evidencias/confirmacao_pesquisador.json#/confirmed_file_hashes"
+    }
+  },
+  "gates": [
+    {
+      "criterion_id": "G00",
+      "status": "PASS",
+      "criterion": "Inventory hashes and sizes; instrument bundle; explicit frozen input roots",
+      "evidence_artifact": "empirical_receipt",
+      "evidence_pointer": "/criteria/0",
+      "proof_paths": [
+        "data/interim/fechamento_dm027/fechamento_confirmado_20260915T120020515444Z/empirical/closure/G00.json"
+      ]
+    },
+    {
+      "criterion_id": "G01",
+      "status": "PASS",
+      "criterion": "Validate preserved human decision records",
+      "evidence_artifact": "empirical_receipt",
+      "evidence_pointer": "/criteria/1",
+      "proof_paths": [
+        "data/interim/fechamento_dm027/fechamento_confirmado_20260915T120020515444Z/empirical/reviews/review_import.json"
+      ]
+    },
+    {
+      "criterion_id": "G02",
+      "status": "PASS",
+      "criterion": "Explicit claim states, method, evidence identity, scope and limitations",
+      "evidence_artifact": "empirical_receipt",
+      "evidence_pointer": "/criteria/2",
+      "proof_paths": [
+        "data/interim/fechamento_dm027/fechamento_confirmado_20260915T120020515444Z/empirical/closure/G02.json"
+      ]
+    },
+    {
+      "criterion_id": "G03",
+      "status": "PASS",
+      "criterion": "Independent implementations and comparable outputs recorded",
+      "evidence_artifact": "empirical_receipt",
+      "evidence_pointer": "/criteria/3",
+      "proof_paths": [
+        "data/interim/fechamento_dm027/fechamento_confirmado_20260915T120020515444Z/empirical/ultralytics__ultralytics/crosscheck.json",
+        "data/interim/fechamento_dm027/fechamento_confirmado_20260915T120020515444Z/empirical/pymc-labs__pymc-marketing/crosscheck.json",
+        "data/interim/fechamento_dm027/fechamento_confirmado_20260915T120020515444Z/empirical/open-edge-platform__anomalib/crosscheck.json",
+        "data/interim/fechamento_dm027/fechamento_confirmado_20260915T120020515444Z/empirical/independence.json"
+      ]
+    },
+    {
+      "criterion_id": "G04",
+      "status": "PASS",
+      "criterion": "Execute mapped known answers and counterexamples at verifier revision",
+      "evidence_artifact": "empirical_receipt",
+      "evidence_pointer": "/criteria/4",
+      "proof_paths": [
+        "data/interim/fechamento_dm027/fechamento_confirmado_20260915T120020515444Z/empirical/closure/G04.json",
+        "data/interim/fechamento_dm027/fechamento_confirmado_20260915T120020515444Z/empirical/closure/fixtures.log",
+        "data/interim/fechamento_dm027/fechamento_confirmado_20260915T120020515444Z/empirical/closure/fixtures.xml"
+      ]
+    },
+    {
+      "criterion_id": "G05",
+      "status": "PASS",
+      "criterion": "Full raw Git objects/diffs versus commit and file tables",
+      "evidence_artifact": "empirical_receipt",
+      "evidence_pointer": "/criteria/5",
+      "proof_paths": [
+        "data/interim/fechamento_dm027/fechamento_confirmado_20260915T120020515444Z/empirical/ultralytics__ultralytics/crosscheck.json",
+        "data/interim/fechamento_dm027/fechamento_confirmado_20260915T120020515444Z/empirical/pymc-labs__pymc-marketing/crosscheck.json",
+        "data/interim/fechamento_dm027/fechamento_confirmado_20260915T120020515444Z/empirical/open-edge-platform__anomalib/crosscheck.json"
+      ]
+    },
+    {
+      "criterion_id": "G06",
+      "status": "PASS",
+      "criterion": "Git activity identities and historical shortlist thresholds",
+      "evidence_artifact": "empirical_receipt",
+      "evidence_pointer": "/criteria/6",
+      "proof_paths": [
+        "data/interim/fechamento_dm027/fechamento_confirmado_20260915T120020515444Z/empirical/ultralytics__ultralytics/crosscheck.json",
+        "data/interim/fechamento_dm027/fechamento_confirmado_20260915T120020515444Z/empirical/pymc-labs__pymc-marketing/crosscheck.json",
+        "data/interim/fechamento_dm027/fechamento_confirmado_20260915T120020515444Z/empirical/open-edge-platform__anomalib/crosscheck.json",
+        "data/interim/fechamento_dm027/fechamento_confirmado_20260915T120020515444Z/empirical/original_collection_audit.json"
+      ]
+    },
+    {
+      "criterion_id": "G07",
+      "status": "PASS",
+      "criterion": "Full inventory and historical sample blobs; preserved human labels",
+      "evidence_artifact": "empirical_receipt",
+      "evidence_pointer": "/criteria/7",
+      "proof_paths": [
+        "data/interim/fechamento_dm027/fechamento_confirmado_20260915T120020515444Z/empirical/ultralytics__ultralytics/crosscheck.json",
+        "data/interim/fechamento_dm027/fechamento_confirmado_20260915T120020515444Z/empirical/pymc-labs__pymc-marketing/crosscheck.json",
+        "data/interim/fechamento_dm027/fechamento_confirmado_20260915T120020515444Z/empirical/open-edge-platform__anomalib/crosscheck.json",
+        "data/interim/fechamento_dm027/fechamento_confirmado_20260915T120020515444Z/empirical/reviews/review_import.json"
+      ]
+    },
+    {
+      "criterion_id": "G08",
+      "status": "PASS",
+      "criterion": "Git C/P and CONFIG pairs; independent integer ratios; six unavailable metrics",
+      "evidence_artifact": "empirical_receipt",
+      "evidence_pointer": "/criteria/8",
+      "proof_paths": [
+        "data/interim/fechamento_dm027/fechamento_confirmado_20260915T120020515444Z/empirical/ultralytics__ultralytics/crosscheck.json",
+        "data/interim/fechamento_dm027/fechamento_confirmado_20260915T120020515444Z/empirical/pymc-labs__pymc-marketing/crosscheck.json",
+        "data/interim/fechamento_dm027/fechamento_confirmado_20260915T120020515444Z/empirical/open-edge-platform__anomalib/crosscheck.json"
+      ]
+    },
+    {
+      "criterion_id": "G09",
+      "status": "PASS",
+      "criterion": "Independent linear quantiles, concentration, monthly totals and sensitivity",
+      "evidence_artifact": "empirical_receipt",
+      "evidence_pointer": "/criteria/9",
+      "proof_paths": [
+        "data/interim/fechamento_dm027/fechamento_confirmado_20260915T120020515444Z/empirical/ultralytics__ultralytics/crosscheck.json",
+        "data/interim/fechamento_dm027/fechamento_confirmado_20260915T120020515444Z/empirical/pymc-labs__pymc-marketing/crosscheck.json",
+        "data/interim/fechamento_dm027/fechamento_confirmado_20260915T120020515444Z/empirical/open-edge-platform__anomalib/crosscheck.json"
+      ]
+    },
+    {
+      "criterion_id": "G10",
+      "status": "PASS",
+      "criterion": "Recorded PR associations; independent grouping, quotas, ties and deficit fill",
+      "evidence_artifact": "empirical_receipt",
+      "evidence_pointer": "/criteria/10",
+      "proof_paths": [
+        "data/interim/fechamento_dm027/fechamento_confirmado_20260915T120020515444Z/empirical/ultralytics__ultralytics/crosscheck.json",
+        "data/interim/fechamento_dm027/fechamento_confirmado_20260915T120020515444Z/empirical/pymc-labs__pymc-marketing/crosscheck.json",
+        "data/interim/fechamento_dm027/fechamento_confirmado_20260915T120020515444Z/empirical/open-edge-platform__anomalib/crosscheck.json",
+        "data/interim/fechamento_dm027/fechamento_confirmado_20260915T120020515444Z/empirical/qualitative/crosscheck.json"
+      ]
+    },
+    {
+      "criterion_id": "G11",
+      "status": "PASS",
+      "criterion": "Separate source identity from attributed content relevance judgment",
+      "evidence_artifact": "empirical_receipt",
+      "evidence_pointer": "/criteria/11",
+      "proof_paths": [
+        "data/interim/fechamento_dm027/fechamento_confirmado_20260915T120020515444Z/empirical/closure/G11.json"
+      ]
+    },
+    {
+      "criterion_id": "G12",
+      "status": "PASS",
+      "criterion": "Documented operational objective, six open questions, scope and decision authorship",
+      "evidence_artifact": "empirical_receipt",
+      "evidence_pointer": "/criteria/12",
+      "proof_paths": [
+        "data/interim/fechamento_dm027/fechamento_confirmado_20260915T120020515444Z/empirical/closure/G12.json"
+      ]
+    },
+    {
+      "criterion_id": "G13",
+      "status": "PASS",
+      "criterion": "Finalizer input bindings, mandatory empirical replay and candidate-only packaging",
+      "evidence_artifact": "empirical_receipt",
+      "evidence_pointer": "/criteria/13",
+      "proof_paths": [
+        "data/interim/fechamento_dm027/fechamento_confirmado_20260915T120020515444Z/empirical/finalization_contract.json"
+      ]
+    },
+    {
+      "criterion_id": "G14",
+      "status": "PASS",
+      "criterion": "Restauração isolada",
+      "evidence_artifact": "restoration_report",
+      "differences": [],
+      "subprocess_exit_code": 0
+    },
+    {
+      "criterion_id": "G15",
+      "status": "PASS",
+      "criterion": "Manuscrito, catálogo e parecer",
+      "evidence_artifact": "final_receipt",
+      "evidence_pointer": "/manuscript"
+    }
+  ],
+  "scientific_result_accepted": true,
+  "availability_note": "git identifica arquivos desta entrega. local_ignored identifica fontes existentes no acervo examinado, ausentes em um clone Git simples. A restauração exige candidato, instrument.bundle e external_sources do relatório G14; ZIP sozinho não basta.",
+  "hash_note": "Hashes transcritos de evidências preexistentes e conferidos por leitura; nenhum hash científico novo atribuído. hash_source identifica a evidência de origem e, quando aplicável, JSON Pointer.",
+  "scope_note": "Aceite técnico e confirmação do pesquisador; aprovação institucional ou da orientadora não demonstrada."
+}

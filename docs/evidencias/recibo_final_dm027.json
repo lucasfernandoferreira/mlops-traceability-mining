@@ -1,0 +1,26 @@
+{
+  "scientific_result_accepted": true,
+  "created_at_utc": "2026-09-15T12:46:04Z",
+  "study_index_sha256": "e384710b8857a3849e61ae765372171eabebf2dd2210b12b3646f0f3fec4180a",
+  "empirical_receipt_sha256": "d7cefd836003f4e80534bb731cf8cee9195ca5ff995bd2ffe56d106b4b259e15",
+  "package_sha256": "d58a5bd05f1c7bf22d86fd2436ef07a0dc92bf64181fe53cf8db2dc59f328e44",
+  "restoration_report_sha256": "a6df0b51a5ce1e3f872bda437e05dc4194fa8395ca9d65a2934d9d30cd23e6e6",
+  "manuscript": {
+    "criterion_id": "G15",
+    "status": "PASS",
+    "manuscript_path": "docs/MANUSCRITO_DM027.md",
+    "manuscript_sha256": "c751587518f98481f43d65959c77897afaa4d19a60b97b33ae4663995b1f3f16",
+    "catalog_sha256": "8093a959184b7b2d04541f474cda06f1c7f65c03c343a9ddf53d39f32417236a",
+    "numeric_claims_checked": 101,
+    "figures_checked": 0,
+    "differences": [],
+    "opinion": "Texto tecnicamente coerente com o recorte descritivo. Valores e denominadores vinculados ao catálogo; indevida interpretação causal, prevalência e uso público removidos. O parecer não representa aprovação institucional.",
+    "provenance": {
+      "mode": "explicit_provenance",
+      "errors": [],
+      "records": 1
+    }
+  },
+  "researcher_confirmation_sha256": "c2fcf81f33f9ae960eb7ead949a5c3bd02bea69fcc51e0e366b24c02aff1e0ae",
+  "blocking_reasons": []
+}
