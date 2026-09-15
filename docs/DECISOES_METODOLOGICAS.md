@@ -4,7 +4,10 @@ O estudo examina mecanismos públicos de rastreabilidade em três projetos de
 aprendizado de máquina que integram MLflow. A análise combina medidas do histórico
 Git com a leitura dos artefatos e dos eventos de mudança. O protocolo vigente é
 2.1.0, definido em `config/config.yaml`. A taxonomia vigente é a 1.2.0 (DM-027),
-ainda pendente de avaliação; a 1.1.0 foi reprovada na validação humana.
+avaliada com 173/180 concordâncias (96,11%) e confirmação do pesquisador em
+15/09/2026; a 1.1.0 foi reprovada na validação humana. O
+[estado final DM-027](ESTADO_FINAL_DM027.md) distingue o fechamento dos registros
+históricos e preserva os limites da avaliação.
 
 ## Delineamento e unidade de análise
 
@@ -78,7 +81,9 @@ RF-DETR. A substituição depende de inelegibilidade, indisponibilidade ou custo
 previamente delimitado, com motivo e data. Não há teto de custo definido como
 critério automático. O Composer apresentou duas identidades ativas e foi substituído
 tecnicamente pelo Anomalib, que apresentou 39, antes do cálculo das métricas da
-reserva. A amostra permanece `pilot` até a decisão do pesquisador.
+reserva. O snapshot `config/amostra_final.yaml` conserva `pilot`, correspondente
+à seleção histórica. Os três casos foram confirmados no fechamento de 15/09/2026;
+o snapshot não foi sobrescrito.
 
 ## Mineração e classificação
 

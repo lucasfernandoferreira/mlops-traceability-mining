@@ -1,5 +1,12 @@
 # Limitações e validade
 
+O [estado final DM-027](ESTADO_FINAL_DM027.md) registra o aceite técnico de
+15/09/2026. Todas as limitações abaixo continuam aplicáveis após a confirmação.
+O recorte executado difere da proposta original: dimensão de dados validada,
+runs, tracking, registry, ambiente por execução e promoção de modelos não
+integram o universo empírico final. A revisão da orientadora deverá examinar
+essa adequação; novas fontes ou métricas exigem uma nova rodada científica.
+
 O estudo descreve três casos selecionados intencionalmente entre projetos públicos
 do GitHub. Suas conclusões dependem das fontes disponíveis, dos critérios de seleção
 e da capacidade do instrumento de reconhecer os artefatos. O protocolo 2.1.0 trata

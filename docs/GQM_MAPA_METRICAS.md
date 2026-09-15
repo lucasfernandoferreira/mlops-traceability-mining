@@ -31,9 +31,9 @@ contagens de descarte acompanham os resultados. A data de corte da atividade ser
 
 A magnitude CONFIG é calculável nas fontes atuais. Coalteração C/P é uma medida
 complementar, mas não responde à dimensão de dados do CACE. Proveniência, ambiente
-de runs e promoções dependem de fontes ainda não ingeridas. As perguntas afetadas
-permanecem visíveis na tabela, com `not_available`, e precisam constar no
-alinhamento acadêmico do recorte.
+de runs e promoções dependem de fontes que não integram o universo final do DM-027.
+As perguntas afetadas permanecem visíveis na tabela, com `not_available`, e estão
+explicitadas no alinhamento acadêmico do recorte.
 
 `experiment_redundancy` mantém todas as runs no numerador, inclusive as sem vínculo
 com promoção. Mesmo com fontes completas, a razão não determina quantas tentativas
@@ -106,4 +106,10 @@ feito; a validação da taxonomia consta em outro campo.
 
 Caracterizar mudanças conjuntas de código e configuração e examinar os mecanismos de integração MLflow documentados nos projetos públicos selecionados, delimitando o alcance e as lacunas das evidências de rastreabilidade.
 
-PO1 liga-se a `code_config_cochange`; PO2 a `config_magnitude` e suas distribuições; PO3 às fichas, eventos e aos quatro indicadores `static_mlflow_*`. As demais métricas permanecem associadas às perguntas GQM originais sem resposta. O [parecer técnico](ALINHAMENTO_DM027.md) fundamenta essa delimitação e identifica identificação da revisão preliminar sujeita à confirmação, sem atribuição de aprovação institucional.
+PO1 liga-se a `code_config_cochange`; PO2 a `config_magnitude` e suas distribuições; PO3 às fichas, eventos e aos quatro indicadores `static_mlflow_*`. As demais métricas permanecem associadas às perguntas GQM originais sem resposta.
+
+O [parecer técnico](ALINHAMENTO_DM027.md) fundamenta essa delimitação e preserva
+a redação preliminar. A confirmação do pesquisador em 15/09/2026 e a distinção
+entre aceite técnico e revisão da orientadora estão no
+[estado final](ESTADO_FINAL_DM027.md). As seis indisponibilidades são limites
+do recorte fechado; sua resolução exigiria uma nova rodada científica.
